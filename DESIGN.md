@@ -173,7 +173,7 @@ components:
 
 **Creative North Star: "La carta sinóptica de Lanzarote"**
 
-La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
+La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. El hero lo protagoniza el retrato recortado de Fernando, apoyado en el borde inferior sobre un núcleo cálido del campo, con ojos que siguen al cursor; la isla pasa al «Parte del día». Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
 
 La densidad es la de un parte de televisión: un nombre enorme en Archivo expandido, pocas piezas, mucha carta alrededor. La expresividad vive en el campo, los frentes y el ancho de la letra; la información vive siempre sobre fondo sólido (papel, plancha de papel o campo plano), en texto fluido con contraste AA. El movimiento es parte del mundo (el frente pasa, el campo se desplaza) pero nunca oculta lectura: las entradas son transformaciones y el texto largo pasa de un gris legible a tinta.
 
@@ -285,8 +285,11 @@ Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en 
 ### Cards / Containers
 - **Tarjeta de estación (proyecto):** radio `card`, fondo `--field` y tinta `--field-ink` según la pareja del proyecto, sin borde ni sombra; columna de texto con nombre en una línea, tipo, afirmación, cuerpo, chips y acciones; escena a la derecha con capturas, isla o signos.
 - **Plancha del hero:** papel, radio `plate`, sombra «plancha»; lleva la frase de rol, el estado y las acciones.
-- **KORA:** el título de la sección y de su ventana es el logotipo real (`/img/kora-logo.svg`, de koradigitalsolutions.com), no texto.
+- **KORA:** el título de la sección, la cabecera de su ventana y su banda «Siguiente proyecto» usan el logotipo real (`/img/kora-logo.svg`, de koradigitalsolutions.com) con su punto característico (`.kora-dot`: 26 % de la altura del logo, separado un 15 %, alineado abajo), en `kora-pink` con brillo; en su web el punto se vuelve de ese color al pasar el ratón. Su campo en las ventanas es `kora-field` (negro con brillo vino y rosa-rojo).
 - **ACESLAN:** campo `ace-field` (negro cálido `#150E0D` con resplandor `ace-red`), texto blanco y etiquetas `ace-soft`; escena con el panel web en marco de navegador oscuro y dos pantallas de la app; la prensa, discreta, en una sola línea bajo el texto («En la prensa» y los dos medios como enlaces); los titulares completos viven en la ventana del proyecto.
+- **Haría Game:** campo `hg-field` (grafito volcánico `#15181B` con resplandor verde y cian, los de los botones del juego); escena con dos pantallas del juego (pista y entrada) en marco de pantalla sin barra; botón `btn--game` en verde.
+- **Archivo «También en GitHub»:** secundario a propósito: título pequeño en `ink-2`, rejilla de 3 columnas (2 en tableta, 1 en móvil) de fichas con filete `rule` y radio 12px.
+- **Trayectoria:** papel de barógrafo (`#E4EFF2` con cuadrícula azul de 44 × 88 px), hitos en tarjetas `paper` con etiqueta de tipo (formación `alisio`, trabajo `warm`, proyecto `cold`, empresa `calima`), «Hoy» en tinta, años de inicio en grande al fondo y la traza dibujada con el scroll horizontal.
 - **Web de KORA:** tarjeta `kora-2` de radio 16px con filete `kora-line`; arriba, la vista previa cuadrada real de la portada (captura de `scripts/kora-shots.mjs`); debajo, sector en `kora-pink`, nombre en blanco, descripción en `kora-muted` y URL tras un filete. Al pasar el ratón sube, el filete pasa a rosa y la captura se acerca un 4 %.
 - **Recorte de prensa:** papel, radio `clip`, girado ±2–2.5° que se endereza al pasar.
 
@@ -295,20 +298,22 @@ Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en 
 - **Móvil:** botón de dos trazos que se cruzan; el menú cae con `clip-path` desde la barra, enlaces a 1.6rem ancho 110.
 
 ### Ventana de proyecto (signature)
-Una hoja `paper` a pantalla completa que se abre con un `clip-path` que crece desde la tarjeta de origen (0.95s, `expo.inOut`) y se cierra volviendo a ella (0.8s). Barra con cerrar (píldora de contorno), miga de ruta en mono y pasos anterior/siguiente; cabecera sobre el campo del proyecto con nombre a ancho 122, tipo, afirmación y ficha de cuatro datos; después introducción, capturas, filas 5/7 y acciones. Termina con un bloque «siguiente» a sangre en el campo del siguiente proyecto. Escape cierra, flechas cambian de proyecto, el foco queda atrapado dentro.
+Una hoja a pantalla completa que se abre con un `clip-path` que crece desde la tarjeta de origen (0.95s, `expo.inOut`) y se cierra volviendo a ella. Dentro, un caso de estudio:
 
-**Retrato que mira.** El retrato de «Parte del día» va con su fondo gris natural (sin campo de color) y en tres capas: foto base e iris de cada ojo, recortado por la apertura real del ojo. Con el ratón sobre la foto, los iris miran al puntero (0.45s, `power3.out`, solo transformaciones; las posiciones de los ojos se miden al entrar y tras el scroll, no en cada movimiento). Con pantalla táctil o movimiento reducido los ojos se quedan quietos.
+- **Cabecera a sangre** en el campo del proyecto (con una luz suave arriba a la derecha, sin anillos ni siluetas): nombre o logotipo, tipo, frase y acciones a la izquierda; los cuatro datos en un panel de 2 × 2 con filetes a la derecha.
+- **Escena** que monta sobre el borde entre cabecera y cuerpo, según el material: pantalla + teléfono (LanzaMet, ACESLAN), dos pantallas (Haría Game), tres teléfonos en abanico (HairCloud) o mosaico escalonado de vistas previas (KORA).
+- **Cuerpo en dos columnas**: lateral fija con la introducción, las tecnologías y la nota; a la derecha, «Cómo está hecho» en tarjetas de 2 columnas con un punto del acento del proyecto, la comparación real ↔ juego (Haría Game), las capturas en mosaico compacto de 12 columnas (pantalla 6, teléfono 3, vista previa 3) con pie corto, y las listas como píldoras.
+- **Cierre** con el siguiente proyecto en su campo, su frase y la miniatura de su primera captura.
 
-**Perspectiva al pasar el ratón.** Las imágenes de proyecto (escena de cada tarjeta, vista previa de KORA y cada marco de la galería) llevan `data-tilt` con los grados máximos (3–8): giran en X/Y siguiendo el cursor con `gsap.quickTo` (0.7s, `power3.out`) y `transformPerspective: 1000`. Un único listener delegado; la caja se mide al entrar, `will-change` solo mientras dura el gesto, nada durante el scroll y solo con ratón y movimiento permitido.
-
-**Galería de la ventana.** Cada captura va en el soporte de lo que es, nunca suelta: escritorio en un marco de navegador (barra `paper-2`, tres puntos `warm`/`calima`/`alisio`, píldora con el dominio o el nombre), la primera a 1200px como destacada; pantallas de móvil en marco de teléfono negro de radio 32px, en fila escalonada sobre una banda a sangre del campo del proyecto con anillos de isobaras, que en móvil se desliza en horizontal; un único móvil se empareja con una captura de escritorio en la banda; vistas previas cuadradas en rejilla de 4 (2 en móvil) sobre la banda; documentos (diagramas) en tarjeta blanca de 760px. Todas llevan pie corto (`cap`), y las sueltas que quedan van en rejilla `auto-fit` de mínimo 380px.
+Cada campo expone `--field`, `--field-ink`, `--field-base` (sólido, para el texto del botón principal) y `--field-accent`. Escape cierra, flechas cambian de proyecto, el foco queda atrapado dentro.
 
 ### Frente (signature)
 Divisor de escena: línea ondulada de 3px dibujada con DrawSVG según el scroll; los triángulos (frente frío, `cold`) o semicírculos (frente cálido, `warm`) brotan con `back.out(3)` a su paso.
 
 ### Coreografía
-- **Entrada:** `expo.out`; los caracteres del nombre suben desde su línea, la isla se asienta, las letras A/B aparecen con `back.out(2)`.
-- **El frente pasa:** el desplazamiento del campo del hero está ligado al scroll del hero; el nombre se queda atrás y la isla gira.
+- **Entrada:** `expo.out`; los caracteres del nombre suben desde su línea, el retrato sube y se asienta sobre el borde inferior, las letras A/B aparecen con `back.out(2)`.
+- **El frente pasa:** el desplazamiento del campo del hero está ligado al scroll del hero; el nombre se queda atrás y el retrato baja y se reduce. En «Parte del día» la isla se asienta en su marco (escala y giro ligados al scroll).
+- **La mirada:** los iris del retrato siguen al cursor por todo el hero (`quickTo`, recorrido máximo 20 % en horizontal y 9 % en vertical, recortados por la apertura de cada párpado).
 - **Titulares de sección:** los caracteres suben desde una máscara de línea (`yPercent: 115`, escalonado 0.025s).
 - **Tarjetas:** crecen de escala 0.9 a 1 con el scroll; el texto entra con desplazamiento.
 - **Tramos horizontales:** KORA y trayectoria se desplazan en horizontal mientras están anclados; la trayectoria dibuja su traza.

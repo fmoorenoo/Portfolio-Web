@@ -13,7 +13,7 @@ Contenido: solo lo verificado en `profile-research.md` y `project-ranking.md`. P
 
 ## Recorrido
 
-Carta (identidad, A/B de presión, isla con Arrecife) · Parte del día (retrato y ficha de estación) · Proyectos: LanzaMet y ACESLAN · KORA en tramo horizontal con su propia paleta y la vista previa real de sus 8 webs (`scripts/kora-shots.mjs`) · HairCloud y archivo de GitHub · Tecnologías verificadas / declaradas · Trayectoria como barograma horizontal 2021–2026 · Contacto sobre la carta nocturna.
+Carta (retrato recortado con ojos que siguen al cursor, nombre, A/B de presión) · Parte del día (isla con Arrecife y ficha de estación) · Proyectos: LanzaMet y ACESLAN · KORA en tramo horizontal con su propia paleta y la vista previa real de sus 8 webs (`scripts/kora-shots.mjs`) · HairCloud · Haría Game · archivo compacto de GitHub · Tecnologías verificadas / declaradas · Trayectoria como barograma horizontal 2021–2026 sobre papel cuadriculado, con tarjetas por tipo (formación, trabajo, proyecto, empresa) y los años al fondo · Contacto sobre la carta nocturna.
 
 ## Decisiones
 
@@ -41,3 +41,7 @@ Son de la app real (`../p-projects/HairCloud`), compilada y ejecutada en un emul
 ## Capturas de ACESLAN
 
 Son de la app Android real (`../p-projects/ACESLAN`, repo de FabioGonzalez2005) y de su panel web (`../p-projects/backend-aceslan`), ejecutados en local con los seeders de demostración del propio backend (cuentas `@demo.aceslan`); nunca contra el servidor de producción. Backend: PHP 8.4 y MariaDB 11.4 en `C:\Users\User\dev-tools` (`mariadbd --datadir=C:\Users\User\dev-tools\mariadata`, `php artisan config:cache && php artisan serve`). Para la app hay que cambiar en local `BASE_URL`/`STORAGE_URL` de `androidMain/.../ApiConfig.kt` a `http://10.0.2.2:8000` (y no commitearlo). El panel se captura con `node scripts/aceslan-panel.mjs`.
+
+## Capturas de Haría Game
+
+Son de la versión compilada para Windows de la carpeta de Drive que enlaza su README (descargada con `node scripts/drive-download.mjs` en `C:UsersUserdev-toolshariagame`), ejecutada en ventana y capturada con `game.ps1` (PowerShell, captura del área cliente con el escalado de Windows). En esa versión la escena de juego sale con el cielo negro, así que la partida usa la captura original del README. La ventana incluye una comparación con tres fotos reales del instituto (aportadas por Fernando, en `assets-src/hariagame/real`), cada una emparejada con un encuadre parecido del juego.
