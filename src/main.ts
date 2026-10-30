@@ -92,10 +92,10 @@ for (const [sel, nav] of sections) {
 const narrow = innerWidth < 760;
 const heroCentres: Centre[] = [
   narrow ? { x: 0.36, y: 0.15, hpa: 15, r: 0.5 } : { x: 0.42, y: 0.24, hpa: 15, r: 0.55 }, // A: anticiclón
-  narrow ? { x: 0.13, y: 0.36, hpa: -14, r: 0.3 } : { x: 0.92, y: 0.86, hpa: -14, r: 0.36 }, // B: borrasca
+  narrow ? { x: 0.1, y: 0.07, hpa: -14, r: 0.3 } : { x: 0.08, y: 0.27, hpa: -14, r: 0.3 }, // B: borrasca
   { x: 0.06, y: 0.92, hpa: 8, r: 0.5 },
   { x: 0.74, y: 0.06, hpa: -6, r: 0.3 },
-  { x: 1.25, y: 0.48, hpa: 7, r: 0.6 },
+  narrow ? { x: 0.5, y: 0.22, hpa: 13, r: 0.34 } : { x: 0.74, y: 0.36, hpa: 13, r: 0.42 }, // núcleo cálido tras el retrato
   { x: 0.22, y: 0.52, hpa: -5, r: 0.28 },
 ];
 const heroField = dev('nofield') ? null : Field.create($<HTMLCanvasElement>('[data-field="light"]'), {
@@ -192,7 +192,7 @@ if (motion) {
   intro
     .from('.hero .field', { opacity: 0, duration: 1.6, ease: 'power2.out' }, 0)
     .to(chars, { yPercent: 0, duration: 1.25, stagger: 0.028 }, 0.15)
-    .fromTo('.hero__island', { opacity: 0, scale: 0.94, rotate: -4 }, { opacity: 1, scale: 1, rotate: 0, duration: 1.6 }, 0.25)
+    .fromTo('.hero__me', { opacity: 0, yPercent: 8, scale: 0.97 }, { opacity: 1, yPercent: 0, scale: 1, duration: 1.7 }, 0.1)
     .fromTo('.hero__intro', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1.1 }, 0.7)
     .fromTo([high, low], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(2)' }, 0.9)
     .fromTo('.hero__barb', { opacity: 0, rotate: '-=40' }, { opacity: 0.55, rotate: '+=40', duration: 1.4, stagger: 0.12 }, 1);
@@ -206,7 +206,7 @@ if (motion) {
   })
     .to('.hero__name', { yPercent: -38, ease: 'none' }, 0)
     .to('.hero__intro', { y: -60, opacity: 0, ease: 'none' }, 0)
-    .to('.hero__island', { y: '-12vh', rotate: -6, scale: 0.92, ease: 'none' }, 0);
+    .to('.hero__me', { yPercent: 10, scale: 0.96, ease: 'none' }, 0);
 
   // Frentes: la línea se dibuja con el scroll y los triángulos o semicírculos brotan a su paso.
   ScrollTrigger.addEventListener('refreshInit', () => fronts.forEach(buildFront));
@@ -236,7 +236,7 @@ if (motion) {
   // Retrato: el marco crece hasta su sitio y la foto se asienta (solo transformaciones).
   gsap.timeline({ scrollTrigger: { trigger: '.parte__photo', start: 'top 85%', end: 'top 25%', scrub: 0.8 } })
     .fromTo('.parte__frame', { scale: 0.84, yPercent: 6 }, { scale: 1, yPercent: 0, ease: 'none' }, 0)
-    .fromTo('.portrait', { scale: 1.18, yPercent: 6 }, { scale: 1, yPercent: 0, ease: 'none' }, 0);
+    .fromTo('.parte__map', { scale: 1.12, rotate: -4 }, { scale: 1, rotate: 0, ease: 'none' }, 0);
   gsap.from('.parte__title', { y: 40, duration: 1.2, ease: EASE, scrollTrigger: { trigger: '.parte__title', start: 'top 85%' } });
   gsap.from('.station-card > div', {
     x: -24, duration: 0.9, ease: EASE, stagger: 0.08,
@@ -301,19 +301,20 @@ if (motion) {
     });
     let eyesStale = true;
     document.addEventListener('scroll', () => { eyesStale = true; }, { passive: true, capture: true });
-    portrait.addEventListener('pointerenter', () => { eyesStale = true; });
-    portrait.addEventListener('pointermove', (e) => {
+    const eyesArea = portrait.closest('section')!;
+    eyesArea.addEventListener('pointerenter', () => { eyesStale = true; });
+    eyesArea.addEventListener('pointermove', (e) => {
       if (e.pointerType !== 'mouse') return;
       if (eyesStale) { measureEyes(); eyesStale = false; }
       for (const eye of eyes) {
         const dx = e.clientX - eye.cx, dy = e.clientY - eye.cy;
         const dist = Math.hypot(dx, dy) || 1;
-        const reach = Math.min(1, dist / 180); // cerca del ojo, giro proporcional; a partir de 180 px, al tope
+        const reach = Math.min(1, dist / 260); // cerca del ojo, giro proporcional; a partir de 260 px, al tope
         eye.x((dx / dist) * reach * 20);
         eye.y((dy / dist) * reach * 9);
       }
     }, { passive: true });
-    portrait.addEventListener('pointerleave', () => eyes.forEach((e) => { e.x(0); e.y(0); }));
+    eyesArea.addEventListener('pointerleave', () => eyes.forEach((e) => { e.x(0); e.y(0); }));
 
     // Perspectiva al pasar el ratón por las imágenes de proyecto ([data-tilt] = grados máximos).
     // Un solo listener delegado (sirve también para las ventanas, que se pintan después), solo transformaciones,
@@ -408,7 +409,16 @@ mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
     const W = rTrack.scrollWidth, H = rTrack.offsetHeight;
     trace.setAttribute('viewBox', `0 0 ${W} ${H}`);
     trace.style.width = `${W}px`;
-    const pts = dots.map((li) => [li.offsetLeft + 8 + ($('.route__list').offsetLeft), li.offsetTop + 8]);
+    const listLeft = $('.route__list').offsetLeft;
+    // El punto de cada hito está encima de su tarjeta (::before a 30px, 16px de diámetro).
+    const pts = dots.map((li) => [li.offsetLeft + listLeft + 26, li.offsetTop - 22]);
+    // Años al fondo: una línea discontinua y el número grande donde empieza cada año.
+    const years = dots.filter((li) => li.dataset.year).map((li) => {
+      const x = li.offsetLeft + listLeft - 14;
+      return `<line class="route__yline" x1="${x}" y1="0" x2="${x}" y2="${H}"/><text class="route__ytext" x="${x + 12}" y="${H - 8}">${li.dataset.year}</text>`;
+    }).join('');
+    trace.querySelectorAll('.route__yline, .route__ytext').forEach((el) => el.remove());
+    trace.insertAdjacentHTML('afterbegin', years);
     pts.unshift([0, pts[0][1] + 30]);
     pts.push([W, pts[pts.length - 1][1] - 20]);
     // Curva suave (Catmull-Rom a Bézier) por los puntos de cada hito.

@@ -66,15 +66,19 @@
         <section class="hero" id="inicio" aria-labelledby="t-name">
           <div class="field field--light" aria-hidden="true"><canvas data-field="light"></canvas></div>
           <div class="hero__map" aria-hidden="true">
-            <div class="hero__island" data-intro>
-              <div class="isle"></div>
-              <span class="station hero__station"><i></i><span data-i18n="hero.station">Arrecife, Lanzarote, España</span></span>
-            </div>
             <span class="pcentre pcentre--a hero__high" data-intro><b>A</b><small>1024</small></span>
             <span class="pcentre pcentre--b hero__low" data-intro><b>B</b><small>1004</small></span>
             <svg class="barb hero__barb hero__barb--1" data-intro><use href="#i-barb"/></svg>
             <svg class="barb hero__barb hero__barb--2" data-intro><use href="#i-barb"/></svg>
             <svg class="barb hero__barb hero__barb--3" data-intro><use href="#i-barb"/></svg>
+          </div>
+
+          <div class="hero__me" data-intro>
+            <div class="portrait" data-eyes>
+              <img class="portrait__base" src="/img/retrato-recorte-1086.webp" srcset="/img/retrato-recorte-720.webp 720w, /img/retrato-recorte-1086.webp 1086w" sizes="(max-width: 900px) 80vw, 50vw" width="1086" height="1198" alt="Fernando Montelongo." data-i18n-attr="alt:parte.alt" fetchpriority="high">
+              <span class="eye eye--izq" aria-hidden="true"><img src="/img/ojo-izq-iris.png" width="41" height="41" alt=""></span>
+              <span class="eye eye--der" aria-hidden="true"><img src="/img/ojo-der-iris.png" width="41" height="41" alt=""></span>
+            </div>
           </div>
 
           <div class="hero__copy">
@@ -98,14 +102,13 @@
           <svg class="front front--cold" data-front="cold" aria-hidden="true"></svg>
           <div class="parte__grid wrap">
             <figure class="parte__photo">
-              <div class="parte__frame" data-clip>
-                <div class="portrait" data-eyes>
-                  <img class="portrait__base" src="/img/retrato-base-1000.webp" srcset="/img/retrato-base-640.webp 640w, /img/retrato-base-1000.webp 1000w" sizes="(max-width: 900px) 80vw, 34vw" width="1000" height="1103" alt="Retrato de Fernando Montelongo." data-i18n-attr="alt:parte.alt" loading="lazy">
-                  <span class="eye eye--izq" aria-hidden="true"><img src="/img/ojo-izq-iris.png" width="41" height="41" alt="" loading="lazy"></span>
-                  <span class="eye eye--der" aria-hidden="true"><img src="/img/ojo-der-iris.png" width="41" height="41" alt="" loading="lazy"></span>
+              <div class="parte__frame parte__frame--isle" data-clip>
+                <div class="parte__map" role="img" aria-label="Mapa de Lanzarote con Arrecife marcado." data-i18n-attr="aria-label:parte.map">
+                  <div class="isle"></div>
+                  <span class="station parte__station"><i></i><span data-i18n="hero.station">Arrecife, Lanzarote, España</span></span>
                 </div>
               </div>
-              <figcaption class="parte__cap"><span>Fernando Montelongo Moreno</span><span>fmoorenoo</span></figcaption>
+              <figcaption class="parte__cap"><span data-i18n="parte.cap">Donde vivo y programo</span><span>28,96° N · 13,55° O</span></figcaption>
             </figure>
             <div class="parte__text">
               <h2 class="parte__title" id="t-parte" data-i18n="parte.title">Software hecho en Lanzarote, ya en producción.</h2>
@@ -197,7 +200,7 @@
           <div class="kora__pin">
             <div class="kora__track" data-htrack>
               <div class="kora__intro">
-                <h2 class="kora__title" id="t-kora"><img class="kora__logo" src="/img/kora-logo.svg" width="470" height="139" alt="KORA"> <span>Digital Solutions</span></h2>
+                <h2 class="kora__title" id="t-kora"><span class="kora-mark kora-mark--section"><img src="/img/kora-logo.svg" width="470" height="139" alt="KORA"><i class="kora-dot" aria-hidden="true"></i></span> <span>Digital Solutions</span></h2>
                 <p class="kora__role" data-i18n="ko.role">Cofundador · Desarrollo &amp; Tecnología · desde septiembre de 2025</p>
                 <blockquote class="kora__quote"><p data-i18n="ko.quote">«No hacemos webs. Creamos presencias digitales.»</p></blockquote>
                 <p class="kora__body" data-i18n="ko.body">Webs a medida para empresas: reservas, e-commerce, paneles de administración, bases de datos, áreas privadas, asistentes con IA y automatizaciones. Del prototipo al mantenimiento.</p>
@@ -247,12 +250,33 @@
             </div>
           </article>
 
+          <article class="case case--game" data-case aria-labelledby="t-hg" style="--field: var(--hg-field); --field-ink: #FFFFFF">
+            <div class="case__card" data-clip>
+              <div class="case__text">
+                <h3 class="case__title" id="t-hg">Haría Game</h3>
+                <p class="case__kind" data-i18n="hg.kind">Proyecto de DAM · Unity y C# · febrero de 2025</p>
+                <p class="case__claim" data-i18n="hg.claim">Mi instituto, el IES Haría, convertido en un videojuego 3D.</p>
+                <p class="case__body" data-i18n="hg.body">La pista de fútbol, el edificio con su rótulo, el paseo junto al muro de piedra volcánica y las palmeras, reconocibles en Unity. Cinco monedas, una llave y 180 segundos para salir, con un enemigo que te persigue con NavMeshAgent.</p>
+                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                  <li>Unity</li><li>C#</li><li>NavMeshAgent</li><li>TextMesh Pro</li>
+                </ul>
+                <div class="case__actions">
+                  <a class="btn btn--game" href="/proyectos/hariagame" data-open="hariagame"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="link-out" href="https://github.com/fmoorenoo/HariaGame" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a>
+                </div>
+              </div>
+              <div class="case__media hg-media" aria-hidden="true" data-tilt="5">
+                <figure class="hg-media__screen hg-media__screen--a" data-speed="1.04"><img src="/img/hg-pista-900.webp" width="900" height="464" alt="" loading="lazy"></figure>
+                <figure class="hg-media__screen hg-media__screen--b" data-speed="1.12"><img src="/img/hg-entrada-900.webp" width="900" height="507" alt="" loading="lazy"></figure>
+              </div>
+            </div>
+          </article>
+
           <div class="archive wrap" aria-labelledby="t-archive">
             <h3 class="archive__title" id="t-archive" data-i18n="ar.title">También en GitHub</h3>
             <ul class="archive__list" data-rows>
               <li><a href="https://github.com/fmoorenoo/cursos_online" target="_blank" rel="noopener"><b>CertiFer</b><span data-i18n="ar.1">Catálogo de cursos con carrito y login</span><em>Vue 3 · PHP · MySQL</em><time>2026</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
               <li><a href="https://github.com/fmoorenoo/GestorProyectosAlexsoft" target="_blank" rel="noopener"><b>Gestor Alexsoft</b><span data-i18n="ar.2">App de escritorio con API propia</span><em>Compose Desktop · Ktor · Flask</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://github.com/fmoorenoo/HariaGame" target="_blank" rel="noopener"><b>Haría Game</b><span data-i18n="ar.3">Aventura 3D en el IES Haría</span><em>Unity · C#</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
               <li><a href="https://fmoorenoo.github.io/TagMasterPage/" target="_blank" rel="noopener"><b>TagMaster</b><span data-i18n="ar.4">Juego educativo, jugable en el navegador</span><em>Unity · WebGL</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
               <li><a href="https://github.com/fmoorenoo/perdidasLanzarote" target="_blank" rel="noopener"><b>Pérdidas Lanzarote</b><span data-i18n="ar.5">Objetos perdidos de la isla, en un mapa</span><em>Kotlin · Room · osmdroid</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
               <li><a href="https://github.com/fmoorenoo/mapRoomApp" target="_blank" rel="noopener"><b data-i18n="ar.6t">Fundamentos Android</b><span>Map Room · Task Room · HIIT Timer</span><em>Kotlin · Compose</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
@@ -284,21 +308,29 @@
         <section class="route" id="trayectoria" aria-labelledby="t-route">
           <svg class="front front--warm" data-front="warm" aria-hidden="true"></svg>
           <div class="route__pin">
-            <h2 class="h2 route__title wrap" id="t-route" data-i18n="rt.title">Trayectoria</h2>
+            <div class="route__head wrap">
+              <h2 class="h2 route__title" id="t-route" data-i18n="rt.title">Trayectoria</h2>
+              <div class="route__aside">
+                <p class="route__lede" data-i18n="rt.lede">De mi primera web en 2024 a un producto propio en producción en 2026.</p>
+                <ul class="route__legend" aria-hidden="true">
+                  <li data-t="edu" data-i18n="rt.t.edu">Formación</li><li data-t="work" data-i18n="rt.t.work">Trabajo</li><li data-t="proj" data-i18n="rt.t.proj">Proyecto</li><li data-t="co" data-i18n="rt.t.co">Empresa</li>
+                </ul>
+              </div>
+            </div>
             <div class="route__track" data-htrack>
               <svg class="route__trace" aria-hidden="true" preserveAspectRatio="none"><path data-trace/></svg>
               <ol class="route__list">
-                <li style="--lvl: 0.12"><time>2021 — 2023</time><b data-i18n="rt.1">Bachillerato de Ciencias de la Salud</b><span>IES Haría</span></li>
-                <li style="--lvl: 0.2"><time>2023 — 2025</time><b data-i18n="rt.2">Desarrollo de Aplicaciones Multiplataforma (DAM)</b><span>IES Haría</span></li>
-                <li style="--lvl: 0.28"><time data-i18n="rt.3d">Mayo 2024</time><b data-i18n="rt.3">Mi primera web, para el San Bartolomé C.F.</b><span><a href="https://fmoorenoo.github.io/San-Bartolome/" target="_blank" rel="noopener" data-i18n="rt.3l">HTML, CSS y JavaScript sin frameworks</a></span></li>
-                <li style="--lvl: 0.36"><time data-i18n="rt.4d">Oct. — dic. 2024</time><b data-i18n="rt.4">Primeras apps Android</b><span>Kotlin · Compose · Room</span></li>
-                <li style="--lvl: 0.46"><time data-i18n="rt.5d">Feb. — jun. 2025</time><b data-i18n="rt.5">Prácticas full stack en GISECLOUD</b><span>Técnicas Competitivas S.A. · Angular · C#</span></li>
-                <li style="--lvl: 0.54"><time data-i18n="rt.6d">Mar. — may. 2025</time><b data-i18n="rt.6">HairCloud, proyecto final de DAM</b><span data-i18n="rt.6s">376 commits</span></li>
-                <li style="--lvl: 0.64"><time data-i18n="rt.7d">Sept. 2025</time><b data-i18n="rt.7">Cofundo KORA Digital Solutions</b><span data-i18n="rt.7s">Desarrollo &amp; Tecnología</span></li>
-                <li style="--lvl: 0.7"><time>2025 — 2026</time><b data-i18n="rt.8">Desarrollo de Aplicaciones Web (DAW)</b><span>CIFP Zonzamas</span></li>
-                <li style="--lvl: 0.8"><time data-i18n="rt.9d">Feb. — jun. 2026</time><b data-i18n="rt.9">ACESLAN para el Consorcio de Emergencias</b><span data-i18n="rt.9s">Presentada en mayo de 2026</span></li>
-                <li style="--lvl: 0.9"><time data-i18n="rt.10d">Oct. 2026</time><b data-i18n="rt.10">LanzaMet, en producción</b><span>lanzamet.com</span></li>
-                <li class="route__now" style="--lvl: 0.97"><time data-i18n="rt.11d">Ahora</time><b data-i18n="rt.11">Busco mi próximo equipo como Full Stack Junior</b><span data-i18n="rt.11s">Remoto, híbrido o presencial</span></li>
+                <li style="--lvl: 0.12" data-t="edu" data-year="2021"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2021 — 2023</time><b data-i18n="rt.1">Bachillerato de Ciencias de la Salud</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.2" data-t="edu" data-year="2023"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2023 — 2025</time><b data-i18n="rt.2">Desarrollo de Aplicaciones Multiplataforma (DAM)</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.28" data-t="proj" data-year="2024"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.3d">Mayo 2024</time><b data-i18n="rt.3">Mi primera web, para el San Bartolomé C.F.</b><span><a href="https://fmoorenoo.github.io/San-Bartolome/" target="_blank" rel="noopener" data-i18n="rt.3l">HTML, CSS y JavaScript sin frameworks</a></span></li>
+                <li style="--lvl: 0.36" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.4d">Oct. — dic. 2024</time><b data-i18n="rt.4">Primeras apps Android</b><span>Kotlin · Compose · Room</span></li>
+                <li style="--lvl: 0.46" data-t="work" data-year="2025"><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.5d">Feb. — jun. 2025</time><b data-i18n="rt.5">Prácticas full stack en GISECLOUD</b><span>Técnicas Competitivas S.A. · Angular · C#</span></li>
+                <li style="--lvl: 0.54" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.6d">Mar. — may. 2025</time><b data-i18n="rt.6">HairCloud, proyecto final de DAM</b><span data-i18n="rt.6s">376 commits</span></li>
+                <li style="--lvl: 0.64" data-t="co"><em class="route__tag" data-i18n="rt.t.co">Empresa</em><time data-i18n="rt.7d">Sept. 2025</time><b data-i18n="rt.7">Cofundo KORA Digital Solutions</b><span data-i18n="rt.7s">Desarrollo &amp; Tecnología</span></li>
+                <li style="--lvl: 0.7" data-t="edu"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2025 — 2026</time><b data-i18n="rt.8">Desarrollo de Aplicaciones Web (DAW)</b><span>CIFP Zonzamas</span></li>
+                <li style="--lvl: 0.8" data-t="work" data-year="2026"><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.9d">Feb. — jun. 2026</time><b data-i18n="rt.9">ACESLAN para el Consorcio de Emergencias</b><span data-i18n="rt.9s">Presentada en mayo de 2026</span></li>
+                <li style="--lvl: 0.9" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.10d">Oct. 2026</time><b data-i18n="rt.10">LanzaMet, en producción</b><span>lanzamet.com</span></li>
+                <li class="route__now" style="--lvl: 0.97" data-t="now"><em class="route__tag" data-i18n="rt.t.now">Hoy</em><time data-i18n="rt.11d">Ahora</time><b data-i18n="rt.11">Busco mi próximo equipo como Full Stack Junior</b><span data-i18n="rt.11s">Remoto, híbrido o presencial</span></li>
               </ol>
             </div>
             <div class="hbar" aria-hidden="true"><i data-hbar></i></div>

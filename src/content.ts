@@ -15,7 +15,9 @@ export interface Project {
   list?: { title: T; items: T[] };
   shots: Shot[];
   site?: string; // texto de la barra del navegador en las capturas de escritorio
+  game?: boolean; // capturas de un juego: marco de pantalla, sin barra de navegador
   logo?: string; // logotipo real, en lugar del nombre escrito
+  compare?: { title: T; pairs: { name: string; cap: T }[] }; // foto real frente a captura (hg-cmp-real-*/hg-cmp-juego-*)
   stack: string[];
   links: { href: string; label: T }[];
   note?: T;
@@ -154,7 +156,7 @@ export const projects: Project[] = [
     slug: 'kora',
     logo: '/img/kora-logo.svg',
     name: 'KORA',
-    field: 'kora',
+    field: 'kora-field',
     kind: t('Mi empresa · 2025 — hoy', 'My company · 2025 — now'),
     claim: t('«No hacemos webs. Creamos presencias digitales.»', '“We don’t make websites. We build digital presence.”'),
     facts: [
@@ -258,5 +260,72 @@ export const projects: Project[] = [
     stack: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Retrofit', 'DataStore', 'Flask', 'JWT', 'PostgreSQL'],
     links: [{ href: 'https://github.com/fmoorenoo/HairCloud', label: t('Ver el repositorio', 'View the repository') }],
     note: t('Capturas de la app real en un emulador Android, con su API Flask y PostgreSQL en local y datos de demostración. El propio README advierte que es un proyecto académico, con HTTP sin cifrar en desarrollo.', 'Screenshots of the real app on an Android emulator, running its Flask API and PostgreSQL locally with demo data. Its own README notes it is an academic project, using unencrypted HTTP in development.'),
+  },
+  {
+    slug: 'hariagame',
+    name: 'Haría Game',
+    field: 'hg-field',
+    game: true,
+    kind: t('Proyecto de DAM · Unity y C# · 2025', 'DAM project · Unity and C# · 2025'),
+    claim: t('Mi instituto, el IES Haría, convertido en un videojuego 3D.', 'My high school, IES Haría, turned into a 3D video game.'),
+    facts: [
+      [t('Rol', 'Role'), t('Diseño y desarrollo completo', 'Full design and development')],
+      [t('Fecha', 'Date'), t('Febrero de 2025', 'February 2025')],
+      [t('Motor', 'Engine'), t('Unity 2022.3 · C#', 'Unity 2022.3 · C#')],
+      [t('Código', 'Code'), t('Público en GitHub', 'Public on GitHub')],
+    ],
+    intro: t(
+      'Una aventura en tercera persona por el IES Haría, donde estudié Bachillerato y DAM. Hay que recoger cinco monedas, conseguir la llave y salir del instituto antes de que acaben los 180 segundos, mientras un compañero con IA patrulla y te persigue.',
+      'A third-person adventure around IES Haría, where I studied my baccalaureate and DAM. You collect five coins, get the key and leave the school before the 180 seconds run out, while an AI classmate patrols and chases you.',
+    ),
+    sections: [
+      {
+        title: t('El instituto, reconocible', 'The school, recognisable'),
+        body: t(
+          'La réplica sigue la distribución real del centro: la pista de fútbol con sus porterías, el edificio con el rótulo «IES Haría», el paseo junto al muro de piedra volcánica, las farolas, la valla y las palmeras.',
+          'The replica follows the real layout of the school: the football pitch with its goals, the building with the “IES Haría” sign, the walkway along the volcanic stone wall, the street lamps, the fence and the palm trees.',
+        ),
+      },
+      {
+        title: t('Un enemigo que te busca', 'An enemy that hunts you'),
+        body: t(
+          'El enemigo usa NavMeshAgent: patrulla, detecta al jugador y lo persigue por el escenario.',
+          'The enemy uses NavMeshAgent: it patrols, detects the player and chases them around the level.',
+        ),
+      },
+      {
+        title: t('Misión contra reloj', 'A race against the clock'),
+        body: t(
+          'Cinco monedas, una llave y una puerta de salida, con diálogos y subtítulos de los personajes y una cuenta atrás de 180 segundos. La tecla E sirve para interactuar.',
+          'Five coins, a key and an exit door, with character dialogue and subtitles and a 180-second countdown. The E key is used to interact.',
+        ),
+      },
+      {
+        title: t('Menú, tráiler y partida', 'Menu, trailer and game'),
+        body: t(
+          'Tres escenas: el menú, con la cámara recorriendo el instituto; un tráiler de presentación, y la partida.',
+          'Three scenes: the menu, with the camera flying around the school; an introductory trailer; and the game itself.',
+        ),
+      },
+    ],
+    shots: [
+      { src: '/img/hg-pista-1440.webp', srcset: '/img/hg-pista-900.webp 900w, /img/hg-pista-1440.webp 1440w', w: 1440, h: 742, cap: t('La pista y el edificio del instituto', 'The pitch and the school building'), alt: t('La pista de fútbol con el edificio del IES Haría al fondo, en el tráiler del juego.', 'The football pitch with the IES Haría building behind it, in the game trailer.') },
+      { src: '/img/hg-entrada-1440.webp', srcset: '/img/hg-entrada-900.webp 900w, /img/hg-entrada-1440.webp 1440w', w: 1440, h: 811, cap: t('La entrada, con su rótulo', 'The entrance and its sign'), alt: t('Menú del juego: la cámara pasa por la entrada con el rótulo «IES Haría».', 'Game menu: the camera passes the entrance with the “IES Haría” sign.') },
+      { src: '/img/hg-planta-1440.webp', srcset: '/img/hg-planta-900.webp 900w, /img/hg-planta-1440.webp 1440w', w: 1440, h: 811, cap: t('El recinto visto desde arriba', 'The grounds from above'), alt: t('Menú del juego: vista cenital del recinto con la pista y los edificios.', 'Game menu: top-down view of the grounds with the pitch and buildings.') },
+      { src: '/img/hg-paseo-1440.webp', srcset: '/img/hg-paseo-900.webp 900w, /img/hg-paseo-1440.webp 1440w', w: 1440, h: 811, cap: t('El paseo y el muro de piedra volcánica', 'The walkway and the volcanic stone wall'), alt: t('Menú del juego: el paseo junto al muro de piedra volcánica.', 'Game menu: the walkway along the volcanic stone wall.') },
+      { src: '/img/hg-campo-1440.webp', srcset: '/img/hg-campo-900.webp 900w, /img/hg-campo-1440.webp 1440w', w: 1440, h: 742, cap: t('Desde el centro del campo', 'From the centre circle'), alt: t('Tráiler: la pista vista desde el centro del campo.', 'Trailer: the pitch seen from the centre circle.') },
+      { src: '/img/hg-readme-partida-1440.webp', srcset: '/img/hg-readme-partida-900.webp 900w, /img/hg-readme-partida-1440.webp 1440w', w: 1440, h: 810, cap: t('La partida, en tercera persona', 'The game, in third person'), alt: t('Partida: el jugador en el paseo, con la pista y el instituto al fondo.', 'Gameplay: the player on the walkway, with the pitch and the school behind.') },
+    ],
+    compare: {
+      title: t('El IES Haría real, y en el juego', 'The real IES Haría, and in the game'),
+      pairs: [
+        { name: 'paseo', cap: t('El paseo junto al muro de piedra volcánica, con la pista y el edificio al fondo.', 'The walkway along the volcanic stone wall, with the pitch and the building behind.') },
+        { name: 'edificio', cap: t('El edificio de dos plantas con la pista delante.', 'The two-storey building with the pitch in front.') },
+        { name: 'rotulo', cap: t('La fachada con el rótulo «IES Haría» y las palmeras.', 'The façade with the “IES Haría” sign and the palm trees.') },
+      ],
+    },
+    stack: ['Unity', 'C#', 'NavMeshAgent', 'TextMesh Pro', 'Animator', 'AudioSource'],
+    links: [{ href: 'https://github.com/fmoorenoo/HariaGame', label: t('Ver el repositorio', 'View the repository') }],
+    note: t('Capturas del juego compilado para Windows (menú y tráiler) y de su README (partida).', 'Screenshots of the Windows build (menu and trailer) and from its README (gameplay).'),
   },
 ];

@@ -3,7 +3,7 @@ import { copyFile, mkdir } from 'node:fs/promises';
 
 // Cada ventana de proyecto tiene su ruta (/proyectos/:slug/). En el build se copia index.html a cada una
 // para que un hosting estático las sirva sin reglas de reescritura.
-const slugs = ['lanzamet', 'aceslan', 'kora', 'haircloud'];
+const slugs = ['lanzamet', 'aceslan', 'kora', 'haircloud', 'hariagame'];
 const routes = (): Plugin => ({
   name: 'project-routes',
   apply: 'build',

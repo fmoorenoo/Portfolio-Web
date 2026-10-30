@@ -3,11 +3,17 @@
 import { gsap } from 'gsap';
 import { projects, type Lang, type Project, type Shot } from './content';
 
-const INK: Record<string, string> = { sky: 'var(--ocean)', warm: '#2A0E07', 'ace-field': '#FFFFFF', kora: 'var(--kora-text)', 'cloud-field': 'var(--cloud-ink)' };
+const INK: Record<string, string> = { sky: 'var(--ocean)', warm: '#2A0E07', 'ace-field': '#FFFFFF', 'kora-field': 'var(--kora-text)', 'cloud-field': 'var(--cloud-ink)', 'hg-field': '#FFFFFF' };
+// Color sólido de cada campo (los hay en degradado) y su acento, para botones y detalles con contraste.
+const BASE: Record<string, string> = { sky: 'var(--sky)', 'ace-field': 'var(--ace)', 'kora-field': 'var(--kora)', 'cloud-field': 'var(--cloud)', 'hg-field': 'var(--hg)' };
+const ACCENT: Record<string, string> = { sky: 'var(--cold)', 'ace-field': 'var(--ace-red)', 'kora-field': 'var(--kora-pink)', 'cloud-field': 'var(--cloud-blue)', 'hg-field': 'var(--hg-green)' };
 const ui = {
   next: { es: 'Siguiente proyecto', en: 'Next project' },
   stack: { es: 'Tecnologías', en: 'Technologies' },
   gallery: { es: 'Capturas', en: 'Screenshots' },
+  how: { es: 'Cómo está hecho', en: 'How it’s built' },
+  real: { es: 'Real', en: 'Real' },
+  inGame: { es: 'En el juego', en: 'In the game' },
   title: { es: '— Fernando Montelongo', en: '— Fernando Montelongo' },
 };
 
@@ -157,72 +163,103 @@ export class Windows {
     this.el.querySelector('[data-win-slug]')!.textContent = p.slug;
     this.el.querySelector<HTMLAnchorElement>('[data-win-prev]')!.href = route(prev.slug);
     this.el.querySelector<HTMLAnchorElement>('[data-win-next]')!.href = route(next.slug);
-    const field = (f: string) => `--field: var(--${f}); --field-ink: ${INK[f]}`;
-    const deco = p.shots.length
-      ? '<div class="wp__deco-rings" aria-hidden="true"></div>'
-      : '<div class="wp__deco-rings" aria-hidden="true"></div><div class="wp__deco isle" aria-hidden="true"></div>';
+    const field = (f: string) => `--field: var(--${f}); --field-ink: ${INK[f]}; --field-base: ${BASE[f]}; --field-accent: ${ACCENT[f]}`;
 
-    // Galería: cada imagen se presenta según lo que es. Escritorio en marco de navegador, móvil en marco de
-    // teléfono sobre una banda del color del proyecto, vistas previas en cuadrícula y documentos en tarjeta.
+    // Cada imagen va en el soporte de lo que es: pantalla (navegador o juego), teléfono, vista previa o documento.
     const img = (s: Shot, sizes: string, eager = false) =>
       `<img src="${s.src}"${s.srcset ? ` srcset="${s.srcset}" sizes="${sizes}"` : ''} width="${s.w}" height="${s.h}" alt="${esc(s.alt[L])}"${eager ? '' : ' loading="lazy"'} decoding="async">`;
-    const cap = (s: Shot) => `<figcaption>${esc((s.cap ?? s.alt)[L])}</figcaption>`;
     const kind = (s: Shot) => (s.sq ? 'sq' : s.h / s.w > 1.6 ? 'phone' : s.w / s.h > 1.3 ? 'desk' : 'doc');
     const desks = p.shots.filter((s) => kind(s) === 'desk');
     const phones = p.shots.filter((s) => kind(s) === 'phone');
     const squares = p.shots.filter((s) => kind(s) === 'sq');
-    const docs = p.shots.filter((s) => kind(s) === 'doc');
-    const browser = (s: Shot, lead: boolean) => `
-      <figure class="wg-browser${lead ? ' wg-browser--lead' : ''}" data-reveal>
-        <div class="wg-browser__frame" data-tilt="4">
-          <div class="wg-browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.site ?? p.name)}</span></div>
-          ${img(s, lead ? '(max-width: 900px) 92vw, 1200px' : '(max-width: 900px) 92vw, 640px', lead)}
-        </div>
-        ${cap(s)}
-      </figure>`;
-    // Un único móvil no llena una banda: se empareja con la segunda captura de escritorio.
-    const duo = phones.length === 1 && desks.length > 1;
-    const phone = (s: Shot) => `<figure class="wg-phone" data-reveal><div class="wg-phone__frame" data-tilt="8">${img(s, '240px')}</div>${cap(s)}</figure>`;
-    const lead = desks[0] ? `<div class="wg-lead wrap">${browser(desks[0], true)}</div>` : '';
-    const band = phones.length || squares.length
-      ? `<section class="wg-band" style="${field(p.field)}" aria-label="${ui.gallery[L]}">
-          ${duo ? `<div class="wg-duo wrap">${browser(desks[1], false)}${phone(phones[0])}</div>` : phones.length ? `<div class="wg-phones">${phones.map(phone).join('')}</div>` : ''}
-          ${squares.length ? `<div class="wg-squares wrap">${squares.map((s) => `<figure class="wg-square" data-reveal><div class="wg-square__frame" data-tilt="7">${img(s, '(max-width: 900px) 45vw, 320px')}</div>${cap(s)}</figure>`).join('')}</div>` : ''}
-        </section>`
+    const screen = (s: Shot, sizes: string, eager = false) => `
+      <div class="cs-screen" data-tilt="4">
+        ${p.game ? '' : `<div class="cs-screen__bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.site ?? p.name)}</span></div>`}
+        ${img(s, sizes, eager)}
+      </div>`;
+    const phone = (s: Shot, sizes = '220px') => `<div class="cs-phone" data-tilt="7">${img(s, sizes)}</div>`;
+    const square = (s: Shot) => `<div class="cs-square" data-tilt="6">${img(s, '(max-width: 900px) 45vw, 280px')}</div>`;
+
+    // Escena de la cabecera: la mejor composición posible con el material del proyecto.
+    const used = new Set<Shot>();
+    const take = (s: Shot | undefined) => { if (s) used.add(s); return s; };
+    let stage = '';
+    if (desks.length && phones.length) {
+      const d = take(desks[0])!, ph = take(phones[1] ?? phones[0])!;
+      stage = `<div class="cs-stage cs-stage--duo">${screen(d, '(max-width: 900px) 90vw, 920px', true)}${phone(ph, '240px')}</div>`;
+    } else if (desks.length > 1) {
+      const a = take(desks[0])!, b = take(desks[1])!;
+      stage = `<div class="cs-stage cs-stage--pair"><div class="cs-stage__main">${screen(a, '(max-width: 900px) 90vw, 920px', true)}</div><div class="cs-stage__side">${screen(b, '(max-width: 900px) 50vw, 420px')}</div></div>`;
+    } else if (phones.length >= 3) {
+      const trio = [take(phones[1])!, take(phones[2])!, take(phones[3] ?? phones[0])!];
+      stage = `<div class="cs-stage cs-stage--trio">${trio.map((s) => phone(s, '260px')).join('')}</div>`;
+    } else if (squares.length >= 4) {
+      const four = squares.slice(0, 4).map((s) => take(s)!);
+      stage = `<div class="cs-stage cs-stage--mosaic">${four.map(square).join('')}</div>`;
+    }
+
+    // Galería compacta en mosaico con lo que no ha salido en la escena (o todo, si es una rejilla de vistas previas).
+    const rest = p.shots.filter((s) => !used.has(s) || kind(s) === 'sq');
+    const tile = (s: Shot) => {
+      const k = kind(s);
+      const body = k === 'desk' ? screen(s, '(max-width: 900px) 90vw, 440px') : k === 'phone' ? phone(s) : k === 'sq' ? square(s) : `<div class="cs-doc" data-tilt="4">${img(s, '(max-width: 900px) 90vw, 440px')}</div>`;
+      return `<figure class="cs-tile cs-tile--${k}" data-reveal>${body}<figcaption>${esc((s.cap ?? s.alt)[L])}</figcaption></figure>`;
+    };
+    const gallery = rest.length
+      ? `<section class="cs-block" aria-label="${ui.gallery[L]}"><h3 class="cs-h">${ui.gallery[L]}</h3><div class="cs-gallery">${rest.map(tile).join('')}</div></section>`
       : '';
-    const restDesks = desks.slice(duo ? 2 : 1);
-    const rest = restDesks.length || docs.length
-      ? `<div class="wg-rest wrap">${restDesks.map((s) => browser(s, false)).join('')}${docs.map((s) => `<figure class="wg-doc" data-reveal><div class="wg-doc__frame" data-tilt="4">${img(s, '(max-width: 900px) 92vw, 640px')}</div>${cap(s)}</figure>`).join('')}</div>`
+
+    const features = `<section class="cs-block"><h3 class="cs-h">${ui.how[L]}</h3><div class="cs-features">${p.sections.map((s) => `<article class="cs-feature" data-reveal><h4>${esc(s.title[L])}</h4><p>${esc(s.body[L])}</p></article>`).join('')}</div></section>`;
+    const compare = p.compare
+      ? `<section class="cs-block"><h3 class="cs-h">${esc(p.compare.title[L])}</h3><div class="cs-compare">${p.compare.pairs.map((c) => `
+          <figure class="cs-pair" data-reveal>
+            <div class="cs-pair__imgs">
+              <div class="cs-pair__img"><img src="/img/hg-cmp-real-${c.name}-960.webp" srcset="/img/hg-cmp-real-${c.name}-600.webp 600w, /img/hg-cmp-real-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" alt="${ui.real[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.real[L]}</span></div>
+              <div class="cs-pair__img"><img src="/img/hg-cmp-juego-${c.name}-960.webp" srcset="/img/hg-cmp-juego-${c.name}-600.webp 600w, /img/hg-cmp-juego-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" alt="${ui.inGame[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.inGame[L]}</span></div>
+            </div>
+            <figcaption>${esc(c.cap[L])}</figcaption>
+          </figure>`).join('')}</div></section>`
       : '';
-    const rows = p.sections.map((s) => `<div class="wp__row" data-reveal><h3>${esc(s.title[L])}</h3><p>${esc(s.body[L])}</p></div>`).join('');
-    const list = p.list ? `<div class="wp__row" data-reveal><h3>${esc(p.list.title[L])}</h3><ul class="wp__list">${p.list.items.map((x) => `<li>${esc(x[L])}</li>`).join('')}</ul></div>` : '';
-    const stack = p.stack.length ? `<div class="wp__row" data-reveal><h3>${ui.stack[L]}</h3><ul class="chips chips--solid">${p.stack.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : '';
-    const links = p.links.map((l, k) => `<a class="btn ${k ? 'btn--line' : 'btn--ink'}" href="${l.href}" target="_blank" rel="noopener"><span>${esc(l.label[L])}</span><svg aria-hidden="true"><use href="#i-out"/></svg></a>`).join('');
+    const list = p.list
+      ? `<section class="cs-block"><h3 class="cs-h">${esc(p.list.title[L])}</h3><ul class="cs-list" data-reveal>${p.list.items.map((x) => `<li>${esc(x[L])}</li>`).join('')}</ul></section>`
+      : '';
+    const links = p.links.map((l, k) => `<a class="btn ${k ? 'btn--line cs-btn-line' : 'cs-btn'}" href="${l.href}" target="_blank" rel="noopener"><span>${esc(l.label[L])}</span><svg aria-hidden="true"><use href="#i-out"/></svg></a>`).join('');
+    const nextShot = next.shots[0];
+    // Logotipo real con su punto (KORA): el punto es parte de la marca, no del SVG.
+    const logo = (q: Project, cls: string) => `<span class="kora-mark ${cls}"><img src="${q.logo}" alt="${esc(q.name)}" width="470" height="139"><i class="kora-dot" aria-hidden="true"></i></span>`;
 
     this.page.innerHTML = `
-      <header class="wp__head" style="${field(p.field)}">
-        ${deco}
-        <div class="wp__head-in wrap">
-          <h2 class="wp__name" id="win-title" data-in>${p.logo ? `<img class="wp__logo" src="${p.logo}" alt="${esc(p.name)}" width="470" height="139">` : esc(p.name)}</h2>
-          <p class="wp__kind" data-in>${esc(p.kind[L])}</p>
-          <p class="wp__claim" data-in>${esc(p.claim[L])}</p>
-          <dl class="wp__facts" data-in>${p.facts.map(([k, v]) => `<div><dt>${esc(k[L])}</dt><dd>${esc(v[L])}</dd></div>`).join('')}</dl>
+      <div class="cs" style="${field(p.field)}">
+        <header class="cs-hero${stage ? '' : ' cs-hero--plain'}">
+          <div class="cs-hero__in wrap">
+            <div class="cs-hero__id">
+              <h2 class="cs-name" id="win-title" data-in>${p.logo ? logo(p, 'cs-mark') : esc(p.name)}</h2>
+              <p class="cs-kind" data-in>${esc(p.kind[L])}</p>
+              <p class="cs-claim" data-in>${esc(p.claim[L])}</p>
+              <div class="cs-cta" data-in>${links}</div>
+            </div>
+            <dl class="cs-facts" data-in>${p.facts.map(([k, v]) => `<div><dt>${esc(k[L])}</dt><dd>${esc(v[L])}</dd></div>`).join('')}</dl>
+          </div>
+          ${stage ? `<div class="cs-stage-wrap wrap" data-in>${stage}</div>` : ''}
+        </header>
+        <div class="cs-body wrap">
+          <aside class="cs-aside">
+            <p class="cs-intro">${esc(p.intro[L])}</p>
+            ${p.stack.length ? `<div class="cs-aside__block"><h3 class="cs-h">${ui.stack[L]}</h3><ul class="cs-chips">${p.stack.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
+            ${p.note ? `<p class="cs-note">${esc(p.note[L])}</p>` : ''}
+          </aside>
+          <div class="cs-main">
+            ${features}
+            ${compare}
+            ${gallery}
+            ${list}
+          </div>
         </div>
-      </header>
-      <div class="wrap">
-        <p class="wp__intro" data-reveal>${esc(p.intro[L])}</p>
-      </div>
-      ${lead}
-      ${band}
-      ${rest}
-      <div class="wrap">
-        <div class="wp__rows">${rows}${list}${stack}</div>
-        <div class="wp__end" data-reveal>${links}${p.note ? `<p class="wp__note">${esc(p.note[L])}</p>` : ''}</div>
-      </div>
-      <a class="wp__next" href="${route(next.slug)}" data-win-go="next" style="${field(next.field)}">
-        <b>${esc(next.name)}<svg aria-hidden="true"><use href="#i-arrow"/></svg></b>
-        <small>${ui.next[L]}</small>
-      </a>`;
+        <a class="cs-next" href="${route(next.slug)}" data-win-go="next" style="${field(next.field)}">
+          <span class="cs-next__text"><small>${ui.next[L]}</small><b>${next.logo ? logo(next, 'cs-mark cs-mark--next') : esc(next.name)}<svg aria-hidden="true"><use href="#i-arrow"/></svg></b><em>${esc(next.claim[L])}</em></span>
+          ${nextShot ? `<span class="cs-next__thumb" aria-hidden="true"><img src="${nextShot.src}" alt="" width="${nextShot.w}" height="${nextShot.h}" loading="lazy"></span>` : ''}
+        </a>
+      </div>`;
     this.reveal();
   }
 

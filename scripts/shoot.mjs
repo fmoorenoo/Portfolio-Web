@@ -43,6 +43,7 @@ for (const [w, h] of sizes) {
         case 'kora-end': return at('#kora') + innerWidth * 2.2;
         case 'hair': return at('.case--hair', -20);
         case 'archive': return at('.archive', -80);
+        case 'game': return at('.case--game', -20);
         case 'stack': return at('#stack');
         case 'trayectoria': return at('#trayectoria', 40);
         case 'route-mid': return at('#trayectoria', 40) + innerWidth * 1.4;
