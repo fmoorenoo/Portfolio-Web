@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fernando Montelongo — Full Stack Developer en Lanzarote</title>
+  <meta name="description" content="Portfolio de Fernando Montelongo Moreno, desarrollador full stack de Lanzarote: LanzaMet, ACESLAN, KORA Digital Solutions, HairCloud y más.">
+  <meta name="theme-color" content="#EEF2F0">
+  <meta property="og:title" content="Fernando Montelongo — Full Stack Developer">
+  <meta property="og:description" content="Construyo software para mi isla: LanzaMet, ACESLAN y webs para clientes reales con KORA.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_GB">
+  <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/martian.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('motion', 'intro');
+        setTimeout(function () { d.classList.remove('intro'); }, 3000);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6.5L19.5 12 13 18.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7m-8.5 0H17v8.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v15m-6.5-6L12 19.5 18.5 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <!-- Barba de viento: asta, plumas y punto de estación -->
+    <symbol id="i-barb" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="20" cy="33" r="3.2"/><path d="M20 29.8V5M20 5l8 -3.5M20 10l8 -3.5M20 15l4.5 -2"/></g></symbol>
+  </svg>
+
+  <a class="skip" href="#contacto" data-i18n="skip">Saltar al contacto</a>
+
+  <header class="bar" data-bar>
+    <a class="bar__mark" href="/" aria-label="Fernando Montelongo, inicio" data-i18n-attr="aria-label:bar.home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="currentColor"/><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Fernando Montelongo</span>
+    </a>
+    <nav class="bar__nav" aria-label="Secciones" data-i18n-attr="aria-label:nav.label" id="menu">
+      <a href="#proyectos" data-i18n="nav.work">Proyectos</a>
+      <a href="#kora">KORA</a>
+      <a href="#trayectoria" data-i18n="nav.path">Trayectoria</a>
+      <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+      <div class="bar__lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+    <a class="btn btn--ink bar__cta" href="mailto:fermdev@gmail.com"><span data-i18n="nav.mail">Escríbeme</span></a>
+    <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="visually-hidden" data-i18n="nav.open">Abrir menú</span><i></i><i></i>
+    </button>
+  </header>
+
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <main>
+
+        <!-- Carta: identidad -->
+        <section class="hero" id="inicio" aria-labelledby="t-name">
+          <div class="field field--light" aria-hidden="true"><canvas data-field="light"></canvas></div>
+          <div class="hero__map" aria-hidden="true">
+            <div class="hero__island" data-intro>
+              <div class="isle"></div>
+              <span class="station hero__station"><i></i><span data-i18n="hero.station">Arrecife, Lanzarote, España</span></span>
+            </div>
+            <span class="pcentre pcentre--a hero__high" data-intro><b>A</b><small>1024</small></span>
+            <span class="pcentre pcentre--b hero__low" data-intro><b>B</b><small>1004</small></span>
+            <svg class="barb hero__barb hero__barb--1" data-intro><use href="#i-barb"/></svg>
+            <svg class="barb hero__barb hero__barb--2" data-intro><use href="#i-barb"/></svg>
+            <svg class="barb hero__barb hero__barb--3" data-intro><use href="#i-barb"/></svg>
+          </div>
+
+          <div class="hero__copy">
+            <h1 class="hero__name" id="t-name">
+              <span class="hero__line" data-split>Fernando</span>
+              <span class="hero__line" data-split>Montelongo</span>
+            </h1>
+            <div class="hero__intro" data-intro>
+              <p class="hero__lede" data-i18n="hero.lede">Desarrollador full stack en Lanzarote. Construyo software para mi isla: una web meteorológica en producción, una app de emergencias para el Consorcio y webs para clientes reales.</p>
+              <p class="status"><i aria-hidden="true"></i><span data-i18n="hero.status">Disponible como Full Stack Junior · remoto, híbrido o presencial</span></p>
+              <div class="hero__actions">
+                <a class="btn btn--ink" href="#proyectos" data-magnetic><span data-i18n="hero.cta">Ver proyectos</span><svg aria-hidden="true"><use href="#i-down"/></svg></a>
+                <a class="btn btn--line" href="mailto:fermdev@gmail.com" data-magnetic>fermdev@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Parte del día -->
+        <section class="parte" id="parte" aria-labelledby="t-parte">
+          <svg class="front front--cold" data-front="cold" aria-hidden="true"></svg>
+          <div class="parte__grid wrap">
+            <figure class="parte__photo">
+              <div class="parte__frame" data-clip>
+                <div class="portrait" data-eyes>
+                  <img class="portrait__base" src="/img/retrato-base-1000.webp" srcset="/img/retrato-base-640.webp 640w, /img/retrato-base-1000.webp 1000w" sizes="(max-width: 900px) 80vw, 34vw" width="1000" height="1103" alt="Retrato de Fernando Montelongo." data-i18n-attr="alt:parte.alt" loading="lazy">
+                  <span class="eye eye--izq" aria-hidden="true"><img src="/img/ojo-izq-iris.png" width="41" height="41" alt="" loading="lazy"></span>
+                  <span class="eye eye--der" aria-hidden="true"><img src="/img/ojo-der-iris.png" width="41" height="41" alt="" loading="lazy"></span>
+                </div>
+              </div>
+              <figcaption class="parte__cap"><span>Fernando Montelongo Moreno</span><span>fmoorenoo</span></figcaption>
+            </figure>
+            <div class="parte__text">
+              <h2 class="parte__title" id="t-parte" data-i18n="parte.title">Software hecho en Lanzarote, ya en producción.</h2>
+              <p class="parte__statement" data-words data-i18n="parte.statement">He publicado varios productos propios, he entregado una app al Consorcio de Emergencias de la isla y cofundé KORA, donde llevo el desarrollo de webs para clientes reales. Me formé en DAM y DAW, y me gusta el software útil, ordenado y fácil de mantener.</p>
+              <dl class="station-card" data-rows>
+                <div><dt data-i18n="st.base">Base</dt><dd>Arrecife, Lanzarote</dd></div>
+                <div><dt data-i18n="st.role">Rol</dt><dd>Full Stack Developer · Frontend &amp; Backend</dd></div>
+                <div><dt data-i18n="st.study">Formación</dt><dd data-i18n="st.studyv">DAM + DAW</dd></div>
+                <div><dt data-i18n="st.lang">Idiomas</dt><dd data-i18n="st.langv">Español nativo · inglés B2 acreditado</dd></div>
+                <div><dt data-i18n="st.code">Código público</dt><dd data-i18n="st.codev"><a href="https://github.com/fmoorenoo" target="_blank" rel="noopener">17 repositorios originales y 1.085 commits</a></dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <!-- Proyectos -->
+        <section class="work" id="proyectos" aria-labelledby="t-work">
+          <header class="work__head wrap">
+            <h2 class="h2" id="t-work" data-split data-i18n="work.title">Proyectos</h2>
+            <p class="work__lede" data-i18n="work.lede">Lo publicado primero. Cada proyecto tiene su propia ventana con capturas, cómo está hecho y enlaces.</p>
+          </header>
+
+          <article class="case case--lanzamet" data-case aria-labelledby="t-lm" style="--field: var(--sky); --field-ink: var(--ocean)">
+            <div class="case__card" data-clip>
+              <div class="case__text">
+                <h3 class="case__title" id="t-lm">LanzaMet</h3>
+                <p class="case__kind" data-i18n="lm.kind">Producto propio · en producción desde octubre de 2026</p>
+                <p class="case__claim" data-i18n="lm.claim">El tiempo y el mar de Lanzarote, en palabras claras.</p>
+                <p class="case__body" data-i18n="lm.body">Idea, diseño y desarrollo propios: viento, mar y mareas en 9 zonas de la isla, previsión hora a hora y a 7 días, sin anuncios. Angular 22 con Signals y una API propia sobre Cloudflare Workers.</p>
+                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                  <li>Angular 22</li><li>Signals</li><li>TypeScript</li><li>Cloudflare Workers</li><li>PWA</li><li>Vitest</li>
+                </ul>
+                <div class="case__actions">
+                  <a class="btn btn--ink" href="/proyectos/lanzamet" data-open="lanzamet"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="link-out" href="https://lanzamet.com" target="_blank" rel="noopener">lanzamet.com<svg aria-hidden="true"><use href="#i-out"/></svg></a>
+                </div>
+              </div>
+              <div class="case__media lm-media" aria-hidden="true" data-tilt="5">
+                <div class="lm-media__map">
+                  <div class="isle isle--sea"></div>
+                  <ul class="zones">
+                    <li style="--x:46%;--y:80%">Puerto del Carmen</li>
+                    <li style="--x:14%;--y:92%">Playa Blanca</li>
+                    <li style="--x:68%;--y:71%">Arrecife</li>
+                    <li style="--x:79%;--y:62%">Costa Teguise</li>
+                    <li style="--x:65%;--y:42%">Famara</li>
+                    <li style="--x:85%;--y:18%">Órzola</li>
+                    <li style="--x:84%;--y:36%">Arrieta</li>
+                    <li style="--x:46%;--y:44%">La Santa</li>
+                    <li style="--x:16%;--y:69%">El Golfo</li>
+                  </ul>
+                </div>
+                <figure class="shot lm-media__desk" data-speed="1.06">
+                  <img src="/img/lanzamet-hoy-1600.webp" srcset="/img/lanzamet-hoy-900.webp 900w, /img/lanzamet-hoy-1600.webp 1600w" sizes="(max-width: 900px) 88vw, 46vw" width="1600" height="900" alt="" loading="lazy">
+                </figure>
+                <figure class="shot shot--phone lm-media__phone" data-speed="1.14">
+                  <img src="/img/lanzamet-movil-900.webp" width="900" height="1948" alt="" loading="lazy">
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="case case--aceslan" data-case aria-labelledby="t-ac" style="--field: var(--ace-field); --field-ink: #FFFFFF">
+            <div class="case__card" data-clip>
+              <div class="case__text">
+                <h3 class="case__title" id="t-ac">ACESLAN</h3>
+                <p class="case__kind" data-i18n="ac.kind">Experiencia profesional · febrero – junio de 2026</p>
+                <p class="case__claim" data-i18n="ac.claim">Incidencias y avisos para el Consorcio de Seguridad y Emergencias de Lanzarote y La Graciosa.</p>
+                <p class="case__body" data-i18n="ac.body">Desarrollo full stack a jornada completa: app móvil para Android e iOS, panel web de administración, backend en servidor online y despliegue. El Consorcio la presentó en beta en mayo de 2026.</p>
+                <p class="ac-press"><span data-i18n="ac.press">En la prensa</span> <a href="https://www.diariodelanzarote.com/noticia/el-consorcio-de-seguridad-y-emergencias-de-lanzarote-presenta-aceslan-la-nueva-aplicaci%C3%B3n" target="_blank" rel="noopener">Diario de Lanzarote<svg aria-hidden="true"><use href="#i-out"/></svg></a> <a href="https://www.lancelotdigital.com/lanzarote/aceslan-la-nueva-app-que-moderniza-la-seguridad-y-las-emergencias-en-lanzarote" target="_blank" rel="noopener">Lancelot Digital<svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
+                <div class="case__actions">
+                  <a class="btn btn--light" href="/proyectos/aceslan" data-open="aceslan"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+              </div>
+              <div class="case__media ac-media" aria-hidden="true" data-tilt="5">
+                <figure class="ac-media__browser" data-speed="1.04">
+                  <div class="ac-media__bar"><i></i><i></i><i></i><span data-i18n="ac.panel">ACESLAN · Panel de administración</span></div>
+                  <img src="/img/ac-panel-incidencias-900.webp" width="900" height="563" alt="" loading="lazy">
+                </figure>
+                <figure class="shot shot--phone ac-media__phone ac-media__phone--a" data-speed="1.1"><img src="/img/ac-inicio.webp" width="640" height="1365" alt="" loading="lazy"></figure>
+                <figure class="shot shot--phone ac-media__phone ac-media__phone--b" data-speed="1.16"><img src="/img/ac-incidencias.webp" width="640" height="1365" alt="" loading="lazy"></figure>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- KORA: tramo horizontal -->
+        <section class="kora" id="kora" aria-labelledby="t-kora">
+          <div class="kora__pin">
+            <div class="kora__track" data-htrack>
+              <div class="kora__intro">
+                <h2 class="kora__title" id="t-kora"><img class="kora__logo" src="/img/kora-logo.svg" width="470" height="139" alt="KORA"> <span>Digital Solutions</span></h2>
+                <p class="kora__role" data-i18n="ko.role">Cofundador · Desarrollo &amp; Tecnología · desde septiembre de 2025</p>
+                <blockquote class="kora__quote"><p data-i18n="ko.quote">«No hacemos webs. Creamos presencias digitales.»</p></blockquote>
+                <p class="kora__body" data-i18n="ko.body">Webs a medida para empresas: reservas, e-commerce, paneles de administración, bases de datos, áreas privadas, asistentes con IA y automatizaciones. Del prototipo al mantenimiento.</p>
+                <p class="kora__team" data-i18n="ko.team">Trabajo del equipo KORA — Iriem, Fernando y Fabio.</p>
+                <div class="case__actions">
+                  <a class="btn btn--kora" href="/proyectos/kora" data-open="kora"><span data-i18n="ko.open">Ver KORA en detalle</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="link-out" href="https://koradigitalsolutions.com" target="_blank" rel="noopener">koradigitalsolutions.com<svg aria-hidden="true"><use href="#i-out"/></svg></a>
+                </div>
+                <p class="kora__hint" aria-hidden="true"><span data-i18n="ko.hint">8 webs publicadas</span><svg><use href="#i-arrow"/></svg></p>
+              </div>
+              <ul class="sites" aria-label="Webs publicadas con KORA" data-i18n-attr="aria-label:ko.list">
+                <li class="site"><a href="https://formatxp.com" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-formatxp.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s1">Formación online</span><b class="site__name">FormatXP</b><span class="site__what" data-i18n="ko.f1">Vídeo protegido, comunidad, pagos directos y panel de creador.</span><span class="site__url">formatxp.com<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://carboncarbon.es" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-carboncarbon.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s2">Restauración · Arrecife</span><b class="site__name">Carbón Carbón</b><span class="site__what" data-i18n="ko.f2">Reservas, carta digital y reseñas de Google.</span><span class="site__url">carboncarbon.es<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://autosmr.com" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-autosmr.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s3">Automoción</span><b class="site__name">AutoSMR</b><span class="site__what" data-i18n="ko.f3">Panel de stock, base de datos conectada y filtros en vivo.</span><span class="site__url">autosmr.com<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://cm4costaviva.com" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-cm4costaviva.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s4">Inmobiliaria</span><b class="site__name">CM4 Costa Viva</b><span class="site__what" data-i18n="ko.f4">Catálogo bilingüe en español e inglés.</span><span class="site__url">cm4costaviva.com<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://doce12ia.com" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-doce12ia.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s5">EdTech con IA</span><b class="site__name">Doce12IA</b><span class="site__what" data-i18n="ko.f5">Genera material docente y lo exporta a Google Slides y Docs.</span><span class="site__url">doce12ia.com<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://bermejaproducciones.es" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-bermeja.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s6">Eventos</span><b class="site__name">Bermeja Producciones</b><span class="site__what" data-i18n="ko.f6">Web bilingüe.</span><span class="site__url">bermejaproducciones.es<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://teleclubmasdache.es" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-masdache.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s7">Restauración · Tías</span><b class="site__name">Teleclub Masdache</b><span class="site__what" data-i18n="ko.f7">Reservas, asistente con IA y 6 idiomas.</span><span class="site__url">teleclubmasdache.es<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+                <li class="site"><a href="https://ymelbet.es" target="_blank" rel="noopener"><span class="site__shot" data-tilt="6"><img src="/img/kora-ymelbet.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s8">Clínica dental · Arrecife</span><b class="site__name">Ymelbet</b><span class="site__what" data-i18n="ko.f8">Citas por WhatsApp, asistente con IA, bilingüe.</span><span class="site__url">ymelbet.es<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
+              </ul>
+            </div>
+            <div class="hbar" aria-hidden="true"><i data-hbar></i></div>
+          </div>
+        </section>
+
+        <!-- HairCloud y archivo -->
+        <section class="work work--b" aria-label="Proyectos académicos" data-i18n-attr="aria-label:work.academic">
+          <article class="case case--hair" data-case aria-labelledby="t-hc" style="--field: var(--cloud-field); --field-ink: var(--cloud-ink)">
+            <div class="case__card" data-clip>
+              <div class="case__text">
+                <h3 class="case__title" id="t-hc">HairCloud</h3>
+                <p class="case__kind" data-i18n="hc.kind">Proyecto final de DAM · marzo – mayo de 2025</p>
+                <p class="case__claim" data-i18n="hc.claim">Reservas para peluquerías, con app Android y API propia.</p>
+                <p class="case__body" data-i18n="hc.body">29 pantallas en Jetpack Compose y 45 rutas REST en 9 módulos de Flask, con PostgreSQL, JWT y correo. 376 commits en tres meses, con el anteproyecto y los diseños en el repositorio.</p>
+                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                  <li>Kotlin</li><li>Jetpack Compose</li><li>Flask</li><li>PostgreSQL</li><li>JWT</li>
+                </ul>
+                <div class="case__actions">
+                  <a class="btn btn--ink" href="/proyectos/haircloud" data-open="haircloud"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="link-out" href="https://github.com/fmoorenoo/HairCloud" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a>
+                </div>
+              </div>
+              <div class="case__media hc-media" aria-hidden="true" data-tilt="5">
+                <figure class="shot shot--phone hc-media__a" data-speed="1.05"><img src="/img/hc-detalle.webp" width="640" height="1346" alt="" loading="lazy"></figure>
+                <figure class="shot shot--phone hc-media__b" data-speed="1.15"><img src="/img/hc-agenda.webp" width="640" height="1346" alt="" loading="lazy"></figure>
+              </div>
+            </div>
+          </article>
+
+          <div class="archive wrap" aria-labelledby="t-archive">
+            <h3 class="archive__title" id="t-archive" data-i18n="ar.title">También en GitHub</h3>
+            <ul class="archive__list" data-rows>
+              <li><a href="https://github.com/fmoorenoo/cursos_online" target="_blank" rel="noopener"><b>CertiFer</b><span data-i18n="ar.1">Catálogo de cursos con carrito y login</span><em>Vue 3 · PHP · MySQL</em><time>2026</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/GestorProyectosAlexsoft" target="_blank" rel="noopener"><b>Gestor Alexsoft</b><span data-i18n="ar.2">App de escritorio con API propia</span><em>Compose Desktop · Ktor · Flask</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/HariaGame" target="_blank" rel="noopener"><b>Haría Game</b><span data-i18n="ar.3">Aventura 3D en el IES Haría</span><em>Unity · C#</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://fmoorenoo.github.io/TagMasterPage/" target="_blank" rel="noopener"><b>TagMaster</b><span data-i18n="ar.4">Juego educativo, jugable en el navegador</span><em>Unity · WebGL</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/perdidasLanzarote" target="_blank" rel="noopener"><b>Pérdidas Lanzarote</b><span data-i18n="ar.5">Objetos perdidos de la isla, en un mapa</span><em>Kotlin · Room · osmdroid</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/mapRoomApp" target="_blank" rel="noopener"><b data-i18n="ar.6t">Fundamentos Android</b><span>Map Room · Task Room · HIIT Timer</span><em>Kotlin · Compose</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/ChatServer" target="_blank" rel="noopener"><b>ChatServer</b><span data-i18n="ar.7">Chat TCP multicliente con un hilo por cliente</span><em>Java 21</em><time></time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Tecnologías -->
+        <section class="stack" id="stack" aria-labelledby="t-stack">
+          <div class="wrap stack__grid">
+            <h2 class="h2" id="t-stack" data-split data-i18n="sk.title">Con qué construyo</h2>
+            <div class="stack__group">
+              <p class="stack__key"><i class="key key--solid" aria-hidden="true"></i><span data-i18n="sk.v">Lo demuestra mi código público o un producto en producción</span></p>
+              <ul class="chips chips--solid" data-chips>
+                <li>Angular</li><li>TypeScript</li><li>Kotlin</li><li>Jetpack Compose</li><li>Python</li><li>Flask</li><li>PostgreSQL</li><li>Vue</li><li>PHP</li><li>MySQL</li><li>JavaScript</li><li>HTML</li><li>CSS / SCSS</li><li>Java</li><li>C#</li><li>Unity</li><li>Room</li><li>Retrofit</li><li>Ktor</li><li>Cloudflare Workers</li><li>PWA</li><li>Git</li>
+              </ul>
+            </div>
+            <div class="stack__group">
+              <p class="stack__key"><i class="key key--line" aria-hidden="true"></i><span data-i18n="sk.d">También trabajo con ello, sin código público que lo enseñe</span></p>
+              <ul class="chips chips--line" data-chips>
+                <li>Laravel</li><li>React</li><li>Next.js</li><li>Astro</li><li>Tailwind CSS</li><li>Node.js</li><li>Docker</li><li>AWS</li><li>Firebase</li><li>GSAP</li><li>Linux</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trayectoria: barograma horizontal -->
+        <section class="route" id="trayectoria" aria-labelledby="t-route">
+          <svg class="front front--warm" data-front="warm" aria-hidden="true"></svg>
+          <div class="route__pin">
+            <h2 class="h2 route__title wrap" id="t-route" data-i18n="rt.title">Trayectoria</h2>
+            <div class="route__track" data-htrack>
+              <svg class="route__trace" aria-hidden="true" preserveAspectRatio="none"><path data-trace/></svg>
+              <ol class="route__list">
+                <li style="--lvl: 0.12"><time>2021 — 2023</time><b data-i18n="rt.1">Bachillerato de Ciencias de la Salud</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.2"><time>2023 — 2025</time><b data-i18n="rt.2">Desarrollo de Aplicaciones Multiplataforma (DAM)</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.28"><time data-i18n="rt.3d">Mayo 2024</time><b data-i18n="rt.3">Mi primera web, para el San Bartolomé C.F.</b><span><a href="https://fmoorenoo.github.io/San-Bartolome/" target="_blank" rel="noopener" data-i18n="rt.3l">HTML, CSS y JavaScript sin frameworks</a></span></li>
+                <li style="--lvl: 0.36"><time data-i18n="rt.4d">Oct. — dic. 2024</time><b data-i18n="rt.4">Primeras apps Android</b><span>Kotlin · Compose · Room</span></li>
+                <li style="--lvl: 0.46"><time data-i18n="rt.5d">Feb. — jun. 2025</time><b data-i18n="rt.5">Prácticas full stack en GISECLOUD</b><span>Técnicas Competitivas S.A. · Angular · C#</span></li>
+                <li style="--lvl: 0.54"><time data-i18n="rt.6d">Mar. — may. 2025</time><b data-i18n="rt.6">HairCloud, proyecto final de DAM</b><span data-i18n="rt.6s">376 commits</span></li>
+                <li style="--lvl: 0.64"><time data-i18n="rt.7d">Sept. 2025</time><b data-i18n="rt.7">Cofundo KORA Digital Solutions</b><span data-i18n="rt.7s">Desarrollo &amp; Tecnología</span></li>
+                <li style="--lvl: 0.7"><time>2025 — 2026</time><b data-i18n="rt.8">Desarrollo de Aplicaciones Web (DAW)</b><span>CIFP Zonzamas</span></li>
+                <li style="--lvl: 0.8"><time data-i18n="rt.9d">Feb. — jun. 2026</time><b data-i18n="rt.9">ACESLAN para el Consorcio de Emergencias</b><span data-i18n="rt.9s">Presentada en mayo de 2026</span></li>
+                <li style="--lvl: 0.9"><time data-i18n="rt.10d">Oct. 2026</time><b data-i18n="rt.10">LanzaMet, en producción</b><span>lanzamet.com</span></li>
+                <li class="route__now" style="--lvl: 0.97"><time data-i18n="rt.11d">Ahora</time><b data-i18n="rt.11">Busco mi próximo equipo como Full Stack Junior</b><span data-i18n="rt.11s">Remoto, híbrido o presencial</span></li>
+              </ol>
+            </div>
+            <div class="hbar" aria-hidden="true"><i data-hbar></i></div>
+          </div>
+        </section>
+
+        <!-- Contacto -->
+        <section class="contact" id="contacto" aria-labelledby="t-contact">
+          <div class="field field--dark" aria-hidden="true"><canvas data-field="dark"></canvas></div>
+          <div class="contact__inner wrap">
+            <h2 class="contact__title" id="t-contact" data-split data-i18n="ct.title">¿Hablamos?</h2>
+            <p class="contact__lede" data-i18n="ct.lede">Busco incorporarme como Full Stack Developer Junior. Remoto, híbrido o presencial.</p>
+            <a class="contact__mail" href="mailto:fermdev@gmail.com" data-magnetic><span>fermdev@gmail.com</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul class="contact__links">
+              <li><a href="https://www.linkedin.com/in/fernando-montelongo" target="_blank" rel="noopener">LinkedIn<svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://koradigitalsolutions.com" target="_blank" rel="noopener">KORA<svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+            </ul>
+          </div>
+          <footer class="foot wrap">
+            <span>© 2026 Fernando Montelongo Moreno</span>
+            <span>Arrecife, Lanzarote · 28,96° N 13,55° O</span>
+            <a href="#inicio" data-i18n="ft.top">Volver arriba</a>
+          </footer>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Ventana de proyecto (ruta /proyectos/:slug) -->
+  <div class="win" id="win" role="dialog" aria-modal="true" aria-labelledby="win-title" hidden>
+    <div class="win__sheet" data-win-sheet>
+      <div class="win__bar">
+        <button class="win__close" type="button" data-win-close><svg aria-hidden="true"><use href="#i-close"/></svg><span data-i18n="win.close">Cerrar</span></button>
+        <p class="win__crumb" aria-hidden="true"><span>fernandomontelongo</span>/<span data-win-slug></span></p>
+        <nav class="win__step" aria-label="Otros proyectos" data-i18n-attr="aria-label:win.others">
+          <a data-win-prev href="#"><svg aria-hidden="true" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg><span class="visually-hidden" data-i18n="win.prev">Proyecto anterior</span></a>
+          <a data-win-next href="#"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span class="visually-hidden" data-i18n="win.next">Proyecto siguiente</span></a>
+        </nav>
+      </div>
+      <div class="win__scroll" data-win-scroll tabindex="-1"><article class="win__page" data-win-page></article></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
