@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const [w, h] = (process.argv[2] ?? '1366x768').split('x').map(Number);
+const [x, y, cw, ch] = (process.argv[3] ?? '560,60,300,240').split(',').map(Number);
+const b = await chromium.launch({ args: ['--use-angle=d3d11', '--enable-gpu'] });
+const p = await b.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: +(process.env.DPR ?? 1) });
+await p.goto('http://127.0.0.1:5181/?nosnap', { waitUntil: 'networkidle' });
+await p.waitForTimeout(+(process.env.WAIT ?? 8000));
+if (process.env.CSS) await p.addStyleTag({ content: process.env.CSS });
+await p.waitForTimeout(300);
+await p.screenshot({ path: process.argv[4] ?? '.impeccable/review/zoom.png', clip: { x, y, width: cw, height: ch } });
+await b.close();
