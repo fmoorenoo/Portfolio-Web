@@ -1,0 +1,574 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T13:06:33.514Z",
+  "title": "Design System: Carta sinóptica",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Carta",
+        "canonical": "#EEF2F0",
+        "approxOklch": "oklch(95.8% 0.005 165.0)",
+        "tonalRamp": [
+          "#0A0B0B",
+          "#232424",
+          "#3E403F",
+          "#5B5E5D",
+          "#7B7E7C",
+          "#9C9F9D",
+          "#C2C5C3",
+          "#EDEFEE"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Carta en sombra",
+        "canonical": "#E2E9E5",
+        "approxOklch": "oklch(92.8% 0.009 161.3)",
+        "tonalRamp": [
+          "#0A0C0B",
+          "#222523",
+          "#3C413E",
+          "#595F5C",
+          "#797F7B",
+          "#9AA09C",
+          "#C1C5C3",
+          "#ECEFEE"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Tinta de isobara",
+        "canonical": "#10222C",
+        "approxOklch": "oklch(24.1% 0.031 234.3)",
+        "tonalRamp": [
+          "#070C0F",
+          "#1A262C",
+          "#31424D",
+          "#4D616D",
+          "#6C818D",
+          "#8DA2AF",
+          "#B7C7D0",
+          "#E7F0F5"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta segunda",
+        "canonical": "#3B505D",
+        "approxOklch": "oklch(41.9% 0.034 235.8)",
+        "tonalRamp": [
+          "#060C10",
+          "#19262D",
+          "#2F434E",
+          "#4B616E",
+          "#6A818F",
+          "#8BA2B1",
+          "#B6C7D2",
+          "#E7F0F6"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Regla",
+        "canonical": "rgba(16, 34, 44, 0.14)",
+        "tonalRamp": [
+          "rgba(16, 34, 44, 0.06)",
+          "rgba(16, 34, 44, 0.10)",
+          "rgba(16, 34, 44, 0.14)",
+          "rgba(16, 34, 44, 0.20)",
+          "rgba(16, 34, 44, 0.25)",
+          "rgba(16, 34, 44, 0.35)",
+          "rgba(16, 34, 44, 0.50)",
+          "rgba(16, 34, 44, 0.70)"
+        ]
+      },
+      "ocean": {
+        "role": "primary",
+        "displayName": "Atlántico profundo",
+        "canonical": "#0C2E40",
+        "approxOklch": "oklch(28.6% 0.051 235.8)",
+        "tonalRamp": [
+          "#040C12",
+          "#132732",
+          "#254456",
+          "#416277",
+          "#608298",
+          "#80A4BA",
+          "#AFC8D9",
+          "#E3F1FA"
+        ]
+      },
+      "ocean-2": {
+        "role": "primary",
+        "displayName": "Atlántico medio",
+        "canonical": "#123B50",
+        "approxOklch": "oklch(33.4% 0.058 234.8)",
+        "tonalRamp": [
+          "#030D13",
+          "#0F2734",
+          "#1F4458",
+          "#3B637A",
+          "#5B839B",
+          "#7BA5BE",
+          "#ABC9DB",
+          "#E1F1FB"
+        ]
+      },
+      "sky": {
+        "role": "tertiary",
+        "displayName": "Cielo",
+        "canonical": "#BFE3EA",
+        "approxOklch": "oklch(89.2% 0.039 210.7)",
+        "tonalRamp": [
+          "#050D0F",
+          "#14272B",
+          "#28454B",
+          "#43646A",
+          "#63848A",
+          "#83A5AC",
+          "#B1C9CE",
+          "#E4F1F4"
+        ],
+        "note": "Campo de LanzaMet; tinta ocean."
+      },
+      "alisio": {
+        "role": "tertiary",
+        "displayName": "Alisio",
+        "canonical": "#3CC3A2",
+        "approxOklch": "oklch(73.7% 0.125 172.8)",
+        "tonalRamp": [
+          "#001109",
+          "#003020",
+          "#005239",
+          "#007357",
+          "#009476",
+          "#2AB797",
+          "#85D7BE",
+          "#CFFAEB"
+        ]
+      },
+      "calima": {
+        "role": "secondary",
+        "displayName": "Calima",
+        "canonical": "#F4B23E",
+        "approxOklch": "oklch(80.6% 0.147 77.4)",
+        "tonalRamp": [
+          "#180600",
+          "#3D1A00",
+          "#663000",
+          "#8A4E00",
+          "#AD6E00",
+          "#D09000",
+          "#EABC73",
+          "#FFEBC5"
+        ],
+        "note": "Campo de KORA; tinta ink."
+      },
+      "warm": {
+        "role": "secondary",
+        "displayName": "Frente cálido",
+        "canonical": "#F0583A",
+        "approxOklch": "oklch(65.8% 0.193 33.1)",
+        "tonalRamp": [
+          "#220000",
+          "#510000",
+          "#860000",
+          "#B00F00",
+          "#D74022",
+          "#FF6647",
+          "#FFA189",
+          "#FFDDCF"
+        ],
+        "note": "Campo de ACESLAN; tinta warm-ink."
+      },
+      "cold": {
+        "role": "secondary",
+        "displayName": "Frente frío",
+        "canonical": "#2E6BE6",
+        "approxOklch": "oklch(56.0% 0.197 262.2)",
+        "tonalRamp": [
+          "#00062A",
+          "#001A61",
+          "#00309F",
+          "#1551CA",
+          "#3774F0",
+          "#5798FF",
+          "#92C3FF",
+          "#D3EFFF"
+        ]
+      },
+      "lilac": {
+        "role": "tertiary",
+        "displayName": "Ocluido",
+        "canonical": "#A98BEA",
+        "approxOklch": "oklch(70.2% 0.138 297.3)",
+        "tonalRamp": [
+          "#0E051E",
+          "#2A164A",
+          "#492A7A",
+          "#6748A1",
+          "#8769C4",
+          "#A88AE9",
+          "#CBB7FD",
+          "#F2E8FF"
+        ],
+        "note": "Campo de HairCloud; tinta lilac-ink."
+      },
+      "warm-ink": {
+        "role": "secondary",
+        "displayName": "Tinta de frente cálido",
+        "canonical": "#2A0E07",
+        "approxOklch": "oklch(20.7% 0.049 35.7)",
+        "tonalRamp": [
+          "#120806",
+          "#321E19",
+          "#55372F",
+          "#77544B",
+          "#987369",
+          "#BB948A",
+          "#DABDB5",
+          "#FBEAE6"
+        ]
+      },
+      "lilac-ink": {
+        "role": "tertiary",
+        "displayName": "Tinta ocluida",
+        "canonical": "#1C1236",
+        "approxOklch": "oklch(21.8% 0.068 292.7)",
+        "tonalRamp": [
+          "#0C0915",
+          "#252038",
+          "#41395E",
+          "#5F5681",
+          "#7E76A2",
+          "#9F97C5",
+          "#C4BFE1",
+          "#EFECFF"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Nombre del hero en dos líneas; contacto, ventana y «siguiente» suben a ancho 122."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titulares de sección: Proyectos, Con qué construyo, Trayectoria."
+      },
+      "headline-station": {
+        "displayName": "Headline station",
+        "purpose": "Nombre de proyecto en su tarjeta, en una línea medida por contenedor."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Titular del parte del día, título del archivo, encabezados de fila de ventana (ancho 106–112)."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Declaración del parte e introducción de ventana; pasa de #5A6C77 a ink con el scroll."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Todo el texto de lectura, 44–56ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tipo de proyecto, sector, pies, claves de ficha, estado, botón de contorno. Archivo, nunca mono."
+      },
+      "measure": {
+        "displayName": "Measure",
+        "purpose": "Solo medidas: coordenadas, hora, hPa, años y fechas, ruta de la ventana."
+      },
+      "pressure": {
+        "displayName": "Pressure",
+        "purpose": "Letras A (cold) y B (warm) de los centros de presión."
+      }
+    },
+    "shadows": [
+      {
+        "name": "bar-rule",
+        "value": "0 1px 0 var(--rule)",
+        "purpose": "Barra sólida y ventana."
+      },
+      {
+        "name": "plate",
+        "value": "0 1px 0 var(--rule), 0 22px 44px -30px rgba(12, 46, 64, 0.5)",
+        "purpose": "Plancha de papel del hero."
+      },
+      {
+        "name": "station-label",
+        "value": "0 6px 18px -10px rgba(12, 46, 64, 0.5)",
+        "purpose": "Píldoras de estación sobre el campo."
+      },
+      {
+        "name": "button-hover",
+        "value": "0 10px 24px -12px rgba(12, 46, 64, 0.55)",
+        "purpose": "Realce de botón en hover."
+      },
+      {
+        "name": "shot",
+        "value": "0 30px 60px -28px rgba(8, 28, 40, 0.55), 0 2px 6px rgba(8, 28, 40, 0.1)",
+        "purpose": "Capturas sobre campo de proyecto."
+      },
+      {
+        "name": "window-shot",
+        "value": "0 24px 50px -30px rgba(8, 28, 40, 0.5), 0 0 0 1px var(--rule)",
+        "purpose": "Capturas dentro de la ventana de proyecto."
+      },
+      {
+        "name": "press-clip",
+        "value": "0 24px 50px -24px rgba(42, 14, 7, 0.65)",
+        "purpose": "Recortes de prensa sobre el campo cálido."
+      },
+      {
+        "name": "site-hover",
+        "value": "0 30px 60px -30px rgba(0, 0, 0, 0.7)",
+        "purpose": "Web de KORA al pasar, sobre ocean."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Transiciones CSS de estado (subrayados, flechas, menú, barra)."
+      },
+      {
+        "name": "entrance",
+        "value": "GSAP expo.out",
+        "purpose": "Entradas: caracteres del nombre (1.25s, escalonado 0.028s), isla, plancha, texto de tarjeta."
+      },
+      {
+        "name": "char-rise",
+        "value": "yPercent 115 → 0, 1.1s expo.out, stagger 0.025–0.03s, máscara de línea",
+        "purpose": "Titulares de sección y nombres de proyecto suben desde su línea."
+      },
+      {
+        "name": "front-passes",
+        "value": "scrub true sobre .hero (top top → bottom top); field.shift = progress",
+        "purpose": "El frente pasa: el campo se desplaza, el nombre se queda atrás (yPercent -38) y la isla gira (-6°)."
+      },
+      {
+        "name": "front-draw",
+        "value": "DrawSVG 0% → progress, scrub 0.6, top 92% → top 30%; marcas back.out(3) 0.5s",
+        "purpose": "Frentes divisores: triángulos (frío) o semicírculos (cálido) brotan a su paso."
+      },
+      {
+        "name": "card-scale",
+        "value": "scale 0.9 → 1, yPercent 4 → 0, scrub 0.8, top 98% → top 30%",
+        "purpose": "Tarjetas de proyecto crecen hasta su sitio con el scroll."
+      },
+      {
+        "name": "window-open",
+        "value": "clip-path desde el rect de la tarjeta → inset(0), 0.95s expo.inOut",
+        "purpose": "Apertura de la ventana de proyecto desde su tarjeta."
+      },
+      {
+        "name": "window-close",
+        "value": "clip-path → rect de la tarjeta, 0.8s expo.inOut",
+        "purpose": "Cierre de la ventana de vuelta a su tarjeta."
+      },
+      {
+        "name": "horizontal-pin",
+        "value": "pin + x: -distancia, scrub 1",
+        "purpose": "Tramos horizontales de KORA y trayectoria; sin anclaje en móvil o movimiento reducido."
+      },
+      {
+        "name": "statement-ink",
+        "value": "color #5A6C77 → #10222C por palabra, scrub, stagger 0.12",
+        "purpose": "La declaración se lee siempre; pasa de gris AA a tinta."
+      },
+      {
+        "name": "station-ping",
+        "value": "scale 1 → 3.2, opacity 0.9 → 0, 2.6s infinito",
+        "purpose": "Pulso del punto de estación; pausado fuera de pantalla con .is-off."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow-field",
+        "value": "760px",
+        "purpose": "Recoloca los centros de presión del hero."
+      },
+      {
+        "name": "mobile",
+        "value": "900px",
+        "purpose": "Menú desplegable, una columna, tramos horizontales sin anclaje."
+      },
+      {
+        "name": "readout",
+        "value": "1180px",
+        "purpose": "Oculta la lectura en vivo de la barra."
+      }
+    ],
+    "fieldPalettes": {
+      "hero-light": {
+        "palette": [
+          "#C3DDED",
+          "#D9EDE8",
+          "#EEF2F0",
+          "#EEF2F0",
+          "#F5DFAF"
+        ],
+        "isobar": "rgba(16, 34, 44, 0.2)"
+      },
+      "contact-dark": {
+        "palette": [
+          "#0A2433",
+          "#0D3043",
+          "#103A4F",
+          "#15465B",
+          "#1C566A"
+        ],
+        "isobar": "rgba(191, 227, 234, 0.17)"
+      },
+      "steps": {
+        "band": "4 hPa",
+        "isobar": "2 hPa",
+        "master": "8 hPa"
+      }
+    },
+    "performance": {
+      "tool": "scripts/perf.mjs",
+      "reference": "p90 ≈ 16.7 ms",
+      "rules": [
+        "transform y opacity",
+        "lecturas de layout fuera de los bucles",
+        "bucles CSS pausados fuera de pantalla",
+        "un único plano WebGL por escena"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Botón principal",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Acción principal en píldora de tinta: Ver proyectos, Escríbeme, Ver el proyecto.",
+      "html": "<a class=\"ds-btn\" href=\"#\"><span>Ver el proyecto</span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 0.6em; min-height: 48px; padding: 0 1.35em; border-radius: 999px; background: var(--ink, #10222C); color: var(--paper, #EEF2F0); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; font-weight: 600; font-size: 0.98rem; letter-spacing: 0.005em; text-decoration: none; transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn svg { width: 1.15em; height: 1.15em; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover { box-shadow: 0 10px 24px -12px rgba(12, 46, 64, 0.55); } .ds-btn:hover svg { transform: translateX(4px); } .ds-btn:focus-visible { outline: 2px solid var(--cold, #2E6BE6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botón de contorno",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Acción secundaria: contorno de 1.5px que se rellena de tinta al pasar.",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">fermdev@gmail.com</a>",
+      "css": ".ds-btn-line { display: inline-flex; align-items: center; gap: 0.6em; min-height: 48px; padding: 0 1.35em; border-radius: 999px; background: transparent; color: var(--ink, #10222C); box-shadow: inset 0 0 0 1.5px currentColor; font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; font-stretch: 106%; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.005em; text-decoration: none; transition: background-color 0.3s, color 0.3s; } .ds-btn-line:hover { background: var(--ink, #10222C); color: var(--paper, #EEF2F0); } .ds-btn-line:focus-visible { outline: 2px solid var(--cold, #2E6BE6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botón solar",
+      "kind": "button",
+      "refersTo": "button-sun",
+      "description": "Acción principal sobre las bandas ocean (KORA).",
+      "html": "<div style=\"background:#0C2E40;padding:24px\"><a class=\"ds-btn-sun\" href=\"#\">Ver KORA en detalle</a></div>",
+      "css": ".ds-btn-sun { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.35em; border-radius: 999px; background: var(--calima, #F4B23E); color: var(--ink, #10222C); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; font-weight: 600; font-size: 0.98rem; text-decoration: none; transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-sun:hover { box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.6); } .ds-btn-sun:focus-visible { outline: 2px solid var(--cold, #2E6BE6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Chips verificado / declarado",
+      "kind": "chip",
+      "refersTo": "chip-verified",
+      "description": "Sólido para lo demostrado por código público o producción; contorno para lo declarado.",
+      "html": "<ul class=\"ds-chips\"><li class=\"ds-chip-solid\">TypeScript</li><li class=\"ds-chip-solid\">Angular</li><li class=\"ds-chip-line\">Docker</li><li class=\"ds-chip-line\">AWS</li></ul>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 16px; background: var(--alisio, #3CC3A2); } .ds-chips li { padding: 0.5em 1.05em; border-radius: 999px; font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.3; } .ds-chip-solid { background: var(--ink, #10222C); color: var(--paper, #EEF2F0); } .ds-chip-line { color: var(--ink, #10222C); box-shadow: inset 0 0 0 1.5px var(--ink, #10222C); }"
+    },
+    {
+      "name": "Barra (leyenda de la carta)",
+      "kind": "nav",
+      "refersTo": "dark-band",
+      "description": "Marca, lectura en vivo en mono, enlaces con subrayado creciente, ES/EN en píldora y Escríbeme.",
+      "html": "<nav class=\"ds-bar\"><b class=\"ds-bar-mark\">Fernando Montelongo</b><p class=\"ds-bar-read\">28,96° N 13,55° O · <b>11:42</b> Canarias · <b>1024</b> hPa</p><span class=\"ds-bar-nav\"><a href=\"#\" class=\"is-current\">Proyectos</a><a href=\"#\">Trayectoria</a></span><span class=\"ds-bar-lang\"><button aria-pressed=\"true\">ES</button><button aria-pressed=\"false\">EN</button></span></nav>",
+      "css": ".ds-bar { display: flex; align-items: center; gap: 24px; height: 68px; padding: 0 24px; background: var(--paper, #EEF2F0); color: var(--ink, #10222C); box-shadow: 0 1px 0 rgba(16, 34, 44, 0.14); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; } .ds-bar-mark { font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; } .ds-bar-read { margin: 0; font-family: 'Martian Mono', ui-monospace, monospace; font-size: 0.7rem; color: rgba(16, 34, 44, 0.72); } .ds-bar-read b { color: var(--ink, #10222C); font-weight: 600; font-variant-numeric: tabular-nums; } .ds-bar-nav { display: flex; gap: 22px; font-weight: 500; font-size: 0.95rem; } .ds-bar-nav a { position: relative; padding: 6px 0; color: inherit; text-decoration: none; } .ds-bar-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); } .ds-bar-nav a:hover::after, .ds-bar-nav a.is-current::after { transform: scaleX(1); transform-origin: left; } .ds-bar-nav a:focus-visible { outline: 2px solid var(--cold, #2E6BE6); outline-offset: 3px; } .ds-bar-lang { display: flex; gap: 2px; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(16, 34, 44, 0.14); } .ds-bar-lang button { font: 600 0.68rem 'Archivo', sans-serif; padding: 6px 9px; border-radius: 999px; border: 0; background: none; color: inherit; cursor: pointer; } .ds-bar-lang button[aria-pressed='true'] { background: var(--ink, #10222C); color: var(--paper, #EEF2F0); }"
+    },
+    {
+      "name": "Tarjeta de estación",
+      "kind": "card",
+      "refersTo": "station-card-lanzamet",
+      "description": "Proyecto sobre su campo plano con su tinta fija; se abre en ventana con clip-path.",
+      "html": "<article class=\"ds-case\"><h3 class=\"ds-case-title\">LanzaMet</h3><p class=\"ds-case-kind\">Producto propio · en producción desde octubre de 2026</p><p class=\"ds-case-claim\">El tiempo y el mar de Lanzarote, en palabras claras.</p><ul class=\"ds-case-chips\"><li>Angular</li><li>Cloudflare Workers</li></ul></article>",
+      "css": ".ds-case { container-type: inline-size; display: grid; gap: 16px; padding: clamp(28px, 4.4vw, 72px); border-radius: clamp(20px, 2.2vw, 30px); background: var(--sky, #BFE3EA); color: var(--ocean, #0C2E40); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; } .ds-case-title { margin: 0; white-space: nowrap; font-weight: 800; font-stretch: 122%; font-size: min(5.6rem, 14.5cqi); line-height: 0.9; letter-spacing: -0.035em; } .ds-case-kind { margin: -4px 0 0; font-stretch: 106%; font-size: 0.86rem; font-weight: 600; } .ds-case-claim { margin: 0; font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.6rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; max-width: 24ch; } .ds-case-chips { display: flex; gap: 8px; list-style: none; margin: 0; padding: 0; } .ds-case-chips li { padding: 0.42em 0.95em; border-radius: 999px; font-size: 0.86rem; font-weight: 500; background: rgba(12, 46, 64, 0.09); }"
+    },
+    {
+      "name": "Plancha del hero",
+      "kind": "card",
+      "refersTo": "hero-plate",
+      "description": "Plancha de papel sólida que sostiene la frase de rol, el estado y las acciones sobre el campo.",
+      "html": "<div class=\"ds-plate\"><p class=\"ds-plate-lede\">Desarrollador full stack en Lanzarote. Construyo software para mi isla.</p><p class=\"ds-status\"><i></i>Disponible como Full Stack Junior · remoto, híbrido o presencial</p></div>",
+      "css": ".ds-plate { display: grid; gap: 20px; max-width: 35rem; padding: clamp(20px, 2vw, 28px); border-radius: 22px; background: var(--paper, #EEF2F0); color: var(--ink, #10222C); box-shadow: 0 1px 0 rgba(16, 34, 44, 0.14), 0 22px 44px -30px rgba(12, 46, 64, 0.5); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; } .ds-plate-lede { margin: 0; font-size: clamp(1.1rem, 1rem + 0.45vw, 1.35rem); line-height: 1.45; font-weight: 450; } .ds-status { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-stretch: 106%; font-size: 0.86rem; font-weight: 600; } .ds-status i { width: 9px; height: 9px; border-radius: 50%; background: var(--alisio, #3CC3A2); box-shadow: 0 0 0 4px rgba(60, 195, 162, 0.3); }"
+    },
+    {
+      "name": "Centro de presión y estación",
+      "kind": "custom",
+      "refersTo": "pressure",
+      "description": "Letra A/B con su lectura en hPa en mono, y punto de estación con pulso y rótulo en píldora.",
+      "html": "<div class=\"ds-chart\"><span class=\"ds-pc ds-pc-a\"><b>A</b><small>1024</small></span><span class=\"ds-pc ds-pc-b\"><b>B</b><small>1004</small></span><span class=\"ds-station\"><i></i><span>Arrecife</span></span></div>",
+      "css": ".ds-chart { display: flex; align-items: center; gap: 40px; padding: 24px; background: var(--paper, #EEF2F0); font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; } .ds-pc { display: inline-grid; justify-items: center; line-height: 1; } .ds-pc b { font-weight: 800; font-size: 4rem; letter-spacing: -0.02em; } .ds-pc small { font-family: 'Martian Mono', ui-monospace, monospace; font-size: 0.72rem; margin-top: 2px; font-variant-numeric: tabular-nums; } .ds-pc-a { color: var(--cold, #2E6BE6); } .ds-pc-b { color: var(--warm, #F0583A); } .ds-station { display: inline-flex; align-items: center; gap: 10px; } .ds-station i { position: relative; width: 14px; height: 14px; border-radius: 50%; background: var(--paper, #EEF2F0); box-shadow: 0 0 0 3px var(--warm, #F0583A); } .ds-station i::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--warm, #F0583A); animation: ds-ping 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite; } .ds-station > span { font-stretch: 106%; font-size: 0.8rem; font-weight: 600; padding: 7px 11px; border-radius: 999px; background: var(--paper, #EEF2F0); color: var(--ink, #10222C); box-shadow: 0 6px 18px -10px rgba(12, 46, 64, 0.5); } @keyframes ds-ping { from { transform: scale(1); opacity: 0.9; } to { transform: scale(3.2); opacity: 0; } } @media (prefers-reduced-motion: reduce) { .ds-station i::after { animation: none; } }"
+    },
+    {
+      "name": "Frente",
+      "kind": "custom",
+      "refersTo": "cold",
+      "description": "Divisor de escena: línea de frente frío con triángulos (o cálido con semicírculos), dibujada con el scroll.",
+      "html": "<svg class=\"ds-front\" viewBox=\"0 0 400 56\" aria-hidden=\"true\"><path class=\"ds-f-line\" d=\"M0 30 C60 20 120 40 200 30 S340 20 400 30\"/><path class=\"ds-f-mark\" d=\"M40 27 l10 -15 l10 15z\"/><path class=\"ds-f-mark\" d=\"M115 31 l10 -15 l10 15z\"/><path class=\"ds-f-mark\" d=\"M190 31 l10 -15 l10 15z\"/><path class=\"ds-f-mark\" d=\"M265 26 l10 -15 l10 15z\"/><path class=\"ds-f-mark\" d=\"M340 26 l10 -15 l10 15z\"/></svg>",
+      "css": ".ds-front { display: block; width: 100%; height: 56px; overflow: visible; color: var(--cold, #2E6BE6); background: var(--paper, #EEF2F0); } .ds-f-line { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; } .ds-f-mark { fill: currentColor; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La carta sinóptica de Lanzarote",
+    "overview": "La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.\n\nLa densidad es la de un parte de televisión: un nombre enorme en Archivo expandido, pocas piezas, mucha carta alrededor. La expresividad vive en el campo, los frentes y el ancho de la letra; la información vive siempre sobre fondo sólido (papel, plancha de papel o campo plano), en texto fluido con contraste AA. El movimiento es parte del mundo (el frente pasa, el campo se desplaza) pero nunca oculta lectura: las entradas son transformaciones y el texto largo pasa de un gris legible a tinta.\n\nEl rendimiento es contenido: un único plano WebGL por escena, transformaciones y opacidad como únicas propiedades animadas, lecturas de layout fuera de los bucles y animaciones en bucle pausadas fuera de pantalla. Se rechaza la plantilla oscura de desarrollador (hero, rejilla de tarjetas y neón) y el muro de carteles anterior.",
+    "keyCharacteristics": [
+      "Carta clara con isobaras de tinta y bandas de presión cada 4 hPa; campos de color plano por proyecto.",
+      "Archivo variable como única voz de titular, texto y rótulo; Martian Mono solo para medidas.",
+      "Tarjetas y ventanas de radio generoso; botones y chips en píldora.",
+      "Frentes dibujados con el scroll como divisores de escena.",
+      "Bandas oscuras de Atlántico profundo (`ocean`) para KORA y contacto.",
+      "Tecnologías verificadas en chip sólido; declaradas en chip de contorno."
+    ],
+    "rules": [
+      {
+        "name": "The Field Pair Rule",
+        "body": "Cada campo de color lleva su tinta fija y nunca otra: cielo con `ocean`, cálido con `warm-ink`, calima con `ink`, ocluido con `lilac-ink`. La pareja viaja junta de la tarjeta a su ventana y al enlace «siguiente».",
+        "section": "colors"
+      },
+      {
+        "name": "The Chart Palette Rule",
+        "body": "El campo claro del hero usa la paleta `#C3DDED, #D9EDE8, #EEF2F0, #EEF2F0, #F5DFAF` (la calima solo en el núcleo del anticiclón) con isobaras de tinta al 20 %; el campo oscuro de contacto usa `#0A2433, #0D3043, #103A4F, #15465B, #1C566A` con isobaras `sky` al 17 %. Bandas cada 4 hPa, isobaras cada 2 hPa y una maestra cada 8 hPa.",
+        "section": "colors"
+      },
+      {
+        "name": "The Instrument Rule",
+        "body": "Martian Mono solo escribe medidas: coordenadas, hora, hPa, años y fechas, y la ruta. Rótulos, etiquetas, botones y pies son Archivo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Width Ladder Rule",
+        "body": "El ancho sube con la jerarquía: 100 en lectura, 106 en rótulos, 106–112 en títulos, 118 en titulares, 122 en nombres de proyecto y cierres. En móvil el titular de contacto vuelve a 100.",
+        "section": "typography"
+      },
+      {
+        "name": "The Solid Ground Rule",
+        "body": "El texto de lectura siempre descansa en un plano sólido: papel, la plancha del hero o un campo plano de proyecto. Nunca sobre el campo WebGL, las isobaras o una captura.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do poner el texto de lectura siempre sobre fondo sólido: la copia del hero va en su plancha de papel, el texto de proyecto sobre su campo plano.",
+      "Do reservar Martian Mono para medidas: coordenadas, hora, hPa, años y fechas, y la ruta.",
+      "Do distinguir lo verificado de lo declarado: chip sólido `ink` frente a chip de contorno.",
+      "Do mantener cada campo con su tinta fija (cielo/`ocean`, cálido/`warm-ink`, calima/`ink`, ocluido/`lilac-ink`).",
+      "Do animar solo `transform` y `opacity` (más el `clip-path` de la ventana y el menú, y el color de la declaración).",
+      "Do medir el layout fuera de los bucles: tamaños leídos una vez y al redimensionar, nunca tras escribir transformaciones en el mismo frame.",
+      "Do pausar fuera de pantalla las animaciones en bucle (CSS con `.is-off`, GSAP con su `ScrollTrigger`).",
+      "Do medir con `scripts/perf.mjs` antes de dar un efecto por bueno; referencia p90 ≈ 16.7 ms."
+    ],
+    "donts": [
+      "Don't poner un antetítulo o kicker encima de un titular; el tipo de proyecto va debajo del nombre.",
+      "Don't ocultar texto de lectura con el movimiento: las entradas usan transformaciones, no transparencia.",
+      "Don't escribir rótulos, botones o etiquetas en mono.",
+      "Don't poner texto sobre el campo WebGL, las isobaras o una captura.",
+      "Don't usar sombras de desplazamiento duro, resplandores ni cristal esmerilado.",
+      "Don't añadir un segundo plano WebGL por escena ni animar propiedades de layout."
+    ]
+  }
+}

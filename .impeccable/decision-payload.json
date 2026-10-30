@@ -1,0 +1,127 @@
+{
+  "title": "Elige el mundo visual",
+  "question": "Dirección asignada: El Muro (décollage). Quédatela, toma una alternativa o pide otra mano.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "El Muro — décollage",
+      "kicker": "THE ROLL",
+      "lineage": "Paredes de carteles pegados de Arrecife + affiches lacérées (Rotella, Villeglé)",
+      "thesis": "Tu trayectoria como un muro de carteles pegados: lo más reciente encima; el scroll es la mano que arranca capas.",
+      "palette": ["#2B2A28", "#EEEAE2", "#FF4FA3", "#3255A4", "#FFE800"],
+      "materials": ["papel de cartel con engrudo", "tinta riso sobreimpresa", "trama de medio tono", "bordes rasgados"],
+      "viewport": "Muro a sangre: cartel rosa flúor con FERNANDO MONTELONGO en grotesca variable gigante cruzando tu retrato en trama azul; bordes de los carteles de debajo asomando; esquina despegada que invita a arrancar; índice como corte estratigráfico.",
+      "risk": "Si los carteles se componen tímidos parece una plantilla de cartel; exige escala y sobreimpresión reales.",
+      "raised": [
+        {"from": "challenger-versailles", "raise": "Línea de vista axial: el índice es un corte del muro y muestra el canto de cada capa desde el primer segundo."},
+        {"from": "challenger-accretion", "raise": "Vacío sostenido: cada composición conserva un trozo de pared desnuda; el espacio negativo es regla, no sobra."},
+        {"from": "challenger-seedbed", "raise": "Una tinta por pliego: cada cartel se compromete con una sola tinta riso a cobertura total."},
+        {"from": "challenger-sevenseg", "raise": "Celdas fantasma: las capas arrancadas dejan jirones pegados; lo ya visto permanece como resto."},
+        {"from": "challenger-onebit", "raise": "Un solo proceso de impresión: toda foto pasa por la misma trama duotono."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Arte-naturaleza (Manrique)",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Murales, móviles y Jameos de César Manrique",
+      "thesis": "Formas biomórficas negras, rojas y blancas que mutan como los murales de Manrique y enmarcan cada proyecto.",
+      "palette": ["#141414", "#F7F7F2", "#D7261E", "#C98B2B", "#2F6B3A"],
+      "materials": ["cal", "basalto", "esmalte mural", "móviles de viento"],
+      "viewport": "Lienzo de cal con una gran forma orgánica negra que contiene tu retrato; manchas rojas y ocres orbitando; nombre en rotulación de trazo.",
+      "risk": "Es la referencia más obvia de Lanzarote: muchas marcas locales ya la usan y puede leerse como homenaje turístico.",
+      "html": ".impeccable/mocks/decision/pick.html"
+    },
+    {
+      "id": "challenger-seedpacket",
+      "kind": "challenger",
+      "catalogId": "vernacular-ephemera-seed-packet-rack",
+      "label": "Expositor de sobres",
+      "verdict": "competitive",
+      "lineage": "Expositor de sobres de semillas de ferretería",
+      "thesis": "Cada proyecto es un sobre: delante la promesa pintada, detrás la disciplina técnica en letra pequeña.",
+      "palette": ["#9AA0A3", "#E8D9B5", "#D9452B", "#5C8A3A", "#1C1C1A"],
+      "materials": ["gouache", "papel kraft", "rejilla galvanizada", "tabla impresa"],
+      "viewport": "Expositor gris con el sobre LanzaMet al frente y su tabla técnica al dorso en un sobre girado.",
+      "case": "Gana en claridad (anverso/reverso separa impacto y stack) pero pierde en identificación: nada del mundo del visitante ni de la isla.",
+      "risk": "Se lee como pastiche vintage si las ilustraciones no son de primer nivel.",
+      "html": ".impeccable/mocks/decision/seedpacket.html"
+    },
+    {
+      "id": "challenger-versailles", "kind": "challenger", "catalogId": "architecture-inhabitable-space-versailles-bosquet-vistas",
+      "label": "Bosquets de Versalles", "verdict": "declined",
+      "lineage": "Jardines axiales de Versalles",
+      "thesis": "El portfolio como paseo axial con salas ocultas.",
+      "palette": ["#3E5B3A", "#CDBF9E", "#B08D3C", "#F2F2EE"],
+      "materials": ["seto recortado", "grava", "bronce dorado"],
+      "viewport": "Perspectiva axial con los proyectos como bosquets.",
+      "case": "Pierde en ambos ejes: ni reclutadores ni clientes canarios se reconocen en un jardín barroco.",
+      "risk": "Ceremonial y ajeno.",
+      "kept": "La línea de vista axial: el índice muestra toda la profundidad desde el inicio."
+    },
+    {
+      "id": "challenger-accretion", "kind": "challenger", "catalogId": "galaxies-nebulae-deep-time-accretion-disk-threshold",
+      "label": "Disco de acreción", "verdict": "declined",
+      "lineage": "Horizonte de un agujero negro",
+      "thesis": "Proyectos orbitando un horizonte.",
+      "palette": ["#050505", "#BFD6FF", "#E0502A", "#E8B84A"],
+      "materials": ["luz curvada", "anillos"],
+      "viewport": "Anillo luminoso con etiquetas orbitando.",
+      "case": "Pierde en ambos: espectáculo cósmico sin relación con el trabajo ni con la isla, y con coste de shader.",
+      "risk": "Cliché espacial y caro en GPU.",
+      "kept": "El centro sin marcar: un vacío sostenido en cada composición."
+    },
+    {
+      "id": "challenger-seedbed", "kind": "challenger", "catalogId": "sd-seedbed-lobes",
+      "label": "Campo verde con cápsulas", "verdict": "declined",
+      "lineage": "Landing de producto con pastillas flotantes",
+      "thesis": "Un color posee el viewport; la interfaz flota encima.",
+      "palette": ["#82CC5C", "#2F3130", "#FFFFFF", "#F0574C"],
+      "materials": ["cápsulas blancas", "losas redondeadas"],
+      "viewport": "Campo verde con titular gigante y barra cápsula.",
+      "case": "Pierde en ambos: es lenguaje de SaaS, el opuesto de la obra de arte que pides.",
+      "risk": "Plantilla de startup.",
+      "kept": "Compromiso total de una tinta por superficie."
+    },
+    {
+      "id": "challenger-sevenseg", "kind": "challenger", "catalogId": "signals-instruments-seven-segment-alarm-clock",
+      "label": "Siete segmentos", "verdict": "declined",
+      "lineage": "Relojes, marcadores y tótems de gasolinera",
+      "thesis": "Todo glifo sale de una máscara de ocho celdas.",
+      "palette": ["#0E0E0E", "#FF2A1F", "#FFB000", "#2A2A2A"],
+      "materials": ["LED", "celdas apagadas"],
+      "viewport": "Marcador gigante con tu nombre en segmentos.",
+      "case": "Pierde en ambos: rígido e instrumental, incompatible con la fotografía protagonista.",
+      "risk": "Novedad retro.",
+      "kept": "Las celdas apagadas también se diseñan: restos visibles de lo ya pasado."
+    },
+    {
+      "id": "challenger-onebit", "kind": "challenger", "catalogId": "medium-native-one-bit-desktop",
+      "label": "Escritorio de 1 bit", "verdict": "declined",
+      "lineage": "Primeros escritorios monocromos",
+      "thesis": "Ventanas solapadas en tramado de puntos.",
+      "palette": ["#000000", "#FFFFFF", "#808080"],
+      "materials": ["tramado", "píxel entero"],
+      "viewport": "Escritorio con una ventana por proyecto.",
+      "case": "Pierde en ambos: nostalgia de interfaz, el disfraz de herramienta que el brief evita.",
+      "risk": "Disfraz retro de desarrollador.",
+      "kept": "Un único proceso de tramado para todas las imágenes."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "El estándar del sector",
+    "thesis": "Portfolio de desarrollador oscuro: hero con nombre, rejilla de proyectos, acento neón.",
+    "palette": ["#0B0B0F", "#EDEDED", "#FF2D2D"],
+    "materials": ["rejilla limpia", "capturas de producto"],
+    "viewport": "Nombre y rol a la izquierda, retrato a la derecha, tarjetas de proyecto debajo.",
+    "risk": "Indistinguible de la competencia por diseño; justo lo que el brief rechaza."
+  },
+  "steer": true
+}

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-30T12:54:32.585Z",
+        "reason": "Claude, verified in render: styles are injected by Vite from src/main.ts, so the static scan sees every role at 16px; screenshots show hero 151px, h2 96px, body 17px"
+      }
+    ]
+  }
+}
