@@ -4,11 +4,11 @@ const b = await chromium.launch({ args: ['--use-angle=d3d11', '--enable-gpu', '-
 const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
 await p.goto('http://127.0.0.1:5181/', { waitUntil: 'networkidle' });
 await p.waitForTimeout(2500);
-await p.evaluate(() => { const el = document.querySelector('.parte__photo'); scrollTo(0, el.getBoundingClientRect().top + scrollY - 90); });
-await p.waitForTimeout(3500);
-const r = await p.evaluate(() => { const b = document.querySelector('.parte__frame').getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
-const face = { x: r.x + r.w * 0.33, y: r.y + r.h * 0.33, width: r.w * 0.36, height: r.h * 0.12 };
-const spots = { centro: [0.5, 0.4], izquierda: [0.04, 0.4], derecha: [0.96, 0.4], arriba: [0.5, 0.05], abajo: [0.5, 0.95] };
+// El retrato está en el hero: la cara se mide sobre él y el cursor recorre todo el hero.
+const r = await p.evaluate(() => { const b = document.querySelector('.hero').getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: innerHeight }; });
+const me = await p.evaluate(() => { const b = document.querySelector('.hero__me .portrait').getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+const face = { x: me.x + me.w * 0.33, y: me.y + me.h * 0.33, width: me.w * 0.36, height: me.h * 0.12 };
+const spots = { izquierda: [0.08, 0.4], centro: [0.5, 0.45], derecha: [0.98, 0.4], arriba: [0.72, 0.08], abajo: [0.72, 0.95] };
 for (const [n, [fx, fy]] of Object.entries(spots)) {
   await p.mouse.move(r.x + r.w * fx, r.y + r.h * fy, { steps: 6 });
   await p.waitForTimeout(700);

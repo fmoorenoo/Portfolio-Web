@@ -1,5 +1,5 @@
 // Ojos que siguen al cursor: separa iris + pupila de cada ojo en su propia capa.
-// Salida (public/img): retrato-base-{640,1000}.webp (foto con fondo natural y el iris sustituido por esclera),
+// Salida (public/img): retrato-recorte-{720,1086}.webp (retrato recortado con el iris sustituido por esclera),
 // ojo-{izq,der}-iris.png (iris completo, reconstruido por simetría donde lo tapa el párpado),
 // ojo-{izq,der}-mask.png (apertura del ojo, para recortar el iris en movimiento) y src/eyes.json (geometría en %).
 // Uso: node scripts/eyes.mjs  (fuente: ../profile.png)
@@ -120,8 +120,17 @@ for (const e of EYES) {
   };
 }
 
-const base = sharp(out, { raw: { width: W, height: H, channels: 3 } }).extract({ left: 0, top: TOP, width: W, height: H - TOP });
-for (const w of [640, 1000]) await base.clone().resize(w).webp({ quality: 86 }).toFile(`public/img/retrato-base-${w}.webp`);
+// Retrato del hero: la base (con los iris ya separados) y el matte propio como alfa, con el encuadre de busto de TOP.
+{
+  const matte = await sharp('assets-src/portrait-matte.png').greyscale().raw().toBuffer();
+  const rgba = Buffer.alloc(W * H * 4);
+  for (let i = 0; i < W * H; i++) {
+    rgba[i * 4] = out[i * 3]; rgba[i * 4 + 1] = out[i * 3 + 1]; rgba[i * 4 + 2] = out[i * 3 + 2];
+    rgba[i * 4 + 3] = matte[i];
+  }
+  const cut = sharp(rgba, { raw: { width: W, height: H, channels: 4 } }).extract({ left: 0, top: TOP, width: W, height: H - TOP });
+  for (const w of [720, 1086]) await cut.clone().resize(w).webp({ quality: 88, alphaQuality: 95 }).toFile(`public/img/retrato-recorte-${w}.webp`);
+}
 await writeFile('src/eyes.json', JSON.stringify(geometry, null, 2));
 // Control visual: los dos ojos ampliados de la base sin iris.
 await sharp(out, { raw: { width: W, height: H, channels: 3 } }).extract({ left: 400, top: 680, width: 320, height: 90 }).resize(1280, 360, { kernel: 'nearest' }).png().toFile('assets-src/eyes/base-check.png');
