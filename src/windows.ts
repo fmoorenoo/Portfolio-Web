@@ -229,7 +229,7 @@ export class Windows {
     const logo = (q: Project, cls: string) => `<span class="kora-mark ${cls}"><img src="${q.logo}" alt="${esc(q.name)}" width="470" height="139"><i class="kora-dot" aria-hidden="true"></i></span>`;
 
     this.page.innerHTML = `
-      <div class="cs" style="${field(p.field)}">
+      <div class="cs" data-cs="${p.field}" style="${field(p.field)}">
         <header class="cs-hero${stage ? '' : ' cs-hero--plain'}">
           <div class="cs-hero__in wrap">
             <div class="cs-hero__id">
