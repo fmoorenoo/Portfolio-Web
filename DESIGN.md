@@ -119,21 +119,11 @@ components:
     rounded: "{rounded.pill}"
     height: "48px"
     padding: "0 1.35em"
-  chip-verified:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.pill}"
-    padding: "0.42em 0.95em"
-  chip-declared:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.pill}"
-    padding: "0.42em 0.95em"
-  hero-plate:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.plate}"
-    padding: "clamp(20px, 2vw, 28px)"
+  hero-system:
+    backgroundColor: "{colors.cold}"
+    textColor: "#FFFFFF"
+    rounded: "irregular (src/blobs.ts)"
+    padding: "clamp(10px, 1.4vw, 20px)"
   station-card-lanzamet:
     backgroundColor: "{colors.sky}"
     textColor: "{colors.ocean}"
@@ -173,7 +163,7 @@ components:
 
 **Creative North Star: "La carta sinóptica de Lanzarote"**
 
-La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. El hero lo protagoniza el retrato recortado de Fernando, apoyado en el borde inferior sobre un núcleo cálido del campo, con ojos que siguen al cursor; la isla pasa al «Parte del día». Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
+La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. El hero lo protagoniza el retrato recortado de Fernando delante de un sol de calima, sobre un cielo limpio que se funde con el papel y en el que el campo solo dibuja isobaras finas; el retrato se funde por los hombros y por abajo. La isla pasa al «Parte del día». Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
 
 La densidad es la de un parte de televisión: un nombre enorme en Archivo expandido, pocas piezas, mucha carta alrededor. La expresividad vive en el campo, los frentes y el ancho de la letra; la información vive siempre sobre fondo sólido (papel, plancha de papel o campo plano), en texto fluido con contraste AA. El movimiento es parte del mundo (el frente pasa, el campo se desplaza) pero nunca oculta lectura: las entradas son transformaciones y el texto largo pasa de un gris legible a tinta.
 
@@ -185,7 +175,7 @@ El rendimiento es contenido: un único plano WebGL por escena, transformaciones 
 - Tarjetas y ventanas de radio generoso; botones y chips en píldora.
 - Frentes dibujados con el scroll como divisores de escena.
 - Bandas oscuras: Atlántico profundo (`ocean`) para contacto; KORA lleva la paleta de su propia web (`kora`).
-- Tecnologías verificadas en chip sólido; declaradas en chip de contorno.
+- Tecnologías como seis sistemas de color con forma irregular, uno por familia, que flotan sobre el papel con su isobara alrededor.
 
 ## Colors
 
@@ -202,13 +192,13 @@ Una carta casi blanca y fría, tinta azul petróleo, y siete campos saturados to
 
 ### Tertiary
 - **Cielo** (`sky`): campo de LanzaMet y fondo del hover del archivo.
-- **Alisio** (`alisio`): banda de tecnologías y punto de disponibilidad.
+- **Alisio** (`alisio`): punto de disponibilidad (que late como una estación) y su píldora.
 - **KORA** (`kora`, `kora-2`, `kora-line`, `kora-muted`, `kora-pink`, `kora-wine`): la paleta de koradigitalsolutions.com, aplicada solo a su tramo, su ventana y la barra sobre él. Negro casi puro, tarjetas `kora-2` con filete `kora-line`, rosa `kora-pink` para acentos y acción (con texto `kora`), brillo `kora-wine` de fondo.
 - **HairCloud** (`cloud` → `cloud-2`, `cloud-blue`): el degradado grafito de la app real y el azul de su nube; texto en blanco, acción en `cloud-blue` con texto oscuro.
 - **Ocluido** (`lilac`): reservado; ya no lo usa ningún proyecto.
 
 ### Neutral
-- **Carta** (`paper`): fondo de página, plancha del hero, ventanas, rótulos de estación.
+- **Carta** (`paper`): fondo de página, ventanas, rótulos de estación.
 - **Carta en sombra** (`paper-2`): pista de la barra de desplazamiento y fondo secundario.
 - **Tinta segunda** (`ink-2`): texto secundario (pies, claves de ficha, entradillas grises, notas).
 - **Regla** (`rule`): filetes de lista, bordes de ficha y de barra, contorno de controles en reposo.
@@ -216,7 +206,7 @@ Una carta casi blanca y fría, tinta azul petróleo, y siete campos saturados to
 ### Named Rules
 **The Field Pair Rule.** Cada campo de color lleva su tinta fija y nunca otra: cielo con `ocean`, cálido con `warm-ink`, `kora` con blanco, degradado `cloud` con blanco. La pareja viaja junta de la tarjeta a su ventana y al enlace «siguiente».
 
-**The Chart Palette Rule.** El campo claro del hero usa la paleta `#C3DDED, #D9EDE8, #EEF2F0, #EEF2F0, #F5DFAF` (la calima solo en el núcleo del anticiclón) con isobaras de tinta al 20 %; el campo oscuro de contacto usa `#0A2433, #0D3043, #103A4F, #15465B, #1C566A` con isobaras `sky` al 17 %. Bandas cada 4 hPa, isobaras cada 2 hPa y una maestra cada 8 hPa.
+**The Chart Palette Rule.** El campo claro del hero no lleva bandas: un degradado vertical de cielo `#C6E2EB` a `paper` con isobaras de tinta al 13 %, y un sol de calima (`#FBD58A` → `calima`, con dos halos) detrás del retrato; el campo oscuro de contacto usa `#0A2433, #0D3043, #103A4F, #15465B, #1C566A` con isobaras `sky` al 17 %. Bandas cada 4 hPa, isobaras cada 2 hPa y una maestra cada 8 hPa.
 
 ## Typography
 
@@ -254,18 +244,18 @@ Profundidad por capas de mapa, no por materiales: el campo de presión es el sue
 
 ### Shadow Vocabulary
 - **Filete de barra** (`box-shadow: 0 1px 0 var(--rule)`): barra sólida y ventana.
-- **Plancha** (`box-shadow: 0 1px 0 var(--rule), 0 22px 44px -30px rgba(12, 46, 64, 0.5)`): plancha de papel del hero.
+- **Sistema** (`filter: drop-shadow(0 26px 28px <color del sistema a ~45%>)`): sombra teñida de las formas irregulares del hero y de las tecnologías.
 - **Rótulo de estación** (`box-shadow: 0 6px 18px -10px rgba(12, 46, 64, 0.5)`): píldoras de estación sobre el campo.
 - **Botón al pasar** (`box-shadow: 0 10px 24px -12px rgba(12, 46, 64, 0.55)`): realce de botón en hover.
 - **Captura** (`box-shadow: 0 30px 60px -28px rgba(8, 28, 40, 0.55), 0 2px 6px rgba(8, 28, 40, 0.1)`): capturas sobre campo de proyecto.
 - **Recorte de prensa** (`box-shadow: 0 24px 50px -24px rgba(42, 14, 7, 0.65)`): recortes sobre el campo cálido, teñida con `warm-ink`.
 
 ### Named Rules
-**The Solid Ground Rule.** El texto de lectura siempre descansa en un plano sólido: papel, la plancha del hero o un campo plano de proyecto. Nunca sobre el campo WebGL, las isobaras o una captura.
+**The Solid Ground Rule.** El texto de lectura siempre descansa en un plano sólido: papel, una forma de sistema (hero, tecnologías) o un campo plano de proyecto. Nunca sobre el campo WebGL, las isobaras o una captura.
 
 ## Shapes
 
-Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en `card`; plancha del hero en `plate`; recortes y capturas de ventana en `clip`; capturas de tarjeta en `shot`. Todo control interactivo es píldora (`pill`): botones, chips, selector de idioma, cerrar ventana, enlaces de contacto; los pasos de ventana son círculos. Las formas del mundo son círculos concéntricos (isobaras en `repeating-radial-gradient`), líneas onduladas de frente con triángulos o semicírculos, puntos de estación con anillo y la silueta enmascarada de Lanzarote. Los filetes de lista son de 1px en `rule`; los contornos de control, `inset 0 0 0 1.5px`.
+Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en `card`; formas de sistema irregulares (`src/blobs.ts`: superelipse con el radio alterado, unida con Catmull-Rom y recortada con un `clipPath` en unidades del elemento) en el hero y las tecnologías; recortes y capturas de ventana en `clip`; capturas de tarjeta en `shot`. Todo control interactivo es píldora (`pill`): botones, chips, selector de idioma, cerrar ventana, enlaces de contacto; los pasos de ventana son círculos. Las formas del mundo son círculos concéntricos (isobaras en `repeating-radial-gradient`), líneas onduladas de frente con triángulos o semicírculos, puntos de estación con anillo y la silueta enmascarada de Lanzarote. Los filetes de lista son de 1px en `rule`; los contornos de control, `inset 0 0 0 1.5px`.
 
 ## Components
 
@@ -277,14 +267,14 @@ Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en 
 - **Focus:** anillo de 2px `cold` a 3px de distancia.
 
 ### Chips
-- **Verified:** relleno `ink`, texto `paper`: tecnología demostrada por código público o producto en producción.
-- **Declared:** sin relleno, contorno `inset 0 0 0 1.5px` `ink`: tecnología declarada sin código que la enseñe.
 - **Quiet:** fondo de la tinta del campo al 9 % dentro de las tarjetas de proyecto.
-- La leyenda de la banda de tecnologías usa la misma clave (punto sólido frente a punto de contorno).
+
+### Tecnologías
+- Titular grande (ancho 122, hasta 6rem) con una línea de apoyo y, debajo, seis sistemas de color en racimo (dos filas desalineadas en escritorio, columna en móvil): Frontend en `cold`, Backend en `warm`, Bases de datos en `calima`, Móvil en `alisio`, Videojuegos en `lilac` y Herramientas en `ocean`, cada uno con su tinta AA. Dentro, el icono y la familia como etiqueta y las tecnologías en Archivo 750 ancho 112, más grandes cuantas menos tiene el sistema. Flotan (`translate`), el cuerpo respira y la isobara deriva (`rotate`/`scale`), todo en el compositor; entran creciendo desde su centro con `back.out`. Sin distinguir público de no público.
 
 ### Cards / Containers
 - **Tarjeta de estación (proyecto):** radio `card`, fondo `--field` y tinta `--field-ink` según la pareja del proyecto, sin borde ni sombra; columna de texto con nombre en una línea, tipo, afirmación, cuerpo, chips y acciones; escena a la derecha con capturas, isla o signos.
-- **Plancha del hero:** papel, radio `plate`, sombra «plancha»; lleva la frase de rol, el estado y las acciones.
+- **Presentación del hero:** un sistema propio, forma irregular en degradado `cold` con un toque `lilac`, que flota sobre el cielo con dos isobaras alrededor. Texto en blanco: disponibilidad en píldora translúcida con su punto latiendo, saludo personal («Hola, soy Fernando.») en Archivo 800 y una presentación en primera persona (de dónde es, cómo empezó, qué le gusta construir), sin cifras; acciones en `calima` y contorno blanco.
 - **KORA:** el título de la sección, la cabecera de su ventana y su banda «Siguiente proyecto» usan el logotipo real (`/img/kora-logo.svg`, de koradigitalsolutions.com) con su punto característico (`.kora-dot`: 26 % de la altura del logo, separado un 15 %, alineado abajo), en `kora-pink` con brillo; en su web el punto se vuelve de ese color al pasar el ratón. Su campo en las ventanas es `kora-field` (negro con brillo vino y rosa-rojo).
 - **ACESLAN:** campo `ace-field` (negro cálido `#150E0D` con resplandor `ace-red`), texto blanco y etiquetas `ace-soft`; escena con el panel web en marco de navegador oscuro y dos pantallas de la app; la prensa, discreta, en una sola línea bajo el texto («En la prensa» y los dos medios como enlaces); los titulares completos viven en la ventana del proyecto.
 - **Haría Game:** campo `hg-field` (grafito volcánico `#15181B` con resplandor verde y cian, los de los botones del juego); escena con dos pantallas del juego (pista y entrada) en marco de pantalla sin barra; botón `btn--game` en verde.
@@ -294,8 +284,8 @@ Esquinas generosas y continuas: tarjetas de proyecto, retrato y webs de KORA en 
 - **Recorte de prensa:** papel, radio `clip`, girado ±2–2.5° que se endereza al pasar.
 
 ### Navigation
-- **Barra (leyenda de la carta):** marca, lectura en vivo en mono (coordenadas, hora de Canarias, hPa que cambia con el scroll), enlaces con subrayado que crece de izquierda a derecha, selector ES/EN en píldora y «Escríbeme» como botón principal. Transparente sobre el hero, `paper` con filete al bajar, `ocean` sobre bandas oscuras; se esconde al bajar y vuelve al subir.
-- **Móvil:** botón de dos trazos que se cruzan; el menú cae con `clip-path` desde la barra, enlaces a 1.6rem ancho 110.
+- **Barra (leyenda de la carta):** monograma «FM» (cuadrado de tinta que se redondea y toma la calima al pasar), enlaces en una cápsula de papel con una píldora que se desliza al enlace bajo el cursor o al de la sección en curso, selector ES/EN en píldora y «Escríbeme» como botón principal. «Proyectos» abre un desplegable con los cinco proyectos (captura sobre su campo, nombre y tipo) que lleva a cada tarjeta; sus miniaturas se cargan al abrirlo por primera vez. Transparente sobre el hero, `paper` con filete al bajar, `ocean` sobre bandas oscuras; se esconde al bajar y vuelve al subir.
+- **Móvil:** botón de dos trazos que se cruzan; el menú cae con `clip-path` desde la barra, enlaces a 1.6rem ancho 110 y los proyectos en una fila que se desliza bajo «Proyectos».
 
 ### Ventana de proyecto (signature)
 Una hoja a pantalla completa que se abre con un `clip-path` que crece desde la tarjeta de origen (0.95s, `expo.inOut`) y se cierra volviendo a ella. Dentro, un caso de estudio:
@@ -313,7 +303,9 @@ Divisor de escena: línea ondulada de 3px dibujada con DrawSVG según el scroll;
 ### Coreografía
 - **Entrada:** `expo.out`; los caracteres del nombre suben desde su línea, el retrato sube y se asienta sobre el borde inferior, las letras A/B aparecen con `back.out(2)`.
 - **El frente pasa:** el desplazamiento del campo del hero está ligado al scroll del hero; el nombre se queda atrás y el retrato baja y se reduce. En «Parte del día» la isla se asienta en su marco (escala y giro ligados al scroll).
-- **La mirada:** los iris del retrato siguen al cursor por todo el hero (`quickTo`, recorrido máximo 20 % en horizontal y 9 % en vertical, recortados por la apertura de cada párpado).
+- **La mirada:** desactivada provisionalmente (`EYES_FOLLOW` en `src/main.ts`); los iris quedan fijos en su sitio.
+- **Entrada del retrato:** en CSS (`me-in`), no en GSAP: corre en el compositor desde el primer pintado y no espera al script (es el elemento LCP).
+- **Preparación diferida:** solo el hero se prepara al arrancar; los disparadores del resto de secciones se crean en tiempo libre (`requestIdleCallback`), una pieza por hueco, desde que el nombre ya ha entrado o con el primer gesto de scroll. Los anclajes van primero.
 - **Titulares de sección:** los caracteres suben desde una máscara de línea (`yPercent: 115`, escalonado 0.025s).
 - **Tarjetas:** crecen de escala 0.9 a 1 con el scroll; el texto entra con desplazamiento.
 - **Tramos horizontales:** KORA y trayectoria se desplazan en horizontal mientras están anclados; la trayectoria dibuja su traza.
@@ -322,9 +314,8 @@ Divisor de escena: línea ondulada de 3px dibujada con DrawSVG según el scroll;
 ## Do's and Don'ts
 
 ### Do:
-- **Do** poner el texto de lectura siempre sobre fondo sólido: la copia del hero va en su plancha de papel, el texto de proyecto sobre su campo plano.
+- **Do** poner el texto de lectura siempre sobre fondo sólido: la copia del hero va en su forma de sistema, el texto de proyecto sobre su campo plano.
 - **Do** reservar Martian Mono para medidas: coordenadas, hora, hPa, años y fechas, y la ruta.
-- **Do** distinguir lo verificado de lo declarado: chip sólido `ink` frente a chip de contorno.
 - **Do** mantener cada campo con su tinta fija (cielo/`ocean`, cálido/`warm-ink`, `kora`/blanco, `cloud`/blanco).
 - **Do** animar solo `transform` y `opacity` (más el `clip-path` de la ventana y el menú, y el color de la declaración).
 - **Do** medir el layout fuera de los bucles: tamaños leídos una vez y al redimensionar, nunca tras escribir transformaciones en el mismo frame.
@@ -338,3 +329,5 @@ Divisor de escena: línea ondulada de 3px dibujada con DrawSVG según el scroll;
 - **Don't** poner texto sobre el campo WebGL, las isobaras o una captura.
 - **Don't** usar sombras de desplazamiento duro, resplandores ni cristal esmerilado.
 - **Don't** añadir un segundo plano WebGL por escena ni animar propiedades de layout.
+- **Don't** usar selectores sobre el atributo `style` (`[style*=…]`): GSAP lo cambia en cada frame y obliga a revisar todos los descendientes. Usa un atributo propio (`data-cs`).
+- **Don't** crear un ScrollTrigger en el arranque si su sección no está en el hero: va a la cola diferida.
