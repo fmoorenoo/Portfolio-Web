@@ -71,7 +71,7 @@ export class Field {
   private centresData = new Float32Array(24);
   /** Desplazamiento del frente (0..1), lo fija el scroll. */
   shift = 0;
-  /** Posiciones actuales de los centros, en fracciones del lienzo, para anclar las letras A/B. */
+  /** Posiciones actuales de los centros, en fracciones del lienzo, por si algo tiene que seguirlos. */
   readonly now: Centre[];
   onFrame?: (centres: Centre[], w: number, h: number) => void;
 

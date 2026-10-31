@@ -181,28 +181,7 @@ const heroField = dev('nofield') ? null : Field.create($<HTMLCanvasElement>('[da
   maxDpr: 1,
   centres: heroCentres,
 });
-const high = $('.hero__high'), low = $('.hero__low');
-if (heroField) {
-  // Las letras A y B siguen a sus centros: la leyenda queda quieta, el campo se mueve.
-  // Tamaños medidos fuera del bucle: leerlos tras escribir transformaciones forzaría un layout por frame.
-  const size = new Map<HTMLElement, [number, number]>();
-  const measure = () => [high, low].forEach((el) => size.set(el, [el.offsetWidth, el.offsetHeight]));
-  measure();
-  addEventListener('resize', measure);
-  document.fonts.ready.then(measure);
-  const place = (el: HTMLElement, c: Centre, w: number, h: number) => {
-    const [ew, eh] = size.get(el)!;
-    el.style.transform = `translate(${c.x * w - ew / 2}px, ${c.y * h - eh / 2}px)`;
-  };
-  heroField.onFrame = (cs, w, h) => { place(high, cs[0], w, h); place(low, cs[1], w, h); };
-  // Las letras se colocan ya, sin esperar a que el shader termine de compilar.
-  const hero = $('.hero');
-  heroField.onFrame(heroField.now, hero.offsetWidth, hero.offsetHeight);
-  if (!motion) heroField.still();
-} else {
-  high.style.transform = 'translate(38vw, 18vh)';
-  low.style.transform = 'translate(86vw, 80vh)';
-}
+if (heroField && !motion) heroField.still();
 // El campo del contacto está al final de la página: su contexto WebGL y su shader (unos 40 ms de hilo principal)
 // se crean cuando falta una pantalla para llegar, no en el arranque. Hasta entonces se ve su degradado CSS.
 const darkCanvas = $<HTMLCanvasElement>('[data-field="dark"]');
@@ -310,7 +289,6 @@ if (motion) {
     .to(chars, { yPercent: 0, duration: 1.25, stagger: 0.028 }, 0.15)
     // El retrato entra por CSS (styles.css, «me-in»): así se pinta con el primer frame sin esperar a este script.
     .fromTo('.hero__intro', { opacity: 0, y: 40, scale: 0.86, rotate: -4 }, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 1.4, ease: 'expo.out' }, 0.6)
-    .fromTo([high, low], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(2)' }, 0.9)
     .fromTo('.hero__barb', { opacity: 0, rotate: '-=40' }, { opacity: 0.55, rotate: '+=40', duration: 1.4, stagger: 0.12 }, 1)
     // El nombre ya está en su sitio: a partir de aquí se prepara el resto de la página sin entorpecer la entrada.
     .call(startQueue, [], 1.5);

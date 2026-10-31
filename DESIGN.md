@@ -77,13 +77,6 @@ typography:
     fontSize: "0.72rem"
     fontWeight: 400
     fontFeature: "'tnum' 1"
-  pressure:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 6vw, 5.5rem)"
-    fontWeight: 800
-    lineHeight: 1
-    letterSpacing: "-0.02em"
-    fontVariation: "'wdth' 100"
 rounded:
   card: "clamp(20px, 2.2vw, 30px)"
   plate: "22px"
@@ -163,7 +156,7 @@ components:
 
 **Creative North Star: "La carta sinóptica de Lanzarote"**
 
-La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: letras A y B con su lectura en hPa, barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. El hero lo protagoniza el retrato recortado de Fernando delante de un sol de calima, sobre un cielo limpio que se funde con el papel y en el que el campo solo dibuja isobaras finas; el retrato se funde por los hombros y por abajo. La isla pasa al «Parte del día». Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
+La página es el parte meteorológico de un desarrollador que construye software para su isla: una carta clara (papel `paper`) sobre la que un campo de presión pintado en WebGL2 dibuja bandas de color escalonadas e isobaras de tinta. Los centros de presión se desplazan con el scroll y la leyenda queda quieta mientras el campo se mueve. Encima viven los signos propios de un mapa de modelo: barbas de viento, frentes fríos con triángulos y cálidos con semicírculos, puntos de estación con su rótulo y la silueta real de Lanzarote en tinta. El hero lo protagoniza el retrato recortado de Fernando delante de un sol de calima, sobre un cielo limpio que se funde con el papel y en el que el campo solo dibuja isobaras finas; el retrato se funde por los hombros y por abajo. La isla pasa al «Parte del día». Cada proyecto es una estación: una tarjeta grande sobre su propio campo de color que se abre, recortada desde la propia tarjeta, en una ventana con ruta propia.
 
 La densidad es la de un parte de televisión: un nombre enorme en Archivo expandido, pocas piezas, mucha carta alrededor. La expresividad vive en el campo, los frentes y el ancho de la letra; la información vive siempre sobre fondo sólido (papel, plancha de papel o campo plano), en texto fluido con contraste AA. El movimiento es parte del mundo (el frente pasa, el campo se desplaza) pero nunca oculta lectura: las entradas son transformaciones y el texto largo pasa de un gris legible a tinta.
 
@@ -224,8 +217,7 @@ Una carta casi blanca y fría, tinta azul petróleo, y siete campos saturados to
 - **Lede** (450, `clamp(1.3rem, …, 1.95rem)`, 1.38, máx. 34–40ch): declaración del parte e introducción de ventana; las afirmaciones de tarjeta van a 600.
 - **Body** (400, `clamp(1rem, 0.95rem + 0.2vw, 1.125rem)`, 1.55, 44–56ch): todo el texto de lectura.
 - **Label** (600, ancho 106, 0.8–0.86rem): tipo de proyecto, sector, pies, claves de ficha, estado, botón de contorno.
-- **Measure** (Martian Mono, 0.68–0.74rem, cifras tabulares): lectura en vivo de la barra, hPa de las letras de presión, fechas del archivo y de la trayectoria, miga de ruta de la ventana.
-- **Pressure** (800, ancho 100, `clamp(3rem, 6vw, 5.5rem)`): las letras A y B, en `cold` y `warm`.
+- **Measure** (Martian Mono, 0.68–0.74rem, cifras tabulares): lectura en vivo de la barra, fechas del archivo y de la trayectoria, miga de ruta de la ventana.
 
 ### Named Rules
 **The Instrument Rule.** Martian Mono solo escribe medidas: coordenadas, hora, hPa, años y fechas, y la ruta. Rótulos, etiquetas, botones y pies son Archivo.
@@ -301,7 +293,7 @@ Cada campo expone `--field`, `--field-ink`, `--field-base` (sólido, para el tex
 Divisor de escena: línea ondulada de 3px dibujada con DrawSVG según el scroll; los triángulos (frente frío, `cold`) o semicírculos (frente cálido, `warm`) brotan con `back.out(3)` a su paso.
 
 ### Coreografía
-- **Entrada:** `expo.out`; los caracteres del nombre suben desde su línea, el retrato sube y se asienta sobre el borde inferior, las letras A/B aparecen con `back.out(2)`.
+- **Entrada:** `expo.out`; los caracteres del nombre suben desde su línea, el retrato sube y se asienta sobre el borde inferior.
 - **El frente pasa:** el desplazamiento del campo del hero está ligado al scroll del hero; el nombre se queda atrás y el retrato baja y se reduce. En «Parte del día» la isla se asienta en su marco (escala y giro ligados al scroll).
 - **La mirada:** desactivada provisionalmente (`EYES_FOLLOW` en `src/main.ts`); los iris quedan fijos en su sitio.
 - **Entrada del retrato:** en CSS (`me-in`), no en GSAP: corre en el compositor desde el primer pintado y no espera al script (es el elemento LCP).
