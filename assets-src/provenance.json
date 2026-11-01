@@ -1,5 +1,9 @@
 {
   "isla-mask.png": "public/img/isla.png (silueta de Lanzarote del pipeline anterior)",
   "kora-logo.svg": "https://koradigitalsolutions.com/assets/logo/kora.svg (logotipo oficial de KORA Digital Solutions), limpiado de metadatos de Inkscape",
-  "retrato-base-*.webp, ojo-*-iris.png, ojo-*-mask.png": "../profile.png (retrato propio, autorizado), procesado por scripts/eyes.mjs"
+  "retrato-base-*.webp, ojo-*-iris.png, ojo-*-mask.png": "../profile.png (retrato propio, autorizado), procesado por scripts/eyes.mjs",
+  "logo-lanzamet.webp": "../LanzaMet/public/icons/logo.png (logotipo de LanzaMet), vía scripts/logos.mjs",
+  "logo-aceslan.webp": "../ACESLAN/composeApp/src/androidMain/res/drawable/logo_aceslan_bg.png (logotipo de la app ACESLAN), vía scripts/logos.mjs",
+  "logo-haircloud.webp": "../HairCloud/frontend/app/src/main/res/drawable/app_logo.png (logotipo de la app HairCloud), vía scripts/logos.mjs",
+  "retrato-esqueleto-*.webp": "assets-src/xray/esqueleto.png (retrato anatómico de esqueleto aportado por Fernando), alineado con el retrato por scripts/xray.mjs"
 }
