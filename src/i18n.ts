@@ -20,7 +20,7 @@ const en: Record<string, string> = {
   'np.all': 'Go to the section',
   'hero.station': 'Arrecife, Lanzarote, Spain',
   'hero.hi': 'Hi, I’m Fernando.',
-  'hero.lede': 'I learned to code in Lanzarote, and most of what I’ve built is used here: the Emergency Consortium’s incident app, websites for businesses with KORA, and LanzaMet, the island’s weather and sea by area. I work from the screen to the database.',
+  'hero.lede': 'I started coding in Lanzarote, and most of what I’ve built is used here: the Emergency Consortium’s incident app, websites for businesses with KORA, and LanzaMet, the island’s weather and sea by area. I work from the screen to the database.',
   'hero.kicker': 'Full Stack Developer · Arrecife, Lanzarote',
   'hero.cta': 'See my work',
   'mode.label': 'Effect when you hover over the photo',
