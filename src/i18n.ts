@@ -13,16 +13,18 @@ const en: Record<string, string> = {
   'nav.open': 'Open menu',
   'np.lm': 'Own product · live',
   'np.ac': 'Emergency app · Consortium',
-  'np.ko': 'My company · 8 live websites',
+  'np.ko': 'Web design agency · 8 live websites',
   'np.hc': 'Android app and API · DAM',
   'np.hg': '3D video game · Unity',
   'np.more': 'And 6 more projects on GitHub',
   'np.all': 'Go to the section',
   'hero.station': 'Arrecife, Lanzarote, Spain',
   'hero.hi': 'Hi, I’m Fernando.',
-  'hero.lede': 'I’m from Lanzarote, and this is where I learned to code. I started with a website for my local football club, and today I build software that people on the island use. I like what I make to be useful, tidy and easy to maintain.',
-  'hero.status': 'Available as a Junior Full Stack Developer · remote, hybrid or on-site',
+  'hero.lede': 'I learned to code in Lanzarote, and most of what I’ve built is used here: the Emergency Consortium’s incident app, websites for businesses with KORA, and LanzaMet, the island’s weather and sea by area. I work from the screen to the database.',
+  'hero.kicker': 'Full Stack Developer · Arrecife, Lanzarote',
   'hero.cta': 'See my work',
+  'mode.label': 'Effect when you hover over the photo',
+  'mode.normal': 'Normal', 'mode.xray': 'X-ray', 'mode.invert': 'Inverted colours', 'mode.eyes': 'Eyes that follow you',
   'parte.alt': 'Fernando Montelongo.',
   'parte.map': 'Map of Lanzarote with Arrecife marked.',
   'parte.cap': 'Where I live and code',
@@ -82,7 +84,7 @@ const en: Record<string, string> = {
   'sk.c1': 'Web frontend', 'sk.c2': 'Backend & APIs', 'sk.c3': 'Mobile & desktop', 'sk.c4': 'Databases', 'sk.c5': '3D games', 'sk.c6': 'Tools',
   'rt.title': 'Path',
   'rt.lede': 'From my first website in 2024 to a product of my own in production in 2026.',
-  'rt.t.edu': 'Education', 'rt.t.work': 'Work', 'rt.t.proj': 'Project', 'rt.t.co': 'Company', 'rt.t.now': 'Now',
+  'rt.t.edu': 'Education', 'rt.t.work': 'Work', 'rt.t.proj': 'Project', 'rt.t.co': 'Agency', 'rt.t.now': 'Now',
   'rt.1': 'Health Sciences baccalaureate',
   'rt.2': 'Multiplatform Application Development (DAM)',
   'rt.3d': 'May 2024', 'rt.3': 'My first website, for San Bartolomé football club', 'rt.3l': 'HTML, CSS and JavaScript, no frameworks',
@@ -134,5 +136,6 @@ export function applyLang(lang: Lang) {
     }
   });
   document.querySelectorAll<HTMLButtonElement>('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  document.querySelectorAll<HTMLElement>('.bar__lang').forEach((g) => { g.dataset.on = lang; });
   try { localStorage.setItem('lang', lang); } catch { /* sin almacenamiento */ }
 }

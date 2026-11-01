@@ -112,9 +112,9 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   font-weight: 600; font-size: 0.98rem; text-decoration: none; letter-spacing: 0.005em;
   transition: background-color 0.3s, color 0.3s, box-shadow 0.4s var(--ease-out);
 }
-.btn svg { width: 1.15em; height: 1.15em; transition: transform 0.45s var(--ease-out); }
-.btn:hover svg { transform: translateX(4px); }
-.btn[href^="#"]:hover svg, .btn:hover svg use[href="#i-down"] { transform: none; }
+.btn svg:not(.shape__iso) { width: 1.15em; height: 1.15em; transition: transform 0.45s var(--ease-out); }
+.btn:hover svg:not(.shape__iso) { transform: translateX(4px); }
+.btn[href^="#"]:hover svg:not(.shape__iso) { transform: none; }
 .btn:hover { box-shadow: 0 10px 24px -12px rgba(12, 46, 64, 0.55); }
 .btn--line { --bg: transparent; --fg: var(--ink); box-shadow: inset 0 0 0 1.5px currentColor; font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
 .btn--line:hover { --bg: var(--ink); --fg: var(--paper); }
@@ -149,7 +149,6 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .bar.is-dark { color: var(--paper); }
 .bar.is-dark.is-solid { background: var(--ocean); box-shadow: 0 1px 0 rgba(238, 242, 240, 0.12); }
 .bar.is-kora.is-solid { background: var(--kora); box-shadow: 0 1px 0 var(--kora-line); }
-.bar.is-dark.is-kora .bar__cta { --bg: var(--kora-pink); --fg: var(--kora); }
 .bar__mark { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; white-space: nowrap; }
 /* Monograma: una pieza cuadrada que al pasar el ratón se redondea y toma el color de la calima. */
 .bar__mono {
@@ -161,7 +160,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .bar__mark:hover .bar__mono { border-radius: 50%; transform: rotate(-10deg); background: var(--calima); color: var(--ink); }
 .bar.is-dark .bar__mono { background: var(--paper); color: var(--ink); }
 .bar.is-kora .bar__mono { background: var(--kora-pink); color: var(--kora); }
-.bar__nav { justify-self: end; display: flex; align-items: center; gap: clamp(10px, 1.2vw, 18px); font-weight: 600; font-size: 0.92rem; }
+/* Más aire entre la cápsula de enlaces y el selector de idioma: su forma e isobaras sobresalen de su caja. */
+.bar__nav { justify-self: end; display: flex; align-items: center; gap: clamp(22px, 2.4vw, 38px); font-weight: 600; font-size: 0.92rem; }
 /* Enlaces en una cápsula de papel; una píldora se desliza al enlace bajo el cursor o al de la sección en curso. */
 .bar__links { position: relative; display: flex; align-items: center; padding: 4px; border-radius: 999px; isolation: isolate; }
 .bar__links::before {
@@ -183,48 +183,85 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .nav-link.is-lit { color: var(--paper); }
 .bar.is-dark .nav-link.is-lit { color: var(--ink); }
 .bar.is-kora .nav-link.is-lit { color: var(--kora); }
+.nav-drop { position: relative; }
 .nav-drop__chev { width: 16px; height: 16px; margin-right: -5px; transition: transform 0.45s var(--ease-out); }
 .nav-drop.is-open .nav-drop__chev { transform: rotate(180deg); }
 
-/* Desplegable de proyectos: cada uno con su color de campo y una captura que asoma. */
+/* Desplegable de proyectos: una fila por proyecto, con su logo sobre el color de su campo. */
 .nav-drop__panel {
-  position: fixed; top: calc(var(--bar) - 4px); right: var(--gutter); width: min(900px, 100vw - 2 * var(--gutter));
-  padding: 12px; border-radius: 24px; background: var(--paper); color: var(--ink); font-size: 1rem;
+  /* Justo debajo de «Proyectos», alineado con el borde izquierdo de la cápsula de enlaces. */
+  position: absolute; top: calc(100% + 14px); left: -4px; width: min(420px, 100vw - 2 * var(--gutter));
+  padding: 8px; border-radius: 22px; background: var(--paper); color: var(--ink); font-size: 1rem;
   box-shadow: 0 0 0 1px var(--rule), 0 44px 80px -40px rgba(12, 46, 64, 0.6), 0 14px 28px -18px rgba(12, 46, 64, 0.35);
-  opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.985); transform-origin: 70% 0;
+  opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.985); transform-origin: 12% 0;
   transition: opacity 0.25s, transform 0.45s var(--ease-out), visibility 0s 0.45s;
   /* Mientras se desvanece sigue siendo visible: sin esto, pasar el puntero por donde estaba lo volvía a abrir. */
   pointer-events: none;
 }
+/* Puente invisible sobre el hueco entre el enlace y el panel, para cruzarlo sin que se cierre. */
+.nav-drop__panel::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 18px; }
 .nav-drop.is-open .nav-drop__panel { pointer-events: auto; opacity: 1; visibility: visible; transform: none; transition: opacity 0.25s, transform 0.5s var(--ease-out); }
-.np-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
-.nav-drop__panel li { opacity: 0; transform: translateY(10px); transition: opacity 0.2s, transform 0.4s var(--ease-out); }
-.nav-drop.is-open .nav-drop__panel li { opacity: 1; transform: none; transition: opacity 0.4s, transform 0.6s var(--ease-out); transition-delay: calc(var(--i) * 45ms + 60ms); }
-.np { display: grid; gap: 3px; height: 100%; align-content: start; padding: 6px 6px 12px; border-radius: 18px; text-decoration: none; transition: background-color 0.3s; }
+.np-list { display: grid; gap: 2px; }
+.nav-drop__panel li { opacity: 0; transform: translateY(8px); transition: opacity 0.2s, transform 0.4s var(--ease-out); }
+.nav-drop.is-open .nav-drop__panel li { opacity: 1; transform: none; transition: opacity 0.4s, transform 0.6s var(--ease-out); transition-delay: calc(var(--i) * 40ms + 50ms); }
+.np { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 7px; border-radius: 16px; text-decoration: none; transition: background-color 0.3s; }
 .np:hover, .np:focus-visible { background: var(--paper-2); }
-.np__media { position: relative; display: block; aspect-ratio: 5 / 4; margin-bottom: 8px; border-radius: 13px; overflow: hidden; background: var(--f); }
-.np__media img {
-  position: absolute; left: 14%; top: 18%; width: 112%; max-width: none; height: auto; border-radius: 6px;
-  box-shadow: 0 16px 26px -12px rgba(0, 0, 0, 0.55); transition: transform 0.6s var(--ease-out);
+/* Pieza del logo: el campo del proyecto en pequeño; al pasar el ratón gira un poco y se acerca. */
+.np__logo {
+  position: relative; display: grid; place-items: center; width: 64px; height: 50px; border-radius: 13px; overflow: hidden;
+  background: var(--f); box-shadow: inset 0 0 0 1px rgba(16, 34, 44, 0.06);
+  transition: transform 0.55s var(--ease-out), border-radius 0.55s var(--ease-out);
 }
-.np:hover .np__media img { transform: translate(-6px, -6px); }
-.np--phone .np__media img { left: 30%; top: 12%; width: 40%; border-radius: 9px; box-shadow: 0 0 0 3px #111214, 0 16px 26px -12px rgba(0, 0, 0, 0.6); }
-.np__name { padding: 0 4px; font-weight: 800; font-stretch: 112%; font-size: 1rem; letter-spacing: -0.01em; }
-.np__kind { padding: 0 4px; font-size: 0.78rem; font-weight: 500; line-height: 1.35; color: var(--ink-2); }
-.nav-drop__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 8px; padding: 12px 10px 4px; border-top: 1px solid var(--rule); font-size: 0.86rem; font-weight: 600; }
+.np:hover .np__logo, .np:focus-visible .np__logo { transform: rotate(-4deg) scale(1.06); border-radius: 18px; }
+.np__logo img { width: 46px; height: auto; max-height: 34px; object-fit: contain; }
+.np__logo--round img { width: 36px; height: 36px; max-height: none; border-radius: 50%; }
+.np__logo--kora .kora-mark { --w: 40px; }
+.np__logo--kora .kora-dot { box-shadow: none; }
+/* Haría Game no tiene logotipo: el título blanco de su menú con el verde y el cian de sus botones. */
+.hg-mark {
+  position: relative; display: block; padding-bottom: 5px; color: #FFFFFF; text-align: center; text-transform: uppercase;
+  font-weight: 800; font-stretch: 112%; font-size: 0.6rem; line-height: 0.95; letter-spacing: 0.01em;
+}
+.hg-mark::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 0; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--hg-green) 50%, var(--hg-cyan) 50%); }
+.np__text { display: grid; gap: 1px; }
+.np__name { font-weight: 800; font-stretch: 112%; font-size: 1rem; line-height: 1.2; letter-spacing: -0.01em; }
+.np__kind { font-size: 0.8rem; font-weight: 500; line-height: 1.35; color: var(--ink-2); }
+.nav-drop__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 6px; padding: 12px 8px 4px; border-top: 1px solid var(--rule); font-size: 0.86rem; font-weight: 600; }
 .nav-drop__foot a { text-decoration: none; color: var(--ink-2); transition: color 0.3s; }
 .nav-drop__foot a:hover { color: var(--ink); }
 .nav-drop__foot .nav-drop__all { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
 .nav-drop__all svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease-out); }
 .nav-drop__all:hover svg { transform: translateX(3px); }
-.bar__lang { display: flex; gap: 2px; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--rule); }
-.bar.is-dark .bar__lang { box-shadow: inset 0 0 0 1.5px rgba(238, 242, 240, 0.25); }
-.bar__lang button { font-weight: 700; font-size: 0.74rem; padding: 6px 9px; border-radius: 999px; line-height: 1; }
-.bar__lang button[aria-pressed="true"] { background: currentColor; }
-.bar__lang button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
-.bar.is-dark .bar__lang button[aria-pressed="true"] { color: var(--ink); background: var(--paper); }
+/* Selector de idioma: un pequeño sistema de presión, como la presentación del hero. Un cuerpo irregular de color con
+   su isobara y un «sol» irregular que rueda hasta el idioma activo (las formas salen de src/blobs.ts). */
+.bar__lang[data-blob] {
+  --bx: 9%; --by: 20%; --gap: 5px; --ring: color-mix(in srgb, var(--lilac) 75%, transparent); --shadow: rgba(46, 107, 230, 0.4);
+  --fill:
+    radial-gradient(60% 90% at 18% 10%, rgba(255, 255, 255, 0.32), transparent 70%),
+    radial-gradient(55% 110% at 100% 100%, rgba(240, 88, 58, 0.9), transparent 70%),
+    radial-gradient(45% 90% at 0% 100%, rgba(60, 195, 162, 0.75), transparent 70%),
+    linear-gradient(120deg, var(--cold) 0%, #6E6CF0 55%, var(--lilac) 100%);
+  display: grid; grid-template-columns: 1fr 1fr; padding: 3px;
+}
+.bar__lang .shape__body { filter: drop-shadow(0 8px 12px var(--shadow)); }
+.bar__lang .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); }
+.bar__lang .shape__iso--2 path { stroke: color-mix(in srgb, var(--warm) 60%, transparent); }
+.bar__knob[data-blob] {
+  --bx: 4%; --by: 6%;
+  --fill: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
+  position: absolute; z-index: 0; left: 3px; top: 3px; bottom: 3px; width: calc(50% - 3px);
+  transition: translate 0.6s var(--ease-out), rotate 0.8s var(--ease-out);
+}
+.bar__knob .shape__body { filter: drop-shadow(0 3px 5px rgba(120, 60, 0, 0.35)); }
+.bar__lang[data-on="en"] .bar__knob { translate: 100% 0; rotate: 180deg; }
+.bar__lang button {
+  position: relative; z-index: 1; min-width: 40px; padding: 9px 11px; border-radius: 999px;
+  font-weight: 800; font-stretch: 112%; font-size: 0.76rem; line-height: 1; letter-spacing: 0.02em; color: #FFFFFF;
+  transition: color 0.35s;
+}
+.bar__lang button[aria-pressed="true"] { color: var(--ink); }
+.bar__lang button:not([aria-pressed="true"]):hover { color: #FFE7B0; }
 .bar__cta { min-height: 42px; }
-.bar.is-dark .bar__cta { --bg: var(--paper); --fg: var(--ink); }
 .bar__menu { display: none; width: 44px; height: 44px; border-radius: 50%; position: relative; }
 .bar__menu i { position: absolute; left: 12px; right: 12px; height: 1.8px; background: currentColor; transition: transform 0.4s var(--ease-out); }
 .bar__menu i:first-of-type { top: 18px; }
@@ -321,14 +358,82 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
     radial-gradient(60% 70% at 92% 96%, rgba(169, 139, 234, 0.6), transparent 70%),
     linear-gradient(160deg, #3F7CF2 0%, var(--cold) 48%, #1F49B8 100%);
 }
+/* Botones con forma: el mismo sistema que el selector de idioma. Un cuerpo irregular con el degradado de su
+   proyecto, dos isobaras alrededor y, al pasar el ratón, la forma se acerca y gira un poco. Sin animación en reposo:
+   son muchos y solo se mueven cuando se usan. Cada variante define --base (degradado de fondo), --glow (la esquina de
+   color), --ring y --ring2 (isobaras) y --shadow. */
+.btn[data-blob] {
+  --bx: 3.5%; --by: 9%; --gap: 5px; --shadow: rgba(12, 46, 64, 0.4);
+  min-height: 42px; padding: 0 1.05em;
+  --fill:
+    radial-gradient(60% 90% at 16% 8%, rgba(255, 255, 255, 0.34), transparent 70%),
+    radial-gradient(55% 110% at 100% 100%, var(--glow, transparent), transparent 72%),
+    var(--base);
+  background: none; box-shadow: none;
+}
+.btn[data-blob]:hover { box-shadow: none; }
+.btn[data-blob] .shape__body { filter: drop-shadow(0 10px 14px var(--shadow)); transition: transform 0.6s var(--ease-out); }
+.btn[data-blob] .shape__iso { transition: transform 0.9s var(--ease-out); }
+.btn[data-blob] .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); opacity: 0.7; }
+.btn[data-blob] .shape__iso--2 path { stroke: var(--ring2, var(--ring)); }
+.motion .btn[data-blob] .shape__body, .motion .btn[data-blob] .shape__iso { animation: none; }
+.btn[data-blob]:hover .shape__body, .btn[data-blob]:focus-visible .shape__body { transform: scale(1.05) rotate(-2.5deg); }
+.btn[data-blob]:hover .shape__iso--1 { transform: rotate(5deg) scale(1.04); }
+.btn[data-blob]:hover .shape__iso--2 { transform: rotate(-6deg) scale(1.03); }
+
+/* Hero: el sol de calima, como la pieza del selector de idioma. */
+.btn--sun[data-blob] {
+  --fg: var(--ink); --base: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
+  --glow: rgba(240, 88, 58, 0.55); --ring: rgba(252, 224, 160, 0.9); --ring2: color-mix(in srgb, var(--warm) 70%, transparent); --shadow: rgba(140, 70, 0, 0.4);
+}
+/* Barra: tinta sobre la carta, papel sobre las secciones oscuras y el rosa de KORA en la suya. */
+.bar__cta[data-blob] {
+  --bx: 3%; --by: 8%; min-height: 38px; padding: 0 0.95em; --fg: var(--paper); --base: linear-gradient(150deg, #24465A 0%, var(--ink) 70%);
+  --glow: color-mix(in srgb, var(--cold) 75%, transparent); --ring: color-mix(in srgb, var(--cold) 55%, transparent);
+}
+.bar.is-dark .bar__cta[data-blob] { --fg: var(--ink); --base: var(--paper); --glow: rgba(244, 178, 62, 0.6); --ring: rgba(238, 242, 240, 0.4); --shadow: rgba(0, 0, 0, 0.4); }
+.bar.is-dark.is-kora .bar__cta[data-blob] { --fg: var(--kora); --base: linear-gradient(150deg, #FF6A8E, var(--kora-pink)); --glow: rgba(214, 32, 79, 0.75); --ring: color-mix(in srgb, var(--kora-pink) 60%, transparent); }
+/* Proyectos: cada uno con los colores de su campo. */
+.btn--lm {
+  --fg: #FFFFFF; --base: linear-gradient(150deg, #1B5873 0%, var(--ocean) 75%);
+  --glow: rgba(46, 107, 230, 0.85); --ring: color-mix(in srgb, var(--ocean) 55%, transparent); --ring2: color-mix(in srgb, var(--calima) 90%, transparent); --shadow: rgba(12, 46, 64, 0.45);
+}
+.btn--ace {
+  --fg: var(--ace); --base: linear-gradient(150deg, #FFA28B 0%, var(--ace-red) 80%);
+  --glow: rgba(176, 36, 18, 0.7); --ring: color-mix(in srgb, var(--ace-soft) 75%, transparent); --ring2: rgba(255, 255, 255, 0.3); --shadow: rgba(226, 69, 43, 0.5);
+}
+.btn--kora {
+  --fg: var(--kora); --base: linear-gradient(150deg, #FF7A99 0%, var(--kora-pink) 75%);
+  --glow: rgba(214, 32, 79, 0.75); --ring: color-mix(in srgb, var(--kora-pink) 70%, transparent); --ring2: color-mix(in srgb, #B0284A 80%, transparent); --shadow: rgba(255, 51, 102, 0.45);
+}
+.btn--hc {
+  --fg: #0B1A2B; --base: linear-gradient(150deg, #8CC1F5 0%, var(--cloud-blue) 75%);
+  --glow: rgba(31, 92, 176, 0.7); --ring: color-mix(in srgb, var(--cloud-blue) 75%, transparent); --ring2: rgba(255, 255, 255, 0.3); --shadow: rgba(10, 30, 60, 0.55);
+}
+.btn--game {
+  --fg: #08180D; --base: linear-gradient(120deg, #6FD487 0%, var(--hg-green) 45%, var(--hg-cyan) 100%);
+  --ring: color-mix(in srgb, var(--hg-green) 75%, transparent); --ring2: color-mix(in srgb, var(--hg-cyan) 75%, transparent); --shadow: rgba(0, 0, 0, 0.6);
+}
+/* Ventanas de proyecto: tinta del campo con la esquina en su acento. */
+.cs-btn {
+  --fg: var(--field-base); --base: var(--field-ink);
+  --glow: color-mix(in srgb, var(--field-accent) 70%, transparent); --ring: color-mix(in srgb, var(--field-accent) 70%, transparent);
+  --ring2: color-mix(in srgb, var(--field-ink) 35%, transparent); --shadow: rgba(0, 0, 0, 0.4);
+}
 .blob__in { display: grid; gap: 16px; padding: clamp(10px, 1.4vw, 20px) clamp(6px, 1vw, 16px); color: #FFFFFF; }
 .hero__hi { font-weight: 800; font-stretch: 116%; font-size: clamp(1.8rem, 1.2rem + 1.5vw, 2.7rem); line-height: 0.98; letter-spacing: -0.035em; }
 .hero__lede { font-size: clamp(1.02rem, 0.95rem + 0.32vw, 1.2rem); line-height: 1.5; font-weight: 450; color: rgba(255, 255, 255, 0.9); text-wrap: pretty; }
-.blob .status i, .blob .status i::after { --alisio: #7CF5CF; }
-.blob .status { background: rgba(255, 255, 255, 0.14); color: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); }
+.hero__kicker { display: flex; align-items: center; gap: 10px; font-size: 0.86rem; font-weight: 600; font-stretch: 106%; letter-spacing: 0.005em; color: rgba(255, 255, 255, 0.82); }
+.hero__kicker::before { content: ''; width: 22px; height: 2px; border-radius: 2px; background: var(--calima); flex: none; }
+/* GitHub y LinkedIn: dos botones redondos junto al correo. */
+.hero__social { display: inline-flex; gap: 8px; }
+.btn--icon { --bg: rgba(255, 255, 255, 0.12); --fg: #FFFFFF; width: 48px; padding: 0; justify-content: center; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.5); }
+.btn--icon svg { width: 20px; height: 20px; }
+.btn.btn--icon:hover { --bg: #FFFFFF; --fg: #1F49B8; box-shadow: 0 12px 26px -12px rgba(8, 20, 60, 0.6); }
+.btn--icon:hover svg { transform: none; }
 .blob .btn--line { --fg: #FFFFFF; }
 .blob .btn--line:hover { --bg: #FFFFFF; --fg: #1F49B8; }
-.blob .btn:hover { box-shadow: 0 12px 26px -12px rgba(8, 20, 60, 0.6); }
+.blob .btn:not([data-blob]):hover { box-shadow: 0 12px 26px -12px rgba(8, 20, 60, 0.6); }
 .hero__name {
   grid-row: 2; position: relative; z-index: 2; font-weight: 800; font-stretch: 118%; line-height: 0.86; letter-spacing: -0.035em;
   font-size: clamp(3rem, 6.6vw, 7.6rem); display: grid;
@@ -336,13 +441,6 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .hero__line { display: block; overflow: clip; padding-bottom: 0.16em; margin-bottom: -0.16em; }
 .ln-mask { padding-bottom: 0.16em; margin-bottom: -0.16em; }
 .hero__line .ch { display: inline-block; }
-.status {
-  justify-self: start; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 11px; border-radius: 999px;
-  line-height: 1.3; background: color-mix(in srgb, var(--alisio) 16%, var(--paper)); color: #0B4A3B;
-}
-/* El punto de disponibilidad late como una estación en directo. */
-.status i { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--alisio); flex: none; }
-.status i::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--alisio); animation: ping 2.6s var(--ease-out) infinite; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Frentes (divisores dibujados) */
@@ -366,6 +464,70 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
    apertura real del ojo (máscara trazada en scripts/eyes.mjs). Las cifras salen de src/eyes.json. */
 .portrait { position: absolute; inset: 0; transform-origin: 50% 100%; will-change: transform; }
 .portrait__base { display: block; width: 100%; height: 100%; }
+/* Lentes del retrato (src/main.ts, modos «xray» e «invert»): dentro de un círculo que sigue al cursor se ve el
+   esqueleto, colocado con las cuencas sobre los ojos (scripts/xray.mjs) sobre un fondo oscuro, o los colores
+   invertidos (una capa blanca en «difference», que invierte también los iris). Las dos se recortan por la silueta (el
+   alfa de la propia foto) y por el círculo; el aro que marca el borde va aparte. --lx, --ly y --lr van en .portrait. */
+.portrait { isolation: isolate; --lx: 0; --ly: 0; --lr: 0; --lmax: 1; }
+.portrait__xray, .portrait__inv {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none; display: none;
+  -webkit-mask: url('/img/retrato-recorte-1086.webp') 0 0 / 100% 100% no-repeat, radial-gradient(circle calc(var(--lr) * 1px) at calc(var(--lx) * 1px) calc(var(--ly) * 1px), #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask: url('/img/retrato-recorte-1086.webp') 0 0 / 100% 100% no-repeat, radial-gradient(circle calc(var(--lr) * 1px) at calc(var(--lx) * 1px) calc(var(--ly) * 1px), #000 93%, transparent 100%);
+  mask-composite: intersect;
+}
+.portrait[data-mode="xray"] .portrait__xray, .portrait[data-mode="invert"] .portrait__inv { display: block; }
+.portrait__xray { background: radial-gradient(60% 50% at 52% 38%, #1B3D50 0%, #0A1C27 60%, #050E14 100%); }
+.portrait__xray img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.portrait__inv { background: #FFFFFF; mix-blend-mode: difference; }
+.portrait__ring {
+  position: absolute; left: 0; top: 0; z-index: 4; pointer-events: none; display: none;
+  width: calc(var(--lmax) * 2px); aspect-ratio: 1; border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.75), 0 0 22px 2px rgba(191, 227, 234, 0.45), inset 0 0 18px rgba(191, 227, 234, 0.35);
+  transform: translate(calc(var(--lx) * 1px), calc(var(--ly) * 1px)) translate(-50%, -50%) scale(calc(var(--lr) / var(--lmax)));
+}
+.portrait[data-mode="xray"] .portrait__ring, .portrait[data-mode="invert"] .portrait__ring { display: block; }
+
+/* Selector de modos del retrato: el mismo sistema que el selector de idioma, en vertical, a la derecha de la foto.
+   Solo con ratón (html.has-modes) y en escritorio. Cada botón muestra su nombre al pasar el ratón o con el foco. */
+.modes { display: none; }
+.has-modes .modes[data-blob] {
+  --bx: 18%; --by: 5%; --gap: 6px; --ring: color-mix(in srgb, var(--lilac) 75%, transparent); --shadow: rgba(46, 107, 230, 0.4);
+  --fill:
+    radial-gradient(90% 40% at 20% 6%, rgba(255, 255, 255, 0.32), transparent 70%),
+    radial-gradient(120% 45% at 100% 100%, rgba(240, 88, 58, 0.9), transparent 70%),
+    radial-gradient(100% 35% at 0% 60%, rgba(60, 195, 162, 0.7), transparent 70%),
+    linear-gradient(180deg, var(--cold) 0%, #6E6CF0 55%, var(--lilac) 100%);
+  position: absolute; z-index: 3; display: grid; grid-auto-rows: 44px; padding: 4px;
+  right: max(2.4vw, calc((100vw - 1560px) / 2 + 12px));
+  bottom: calc(clamp(24px, 6vh, 64px) + min(82vh, 840px) * 0.5);
+  translate: 0 50%;
+}
+.modes .shape__body { filter: drop-shadow(0 10px 16px var(--shadow)); }
+.modes .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); }
+.modes .shape__iso--2 path { stroke: color-mix(in srgb, var(--warm) 60%, transparent); }
+.modes__knob[data-blob] {
+  --bx: 6%; --by: 6%;
+  --fill: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
+  position: absolute; z-index: 0; left: 4px; right: 4px; top: 4px; height: 44px;
+  transition: translate 0.6s var(--ease-out), rotate 0.8s var(--ease-out);
+}
+.modes__knob .shape__body { filter: drop-shadow(0 3px 5px rgba(120, 60, 0, 0.35)); }
+.modes[data-on="1"] .modes__knob { translate: 0 100%; rotate: 90deg; }
+.modes[data-on="2"] .modes__knob { translate: 0 200%; rotate: 180deg; }
+.modes[data-on="3"] .modes__knob { translate: 0 300%; rotate: 270deg; }
+.modes button { position: relative; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #FFFFFF; transition: color 0.35s; }
+.modes button svg { width: 22px; height: 22px; transition: transform 0.45s var(--ease-out); }
+.modes button[aria-pressed="true"] { color: var(--ink); }
+.modes button:hover svg { transform: scale(1.12); }
+.modes button:not([aria-pressed="true"]):hover { color: #FFE7B0; }
+.modes__tip {
+  position: absolute; right: calc(100% + 16px); top: 50%; translate: 6px -50%; white-space: nowrap; pointer-events: none;
+  padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: 0.8rem; font-weight: 600;
+  box-shadow: 0 10px 22px -12px rgba(12, 46, 64, 0.6); opacity: 0; transition: opacity 0.25s, translate 0.4s var(--ease-out);
+}
+.modes button:hover .modes__tip, .modes button:focus-visible .modes__tip { opacity: 1; translate: 0 -50%; }
+@media (max-width: 899px) { .has-modes .modes[data-blob] { display: none; } }
 .eye { position: absolute; -webkit-mask: var(--m) 0 0 / 100% 100% no-repeat; mask: var(--m) 0 0 / 100% 100% no-repeat; }
 .eye img { position: absolute; max-width: none; }
 .eye--izq { --m: url('/img/ojo-izq-mask.png'); left: 37.2928%; top: 37.3957%; width: 9.4843%; height: 4.5075%; }
@@ -434,8 +596,6 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 /* ACESLAN */
 .case--aceslan .case__kind { color: var(--ace-soft); }
 .case--aceslan .case__body { color: rgba(255, 255, 255, 0.78); }
-.btn--light { --bg: #FFFFFF; --fg: var(--ace); }
-.btn--light:hover { box-shadow: 0 12px 30px -12px rgba(226, 69, 43, 0.7); }
 .ac-press { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
 .ac-press a { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: rgba(255, 255, 255, 0.88); text-decoration: none; }
 .ac-press a svg { width: 14px; height: 14px; color: var(--ace-soft); transition: transform 0.4s var(--ease-out); }
@@ -459,8 +619,6 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .case--game .case__kind { color: #8FE3A6; }
 .case--game .case__body { color: rgba(255, 255, 255, 0.8); }
 .case--game .link-out { color: #fff; }
-.btn--game { --bg: var(--hg-green); --fg: #08180D; }
-.btn--game:hover { box-shadow: 0 12px 30px -12px rgba(63, 182, 90, 0.7); }
 .hg-media__screen {
   position: absolute; margin: 0; border-radius: 12px; overflow: hidden; background: #0B0D0F;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 44px 80px -36px rgba(0, 0, 0, 0.85);
@@ -523,9 +681,9 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .kora__hint { display: inline-flex; gap: 10px; align-items: center; color: var(--kora-pink); margin-top: 8px; }
 .kora__hint svg { width: 18px; height: 18px; animation: nudge 1.8s var(--ease-out) infinite; }
 @keyframes nudge { 0%, 100% { transform: none; } 50% { transform: translateX(6px); } }
-.btn--kora { --bg: var(--kora-pink); --fg: var(--kora); }
-.btn--kora:hover { box-shadow: 0 10px 30px -10px rgba(255, 51, 102, 0.6); }
 .kora .link-out { color: var(--kora-text); }
+.kora__rail { display: contents; }
+.kora__railbar { display: none; }
 .sites { display: flex; align-items: stretch; gap: clamp(14px, 1.4vw, 22px); }
 .site { flex: none; width: clamp(280px, 23vw, 350px); }
 .site a {
@@ -689,9 +847,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .cs[data-cs="hg-field"] .cs-kind, .cs[data-cs="hg-field"] .cs-facts dt { color: #8FE3A6; }
 .cs[data-cs="kora-field"] .cs-kind, .cs[data-cs="kora-field"] .cs-facts dt { color: var(--kora-pink); }
 .cs-claim { margin-top: 14px; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.7rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; max-width: 28ch; text-wrap: balance; }
-.cs-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
-.cs-btn { --bg: var(--field-ink); --fg: var(--field-base); }
-.cs-btn:hover { box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.55); }
+.cs-cta { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
 .cs .cs-btn-line { --bg: transparent; --fg: var(--field-ink); font-family: var(--sans); font-size: 0.95rem; font-weight: 600; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--field-ink) 55%, transparent); }
 .cs .cs-btn-line:hover { --bg: var(--field-ink); --fg: var(--field-base); }
 .cs-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-radius: 18px; border: 1px solid color-mix(in srgb, var(--field-ink) 22%, transparent); background: color-mix(in srgb, var(--field-ink) 5%, transparent); }
@@ -797,33 +953,43 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   .bar { grid-template-columns: 1fr auto auto; }
   .bar__menu { display: block; }
   .bar__cta { min-height: 40px; padding: 0 1em; font-size: 0.9rem; }
+  /* La barra móvil es baja: la isobara se saldría por el borde superior de la pantalla. */
+  .bar__cta .shape__iso { display: none; }
   .bar__nav {
-    position: fixed; inset: var(--bar) 0 auto; flex-direction: column; align-items: flex-start; gap: 4px;
+    position: fixed; inset: var(--bar) 0 auto; justify-self: stretch; flex-direction: column; align-items: flex-start; gap: 4px;
     padding: 16px var(--gutter) 28px; background: var(--paper); color: var(--ink); font-size: 1.6rem; font-weight: 700; font-stretch: 110%;
     box-shadow: 0 30px 40px -30px rgba(12, 46, 64, 0.5);
     clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path 0.5s var(--ease-out), visibility 0s 0.5s;
+    /* En pantallas bajas el menú entero cabe desplazándose dentro de sí mismo, no se corta. */
+    max-height: calc(100svh - var(--bar)); overflow-y: auto; overscroll-behavior: contain;
   }
   .bar__nav.is-open { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path 0.5s var(--ease-out); }
-  .bar__links { display: grid; width: 100%; padding: 0; }
+  .bar__links { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; padding: 0; }
   .bar__links::before, .bar__pill, .nav-drop__chev, .nav-drop__foot { display: none; }
-  .nav-link { height: auto; padding: 8px 0; }
-  /* En el menú móvil los proyectos van siempre a la vista, en una fila que se desliza. */
-  .nav-drop__panel { pointer-events: auto; position: static; width: auto; padding: 2px 0 10px; border-radius: 0; background: none; box-shadow: none; opacity: 1; visibility: inherit; transform: none; font-size: 1rem; font-weight: 400; font-stretch: 100%; }
+  .nav-link { height: auto; padding: 6px 0; font-size: 1.45rem; }
+  /* En el menú móvil los proyectos van siempre a la vista, en una lista compacta con su logo. */
+  .nav-drop__panel { pointer-events: auto; position: static; width: auto; padding: 2px 0 8px; border-radius: 0; background: none; box-shadow: none; opacity: 1; visibility: inherit; transform: none; font-size: 1rem; font-weight: 400; font-stretch: 100%; }
   .nav-drop__panel li { opacity: 1; transform: none; }
-  .np-list { display: flex; gap: 8px; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
-  .np-list::-webkit-scrollbar { display: none; }
-  .np-list li { flex: none; width: 148px; scroll-snap-align: start; }
-  .np { padding: 0; }
+  .nav-drop__panel::before { display: none; }
+  .np-list { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 0 12px; }
+  .np { gap: 12px; padding: 5px 0; }
   .np:hover { background: none; }
-  .bar__lang { margin-top: 14px; font-size: 1rem; }
-  .bar.is-dark .bar__nav .bar__lang button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+  .np__logo { width: 52px; height: 42px; border-radius: 11px; }
+  .np__logo img { width: 38px; max-height: 28px; }
+  .np__logo--round img { width: 30px; height: 30px; }
+  .np__logo--kora .kora-mark { --w: 34px; }
+  .hg-mark { font-size: 0.52rem; }
+  .bar__lang[data-blob] { margin: 16px 0 6px 8px; }
+  .bar__lang button { min-width: 46px; padding: 10px 12px; font-size: 0.85rem; }
 
   .hero__me { top: calc(var(--bar) + 1vh); bottom: auto; left: 0; right: 0; margin-inline: auto; height: min(48vh, 98vw); }
   .hero__copy { padding-top: calc(var(--bar) + min(42vh, 86vw)); }
   .contact__title { font-stretch: 100%; }
   .hero__barb--1 { display: none; }
-  .hero__intro { max-width: none; margin: 22px 12px 44px; }
-  .blob { --bx: 9%; --by: 7%; --gap: 12px; }
+  .hero__intro { max-width: none; margin: 22px 14px 44px; }
+  .blob { --bx: 5%; --by: 7%; --gap: 10px; }
+  /* La forma se estrecha arriba: la etiqueta baja para quedar dentro del color. */
+  .blob__in { padding-top: 40px; }
   .blob .shape__iso--2 { display: none; }
   .hero__barb--2, .hero__barb--3 { display: none; }
   .parte__grid { grid-template-columns: 1fr; }
@@ -859,16 +1025,43 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   .win__crumb { display: none; }
 }
 
-/* Tramos horizontales sin anclaje (móvil o sin movimiento): deslizamiento nativo */
+/* Tramos horizontales en móvil (con movimiento): la presentación de KORA se lee en vertical y después se ancla solo
+   el carril de webs, que pasa en horizontal; Trayectoria se ancla entera, más compacta para caber en una pantalla. */
+@media (max-width: 899px) {
+  .motion .kora__pin { height: auto; min-height: 0; display: block; overflow: visible; }
+  .motion .kora__pin > .hbar { display: none; }
+  /* Sin will-change: crearía el bloque contenedor del position: fixed con que se ancla el carril. */
+  .motion .kora__track { display: block; width: auto; padding: clamp(72px, 11vh, 110px) 0 0; will-change: auto; }
+  .motion .kora__intro { width: auto; max-width: 560px; padding: 0 var(--gutter); }
+  .motion .kora__rail { position: relative; display: flex; flex-direction: column; justify-content: center; height: 100svh; min-height: 560px; padding-top: var(--bar); overflow: hidden; }
+  .motion .sites { width: max-content; padding: 0 var(--gutter); will-change: transform; }
+  .motion .site { width: min(290px, 74vw); }
+  .motion .site__info { padding-top: 12px; gap: 6px; }
+  .motion .kora__railbar { display: block; bottom: 3vh; }
+
+  .motion .route__pin { min-height: 560px; gap: 2vh; padding: calc(var(--bar) + 3vh) 0 7vh; }
+  .motion .route__title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
+  .motion .route__aside { gap: 8px; padding-bottom: 0; }
+  .motion .route__lede { font-size: 0.98rem; }
+  .motion .route__legend { gap: 4px 12px; }
+  .motion .route__legend li { font-size: 0.78rem; }
+  .motion .route__list { gap: 16px; }
+  .motion .route__list li { width: min(236px, 64vw); padding: 12px 14px 14px; margin-top: calc((1 - var(--lvl)) * min(30vh, 260px) + 38px); }
+  .motion .route__list b { font-size: 1rem; }
+  .motion .route__ytext { font-size: 56px; }
+  .motion .route .hbar { bottom: 3vh; }
+}
+
+/* Tramos horizontales sin anclaje (movimiento reducido): deslizamiento nativo y lista vertical */
 .no-hpin .kora__pin { height: auto; min-height: 0; padding: clamp(64px, 10vh, 100px) 0 56px; }
 .no-hpin .kora__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding-top: 0; scrollbar-width: none; overscroll-behavior-x: contain; }
 .no-hpin .kora__track::-webkit-scrollbar { display: none; }
-.no-hpin .kora__track > * { scroll-snap-align: start; }
+.no-hpin .kora__intro, .no-hpin .site { scroll-snap-align: start; }
 .no-hpin .kora__intro { width: min(560px, 86vw); }
 .no-hpin .site { width: min(300px, 78vw); }
 .no-hpin .kora .hbar, .no-hpin .route .hbar { display: none; }
 .no-hpin .route__pin { height: auto; min-height: 0; padding-bottom: 64px; }
-.no-hpin .route__track { width: auto; display: block; padding-top: 32px; }
+.no-hpin .route__track { width: auto; max-height: none; display: block; padding-top: 32px; }
 .no-hpin .route__trace { display: none; }
 .no-hpin .route__list { flex-direction: column; gap: 14px; border-left: 2.5px solid var(--cold); margin-left: 7px; padding-left: 26px; }
 .no-hpin .route__list li { width: auto; margin: 0; }
@@ -886,24 +1079,26 @@ html.win-open, html.win-open body { overflow: hidden; }
 .is-off *, .is-off *::after { animation-play-state: paused !important; }
 
 /* Etiquetas de texto (no medidas) en Archivo; la mono queda para coordenadas, horas, hPa, fechas y cifras. */
-.btn--line, .status, .station > span, .parte__cap, .station-card dt, .zones li, .kora__role, .kora__hint,
+.btn--line, .station > span, .parte__cap, .station-card dt, .zones li, .kora__role, .kora__hint,
 .site__sector, .site__url, .foot, .wp__kind, .wp__facts dt, .case__kind, .clip__src, .archive__list em, .wp__next small {
   font-family: var(--sans); font-stretch: 106%; letter-spacing: 0.005em;
 }
 .btn--line { font-size: 0.95rem; font-weight: 600; }
-.status, .case__kind, .kora__role, .wp__kind { font-size: 0.86rem; font-weight: 600; }
+.case__kind, .kora__role, .wp__kind { font-size: 0.86rem; font-weight: 600; }
 .station > span, .parte__cap, .station-card dt, .site__sector, .site__url, .foot, .wp__facts dt, .clip__src, .archive__list em, .kora__hint, .wp__next small { font-size: 0.8rem; font-weight: 600; }
 .zones li { font-size: 0.7rem; font-weight: 600; }
 
 
 /* HairCloud sobre su degradado oscuro: acción en el azul de la app, enlaces y chips en claro. */
-.case--hair .btn { --bg: var(--cloud-blue); --fg: #0B1A2B; }
 .case--hair .case__kind, .case--hair .case__body { color: rgba(255, 255, 255, 0.86); }
 .case--hair .shot--phone { box-shadow: 0 0 0 6px #111214, 0 30px 60px -24px rgba(0, 0, 0, 0.7); }
 @media (max-width: 560px) {
   .archive__list { grid-template-columns: 1fr; }
   .sys { margin-top: 0 !important; }
-  }
+  /* Las formas sobresalen de su caja: margen para que no las recorte el borde de la pantalla. */
+  .systems { padding-inline: 5%; }
+  .sys { --bx: 5%; }
+}
 /* En móviles estrechos el nombre completo empujaba el botón de menú fuera de la pantalla: queda el monograma. */
 @media (max-width: 430px) {
   .bar__mark > span:not(.bar__mono) { display: none; }

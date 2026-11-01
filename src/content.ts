@@ -157,7 +157,7 @@ export const projects: Project[] = [
     logo: '/img/kora-logo.svg',
     name: 'KORA',
     field: 'kora-field',
-    kind: t('Mi empresa · 2025 — hoy', 'My company · 2025 — now'),
+    kind: t('Agencia de diseño y desarrollo web · 2025 — hoy', 'Web design and development agency · 2025 — now'),
     claim: t('«No hacemos webs. Creamos presencias digitales.»', '“We don’t make websites. We build digital presence.”'),
     facts: [
       [t('Rol', 'Role'), t('Cofundador · Desarrollo & Tecnología', 'Co-founder · Development & Technology')],

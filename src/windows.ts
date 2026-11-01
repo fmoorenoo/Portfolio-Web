@@ -2,6 +2,7 @@
 // hasta ocupar la pantalla y se cierran de vuelta a ella. Esc cierra; ← y → cambian de proyecto.
 import { gsap } from 'gsap';
 import { projects, type Lang, type Project, type Shot } from './content';
+import { mountBlobs } from './blobs';
 
 const INK: Record<string, string> = { sky: 'var(--ocean)', warm: '#2A0E07', 'ace-field': '#FFFFFF', 'kora-field': 'var(--kora-text)', 'cloud-field': 'var(--cloud-ink)', 'hg-field': '#FFFFFF' };
 // Color sólido de cada campo (los hay en degradado) y su acento, para botones y detalles con contraste.
@@ -223,7 +224,9 @@ export class Windows {
     const list = p.list
       ? `<section class="cs-block"><h3 class="cs-h">${esc(p.list.title[L])}</h3><ul class="cs-list" data-reveal>${p.list.items.map((x) => `<li>${esc(x[L])}</li>`).join('')}</ul></section>`
       : '';
-    const links = p.links.map((l, k) => `<a class="btn ${k ? 'btn--line cs-btn-line' : 'cs-btn'}" href="${l.href}" target="_blank" rel="noopener"><span>${esc(l.label[L])}</span><svg aria-hidden="true"><use href="#i-out"/></svg></a>`).join('');
+    // El enlace principal es un botón con forma, en los colores del proyecto (styles.css, .cs-btn); su semilla
+    // depende del proyecto para que cada uno tenga su contorno.
+    const links = p.links.map((l, k) => `<a class="btn ${k ? 'btn--line cs-btn-line' : 'cs-btn" data-blob="${51 + i}" data-rings="2'}" href="${l.href}" target="_blank" rel="noopener"><span>${esc(l.label[L])}</span><svg aria-hidden="true"><use href="#i-out"/></svg></a>`).join('');
     const nextShot = next.shots[0];
     // Logotipo real con su punto (KORA): el punto es parte de la marca, no del SVG.
     const logo = (q: Project, cls: string) => `<span class="kora-mark ${cls}"><img src="${q.logo}" alt="${esc(q.name)}" width="470" height="139"><i class="kora-dot" aria-hidden="true"></i></span>`;
@@ -260,6 +263,7 @@ export class Windows {
           ${nextShot ? `<span class="cs-next__thumb" aria-hidden="true"><img src="${nextShot.src}" alt="" width="${nextShot.w}" height="${nextShot.h}" loading="lazy"></span>` : ''}
         </a>
       </div>`;
+    mountBlobs(this.page);
     this.reveal();
   }
 

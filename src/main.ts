@@ -33,7 +33,12 @@ let lang: Lang = initLang();
 let windows: Windows;
 applyLang(lang);
 $$('[data-lang]').forEach((b) => b.addEventListener('click', () => {
-  lang = b.dataset.lang as Lang;
+  const next = b.dataset.lang as Lang;
+  if (next === lang) return;
+  lang = next;
+  // SplitText guarda el HTML que había al partir y lo restaura al revertir: si se revirtiera después de cambiar el
+  // texto, devolvería el idioma anterior y ese párrafo se quedaría atascado en él.
+  revertWords();
   applyLang(lang);
   windows.relabel();
   setupWords();
@@ -102,7 +107,10 @@ function movePill(to: HTMLElement | null) {
   const jump = !pill.classList.contains('is-on');
   if (jump) pill.style.transition = 'none';
   pill.style.width = `${to.offsetWidth}px`;
-  pill.style.transform = `translateX(${to.offsetLeft}px)`;
+  // Posición respecto a la cápsula: «Proyectos» está dentro de .nav-drop, que es su offsetParent.
+  let x = to.offsetLeft;
+  for (let p = to.offsetParent as HTMLElement | null; p && p !== pill.parentElement; p = p.offsetParent as HTMLElement | null) x += p.offsetLeft;
+  pill.style.transform = `translateX(${x}px)`;
   if (jump) { void pill.offsetWidth; pill.style.transition = ''; }
   pill.classList.add('is-on');
 }
@@ -160,6 +168,113 @@ for (const [sel, nav] of sections) {
       if (!hovering) movePill(currentLink);
     },
   });
+}
+
+/* ── Retrato: modos ─────────────────────────────────────── */
+// Solo con ratón y en escritorio: un selector a la derecha de la foto (index.html, .modes) cambia lo que pasa al mover
+// el cursor por ella. «normal», nada; «xray», un círculo deja ver el esqueleto; «invert», el círculo invierte los
+// colores; «eyes», los iris miran hacia el cursor. En táctil o por debajo de 900 px el selector no se muestra y la foto
+// queda normal.
+// El hero__copy queda por encima del retrato, así que se escucha en la sección entera y la posición se calcula respecto
+// a la caja del retrato. El centro del círculo va exactamente bajo el cursor; solo su radio se anima. ScrollSmoother y
+// el parallax siguen moviendo la foto después del evento de scroll: mientras dura ese movimiento, el círculo se recoloca
+// en cada frame con la última posición del ratón.
+type Mode = 'normal' | 'xray' | 'invert' | 'eyes';
+if (finePointer) {
+  root.classList.add('has-modes');
+  const portrait = $('[data-eyes]');
+  const area = portrait.closest('section')!;
+  const picker = $('.modes');
+  const buttons = $$<HTMLButtonElement>('[data-mode]', picker);
+  let mode: Mode = 'normal';
+
+  // Capas de las lentes: esqueleto sobre fondo oscuro, capa de inversión y el aro que marca el borde.
+  const xray = document.createElement('span');
+  xray.className = 'portrait__xray';
+  const bones = document.createElement('img');
+  bones.alt = ''; bones.width = 1086; bones.height = 1198; bones.decoding = 'async';
+  xray.append(bones);
+  const inv = document.createElement('span');
+  inv.className = 'portrait__inv';
+  const ring = document.createElement('span');
+  ring.className = 'portrait__ring';
+  for (const el of [xray, inv, ring]) el.setAttribute('aria-hidden', 'true');
+  portrait.append(xray, inv, ring);
+  // El esqueleto se pide la primera vez que se elige su modo, no con la carga de la página.
+  const loadBones = () => {
+    if (bones.src) return;
+    bones.sizes = '(max-width: 900px) 80vw, 50vw';
+    bones.srcset = '/img/retrato-esqueleto-720.webp 720w, /img/retrato-esqueleto-1086.webp 1086w';
+    bones.src = '/img/retrato-esqueleto-1086.webp';
+  };
+
+  let px = 0, py = 0, over = false, inside = false, movingUntil = 0;
+
+  // Mirada: cada iris se desplaza dentro de su ojo (máscara de la apertura real) hasta un 20 % de su tamaño en
+  // horizontal y un 3 % en vertical. Cerca del ojo, giro proporcional; a partir de 260 px, al tope.
+  const eyes = $$<HTMLImageElement>('.eye img', portrait).map((img) => ({
+    img,
+    x: gsap.quickTo(img, 'xPercent', { duration: 0.45, ease: 'power3.out' }),
+    y: gsap.quickTo(img, 'yPercent', { duration: 0.45, ease: 'power3.out' }),
+  }));
+  const reach = (d: number) => Math.max(-1, Math.min(1, d / 260));
+  const look = () => {
+    for (const eye of eyes) {
+      const r = eye.img.parentElement!.getBoundingClientRect();
+      eye.x(reach(px - (r.left + r.width / 2)) * 20);
+      eye.y(reach(py - (r.top + r.height / 2)) * 3);
+    }
+  };
+  const rest = () => eyes.forEach((e) => { e.x(0); e.y(0); });
+
+  const lr = gsap.quickTo(portrait, '--lr', { duration: motion ? 0.5 : 0, ease: 'power3.out' });
+  const close = () => { inside = false; lr(0); };
+  const place = () => {
+    if (!wide()) { if (inside) close(); return; }
+    if (mode === 'eyes') { look(); return; }
+    if (mode === 'normal') return;
+    const box = portrait.getBoundingClientRect();
+    // Coordenadas en la caja sin transformar del retrato (GSAP lo escala un poco al hacer scroll).
+    const k = portrait.offsetWidth / box.width;
+    const x = (px - box.left) * k, y = (py - box.top) * k;
+    const now = x >= 0 && y >= 0 && x <= portrait.offsetWidth && y <= portrait.offsetHeight;
+    portrait.style.setProperty('--lx', x.toFixed(1));
+    portrait.style.setProperty('--ly', y.toFixed(1));
+    if (now !== inside) {
+      inside = now;
+      const max = Math.round(portrait.offsetWidth * 0.12);
+      portrait.style.setProperty('--lmax', String(max));
+      lr(now ? max : 0);
+    }
+  };
+
+  const setMode = (m: Mode) => {
+    mode = m;
+    portrait.dataset.mode = m;
+    picker.dataset.on = String(buttons.findIndex((b) => b.dataset.mode === m));
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    if (m === 'xray') loadBones();
+    if (m !== 'eyes') rest();
+    close();
+  };
+  buttons.forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode as Mode)));
+  setMode('normal');
+
+  area.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    // Sobre el propio selector no hay efecto: el aro aparecería alrededor de los botones.
+    if (picker.contains(e.target as Node)) {
+      over = false;
+      if (inside) close();
+      if (mode === 'eyes') rest();
+      return;
+    }
+    over = true; px = e.clientX; py = e.clientY;
+    place();
+  }, { passive: true });
+  area.addEventListener('pointerleave', () => { over = false; close(); if (mode === 'eyes') rest(); });
+  document.addEventListener('scroll', () => { movingUntil = performance.now() + 1600; }, { passive: true, capture: true });
+  gsap.ticker.add(() => { if (over && mode !== 'normal' && performance.now() < movingUntil) place(); });
 }
 
 /* ── Campos de presión ─────────────────────────────────── */
@@ -232,10 +347,13 @@ function splitChars(el: HTMLElement, mask = true) {
 
 let wordsST: ScrollTrigger[] = [];
 let wordSplits: SplitText[] = [];
-function setupWords() {
+function revertWords() {
   wordsST.forEach((t) => t.kill());
   wordSplits.forEach((s) => s.revert());
   wordsST = []; wordSplits = [];
+}
+function setupWords() {
+  revertWords();
   if (!motion) return;
   for (const el of $$('[data-words]')) {
     const s = SplitText.create(el, { type: 'words', wordsClass: 'w' });
@@ -301,7 +419,9 @@ if (motion) {
     },
   })
     .to('.hero__name', { yPercent: -38, ease: 'none' }, 0)
-    .to('.hero__intro', { y: -60, opacity: 0, ease: 'none' }, 0)
+    // Sobre la forma y no sobre .hero__intro: la entrada anima .hero__intro y, si un recálculo llegaba a mitad de
+    // ella, este tramo guardaba como punto de partida una opacidad intermedia y la presentación quedaba translúcida.
+    .to('.hero__intro .blob', { y: -60, opacity: 0, ease: 'none' }, 0)
     .to('.hero__me', { yPercent: 10, scale: 0.96, ease: 'none' }, 0);
 
   // Frentes: la línea se dibuja con el scroll y los triángulos o semicírculos brotan a su paso.
@@ -384,40 +504,6 @@ if (motion) {
       el.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
     }
 
-    // Seguimiento de ojos desactivado provisionalmente: los iris se quedan en su sitio.
-    const EYES_FOLLOW = false;
-    // Retrato: los iris miran hacia el cursor por todo el hero. Cada iris se desplaza dentro de su ojo (máscara de la
-    // apertura real) hasta un 20 % de su tamaño en horizontal y solo un 3 % en vertical: la mirada es casi lateral.
-    const portrait = $('[data-eyes]');
-    if (EYES_FOLLOW) {
-      const eyes = $$<HTMLImageElement>('.eye img', portrait).map((img) => ({
-        img,
-        x: gsap.quickTo(img, 'xPercent', { duration: 0.45, ease: 'power3.out' }),
-        y: gsap.quickTo(img, 'yPercent', { duration: 0.45, ease: 'power3.out' }),
-        cx: 0, cy: 0,
-      }));
-      const measureEyes = () => eyes.forEach((e) => {
-        const r = e.img.parentElement!.getBoundingClientRect();
-        e.cx = r.left + r.width / 2; e.cy = r.top + r.height / 2;
-      });
-      let eyesStale = true;
-      document.addEventListener('scroll', () => { eyesStale = true; }, { passive: true, capture: true });
-      const eyesArea = portrait.closest('section')!;
-      eyesArea.addEventListener('pointerenter', () => { eyesStale = true; });
-      eyesArea.addEventListener('pointermove', (e) => {
-        if (e.pointerType !== 'mouse') return;
-        if (eyesStale) { measureEyes(); eyesStale = false; }
-        for (const eye of eyes) {
-          // Cada eje por separado: el horizontal no se reduce cuando el cursor está arriba o abajo.
-          // Cerca del ojo, giro proporcional; a partir de 260 px, al tope.
-          const reach = (d: number) => Math.max(-1, Math.min(1, d / 260));
-          eye.x(reach(e.clientX - eye.cx) * 20);
-          eye.y(reach(e.clientY - eye.cy) * 3);
-        }
-      }, { passive: true });
-      eyesArea.addEventListener('pointerleave', () => eyes.forEach((e) => { e.x(0); e.y(0); }));
-    }
-
     // Perspectiva al pasar el ratón por las imágenes de proyecto ([data-tilt] = grados máximos).
     // Un solo listener delegado (sirve también para las ventanas, que se pintan después), solo transformaciones,
     // la caja se mide al entrar y no en cada movimiento, y la capa (will-change) existe solo mientras dura el gesto.
@@ -479,15 +565,25 @@ if (motion) {
 queue.push(setupWords);
 
 /* ── Tramos horizontales ───────────────────────────────── */
+// En escritorio KORA ancla la sección entera y su pista pasa en horizontal; en móvil la presentación se lee en
+// vertical y solo se ancla el carril de webs. Trayectoria se ancla en los dos, compactada en móvil (styles.css).
+// Con movimiento reducido ambos pasan a deslizamiento nativo y a lista vertical (.no-hpin).
 const mm = gsap.matchMedia();
-mm.add('(max-width: 899px), (prefers-reduced-motion: reduce)', () => {
+mm.add('(prefers-reduced-motion: reduce)', () => {
   root.classList.add('no-hpin');
   return () => root.classList.remove('no-hpin');
 });
-queue.unshift(() => mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+queue.unshift(() => mm.add({
+  desk: '(min-width: 900px) and (prefers-reduced-motion: no-preference)',
+  mob: '(max-width: 899px) and (prefers-reduced-motion: no-preference)',
+}, (ctx) => {
+  const desk = Boolean(ctx.conditions?.desk);
+  // En táctil el scroll es nativo: un scrub corto sigue mejor al dedo y anticipatePin evita el salto al anclar.
+  const scrub = desk ? 1 : 0.4;
+  const anticipatePin = desk ? 0 : 1;
 
-  // KORA: las 8 webs pasan en horizontal mientras la sección queda anclada.
-  const kTrack = $('.kora__track');
+  // KORA: las 8 webs pasan en horizontal mientras la sección (o, en móvil, su carril) queda anclada.
+  const kTrack = desk ? $('.kora__track') : $('.sites');
   const kDist = () => kTrack.scrollWidth - innerWidth;
   // Setters cacheados: un selector en gsap.set dentro de onUpdate recorre el DOM en cada frame de scroll.
   const kBar = gsap.quickSetter('.kora [data-hbar]', 'scaleX');
@@ -495,14 +591,16 @@ queue.unshift(() => mm.add('(min-width: 900px) and (prefers-reduced-motion: no-p
   const kora = gsap.to(kTrack, {
     x: () => -kDist(), ease: 'none',
     scrollTrigger: {
-      trigger: '.kora', pin: '.kora__pin', start: 'top top', end: () => `+=${kDist()}`, scrub: 1, invalidateOnRefresh: true,
+      trigger: desk ? '.kora' : '.kora__rail', pin: desk ? '.kora__pin' : '.kora__rail', start: 'top top',
+      end: () => `+=${kDist()}`, scrub, anticipatePin, invalidateOnRefresh: true,
       onUpdate: (self) => kBar(self.progress),
     },
   });
+  // Cada web sube y se endereza al entrar (en móvil, solo sube: menos trabajo por frame).
   for (const site of $$('.site')) {
-    gsap.fromTo(site, { y: 90, rotate: 5 }, {
+    gsap.fromTo(site, desk ? { y: 90, rotate: 5 } : { y: 40 }, {
       y: 0, rotate: 0, ease: 'none',
-      scrollTrigger: { trigger: site, containerAnimation: kora, start: 'left 100%', end: 'left 62%', scrub: true },
+      scrollTrigger: { trigger: site, containerAnimation: kora, start: 'left 100%', end: desk ? 'left 62%' : 'left 55%', scrub: true },
     });
   }
 
@@ -537,31 +635,30 @@ queue.unshift(() => mm.add('(min-width: 900px) and (prefers-reduced-motion: no-p
   };
   drawTrace();
   const rDist = () => rTrack.scrollWidth - innerWidth;
+  // La punta del trazo va algo por delante del borde derecho visible.
+  const lead = () => innerWidth * (desk ? 0.72 : 0.8);
   const route = gsap.to(rTrack, {
     x: () => -rDist(), ease: 'none',
     scrollTrigger: {
-      trigger: '.route__pin', pin: true, start: 'top top', end: () => `+=${rDist()}`, scrub: 1, invalidateOnRefresh: true,
+      trigger: '.route__pin', pin: true, start: 'top top', end: () => `+=${rDist()}`, scrub, anticipatePin, invalidateOnRefresh: true,
       onRefreshInit: drawTrace,
       onUpdate: (self) => {
         rBar(self.progress);
-        const front = (self.progress * rDist() + innerWidth * 0.72) / rTrack.scrollWidth;
+        const front = (self.progress * rDist() + lead()) / rTrack.scrollWidth;
         gsap.set(path, { drawSVG: `0% ${Math.min(100, front * 100)}%` });
       },
     },
   });
-  gsap.set(path, { drawSVG: `0% ${(innerWidth * 0.72 / rTrack.scrollWidth) * 100}%` });
+  gsap.set(path, { drawSVG: `0% ${(lead() / rTrack.scrollWidth) * 100}%` });
   for (const li of dots) {
     gsap.from(li, {
-      y: 40, ease: 'none',
+      y: desk ? 40 : 28, ease: 'none',
       scrollTrigger: { trigger: li, containerAnimation: route, start: 'left 92%', end: 'left 70%', scrub: true },
     });
   }
 
-  // Anclajes que con ScrollSmoother sustituyen a position: sticky.
-  const sticky = [
-    ScrollTrigger.create({ trigger: '.parte__grid', start: `top ${68 + 24}px`, end: () => `bottom ${68 + 24 + $('.parte__photo').offsetHeight}px`, pin: '.parte__photo', pinSpacing: false }),
-  ];
-  return () => sticky.forEach((s) => s.kill());
+  // Anclajes que con ScrollSmoother sustituyen a position: sticky (solo escritorio, donde la foto va al lado).
+  if (desk) ScrollTrigger.create({ trigger: '.parte__grid', start: `top ${68 + 24}px`, end: () => `bottom ${68 + 24 + $('.parte__photo').offsetHeight}px`, pin: '.parte__photo', pinSpacing: false });
 }));
 
 /* ── Puesta a punto ────────────────────────────────────── */
