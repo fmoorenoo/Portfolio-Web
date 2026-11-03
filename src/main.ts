@@ -8,6 +8,7 @@ import { Field, type Centre } from './field';
 import { Windows } from './windows';
 import { applyLang, initLang } from './i18n';
 import { mountBlobs } from './blobs';
+import { nameLockup, namePressure, techReadout, lanzametViews, acePush, eduLegend } from './details';
 import type { Lang } from './content';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
@@ -36,20 +37,19 @@ $$('[data-lang]').forEach((b) => b.addEventListener('click', () => {
   const next = b.dataset.lang as Lang;
   if (next === lang) return;
   lang = next;
-  // SplitText guarda el HTML que había al partir y lo restaura al revertir: si se revirtiera después de cambiar el
-  // texto, devolvería el idioma anterior y ese párrafo se quedaría atascado en él.
-  revertWords();
   applyLang(lang);
   windows.relabel();
-  setupWords();
-  movePill(currentLink);
+  onLang.forEach((f) => f());
   ScrollTrigger.refresh();
 }));
+// Piezas que pintan texto propio (lectura de tecnologías, sonda de la isla, reloj) y lo rehacen al cambiar de idioma.
+const onLang: (() => void)[] = [];
 
 /* ── Desplazamiento suave (solo escritorio con ratón y movimiento) ─ */
 const smoother = motion && finePointer && !dev('nosmooth')
   ? ScrollSmoother.create({
-    wrapper: '#smooth-wrapper', content: '#smooth-content', smooth: 1.05, effects: true, smoothTouch: false,
+    // Sin «effects»: ya no hay parallax por data-speed y así ScrollSmoother no recorre esos elementos en cada frame.
+    wrapper: '#smooth-wrapper', content: '#smooth-content', smooth: 1.05, effects: false, smoothTouch: false,
     // ScrollSmoother centra el elemento que recibe el foco; los destinos de los enlaces internos (tabindex="-1")
     // ya llegan con su propio desplazamiento y centrarlos lo deshacía.
     onFocusIn: (_s, e) => (e.target as Element).getAttribute('tabindex') !== '-1',
@@ -94,34 +94,9 @@ for (const [sel, cls] of [['.kora', 'is-dark'], ['.kora', 'is-kora'], ['.contact
   ScrollTrigger.create({ trigger: sel, start: `top ${68 / 2}px`, end: `bottom ${68 / 2}px`, toggleClass: { targets: bar, className: cls }, refreshPriority: -1 });
 }
 
-// Píldora del menú: se desliza al enlace bajo el cursor y, al salir, vuelve al de la sección en curso.
+// Enlaces: al pasar el ratón aparece detrás una forma de presión propia (CSS, sin desplazamiento entre enlaces); el de
+// la sección en curso lleva un punto de estación.
 const navLinks = $$<HTMLAnchorElement>('.nav-link');
-const pill = $('.bar__pill');
-let currentLink: HTMLElement | null = null;
-let hovering = false;
-function movePill(to: HTMLElement | null) {
-  if (!wide()) to = null; // en el menú móvil no hay cápsula
-  navLinks.forEach((a) => a.classList.toggle('is-lit', a === to));
-  if (!to) { pill.classList.remove('is-on'); return; }
-  // Si estaba oculta, aparece ya en su sitio en lugar de deslizarse desde el último enlace.
-  const jump = !pill.classList.contains('is-on');
-  if (jump) pill.style.transition = 'none';
-  pill.style.width = `${to.offsetWidth}px`;
-  // Posición respecto a la cápsula: «Proyectos» está dentro de .nav-drop, que es su offsetParent.
-  let x = to.offsetLeft;
-  for (let p = to.offsetParent as HTMLElement | null; p && p !== pill.parentElement; p = p.offsetParent as HTMLElement | null) x += p.offsetLeft;
-  pill.style.transform = `translateX(${x}px)`;
-  if (jump) { void pill.offsetWidth; pill.style.transition = ''; }
-  pill.classList.add('is-on');
-}
-const links = $('.bar__links');
-links.addEventListener('pointerover', (e) => {
-  const a = (e.target as Element).closest<HTMLElement>('.nav-link');
-  if (a) { hovering = true; movePill(a); }
-});
-links.addEventListener('pointerleave', () => { hovering = false; movePill(currentLink); });
-addEventListener('resize', () => movePill(currentLink));
-document.fonts.ready.then(() => movePill(currentLink));
 
 // Desplegable de proyectos: se abre al pasar el ratón o al llegar con el teclado y lleva a cada proyecto.
 const drop = $('[data-drop]');
@@ -155,7 +130,7 @@ addEventListener('keydown', (e) => {
 
 // Enlace de la sección en curso.
 const sections: [string, string?][] = [
-  ['#inicio'], ['#parte'], ['#proyectos', '#proyectos'], ['#kora', '#kora'],
+  ['#inicio'], ['#parte'], ['#formacion', '#formacion'], ['#proyectos', '#proyectos'], ['#kora', '#kora'],
   ['.work--b', '#proyectos'], ['#stack'], ['#trayectoria', '#trayectoria'], ['#contacto', '#contacto'],
 ];
 for (const [sel, nav] of sections) {
@@ -163,9 +138,8 @@ for (const [sel, nav] of sections) {
     trigger: sel, start: 'top 55%', end: 'bottom 55%', refreshPriority: -1,
     onToggle: (self) => {
       if (!self.isActive) return;
-      currentLink = navLinks.find((a) => a.getAttribute('href') === nav) ?? null;
-      navLinks.forEach((a) => a.classList.toggle('is-current', a === currentLink));
-      if (!hovering) movePill(currentLink);
+      const current = navLinks.find((a) => a.getAttribute('href') === nav) ?? null;
+      navLinks.forEach((a) => a.classList.toggle('is-current', a === current));
     },
   });
 }
@@ -345,28 +319,6 @@ function splitChars(el: HTMLElement, mask = true) {
   return s.chars as HTMLElement[];
 }
 
-let wordsST: ScrollTrigger[] = [];
-let wordSplits: SplitText[] = [];
-function revertWords() {
-  wordsST.forEach((t) => t.kill());
-  wordSplits.forEach((s) => s.revert());
-  wordsST = []; wordSplits = [];
-}
-function setupWords() {
-  revertWords();
-  if (!motion) return;
-  for (const el of $$('[data-words]')) {
-    const s = SplitText.create(el, { type: 'words', wordsClass: 'w' });
-    wordSplits.push(s);
-    // El texto se lee siempre: cada palabra pasa de un gris legible (AA) a tinta mientras se avanza.
-    const tw = gsap.fromTo(s.words, { color: '#5A6C77' }, {
-      color: '#10222C', ease: 'none', stagger: 0.12,
-      scrollTrigger: { trigger: el, start: 'top 78%', end: 'bottom 52%', scrub: true },
-    });
-    wordsST.push(tw.scrollTrigger!);
-  }
-}
-
 /* ── Preparación diferida ──────────────────────────────── */
 // Cada ScrollTrigger mide la página al crearse. Creados todos en el arranque bloqueaban el hilo principal ~0,4 s en
 // escritorio y ~1,6 s en un móvil medio (175 layouts forzados), con el nombre y la intro del hero esperando.
@@ -393,11 +345,14 @@ function startQueue() {
 }
 for (const ev of ['wheel', 'touchstart', 'keydown', 'scroll'] as const) addEventListener(ev, startQueue, { capture: true, passive: true });
 
+eduLegend();
+
 /* ── Coreografía ───────────────────────────────────────── */
 if (motion) {
   // Entrada: la carta aparece, las isobaras se asientan y el nombre sube línea a línea.
   const lines = $$('.hero__line');
   const chars = lines.flatMap((l) => splitChars(l, false));
+  if (finePointer) namePressure(chars);
   gsap.set(chars, { yPercent: 115 });
   gsap.set('[data-intro]', { opacity: 0 });
   root.classList.remove('intro');
@@ -407,7 +362,7 @@ if (motion) {
     .to(chars, { yPercent: 0, duration: 1.25, stagger: 0.028 }, 0.15)
     // El retrato entra por CSS (styles.css, «me-in»): así se pinta con el primer frame sin esperar a este script.
     .fromTo('.hero__intro', { opacity: 0, y: 40, scale: 0.86, rotate: -4 }, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 1.4, ease: 'expo.out' }, 0.6)
-    .fromTo('.hero__barb', { opacity: 0, rotate: '-=40' }, { opacity: 0.55, rotate: '+=40', duration: 1.4, stagger: 0.12 }, 1)
+    .fromTo('.hero__barb', { opacity: 0 }, { opacity: 0.55, duration: 1, stagger: 0.12 }, 1)
     // El nombre ya está en su sitio: a partir de aquí se prepara el resto de la página sin entorpecer la entrada.
     .call(startQueue, [], 1.5);
 
@@ -465,12 +420,16 @@ if (motion) {
     gsap.from(chars, { yPercent: 115, duration: 1.1, ease: EASE, stagger: 0.025, scrollTrigger: { trigger: el, start: 'top 88%' } });
   });
 
-  // Tarjetas de proyecto: crecen hasta su sitio con el scroll (solo transformaciones) y el titular sube.
+  // Formación: la leyenda se dibuja tramo a tramo, de 2021 a 2026, y después llega la ficha.
+  queue.push(() => gsap.timeline({ defaults: { ease: EASE, force3D: true }, scrollTrigger: { trigger: '.legend', start: 'top 80%' } })
+    .from('.legend__seg', { scaleX: 0, transformOrigin: '0% 50%', duration: 0.8, stagger: 0.14, clearProps: 'all' }, 0)
+    .from('.legend__ticks li', { y: 12, duration: 0.6, stagger: 0.06 }, 0.2)
+    .from('.legend__cards', { y: 40, duration: 1 }, 0.35));
+
+  // Tarjetas de proyecto: sin escalado ligado al scroll ni entrada de la tarjeta entera. GSAP promueve a capa lo que
+  // anima y la retira al acabar, y con una tarjeta completa eso eran dos repintados enormes por tarjeta. Entran sus
+  // piezas, con un gesto propio de cada composición, y se quedan como capa (force3D) para no repintarse al terminar.
   for (const card of $$('.case__card')) {
-    queue.push(() => gsap.fromTo(card, { scale: 0.9, yPercent: 4 }, {
-      scale: 1, yPercent: 0, ease: 'none',
-      scrollTrigger: { trigger: card, start: 'top 98%', end: 'top 30%', scrub: 0.8 },
-    }));
     queue.push(() => {
       const chars = splitChars($('.case__title', card));
       gsap.from(chars, { yPercent: 115, duration: 1.1, ease: EASE, stagger: 0.03, scrollTrigger: { trigger: card, start: 'top 62%' } });
@@ -479,17 +438,30 @@ if (motion) {
       y: 26, duration: 1, ease: EASE, stagger: 0.07, scrollTrigger: { trigger: card, start: 'top 55%' },
     }));
   }
-  // LanzaMet: las 9 estaciones se encienden por orden.
-  queue.push(() => gsap.from('.zones li', { scale: 0, opacity: 0, duration: 0.6, ease: 'back.out(3)', stagger: 0.07, scrollTrigger: { trigger: '.lm-media', start: 'top 60%' } }));
-
-  // Archivo y tecnologías: entradas distintas para que cada tramo tenga su gesto.
-  queue.push(() => gsap.from('.archive__list li', { clipPath: 'inset(0 100% 0 0)', duration: 1.1, ease: 'expo.inOut', stagger: 0.06, scrollTrigger: { trigger: '.archive__list', start: 'top 80%' } }));
-  // Tecnologías: los sistemas se forman uno tras otro, creciendo desde su centro, y después sus piezas.
-  queue.push(() => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '.systems', start: 'top 80%' } });
-    tl.from('.sys', { scale: 0.4, opacity: 0, rotate: -8, duration: 1.2, ease: 'back.out(1.6)', stagger: 0.09 })
-      .from('.sys__tech li', { y: 14, opacity: 0, duration: 0.6, ease: EASE, stagger: 0.015 }, 0.35);
+  const media = (trigger: string, build: (tl: gsap.core.Timeline) => void) => queue.push(() => {
+    build(gsap.timeline({ defaults: { ease: EASE, duration: 1.2, force3D: true }, scrollTrigger: { trigger, start: 'top 62%' } }));
   });
+  // LanzaMet: la pantalla llega desde la derecha, el móvil sube y las 9 estaciones se encienden por orden.
+  media('.lm-media', (tl) => tl
+    .from('.lm-media__desk', { x: 120 }, 0)
+    .from('.lm-media__phone', { y: 90 }, 0.1)
+    .from('.zones li', { scale: 0, duration: 0.6, ease: 'back.out(3)', stagger: 0.07 }, 0.2));
+  // ACESLAN, en espejo: el panel entra desde la izquierda y los teléfonos suben.
+  media('.ac-media', (tl) => tl
+    .from('.ac-media__browser', { x: -120 }, 0)
+    .from('.ac-media__phone', { y: 120, stagger: 0.12 }, 0.1));
+  // HairCloud: los tres teléfonos asoman por el borde inferior, el del centro primero.
+  media('.hc-media', (tl) => tl
+    .from('.hc-media__phone--c', { yPercent: 45 }, 0)
+    .from('.hc-media__phone--l, .hc-media__phone--r', { yPercent: 55, stagger: 0.08 }, 0.12));
+  // Haría Game: el menú de pausa llega desde la izquierda y la entrada del instituto sube a su sitio.
+  media('.hg-media', (tl) => tl
+    .from('.case--pause .case__text', { x: -60, duration: 1 }, 0)
+    .from('.hg-media__inset', { y: 90 }, 0.15));
+
+  // Archivo: entrada corta, solo transformaciones.
+  queue.push(() => gsap.from('.archive__list li', { y: 24, duration: 0.9, ease: EASE, stagger: 0.05, scrollTrigger: { trigger: '.archive__list', start: 'top 85%' } }));
+  // Tecnologías: sin entrada. Escalar y desvanecer seis formas con sombra costaba varios frames de rasterizado.
 
   // Contacto: el titular sube y el correo se acerca al cursor.
   if (finePointer) {
@@ -561,8 +533,6 @@ if (motion) {
     document.addEventListener('pointerleave', () => { if (active) { release(active); active = null; } });
   }
 }
-// La declaración va tras los titulares; setupWords también se rehace al cambiar de idioma.
-queue.push(setupWords);
 
 /* ── Tramos horizontales ───────────────────────────────── */
 // En escritorio KORA ancla la sección entera y su pista pasa en horizontal; en móvil la presentación se lee en
@@ -573,6 +543,11 @@ mm.add('(prefers-reduced-motion: reduce)', () => {
   root.classList.add('no-hpin');
   return () => root.classList.remove('no-hpin');
 });
+// Detalles interactivos (src/details.ts): se preparan en tiempo libre, como el resto de lo que no es el hero.
+nameLockup();
+queue.push(lanzametViews, acePush);
+if (finePointer) queue.push(() => onLang.push(techReadout(() => lang)));
+
 queue.unshift(() => mm.add({
   desk: '(min-width: 900px) and (prefers-reduced-motion: no-preference)',
   mob: '(max-width: 899px) and (prefers-reduced-motion: no-preference)',
