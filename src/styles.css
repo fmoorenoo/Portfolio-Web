@@ -1367,12 +1367,15 @@ img.is-swap { opacity: 0; }
 .contact__mail:hover { background: var(--calima); color: var(--ink); }
 .contact__mail:hover svg { transform: translateX(6px); }
 .contact__links { display: flex; flex-wrap: wrap; gap: 10px; }
-.contact__links a {
+.contact__links a:not(.contact__cv) {
   display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; text-decoration: none; font-weight: 600;
   box-shadow: inset 0 0 0 1.5px rgba(238, 242, 240, 0.35); transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
-.contact__links a:hover { background: var(--paper); color: var(--ink); box-shadow: none; }
-.contact__links svg { width: 16px; height: 16px; }
+.contact__links a:not(.contact__cv):hover { background: var(--paper); color: var(--ink); box-shadow: none; }
+.contact__links .contact__cv { min-height: 48px; padding: 0 1.2em; font-size: 1rem; }
+.contact__links .contact__cv small { padding: 2px 7px; border-radius: 999px; background: rgba(16, 34, 44, 0.14); font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em; }
+.contact__links .contact__cv:hover svg { transform: translateY(3px); }
+.contact__links a:not(.contact__cv) svg { width: 16px; height: 16px; }
 .contact__links .contact__brand { width: 19px; height: 19px; margin-right: 2px; }
 .foot { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding: 22px 0 28px; border-top: 1px solid rgba(238, 242, 240, 0.18); font-family: var(--mono); font-size: 0.68rem; color: color-mix(in srgb, var(--paper) 78%, transparent); }
 

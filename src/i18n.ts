@@ -128,6 +128,7 @@ const en: Record<string, string> = {
   'rt.11d': 'Now', 'rt.11': 'Looking for my next team as a Junior Full Stack Developer', 'rt.11s': 'Remote, hybrid or on-site',
   'ct.title': 'Let’s talk?',
   'ct.lede': "I'm looking to join a team as a Junior Full Stack Developer. Remote, hybrid or on-site.",
+  'ct.cv': 'Download my CV (in Spanish)',
   'ft.top': 'Back to top',
   'win.close': 'Close',
   'win.others': 'Other projects',
