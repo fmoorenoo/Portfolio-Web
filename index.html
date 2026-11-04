@@ -185,15 +185,22 @@
           <div class="parte__grid wrap">
             <figure class="parte__photo">
               <div class="parte__frame parte__frame--isle" data-clip>
+                <!-- Mapa abstracto, sin fondo: isobaras centradas en Arrecife, la isla en dos tintas desplazadas (como una
+                     impresión riso), una retícula de coordenadas que se cruza en la estación y la flecha del norte. -->
                 <div class="parte__map" role="img" aria-label="Mapa de Lanzarote con Arrecife marcado." data-i18n-attr="aria-label:parte.map">
-                  <div class="isle"></div>
+                  <span class="parte__rings" aria-hidden="true"></span>
+                  <span class="parte__grat" aria-hidden="true"></span>
+                  <div class="isle isle--echo"></div>
+                  <div class="isle isle--main"></div>
+                  <span class="parte__north" aria-hidden="true">N</span>
                   <span class="station parte__station"><i></i><span data-i18n="hero.station">Arrecife, Lanzarote, España</span></span>
                 </div>
               </div>
               <figcaption class="parte__cap"><span data-i18n="parte.cap">Donde vivo y programo</span><span>28,96° N · 13,55° O</span></figcaption>
             </figure>
             <div class="parte__text">
-              <h2 class="parte__title" id="t-parte" data-i18n="parte.title">Software hecho en Lanzarote, ya en producción.</h2>
+              <p class="parte__eyebrow"><i aria-hidden="true"></i><span data-i18n="parte.eyebrow">Sobre mí</span></p>
+              <h2 class="parte__title" id="t-parte" data-i18n="parte.title">Software hecho en <em>Lanzarote</em>, ya en <span class="parte__live">producción</span>.</h2>
               <p class="parte__statement" data-i18n="parte.statement">He publicado varios productos propios, he entregado una app al Consorcio de Emergencias de la isla y cofundé KORA, donde llevo el desarrollo de webs para clientes reales. Me formé en DAM y DAW, y me gusta el software útil, ordenado y fácil de mantener.</p>
               <!-- Ficha de estación: cada dato en su pieza con su icono; el código público es una tarjeta de GitHub entera. -->
               <dl class="station-card" data-rows>

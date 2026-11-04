@@ -545,8 +545,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .front .f-line { stroke: currentColor; }
 
 /* Parte del día */
-.parte { position: relative; padding: clamp(48px, 8vh, 96px) 0 clamp(80px, 14vh, 160px); background: var(--paper); }
-.parte .front { margin-bottom: clamp(48px, 9vh, 110px); }
+.parte { position: relative; padding: clamp(12px, 2.5vh, 32px) 0 clamp(80px, 14vh, 160px); background: var(--paper); overflow-x: clip; }
+.parte .front { margin-bottom: clamp(16px, 3vh, 40px); }
 .parte__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 110px); align-items: start; }
 .parte__photo { position: relative; }
 .parte__frame {
@@ -630,16 +630,60 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .eye--izq img { left: 33.0097%; top: 9.2593%; width: 39.8058%; height: 75.9259%; }
 .eye--der { --m: url('/img/ojo-der-mask.png'); left: 55.5249%; top: 37.0618%; width: 10.221%; height: 4.5075%; }
 .eye--der img { left: 30.6306%; top: 9.2593%; width: 36.9369%; height: 75.9259%; }
-.parte__frame--isle { background: radial-gradient(55% 45% at 68% 70%, rgba(244, 178, 62, 0.4), transparent 70%), linear-gradient(165deg, #CFE6EE, #E7F1EC 70%); }
+/* Sin marco: los elementos del mapa quedan sueltos sobre el papel. */
+.parte__frame--isle { background: none; overflow: visible; border-radius: 0; }
 /* El mapa tiene la proporción exacta de la silueta: así las coordenadas en % de la estación caen sobre la isla. */
 /* Ancho = 84 % del alto del marco (1198/1086) × 900/1029 ≈ 81 % de su ancho. */
-.parte__map { position: absolute; inset: 9% 0 7%; width: 81%; margin-inline: auto; transform-origin: 60% 60%; will-change: transform; }
-.parte__map .isle { position: absolute; inset: 0; background: var(--ocean); }
-.parte__station { position: absolute; left: 65.6%; top: 68.4%; flex-direction: row-reverse; transform: translate(calc(-100% + 7px), -7px); }
+.parte__map { --sx: 65.6%; --sy: 68.4%; position: absolute; inset: 9% 0 7%; width: 81%; margin-inline: auto; transform-origin: 60% 60%; will-change: transform; }
+.parte__map .isle { position: absolute; inset: 0; }
+/* Dos tintas desplazadas, como una impresión riso: debajo, la calima que se va al rojo; encima, la isla en el azul
+   del frente frío con una trama de puntos claros. */
+.isle--echo { background: linear-gradient(150deg, #FCD27E 0%, var(--calima) 45%, var(--warm) 100%); translate: 3.2% 2.4%; opacity: 0.95; }
+.isle--main {
+  background:
+    radial-gradient(circle at 1.5px 1.5px, rgba(255, 255, 255, 0.24) 1.1px, transparent 1.7px) 0 0 / 9px 9px,
+    radial-gradient(60% 45% at 70% 72%, rgba(169, 139, 234, 0.55), transparent 70%),
+    linear-gradient(165deg, #3F7CF2 0%, var(--cold) 38%, #1D3F9C 72%, var(--ocean) 100%);
+  filter: drop-shadow(0 18px 22px rgba(31, 73, 184, 0.28));
+}
+/* Isobaras: anillos concéntricos en Arrecife, que se desvanecen hacia fuera y respiran muy despacio. */
+.parte__rings {
+  position: absolute; left: var(--sx); top: var(--sy); width: 150%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none;
+  background: repeating-radial-gradient(circle, transparent 0 24px, color-mix(in srgb, var(--cold) 26%, transparent) 24px 25.5px);
+  -webkit-mask: radial-gradient(circle, #000 14%, transparent 58%); mask: radial-gradient(circle, #000 14%, transparent 58%);
+}
+.motion .parte__rings { animation: rings 9s ease-in-out infinite alternate; }
+@keyframes rings { from { scale: 0.97; } to { scale: 1.04; } }
+/* Retícula: el paralelo y el meridiano de Arrecife, discontinuos y fundidos en los extremos. */
+.parte__grat { position: absolute; inset: -6% -14%; pointer-events: none; -webkit-mask: radial-gradient(closest-side, #000 55%, transparent); mask: radial-gradient(closest-side, #000 55%, transparent); }
+.parte__grat::before, .parte__grat::after { content: ''; position: absolute; }
+.parte__grat::before { left: 0; right: 0; top: calc(6% / 1.12 + var(--sy) / 1.12); height: 1.5px; background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 34%, transparent) 0 6px, transparent 6px 12px); }
+.parte__grat::after { top: 0; bottom: 0; left: calc((14% + var(--sx)) / 1.28); width: 1.5px; background: repeating-linear-gradient(180deg, color-mix(in srgb, var(--ink) 34%, transparent) 0 6px, transparent 6px 12px); }
+/* Flecha del norte: un pequeño rombo partido en tinta y papel. */
+.parte__north {
+  position: absolute; left: 4%; top: 4%; display: grid; justify-items: center; gap: 4px; padding-top: 30px;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--ink);
+}
+.parte__north::before {
+  content: ''; position: absolute; top: 0; left: 50%; width: 14px; height: 26px; margin-left: -7px;
+  background: linear-gradient(90deg, var(--ink) 50%, color-mix(in srgb, var(--ink) 22%, transparent) 50%);
+  clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
+}
+.parte__station { position: absolute; left: var(--sx); top: var(--sy); flex-direction: row-reverse; transform: translate(calc(-100% + 7px), -7px); }
 .parte__station > span { position: relative; top: 30px; right: -6px; }
-.parte__cap { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); }
-.parte__text { container-type: inline-size; display: grid; gap: clamp(20px, 3vh, 30px); padding-top: 2vh; }
+.parte__cap { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed var(--rule); font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); }
+.parte__text { container-type: inline-size; display: grid; gap: clamp(18px, 2.6vh, 26px); padding-top: 2vh; }
+/* Rótulo sobre el título: un punto de estación que late y el nombre de la sección. */
+.parte__eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: -6px; font-size: 0.82rem; font-weight: 700; font-stretch: 106%; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+.parte__eyebrow i { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--warm); flex: none; }
+.parte__eyebrow i::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--warm); animation: ping 2.6s var(--ease-out) infinite; }
 .parte__title { font-weight: 750; font-stretch: 112%; font-size: clamp(1.8rem, 1.25rem + 1.9vw, 3.1rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; }
+/* «Lanzarote» en el azul de la isla; «producción» con un subrayado de calima, como marcado a rotulador. */
+.parte__title em { font-style: normal; color: var(--cold); }
+.parte__live {
+  background: linear-gradient(transparent 0 66%, color-mix(in srgb, var(--calima) 70%, transparent) 66% 90%, transparent 90%) no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-inline: 0.04em;
+}
 .parte__statement { font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.28rem); line-height: 1.55; font-weight: 450; max-width: 46ch; color: var(--ink-2); text-wrap: pretty; }
 /* Ficha de estación: cada dato en su pieza, con un icono en una forma de su color; el código público es una tarjeta
    de GitHub entera (oscura, con sus cifras y una cuadrícula de contribuciones decorativa) que lleva al perfil. */
@@ -651,34 +695,63 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   .station-card { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .st--lang { grid-column: auto; }
 }
+/* Cada pieza: papel claro con un filo de su color a la izquierda, isobaras en la esquina y el icono en una forma
+   irregular con su propia isobara, que gira un poco al pasar el ratón. Mismo tamaño que antes. */
 .st {
-  --c: var(--cold); position: relative; display: grid; align-content: start; gap: 6px; min-height: 92px; padding: 16px 18px 16px 72px;
-  border-radius: 20px; background: color-mix(in srgb, var(--c) 9%, var(--paper)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 24%, transparent);
+  --c: var(--cold); --deep: #1F49B8; position: relative; isolation: isolate; overflow: hidden; display: grid; align-content: start; gap: 6px; min-height: 92px; padding: 16px 18px 16px 72px;
+  border-radius: 20px;
+  background:
+    linear-gradient(90deg, var(--c) 0 4px, transparent 4px),
+    radial-gradient(90% 120% at 100% 0%, color-mix(in srgb, var(--c) 14%, transparent), transparent 65%),
+    color-mix(in srgb, var(--c) 4%, #FFFFFF);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent), 0 18px 30px -24px color-mix(in srgb, var(--deep) 70%, transparent);
+  transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
 }
-.st--base { --c: var(--warm); }
-.st--role { --c: var(--cold); }
-.st--lang { --c: var(--lilac); }
+.st:not(.st--code)::before {
+  content: ''; position: absolute; z-index: -1; right: -70px; top: -70px; width: 170px; height: 170px; border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 15px, color-mix(in srgb, var(--c) 30%, transparent) 15px 16.2px);
+  -webkit-mask: radial-gradient(circle, #000 20%, transparent 70%); mask: radial-gradient(circle, #000 20%, transparent 70%);
+  transition: scale 0.8s var(--ease-out);
+}
+.st--base { --c: var(--warm); --deep: #A8321A; }
+.st--role { --c: var(--cold); --deep: #1F49B8; }
+.st--lang { --c: var(--lilac); --deep: #5B3FB0; }
 .st__icon {
   position: absolute; left: 16px; top: 16px; display: grid; place-items: center; width: 42px; height: 42px;
-  border-radius: 44% 56% 52% 48% / 56% 44% 56% 44%; background: var(--c); color: #FFFFFF; box-shadow: 0 10px 18px -10px var(--c);
+  border-radius: 44% 56% 52% 48% / 56% 44% 56% 44%; color: #FFFFFF;
+  background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--c) 55%, #FFFFFF), var(--c) 60%, var(--deep) 130%);
+  box-shadow: 0 10px 18px -10px var(--c); transition: rotate 0.6s var(--ease-out), scale 0.6s var(--ease-out);
+}
+.st:not(.st--code) .st__icon::after {
+  content: ''; position: absolute; inset: -5px; border-radius: 56% 44% 48% 52% / 44% 56% 44% 56%;
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--c) 45%, transparent); transition: rotate 0.9s var(--ease-out);
+}
+@media (hover: hover) {
+  .st:not(.st--code):hover { translate: 0 -3px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent), 0 24px 36px -24px color-mix(in srgb, var(--deep) 75%, transparent); }
+  .st:not(.st--code):hover::before { scale: 1.15; }
+  .st:not(.st--code):hover .st__icon { rotate: -8deg; scale: 1.06; }
+  .st:not(.st--code):hover .st__icon::after { rotate: 24deg; }
 }
 .st__icon svg { width: 21px; height: 21px; }
-.st dt { color: var(--ink-2); }
+.st dt { color: var(--deep); text-transform: uppercase; letter-spacing: 0.07em; }
+.station-card .st dt { font-size: 0.7rem; font-weight: 750; }
+.station-card .st--code dt { color: rgba(255, 255, 255, 0.62); }
 .st dd { font-size: 1rem; font-weight: 650; line-height: 1.3; }
 .st dd small { display: block; margin-top: 2px; font-size: 0.86rem; font-weight: 500; color: var(--ink-2); }
 .st__chip {
   display: inline-flex; align-items: center; gap: 7px; margin: 2px 6px 0 0; padding: 3px 11px 3px 4px; border-radius: 999px;
-  background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); font-size: 0.88rem; font-weight: 600;
+  background: #FFFFFF; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent); font-size: 0.88rem; font-weight: 600;
 }
-.st__chip b { padding: 2px 7px; border-radius: 999px; background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 0.64rem; font-weight: 600; }
+.st__chip b { padding: 2px 7px; border-radius: 999px; background: var(--deep); color: #FFFFFF; font-family: var(--mono); font-size: 0.64rem; font-weight: 600; }
+/* GitHub: pizarra azulada, más clara que el negro de GitHub, para que no pese tanto sobre el papel. */
 .st--code {
   grid-column: 1 / -1; min-height: 0; padding-bottom: 18px; color: #FFFFFF; overflow: hidden;
-  background: radial-gradient(70% 140% at 100% 0%, rgba(57, 211, 83, 0.14), transparent 60%), linear-gradient(160deg, #1A2230 0%, #0D1117 70%);
-  box-shadow: 0 24px 40px -28px rgba(13, 17, 23, 0.8); transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+  background: radial-gradient(70% 140% at 100% 0%, rgba(57, 211, 83, 0.16), transparent 60%), linear-gradient(160deg, #3A4A60 0%, #28354A 70%);
+  box-shadow: 0 24px 40px -28px rgba(30, 42, 60, 0.7); transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
 }
 .st--code::before {
   content: ''; display: none; position: absolute; right: 58px; bottom: 16px; width: 154px; height: 58px; opacity: 0.9; pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 154 58'%3E%3Crect x='0' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='0' y='36' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='0' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='12' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='12' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='12' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='24' y='0' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='24' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='36' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='24' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='0' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='36' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='36' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='36' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='48' y='0' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='48' y='12' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='48' y='24' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='48' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='60' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='60' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='60' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='0' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='72' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='72' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='72' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='0' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='84' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='84' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='36' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='84' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='96' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='108' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='24' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='120' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='0' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='132' y='12' width='10' height='10' rx='2.5' fill='%23161B22'/%3E%3Crect x='132' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='132' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='144' y='0' width='10' height='10' rx='2.5' fill='%2339D353'/%3E%3Crect x='144' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='144' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 154 58'%3E%3Crect x='0' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='0' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='0' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='12' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='12' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='24' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='24' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='24' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='36' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='36' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='36' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='48' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='48' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='48' y='24' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='48' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='60' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='60' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='60' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='0' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='72' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='72' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='72' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='84' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='84' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='84' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='96' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='108' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='120' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='132' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='132' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='132' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='144' y='0' width='10' height='10' rx='2.5' fill='%2339D353'/%3E%3Crect x='144' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='144' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
 }
 .st--code .st__icon { border-radius: 50%; background: #FFFFFF; color: #0D1117; box-shadow: 0 10px 18px -10px rgba(255, 255, 255, 0.5); }
 .st--code .st__icon svg { width: 24px; height: 24px; }
@@ -721,7 +794,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 @container (min-width: 900px) { .st--code::before { display: block; } }
 .st__out { position: absolute; right: 18px; top: 18px; width: 20px; height: 20px; color: rgba(255, 255, 255, 0.8); transition: transform 0.4s var(--ease-out); }
 @media (hover: hover) {
-  .st--code:hover { translate: 0 -3px; box-shadow: 0 30px 46px -26px rgba(13, 17, 23, 0.85); }
+  .st--code:hover { translate: 0 -3px; box-shadow: 0 30px 46px -26px rgba(30, 42, 60, 0.8); }
   .st--code:hover .st__out { transform: translate(3px, -3px); }
 }
 @media (max-width: 599px) {
@@ -734,45 +807,36 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
    sol de calima sobre su punto. En el móvil la ruta pasa a vertical, a la izquierda. */
 .edu { position: relative; padding: clamp(24px, 5vh, 64px) 0 clamp(72px, 12vh, 140px); background: var(--paper); }
 .edu__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); align-items: end; gap: 20px 32px; padding-bottom: clamp(32px, 5vh, 56px); }
-/* Inglés: una ficha oscura bajo las tres etapas, con el nivel en grande y la escala europea de A1 a C2. Los tramos se
-   llenan hasta B2, que va en calima, más alto y con su rótulo; C1 y C2 quedan solo dibujados. */
+/* Inglés: sin ficha, suelto sobre el papel bajo las tres etapas, con el nivel en grande y la escala europea de A1 a
+   C2. Los tramos se llenan hasta B2, que va en calima, más alto y con su rótulo; C1 y C2 quedan solo dibujados. */
 .edu-lang {
-  position: relative; isolation: isolate; overflow: hidden; margin-top: clamp(32px, 6vh, 64px);
+  position: relative; margin-top: clamp(40px, 7vh, 72px);
   display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(24px, 4.5vw, 72px);
-  padding: clamp(26px, 3vw, 44px) clamp(24px, 3.6vw, 56px); border-radius: var(--radius); color: var(--paper);
-  background:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.09) 1px, transparent 1.5px) 0 0 / 12px 12px,
-    radial-gradient(55% 120% at 0% 0%, rgba(244, 178, 62, 0.26), transparent 62%),
-    radial-gradient(50% 110% at 100% 100%, rgba(46, 107, 230, 0.5), transparent 66%),
-    var(--ocean);
-  box-shadow: 0 34px 60px -36px rgba(12, 46, 64, 0.75);
-}
-.edu-lang::before {
-  content: ''; position: absolute; z-index: -1; right: -160px; bottom: -200px; width: 420px; height: 420px; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 24px, rgba(238, 242, 240, 0.1) 24px 25.5px);
-  -webkit-mask: radial-gradient(circle, #000 25%, transparent 70%); mask: radial-gradient(circle, #000 25%, transparent 70%);
+  padding: 0 clamp(0px, 1.6vw, 24px); color: var(--ink);
 }
 .edu-lang__id { display: grid; justify-items: start; gap: 4px; }
-.edu-lang__name { display: inline-flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 700; font-stretch: 106%; color: rgba(238, 242, 240, 0.9); }
+.edu-lang__name { display: inline-flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 700; font-stretch: 106%; color: var(--ink); }
 /* La bandera del Reino Unido (Union Jack, proporción 1:2), como una pequeña pieza con su sombra. Va en un
    pseudoelemento porque el texto del título se sustituye al cambiar de idioma. */
 .edu-lang__name::before {
   content: ''; width: 32px; height: 16px; flex: none; border-radius: 3px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='s'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3CclipPath id='t'%3E%3Cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23s)'%3E%3Cpath d='M0 0v30h60V0z' fill='%23012169'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23t)' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") center / cover no-repeat, #012169;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 4px 10px -2px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.12), 0 4px 10px -3px rgba(12, 46, 64, 0.35);
 }
 .edu-lang__level {
   font-weight: 800; font-stretch: 125%; font-size: clamp(4.6rem, 3rem + 4.4vw, 7.6rem); line-height: 0.8; letter-spacing: -0.05em;
-  color: var(--calima); text-shadow: 0 10px 40px rgba(244, 178, 62, 0.35);
+  /* Sobre el papel la calima sola se lee poco: degradado del sol hacia un ámbar profundo. */
+  color: #D98A12; background: linear-gradient(170deg, #F6BE55 0%, #E99A1F 45%, #B86400 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 10px 22px rgba(233, 154, 31, 0.35)); padding-right: 0.04em;
 }
 .edu-lang__note {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 5px 12px 5px 8px; border-radius: 999px;
-  font-size: 0.82rem; font-weight: 650; white-space: nowrap; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  font-size: 0.82rem; font-weight: 650; white-space: nowrap; color: #0B5E4B; background: color-mix(in srgb, var(--alisio) 14%, #FFFFFF); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--alisio) 45%, transparent);
 }
 /* Marca de verificado: un círculo de alisio con su visto dibujado con dos bordes. */
 .edu-lang__note::before {
   content: ''; width: 16px; height: 16px; flex: none; border-radius: 50%;
-  background: no-repeat center / 10px 10px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 2.9' fill='none' stroke='%2306291F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), var(--alisio);
+  background: no-repeat center / 10px 10px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 2.9' fill='none' stroke='%23FFFFFF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), var(--alisio);
 }
 .cefr { --gap: 6px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: end; gap: var(--gap); padding-top: 44px; }
 /* Niveles: guijarros de contorno irregular (radios distintos en cada esquina) que suben de altura de A1 a C2, como un
@@ -795,26 +859,26 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   color: var(--ink); font-size: 0.95rem;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 0 5px rgba(244, 178, 62, 0.18), 0 16px 30px -12px rgba(244, 178, 62, 0.8);
 }
-.cefr .is-off { background: none; color: rgba(238, 242, 240, 0.5); box-shadow: inset 0 0 0 1.5px rgba(238, 242, 240, 0.28); }
+.cefr .is-off { background: none; color: color-mix(in srgb, var(--ink) 45%, transparent); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 24%, transparent); }
 /* C1, en proceso: el tramo siguiente, a medio llenar. Contorno discontinuo en calima y unas rayas que avanzan despacio
    (solo se mueve una capa con transform), con su rótulo «En proceso». */
 .cefr .is-next {
-  isolation: isolate; color: var(--calima); font-weight: 700;
-  background: rgba(244, 178, 62, 0.08); outline: 1.5px dashed rgba(244, 178, 62, 0.85); outline-offset: -1.5px;
+  isolation: isolate; color: #9A5800; font-weight: 700;
+  background: rgba(244, 178, 62, 0.1); outline: 1.5px dashed rgba(244, 178, 62, 0.85); outline-offset: -1.5px;
 }
 .cefr__run { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; }
 .cefr__run::before {
-  content: ''; position: absolute; inset: 0 -30px; background: repeating-linear-gradient(-45deg, rgba(244, 178, 62, 0.3) 0 7px, transparent 7px 14px);
+  content: ''; position: absolute; inset: 0 -30px; background: repeating-linear-gradient(-45deg, rgba(244, 178, 62, 0.38) 0 7px, transparent 7px 14px);
 }
 .motion .cefr__run::before { animation: run 1.2s linear infinite; }
 @keyframes run { to { transform: translateX(19.8px); } }
 .cefr__pin {
   position: absolute; left: 50%; bottom: calc(100% + 12px); translate: -50% 0; white-space: nowrap; padding: 4px 11px; border-radius: 999px;
-  background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 0.74rem; font-weight: 700;
+  background: var(--ink); color: var(--paper); font-family: var(--sans); font-size: 0.74rem; font-weight: 700;
 }
 .cefr__pin { z-index: 2; }
-.cefr__pin::after { content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: 9px; margin-left: -1px; background: var(--paper); }
-.cefr__pin--next { z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: var(--ocean); color: var(--calima); box-shadow: inset 0 0 0 1.5px var(--calima); }
+.cefr__pin::after { content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: 9px; margin-left: -1px; background: var(--ink); }
+.cefr__pin--next { z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: var(--paper); color: #9A5800; box-shadow: inset 0 0 0 1.5px var(--calima); }
 .cefr__pin--next::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--calima); }
 .motion .cefr__pin--next::before { animation: blink 1.4s ease-in-out infinite alternate; }
 .cefr__pin--next::after { height: 12px; background: repeating-linear-gradient(180deg, var(--calima) 0 3px, transparent 3px 6px); }
@@ -827,11 +891,11 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 .cefr__groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); margin-top: 12px; }
 .cefr__groups li {
-  padding-top: 7px; border-top: 2px solid rgba(238, 242, 240, 0.22); text-align: center;
-  font-size: 0.78rem; font-weight: 600; color: rgba(238, 242, 240, 0.7); overflow-wrap: anywhere;
+  padding-top: 7px; border-top: 2px solid var(--rule); text-align: center;
+  font-size: 0.78rem; font-weight: 600; color: var(--ink-2); overflow-wrap: anywhere;
 }
-.cefr__groups li:nth-child(2) { border-color: var(--calima); color: var(--calima); }
-.cefr__src { margin-top: 16px; font-size: 0.74rem; color: rgba(238, 242, 240, 0.55); }
+.cefr__groups li:nth-child(2) { border-color: var(--calima); color: #9A5800; }
+.cefr__src { margin-top: 16px; font-size: 0.74rem; color: color-mix(in srgb, var(--ink-2) 80%, transparent); }
 @media (max-width: 699px) {
   .edu-lang { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   /* El nivel a la izquierda y, a su lado, el idioma y la acreditación. */
@@ -848,7 +912,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 /* Móviles muy estrechos: el nivel y la acreditación siguen cabiendo en una sola línea. */
 @media (max-width: 379px) {
-  .edu-lang { padding-inline: 20px; }
+  .edu-lang { padding-inline: 0; }
   .edu-lang__id { column-gap: 12px; }
   .edu-lang__level { font-size: 3.6rem; }
   .edu-lang__note { font-size: 0.76rem; }
@@ -864,8 +928,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   background: linear-gradient(90deg, var(--calima) 0 28%, var(--alisio) 36% 60%, var(--cold) 68% 100%);
 }
 .edu-step { --drop: 0px; position: relative; }
-.edu-step--bach { --c: var(--calima); --deep: #7A4A00; --drop: 88px; }
-.edu-step--dam { --c: var(--alisio); --deep: #0B5E4B; --drop: 44px; }
+.edu-step--bach { --c: var(--calima); --deep: #7A4A00; --drop: 60px; }
+.edu-step--dam { --c: var(--alisio); --deep: #0B5E4B; --drop: 30px; }
 .edu-step--daw { --c: var(--cold); --deep: #1F49B8; }
 /* Punto de estación sobre la ruta y su asta hasta la ficha. */
 .edu-step__pin {
@@ -888,8 +952,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .is-now .edu-step__pin::after { left: 11.5px; top: 25px; height: calc(var(--rail) - 21px); background: var(--calima); }
 
 .edu-card {
-  position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 12px;
-  margin-top: var(--drop); padding: clamp(22px, 2.2vw, 32px); border-radius: var(--radius);
+  position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 8px;
+  margin-top: var(--drop); padding: clamp(16px, 1.5vw, 22px) clamp(18px, 1.7vw, 24px); border-radius: clamp(18px, 1.8vw, 24px);
   background:
     radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--deep) 13%, transparent) 1px, transparent 1.5px) 0 0 / 12px 12px,
     radial-gradient(110% 80% at 100% 0%, color-mix(in srgb, var(--c) 34%, transparent), transparent 62%),
@@ -899,8 +963,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 /* Isobaras en la esquina: anillos alrededor de la esquina superior derecha, que se abren un poco al pasar el ratón. */
 .edu-card::before {
-  content: ''; position: absolute; z-index: -1; right: -120px; top: -120px; width: 300px; height: 300px; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 21px, color-mix(in srgb, var(--deep) 22%, transparent) 21px 22.5px);
+  content: ''; position: absolute; z-index: -1; right: -95px; top: -95px; width: 230px; height: 230px; border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 17px, color-mix(in srgb, var(--deep) 22%, transparent) 17px 18.4px);
   -webkit-mask: radial-gradient(circle, #000 25%, transparent 70%); mask: radial-gradient(circle, #000 25%, transparent 70%);
   transition: scale 0.9s var(--ease-out);
 }
@@ -909,30 +973,30 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   .edu-card:hover::before { scale: 1.14; }
   .edu-card:hover .edu-card__acr { translate: 6px 0; }
 }
-.edu-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 26px; font-family: var(--mono); font-size: 0.74rem; font-variant-numeric: tabular-nums; color: var(--deep); }
+.edu-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 20px; font-family: var(--mono); font-size: 0.7rem; font-variant-numeric: tabular-nums; color: var(--deep); }
 .edu-card__acr {
-  margin: 4px 0 0; font-weight: 800; font-stretch: 125%; font-size: clamp(3rem, 1.6rem + 3.4vw, 5.4rem); line-height: 0.84;
+  margin: 2px 0 0; font-weight: 800; font-stretch: 125%; font-size: clamp(2.3rem, 1.3rem + 2.3vw, 3.7rem); line-height: 0.84;
   letter-spacing: -0.045em; color: var(--deep); transition: translate 0.6s var(--ease-out);
 }
-.edu-card__title { font-weight: 700; font-stretch: 106%; font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem); line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance; }
-.edu-card__where { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; color: var(--ink-2); }
-.edu-card__where svg { width: 16px; height: 16px; flex: none; color: var(--deep); }
-.edu-card__note, .edu-card__did { margin-top: 4px; padding-top: 14px; border-top: 1.5px dashed color-mix(in srgb, var(--deep) 28%, transparent); }
-.edu-card__note { font-size: 0.92rem; color: var(--ink-2); }
-.edu-card__did { display: flex; flex-wrap: wrap; gap: 8px; }
-.edu-card__did > span { flex-basis: 100%; font-size: 0.78rem; font-weight: 650; color: var(--ink-2); }
+.edu-card__title { font-weight: 700; font-stretch: 106%; font-size: clamp(0.98rem, 0.92rem + 0.25vw, 1.12rem); line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance; }
+.edu-card__where { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); }
+.edu-card__where svg { width: 14px; height: 14px; flex: none; color: var(--deep); }
+.edu-card__note, .edu-card__did { margin-top: 2px; padding-top: 10px; border-top: 1.5px dashed color-mix(in srgb, var(--deep) 28%, transparent); }
+.edu-card__note { font-size: 0.86rem; color: var(--ink-2); }
+.edu-card__did { display: flex; flex-wrap: wrap; gap: 6px; }
+.edu-card__did > span { flex-basis: 100%; font-size: 0.72rem; font-weight: 650; color: var(--ink-2); }
 .edu-card__did a {
-  display: inline-flex; align-items: center; gap: 9px; min-height: 38px; padding: 0 15px; border-radius: 999px; text-decoration: none;
-  font-size: 0.88rem; font-weight: 650; background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); transition: background-color 0.25s, color 0.25s;
+  display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 12px; border-radius: 999px; text-decoration: none;
+  font-size: 0.8rem; font-weight: 650; background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); transition: background-color 0.25s, color 0.25s;
 }
-.edu-card__did a:has(.edu-card__logo) { padding-left: 5px; }
+.edu-card__did a:has(.edu-card__logo) { padding-left: 4px; }
 .edu-card__did a:hover { background: var(--ink); color: var(--paper); }
-.edu-card__logo { display: grid; place-items: center; width: 40px; height: 28px; border-radius: 999px; overflow: hidden; background: var(--f); flex: none; }
-.edu-card__logo img { width: 28px; height: auto; max-height: 20px; object-fit: contain; }
-.edu-card__logo--round img { width: 22px; height: 22px; max-height: none; border-radius: 50%; }
-.edu-card__logo--kora .kora-mark { --w: 26px; }
+.edu-card__logo { display: grid; place-items: center; width: 34px; height: 24px; border-radius: 999px; overflow: hidden; background: var(--f); flex: none; }
+.edu-card__logo img { width: 24px; height: auto; max-height: 17px; object-fit: contain; }
+.edu-card__logo--round img { width: 19px; height: 19px; max-height: none; border-radius: 50%; }
+.edu-card__logo--kora .kora-mark { --w: 22px; }
 .edu-card__logo--kora .kora-dot { box-shadow: none; }
-.edu-card__logo .hg-mark { font-size: 0.4rem; padding-bottom: 3px; }
+.edu-card__logo .hg-mark { font-size: 0.34rem; padding-bottom: 3px; }
 .edu-card__logo .hg-mark::after { height: 2px; }
 /* La etapa actual: la ficha en lleno, en el azul de su tramo, con el texto en claro y su sello «En curso». */
 .is-now .edu-card {
