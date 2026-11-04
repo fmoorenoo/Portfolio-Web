@@ -860,18 +860,21 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 0 5px rgba(244, 178, 62, 0.18), 0 16px 30px -12px rgba(244, 178, 62, 0.8);
 }
 .cefr .is-off { background: none; color: color-mix(in srgb, var(--ink) 45%, transparent); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 24%, transparent); }
-/* C1, en proceso: el tramo siguiente, a medio llenar. Contorno discontinuo en calima y unas rayas que avanzan despacio
-   (solo se mueve una capa con transform), con su rótulo «En proceso». */
+/* C1, en proceso: el tramo siguiente, a medio llenar. Contorno discontinuo en calima y unas rayas que avanzan despacio,
+   con su rótulo «En proceso». Las rayas se mueven con background-position sobre una tesela de 19,8 px (el periodo
+   horizontal de unas rayas de 14 px a 45°): desplazar una capa con transform dentro de este recorte de esquinas
+   irregulares obligaba a la GPU a recomponerlo en cada frame y era la mayor causa de tirones al hacer scroll. */
 .cefr .is-next {
   isolation: isolate; color: #9A5800; font-weight: 700;
   background: rgba(244, 178, 62, 0.1); outline: 1.5px dashed rgba(244, 178, 62, 0.85); outline-offset: -1.5px;
 }
 .cefr__run { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; }
 .cefr__run::before {
-  content: ''; position: absolute; inset: 0 -30px; background: repeating-linear-gradient(-45deg, rgba(244, 178, 62, 0.38) 0 7px, transparent 7px 14px);
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, rgba(244, 178, 62, 0.38) 0 7px, transparent 7px 14px) 0 0 / 19.8px 19.8px;
 }
 .motion .cefr__run::before { animation: run 1.2s linear infinite; }
-@keyframes run { to { transform: translateX(19.8px); } }
+@keyframes run { to { background-position: 19.8px 0; } }
 .cefr__pin {
   position: absolute; left: 50%; bottom: calc(100% + 12px); translate: -50% 0; white-space: nowrap; padding: 4px 11px; border-radius: 999px;
   background: var(--ink); color: var(--paper); font-family: var(--sans); font-size: 0.74rem; font-weight: 700;
@@ -1292,8 +1295,16 @@ img.is-swap { opacity: 0; }
     radial-gradient(70% 70% at 90% 100%, color-mix(in srgb, var(--c2, var(--c)) 85%, transparent), transparent 75%),
     var(--c);
 }
-.sys .shape__body { filter: drop-shadow(0 14px 16px var(--shadow)); transition: transform 0.5s var(--ease-out); }
+.sys .shape__body { filter: none; transition: transform 0.5s var(--ease-out); }
 .sys:hover .shape__body { transform: scale(1.04); }
+/* Sombra de contacto bajo cada forma, en su color: un degradado que se pinta una vez. Sustituye al drop-shadow, que
+   con el scroll se recalculaba en cada frame en la GPU y era la segunda causa de tirones (Stack, Archivo, Haría). */
+.sys::after {
+  content: ''; position: absolute; z-index: -2; left: 4%; right: 4%; bottom: calc(-1 * var(--by) - 16px); height: 48%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 14%, transparent) 55%, transparent);
+  transition: scale 0.5s var(--ease-out);
+}
+.sys:hover::after { scale: 1.06 1; }
 .sys__name { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; font-stretch: 106%; letter-spacing: 0.01em; opacity: 0.88; }
 .sys__name svg { width: 15px; height: 15px; flex: none; }
 .sys__tech { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.05em 0.55em; font-weight: 750; font-stretch: 112%; font-size: var(--fs); line-height: 1.18; letter-spacing: -0.015em; }
@@ -1852,7 +1863,7 @@ html.win-open, html.win-open body, html.menu-open, html.menu-open body { overflo
 
 /* Capas estables solo para lo que el scroll mueve de forma continua. */
 .motion .hero__name, .motion .hero__intro, .motion .hero__me, .motion .site { will-change: transform, translate; }
-.is-off *, .is-off *::after { animation-play-state: paused !important; }
+.is-off *, .is-off *::before, .is-off *::after { animation-play-state: paused !important; }
 
 /* Etiquetas de texto (no medidas) en Archivo; la mono queda para coordenadas, horas, hPa, fechas y cifras. */
 .btn--line, .station > span, .parte__cap, .station-card dt, .zones li, .kora__role, .kora__hint,

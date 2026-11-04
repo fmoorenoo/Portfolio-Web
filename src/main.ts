@@ -637,9 +637,11 @@ queue.unshift(() => mm.add({
 }));
 
 /* ── Puesta a punto ────────────────────────────────────── */
-// Las animaciones CSS en bucle se pausan fuera de pantalla para no recalcular estilos en cada frame.
+// Las animaciones CSS en bucle se pausan fuera de pantalla para no recalcular estilos en cada frame. Formación entra
+// también: las rayas de C1, el parpadeo de «En proceso» y el halo de DAW seguían animándose fuera de pantalla y
+// obligaban a la GPU a recomponer cada frame en toda la página (las rayas solas, la mayor parte de los tirones).
 const off = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
-$$('.hero, .parte, .kora').forEach((el) => off.observe(el));
+$$('.hero, .parte, .edu, .kora').forEach((el) => off.observe(el));
 if (!motion) startQueue();
 // ScrollTrigger ya recalcula al cargar la página (evento load). Solo hace falta otra pasada si alguna fuente
 // termina de cargar después y cambia la altura del texto.
