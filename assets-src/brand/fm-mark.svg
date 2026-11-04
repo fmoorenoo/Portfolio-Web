@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 916 442">
+  <!-- Letras del logotipo FM (vectorizadas de fm.png, recortadas a su caja). Degradado propio en cada letra, medido sobre el original. -->
+  <defs>
+    <linearGradient id="fm-f" gradientUnits="userSpaceOnUse" x1="45" y1="1" x2="335" y2="291">
+      <stop offset="0" stop-color="#00FFEE"/>
+      <stop offset=".23" stop-color="#00F4F2"/>
+      <stop offset=".35" stop-color="#00DAF9"/>
+      <stop offset=".49" stop-color="#02B9FD"/>
+      <stop offset=".62" stop-color="#318CFD"/>
+      <stop offset=".71" stop-color="#5676FD"/>
+      <stop offset=".87" stop-color="#9246FB"/>
+      <stop offset="1" stop-color="#BA30FB"/>
+    </linearGradient>
+    <linearGradient id="fm-m" gradientUnits="userSpaceOnUse" x1="520" y1="-99" x2="1051" y2="149">
+      <stop offset="0" stop-color="#963BFB"/>
+      <stop offset=".07" stop-color="#B43AFC"/>
+      <stop offset=".17" stop-color="#CD2FE5"/>
+      <stop offset=".26" stop-color="#E62EC4"/>
+      <stop offset=".35" stop-color="#FA31A7"/>
+      <stop offset=".43" stop-color="#FD4086"/>
+      <stop offset=".49" stop-color="#FE566B"/>
+      <stop offset=".59" stop-color="#FD8A2F"/>
+      <stop offset=".68" stop-color="#FEA707"/>
+      <stop offset=".76" stop-color="#FEB103"/>
+      <stop offset=".87" stop-color="#FECB02"/>
+      <stop offset="1" stop-color="#FFE003"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#fm-f)" d="M93.4 1.4L486.2 1.4L421.8 91.8L415.8 99.8L410.4 103.4L404.0 105.0L178.0 105.0L175.6 106.6L159.2 166.8L387.0 167.0L391.2 168.8L392.6 172.6L380.4 199.4L347.4 265.4L337.4 273.4L313.0 275.0L152.4 274.8L130.6 439.6L0.6 440.4L50.0 43.0L54.6 28.6L62.8 16.8L73.6 8.6Z"/>
+  <path fill="url(#fm-m)" d="M795.4 1.4L914.8 2.2L915.0 415.0L907.8 430.8L897.4 437.4L886.0 440.0L783.0 440.0L780.4 438.6L781.6 208.8L652.8 384.8L648.4 387.4L643.2 385.8L640.2 381.8L515.2 207.8L513.0 228.0L502.4 439.4L375.0 441.0L372.0 438.0L405.0 170.0L407.8 158.8L415.6 140.6L427.2 123.2L513.2 4.2L517.4 3.6L520.8 7.2L647.8 183.4L771.2 15.2L781.6 6.6Z"/>
+</svg>
