@@ -120,8 +120,9 @@ export function lanzametViews() {
     picker.dataset.on = String(i);
     buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     const v = b.dataset.view!;
-    swap(img, `/img/lanzamet-${v}-1600.webp`, `/img/lanzamet-${v}-900.webp 900w, /img/lanzamet-${v}-1600.webp 1600w`);
-    swap(phone, v === 'hoy' ? '/img/lanzamet-movil-900.webp' : `/img/lanzamet-movil-${v}-900.webp`);
+    swap(img, `/img/lanzamet-${v}-1600.webp`, `/img/lanzamet-${v}-600.webp 600w, /img/lanzamet-${v}-900.webp 900w, /img/lanzamet-${v}-1600.webp 1600w`);
+    const m = v === 'hoy' ? '/img/lanzamet-movil' : `/img/lanzamet-movil-${v}`;
+    swap(phone, `${m}-900.webp`, `${m}-450.webp 450w, ${m}-900.webp 900w`);
   }));
 }
 
