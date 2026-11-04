@@ -31,7 +31,6 @@ const en: Record<string, string> = {
   'parte.alt': 'Fernando Montelongo.',
   'parte.map': 'Map of Lanzarote with Arrecife marked.',
   'parte.cap': 'Where I live and code',
-  'parte.eyebrow': 'About me',
   'parte.title': 'Software made in <em>Lanzarote</em>, already <span class="parte__live">live</span>.',
   'parte.statement': "I've shipped several products of my own, delivered an app to the island's Emergency Consortium and co-founded KORA, where I lead development of websites for real clients. I trained in DAM and DAW, and I like software that is useful, tidy and easy to maintain.",
   'st.base': 'Based in',
