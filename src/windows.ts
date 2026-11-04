@@ -53,7 +53,8 @@ export class Windows {
     }
     addEventListener('popstate', () => this.sync(true));
     addEventListener('keydown', (e) => {
-      if (this.el.hidden) return;
+      // Con el visor de imágenes abierto, Esc y las flechas son suyos.
+      if (this.el.hidden || document.documentElement.classList.contains('lb-open')) return;
       if (e.key === 'Escape') this.close();
       else if (e.key === 'ArrowRight' && !(e.target as Element).closest('input, textarea')) this.step(1);
       else if (e.key === 'ArrowLeft' && !(e.target as Element).closest('input, textarea')) this.step(-1);
@@ -70,7 +71,8 @@ export class Windows {
   private sync(animate: boolean) {
     const slug = slugFrom(location.pathname);
     const p = projects.find((x) => x.slug === slug);
-    if (p) this.show(p, null, animate);
+    // Si ya se está viendo ese proyecto no se repinta (p. ej. al volver atrás tras cerrar el visor de imágenes).
+    if (p) { if (!(this.isOpen && this.current === p)) this.show(p, null, animate); }
     else if (this.isOpen) this.hide(animate);
   }
 
@@ -168,7 +170,7 @@ export class Windows {
 
     // Cada imagen va en el soporte de lo que es: pantalla (navegador o juego), teléfono, vista previa o documento.
     const img = (s: Shot, sizes: string, eager = false) =>
-      `<img src="${s.src}"${s.srcset ? ` srcset="${s.srcset}" sizes="${sizes}"` : ''} width="${s.w}" height="${s.h}" alt="${esc(s.alt[L])}"${eager ? '' : ' loading="lazy"'} decoding="async">`;
+      `<img src="${s.src}"${s.srcset ? ` srcset="${s.srcset}" sizes="${sizes}"` : ''} width="${s.w}" height="${s.h}" alt="${esc(s.alt[L])}"${eager ? '' : ' loading="lazy"'} decoding="async" tabindex="0">`;
     const kind = (s: Shot) => (s.sq ? 'sq' : s.h / s.w > 1.6 ? 'phone' : s.w / s.h > 1.3 ? 'desk' : 'doc');
     const desks = p.shots.filter((s) => kind(s) === 'desk');
     const phones = p.shots.filter((s) => kind(s) === 'phone');
@@ -215,8 +217,8 @@ export class Windows {
       ? `<section class="cs-block"><h3 class="cs-h">${esc(p.compare.title[L])}</h3><div class="cs-compare">${p.compare.pairs.map((c) => `
           <figure class="cs-pair" data-reveal>
             <div class="cs-pair__imgs">
-              <div class="cs-pair__img"><img src="/img/hg-cmp-real-${c.name}-960.webp" srcset="/img/hg-cmp-real-${c.name}-600.webp 600w, /img/hg-cmp-real-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" alt="${ui.real[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.real[L]}</span></div>
-              <div class="cs-pair__img"><img src="/img/hg-cmp-juego-${c.name}-960.webp" srcset="/img/hg-cmp-juego-${c.name}-600.webp 600w, /img/hg-cmp-juego-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" alt="${ui.inGame[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.inGame[L]}</span></div>
+              <div class="cs-pair__img"><img src="/img/hg-cmp-real-${c.name}-960.webp" srcset="/img/hg-cmp-real-${c.name}-600.webp 600w, /img/hg-cmp-real-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" tabindex="0" alt="${ui.real[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.real[L]}</span></div>
+              <div class="cs-pair__img"><img src="/img/hg-cmp-juego-${c.name}-960.webp" srcset="/img/hg-cmp-juego-${c.name}-600.webp 600w, /img/hg-cmp-juego-${c.name}-960.webp 960w" sizes="(max-width: 900px) 46vw, 420px" width="960" height="540" tabindex="0" alt="${ui.inGame[L]}: ${esc(c.cap[L])}" loading="lazy"><span>${ui.inGame[L]}</span></div>
             </div>
             <figcaption>${esc(c.cap[L])}</figcaption>
           </figure>`).join('')}</div></section>`
