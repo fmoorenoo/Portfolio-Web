@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fer-m.dev/sitemap.xml

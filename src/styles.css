@@ -379,6 +379,10 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
    elemento LCP). Se anima a los hijos para no pisar las transformaciones de scroll que GSAP pone en .hero__me. */
 @keyframes me-in { from { opacity: 0; transform: translateY(8%) scale(0.97); } }
 .motion .hero__me > * { animation: me-in 1.7s var(--ease-out) 0.1s backwards; }
+/* La presentación (texto del LCP) también entra en CSS desde el primer pintado. Va en «translate/scale/rotate»
+   sueltos sobre .hero__intro, que GSAP no toca (con el scroll mueve su forma, .blob). */
+@keyframes intro-in { from { opacity: 0; translate: 0 40px; scale: 0.86; rotate: -4deg; } }
+.motion .hero__intro { animation: intro-in 1.4s var(--ease-out) 0.4s backwards; }
 .hero__barb { position: absolute; }
 .hero__barb--1 { left: 41%; top: 60%; transform: rotate(48deg); }
 .hero__barb--2 { left: 34%; top: 13%; transform: rotate(40deg) scale(0.85); }

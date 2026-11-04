@@ -361,8 +361,10 @@ fronts.forEach(buildFront);
 
 /* ── Utilidades de texto ───────────────────────────────── */
 const splits: SplitText[] = [];
-function splitChars(el: HTMLElement, mask = true) {
-  const s = SplitText.create(el, mask ? { type: 'lines,words,chars', mask: 'lines', linesClass: 'ln', charsClass: 'ch' } : { type: 'words,chars', charsClass: 'ch' });
+// aria «auto» pone el texto como aria-label del elemento partido (bien en un h2 o h3); en un <span> ese atributo no
+// está permitido, así que ahí se pasa «hidden» y el nombre accesible lo lleva su encabezado.
+function splitChars(el: HTMLElement, mask = true, aria: 'auto' | 'hidden' = 'auto') {
+  const s = SplitText.create(el, mask ? { type: 'lines,words,chars', mask: 'lines', linesClass: 'ln', charsClass: 'ch', aria } : { type: 'words,chars', charsClass: 'ch', aria });
   splits.push(s);
   return s.chars as HTMLElement[];
 }
@@ -398,7 +400,7 @@ for (const ev of ['wheel', 'touchstart', 'keydown', 'scroll'] as const) addEvent
 if (motion) {
   // Entrada: la carta aparece, las isobaras se asientan y el nombre sube línea a línea.
   const lines = $$('.hero__line');
-  const chars = lines.flatMap((l) => splitChars(l, false));
+  const chars = lines.flatMap((l) => splitChars(l, false, 'hidden'));
   if (finePointer) namePressure(chars);
   gsap.set(chars, { yPercent: 115 });
   gsap.set('[data-intro]', { opacity: 0 });
@@ -408,7 +410,8 @@ if (motion) {
     .from('.hero .field', { opacity: 0, duration: 1.6, ease: 'power2.out' }, 0)
     .to(chars, { yPercent: 0, duration: 1.25, stagger: 0.028 }, 0.15)
     // El retrato entra por CSS (styles.css, «me-in»): así se pinta con el primer frame sin esperar a este script.
-    .fromTo('.hero__intro', { opacity: 0, y: 40, scale: 0.86, rotate: -4 }, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 1.4, ease: 'expo.out' }, 0.6)
+    // La presentación entra por CSS («intro-in», styles.css), como el retrato: es el elemento LCP y así se pinta sin
+    // esperar a que cargue este script (en un móvil lento, más de 3 s).
     .fromTo('.hero__barb', { opacity: 0 }, { opacity: 0.55, duration: 1, stagger: 0.12 }, 1)
     // El nombre ya está en su sitio: a partir de aquí se prepara el resto de la página sin entorpecer la entrada.
     .call(startQueue, [], 1.5);

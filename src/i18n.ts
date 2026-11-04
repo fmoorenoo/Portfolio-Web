@@ -156,14 +156,18 @@ export function initLang(): Lang {
 
 export function applyLang(lang: Lang) {
   document.documentElement.lang = lang;
+  // Solo se escribe lo que cambia: al arrancar en español todo coincide ya con el HTML, y reescribirlo creaba nodos de
+  // texto nuevos que el navegador cuenta como pintados en ese momento (el LCP pasaba a depender de este script).
   es.forEach((html, el) => {
     const key = el.getAttribute('data-i18n')!;
-    el.innerHTML = lang === 'en' && en[key] ? en[key] : html;
+    const next = lang === 'en' && en[key] ? en[key] : html;
+    if (el.innerHTML !== next) el.innerHTML = next;
   });
   esAttr.forEach((rec, el) => {
     for (const pair of el.getAttribute('data-i18n-attr')!.split(',')) {
       const [attr, key] = pair.split(':');
-      el.setAttribute(attr, lang === 'en' && en[key] ? en[key] : rec[attr]);
+      const next = lang === 'en' && en[key] ? en[key] : rec[attr];
+      if (el.getAttribute(attr) !== next) el.setAttribute(attr, next);
     }
   });
   document.querySelectorAll<HTMLButtonElement>('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
