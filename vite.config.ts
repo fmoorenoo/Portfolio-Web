@@ -1,16 +1,30 @@
 import { defineConfig, type Plugin } from 'vite';
-import { copyFile, mkdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { projects } from './src/content';
 
-// Cada ventana de proyecto tiene su ruta (/proyectos/:slug/). En el build se copia index.html a cada una
-// para que un hosting estático las sirva sin reglas de reescritura.
-const slugs = ['lanzamet', 'aceslan', 'kora', 'haircloud', 'hariagame'];
+// Cada ventana de proyecto tiene su ruta (/proyectos/:slug/). En el build se copia index.html a cada una para que un
+// hosting estático las sirva sin reglas de reescritura, con su propio título, descripción y canonical: sin ellos,
+// Google veía las cinco rutas como copias de la portada.
+const SITE = 'https://fer-m.dev';
+const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const routes = (): Plugin => ({
   name: 'project-routes',
   apply: 'build',
   async closeBundle() {
-    for (const s of slugs) {
-      await mkdir(`dist/proyectos/${s}`, { recursive: true });
-      await copyFile('dist/index.html', `dist/proyectos/${s}/index.html`);
+    const home = await readFile('dist/index.html', 'utf8');
+    for (const p of projects) {
+      const url = `${SITE}/proyectos/${p.slug}/`;
+      const title = `${p.name} — Fernando Montelongo`;
+      const desc = `${p.claim.es} ${p.kind.es}. Un proyecto de Fernando Montelongo, desarrollador full stack en Lanzarote.`;
+      const page = home
+        .replace(/<title>[^<]*<\/title>/, `<title>${attr(title)}</title>`)
+        .replace(/(<meta name="description" content=")[^"]*/, `$1${attr(desc)}`)
+        .replace(/(<meta property="og:title" content=")[^"]*/, `$1${attr(title)}`)
+        .replace(/(<meta property="og:description" content=")[^"]*/, `$1${attr(desc)}`)
+        .replace(/(<link rel="canonical" href=")[^"]*/, `$1${url}`)
+        .replace(/(<meta property="og:url" content=")[^"]*/, `$1${url}`);
+      await mkdir(`dist/proyectos/${p.slug}`, { recursive: true });
+      await writeFile(`dist/proyectos/${p.slug}/index.html`, page);
     }
   },
 });

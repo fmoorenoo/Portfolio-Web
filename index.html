@@ -11,6 +11,51 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="en_GB">
+  <!-- Indexación: una sola URL por página (www.fer-m.dev y las rutas sin barra sirven lo mismo) y la imagen para
+       compartir. Las rutas de proyecto reciben su propio título, descripción y canonical en el build (vite.config.ts). -->
+  <link rel="canonical" href="https://fer-m.dev/">
+  <meta property="og:url" content="https://fer-m.dev/">
+  <meta property="og:site_name" content="Fernando Montelongo">
+  <meta property="og:image" content="https://fer-m.dev/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Fernando Montelongo, Full Stack Developer en Lanzarote.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="Fernando Montelongo Moreno">
+  <!-- Quién es: para que Google relacione la web con el nombre, el perfil de LinkedIn y el de GitHub. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://fer-m.dev/#persona",
+        "name": "Fernando Montelongo Moreno",
+        "alternateName": "Fernando Montelongo",
+        "url": "https://fer-m.dev/",
+        "image": "https://fer-m.dev/og.jpg",
+        "jobTitle": "Full Stack Developer",
+        "email": "mailto:fermdev@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Arrecife", "addressRegion": "Las Palmas", "addressCountry": "ES" },
+        "knowsLanguage": ["es", "en"],
+        "alumniOf": [
+          { "@type": "EducationalOrganization", "name": "CIFP Zonzamas" },
+          { "@type": "EducationalOrganization", "name": "IES Haría" }
+        ],
+        "worksFor": { "@type": "Organization", "name": "KORA Digital Solutions", "url": "https://koradigitalsolutions.com" },
+        "sameAs": ["https://www.linkedin.com/in/fernando-montelongo", "https://github.com/fmoorenoo"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://fer-m.dev/#web",
+        "url": "https://fer-m.dev/",
+        "name": "Fernando Montelongo",
+        "inLanguage": "es",
+        "author": { "@id": "https://fer-m.dev/#persona" }
+      }
+    ]
+  }
+  </script>
   <!-- El retrato (candidato a LCP) se pide antes de leer el CSS, que va incrustado y lo deja más abajo en el HTML. -->
   <link rel="preload" as="image" href="/img/retrato-1086.webp" imagesrcset="/img/retrato-640.webp 640w, /img/retrato-720.webp 720w, /img/retrato-1086.webp 1086w" imagesizes="(max-width: 900px) min(44vh, 89vw), min(74vh, 761px)" fetchpriority="high">
   <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
