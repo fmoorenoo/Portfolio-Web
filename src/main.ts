@@ -86,13 +86,21 @@ document.addEventListener('click', (e) => {
 const bar = $('[data-bar]');
 const menuBtn = $('.bar__menu');
 const menu = $('#menu');
-function closeMenu() { menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); setDrop(false); }
+// Abierto, el menú tapa toda la pantalla: la barra pasa a papel y la página de debajo no se desplaza.
+function setMenu(open: boolean) {
+  menu.classList.toggle('is-open', open);
+  bar.classList.toggle('menu-open', open);
+  document.documentElement.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+}
+function closeMenu() { setMenu(false); setDrop(false); }
 menuBtn.addEventListener('click', () => {
   const open = !menu.classList.contains('is-open');
   if (open) loadThumbs();
-  menu.classList.toggle('is-open', open);
-  menuBtn.setAttribute('aria-expanded', String(open));
+  setMenu(open);
 });
+// Si la ventana se ensancha hasta la barra de escritorio con el menú abierto, se cierra para no dejar la página bloqueada.
+addEventListener('resize', () => { if (barWide() && menu.classList.contains('is-open')) closeMenu(); });
 // La barra siempre está visible; solo gana fondo al dejar el inicio y se oscurece sobre las secciones oscuras.
 ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (self) => bar.classList.toggle('is-solid', self.scroll() > 40) });
 for (const [sel, cls] of [['.kora', 'is-dark'], ['.kora', 'is-kora'], ['.contact', 'is-dark']]) {

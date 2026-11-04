@@ -1521,13 +1521,19 @@ img.is-swap { opacity: 0; }
   .bar__cta { min-height: 40px; padding: 0 1em; font-size: 0.9rem; }
   /* La barra móvil es baja: la isobara se saldría por el borde superior de la pantalla. */
   .bar__cta .shape__iso { display: none; }
+  /* El menú abierto ocupa toda la pantalla bajo la barra: no se ve la web por debajo. */
   .bar__nav {
-    position: fixed; inset: var(--bar) 0 auto; justify-self: stretch; flex-direction: column; align-items: flex-start; gap: 4px;
-    padding: 16px var(--gutter) 28px; background: var(--paper); color: var(--ink); font-size: 1.6rem; font-weight: 700; font-stretch: 110%;
-    box-shadow: 0 30px 40px -30px rgba(12, 46, 64, 0.5);
+    position: fixed; inset: var(--bar) 0 0; justify-self: stretch; flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 16px var(--gutter) max(28px, env(safe-area-inset-bottom)); background: var(--paper); color: var(--ink); font-size: 1.6rem; font-weight: 700; font-stretch: 110%;
     clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path 0.5s var(--ease-out), visibility 0s 0.5s;
     /* En pantallas bajas el menú entero cabe desplazándose dentro de sí mismo, no se corta. */
-    max-height: calc(100svh - var(--bar)); overflow-y: auto; overscroll-behavior: contain;
+    overflow-y: auto; overscroll-behavior: contain;
+  }
+  /* Con el menú abierto la barra va siempre en papel y tinta, también sobre KORA y Contacto, para formar un solo panel. */
+  .bar.menu-open { background: var(--paper) !important; color: var(--ink) !important; box-shadow: 0 1px 0 var(--rule) !important; }
+  .bar.menu-open .bar__cta[data-blob] {
+    --fg: var(--paper) !important; --base: linear-gradient(150deg, #24465A 0%, var(--ink) 70%) !important;
+    --glow: color-mix(in srgb, var(--cold) 75%, transparent) !important; --ring: color-mix(in srgb, var(--cold) 55%, transparent) !important; --shadow: rgba(12, 46, 64, 0.4) !important;
   }
   .bar__nav.is-open { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path 0.5s var(--ease-out); }
   .bar__links { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; padding: 0; }
@@ -1707,7 +1713,7 @@ img.is-swap { opacity: 0; }
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
 }
 
-html.win-open, html.win-open body { overflow: hidden; }
+html.win-open, html.win-open body, html.menu-open, html.menu-open body { overflow: hidden; }
 
 /* Visor de imágenes (src/lightbox.ts): las capturas de proyecto se abren a pantalla completa al pulsarlas. */
 .case__media img:not(.ac-push img), #win .cs-stage img, #win .cs-gallery img, #win .cs-pair__img img { cursor: zoom-in; }
