@@ -6,9 +6,10 @@ import { SplitText } from 'gsap/SplitText';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 import { Field, type Centre } from './field';
 import { Windows } from './windows';
+import { Lightbox } from './lightbox';
 import { applyLang, initLang } from './i18n';
 import { mountBlobs } from './blobs';
-import { nameLockup, namePressure, techReadout, lanzametViews, acePush, eduLegend } from './details';
+import { nameLockup, namePressure, techReadout, lanzametViews, acePush } from './details';
 import type { Lang } from './content';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
@@ -22,6 +23,8 @@ const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = documen
 const motion = matchMedia('(prefers-reduced-motion: no-preference)').matches;
 const finePointer = matchMedia('(pointer: fine) and (hover: hover)').matches;
 const wide = () => innerWidth >= 900;
+// La barra pasa a menú hamburguesa antes que el resto de la página (styles.css, max-width: 1199px).
+const barWide = () => innerWidth >= 1200;
 const EASE = 'expo.out';
 // Parámetros de diagnóstico, solo en desarrollo: ?nosmooth y ?nofield.
 const dev = (k: string) => import.meta.env.DEV && new URLSearchParams(location.search).has(k);
@@ -56,6 +59,8 @@ const smoother = motion && finePointer && !dev('nosmooth')
   })
   : null;
 windows = new Windows(() => lang, (on) => pause(on), () => motion);
+// Visor de imágenes de proyecto: si la ventana del proyecto está abierta, la página ya está en pausa y debe seguir así.
+new Lightbox((on) => { if (!windows.isOpen) pause(on); }, () => motion);
 function pause(on: boolean) {
   if (smoother) smoother.paused(on);
   root.style.overflow = on ? 'hidden' : '';
@@ -116,11 +121,11 @@ function setDrop(on: boolean) {
   dropBtn.setAttribute('aria-expanded', String(on));
 }
 if (finePointer) {
-  drop.addEventListener('pointerenter', () => { if (wide()) setDrop(true); });
+  drop.addEventListener('pointerenter', () => { if (barWide()) setDrop(true); });
   // Un margen breve para cruzar el hueco entre el enlace y el panel sin que se cierre.
   drop.addEventListener('pointerleave', () => { dropTimer = window.setTimeout(() => setDrop(false), 180); });
 }
-drop.addEventListener('focusin', () => { if (wide()) setDrop(true); });
+drop.addEventListener('focusin', () => { if (barWide()) setDrop(true); });
 drop.addEventListener('focusout', (e) => { if (!drop.contains(e.relatedTarget as Node)) setDrop(false); });
 addEventListener('keydown', (e) => {
   if (e.key !== 'Escape' || !drop.classList.contains('is-open')) return;
@@ -191,6 +196,31 @@ if (finePointer) {
     x: gsap.quickTo(img, 'xPercent', { duration: 0.45, ease: 'power3.out' }),
     y: gsap.quickTo(img, 'yPercent', { duration: 0.45, ease: 'power3.out' }),
   }));
+  // La foto se carga con los ojos puestos (retrato-*.webp). Para moverlos hacen falta la base sin iris, los iris y las
+  // máscaras de la apertura: se piden con el navegador ocioso tras la carga y, ya decodificados, sustituyen a la foto
+  // la primera vez que se elige «ojos». Primero aparecen los iris sueltos y después cambia la base, así la cara nunca
+  // se queda sin ojos.
+  const base = $<HTMLImageElement>('.portrait__base', portrait);
+  const bareSet = '/img/retrato-recorte-720.webp 720w, /img/retrato-recorte-1086.webp 1086w';
+  const ready = (im: HTMLImageElement) => im.decode().catch(() => undefined);
+  let prepared: Promise<unknown> | undefined;
+  const prepareEyes = () => (prepared ??= Promise.all([
+    (() => { const im = new Image(); im.sizes = base.sizes; im.srcset = bareSet; return ready(im); })(),
+    ...['izq', 'der'].map((n) => { const im = new Image(); im.src = `/img/ojo-${n}-mask.png`; return ready(im); }),
+    ...eyes.map(({ img }) => { img.src = img.dataset.src!; return ready(img); }),
+  ]));
+  let live = false;
+  const goLive = () => prepareEyes().then(() => {
+    if (live) return;
+    live = true;
+    portrait.classList.add('has-live-eyes');
+    base.srcset = bareSet;
+  });
+  addEventListener('load', () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(() => prepareEyes(), { timeout: 4000 });
+    else setTimeout(prepareEyes, 2000);
+  }, { once: true });
+
   const reach = (d: number) => Math.max(-1, Math.min(1, d / 260));
   const look = () => {
     for (const eye of eyes) {
@@ -228,6 +258,7 @@ if (finePointer) {
     picker.dataset.on = String(buttons.findIndex((b) => b.dataset.mode === m));
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
     if (m === 'xray') loadBones();
+    if (m === 'eyes') goLive();
     if (m !== 'eyes') rest();
     close();
   };
@@ -345,7 +376,6 @@ function startQueue() {
 }
 for (const ev of ['wheel', 'touchstart', 'keydown', 'scroll'] as const) addEventListener(ev, startQueue, { capture: true, passive: true });
 
-eduLegend();
 
 /* ── Coreografía ───────────────────────────────────────── */
 if (motion) {
@@ -420,11 +450,17 @@ if (motion) {
     gsap.from(chars, { yPercent: 115, duration: 1.1, ease: EASE, stagger: 0.025, scrollTrigger: { trigger: el, start: 'top 88%' } });
   });
 
-  // Formación: la leyenda se dibuja tramo a tramo, de 2021 a 2026, y después llega la ficha.
-  queue.push(() => gsap.timeline({ defaults: { ease: EASE, force3D: true }, scrollTrigger: { trigger: '.legend', start: 'top 80%' } })
-    .from('.legend__seg', { scaleX: 0, transformOrigin: '0% 50%', duration: 0.8, stagger: 0.14, clearProps: 'all' }, 0)
-    .from('.legend__ticks li', { y: 12, duration: 0.6, stagger: 0.06 }, 0.2)
-    .from('.legend__cards', { y: 40, duration: 1 }, 0.35));
+  // Formación: la ruta se dibuja de 2021 a hoy, los puntos aparecen a su paso y las fichas suben una tras otra.
+  queue.push(() => gsap.timeline({ defaults: { ease: EASE }, scrollTrigger: { trigger: '.edu-route', start: 'top 82%' } })
+    .from('.edu-route', { '--route': 0, duration: 1.1 }, 0)
+    .from('.edu-step__pin', { scale: 0, duration: 0.5, stagger: 0.22, ease: 'back.out(2)', clearProps: 'scale' }, 0.15)
+    .from('.edu-card', { y: 56, opacity: 0, duration: 1, stagger: 0.16, clearProps: 'transform,opacity' }, 0.25));
+  // Inglés: los tramos de la escala se llenan de A1 a B2 y después aparece el rótulo «Mi nivel».
+  queue.push(() => gsap.timeline({ defaults: { ease: EASE }, scrollTrigger: { trigger: '.edu-lang', start: 'top 82%' } })
+    .from('.edu-lang', { y: 48, opacity: 0, duration: 1, clearProps: 'transform,opacity' }, 0)
+    .from('.edu-lang__level', { yPercent: 40, opacity: 0, duration: 0.9, clearProps: 'transform,opacity' }, 0.2)
+    .from('.cefr li', { scaleX: 0, opacity: 0, duration: 0.55, stagger: 0.09, clearProps: 'transform,opacity' }, 0.3)
+    .from('.cefr__pin', { y: 10, opacity: 0, duration: 0.5, clearProps: 'transform,opacity' }, 0.85));
 
   // Tarjetas de proyecto: sin escalado ligado al scroll ni entrada de la tarjeta entera. GSAP promueve a capa lo que
   // anima y la retira al acabar, y con una tarjeta completa eso eran dos repintados enormes por tarjeta. Entran sus

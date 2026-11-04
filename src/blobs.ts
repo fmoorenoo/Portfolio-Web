@@ -106,7 +106,23 @@ export function mountBlobs(root: ParentNode = document) {
     body.setAttribute('aria-hidden', 'true');
     const fill = document.createElement('span');
     fill.className = 'shape__fill';
-    fill.style.clipPath = `url(#${id})`;
+    fill.style.clipPath = `var(--blob-clip, url(#${id}))`;
+    // data-blob-alt="<redondez>": una variante más cuadrada de la misma forma, que el CSS elige con
+    // --blob-clip: var(--blob-alt) donde la caja es estrecha y la forma normal dejaría las esquinas del texto fuera.
+    const alt = Number(host.dataset.blobAlt);
+    if (alt) {
+      const altId = `${id}-alt`;
+      if (!document.getElementById(altId)) {
+        const clip = document.createElementNS(SVG, 'clipPath');
+        clip.id = altId;
+        clip.setAttribute('clipPathUnits', 'objectBoundingBox');
+        const cp = document.createElementNS(SVG, 'path');
+        cp.setAttribute('d', blobPath(seed, 7, 0.06, alt));
+        clip.append(cp);
+        defs().append(clip);
+      }
+      host.style.setProperty('--blob-alt', `url(#${altId})`);
+    }
     body.append(fill);
     frag.append(body);
     host.prepend(frag);

@@ -63,8 +63,8 @@ export function techReadout(getLang: GetLang) {
   const list = document.querySelector<HTMLElement>('.systems');
   if (!out || !text || !list) return () => {};
   const words = {
-    es: { hint: 'Pasa el cursor por una tecnología para ver dónde la he usado.', in: 'en', self: 'este portfolio', android: 'Fundamentos Android', commits: '17 repositorios y 1.085 commits' },
-    en: { hint: 'Hover over a technology to see where I’ve used it.', in: 'in', self: 'this portfolio', android: 'Android fundamentals', commits: '17 repositories and 1,085 commits' },
+    es: { hint: 'Pasa el cursor por una tecnología para ver dónde la he usado.', in: 'en', self: 'este portfolio', android: 'Fundamentos Android', commits: '17 repositorios públicos y 1.059 commits' },
+    en: { hint: 'Hover over a technology to see where I’ve used it.', in: 'in', self: 'this portfolio', android: 'Android fundamentals', commits: '17 public repositories and 1,059 commits' },
   };
   let current: HTMLElement | null = null;
   const paint = () => {
@@ -125,8 +125,8 @@ export function lanzametViews() {
   }));
 }
 
-/** ACESLAN: la campana envía un aviso de prueba al teléfono, que vibra al recibirlo. La primera vez que la tarjeta
- *  entra en pantalla llega uno solo, para que se vea qué hace. */
+/** ACESLAN: la campana envía un aviso de prueba al teléfono, que vibra al recibirlo. Solo al pulsarla: nunca llega
+ *  un aviso por sí solo. */
 export function acePush() {
   const btn = document.querySelector<HTMLButtonElement>('[data-push]');
   const phone = document.querySelector<HTMLElement>('.ac-media__phone--b');
@@ -140,37 +140,4 @@ export function acePush() {
     t = window.setTimeout(() => phone.classList.remove('is-push'), 4600);
   };
   btn.addEventListener('click', send);
-  const io = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    io.disconnect();
-    window.setTimeout(send, 1400);
-  }, { threshold: 0.6 });
-  io.observe(phone);
-}
-
-/** Formación: la leyenda es un grupo de pestañas. Al elegir un tramo, la pieza de calima rueda hasta él y su ficha
- *  sustituye a la anterior; flechas, Inicio y Fin mueven entre tramos. */
-export function eduLegend() {
-  const root = document.querySelector<HTMLElement>('[data-legend]');
-  if (!root) return;
-  const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-  const cards = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls')!)!);
-  const select = (i: number, focus = false) => {
-    tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(j === i)); t.tabIndex = j === i ? 0 : -1; });
-    cards.forEach((c, j) => { c.hidden = j !== i; c.classList.toggle('is-in', j === i); });
-    root.dataset.on = String(i);
-    if (focus) tabs[i].focus();
-  };
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => select(i));
-    t.addEventListener('keydown', (e) => {
-      const n = tabs.length;
-      const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: n - 1 }[e.key];
-      if (to === undefined) return;
-      e.preventDefault();
-      select((to + n) % n, true);
-    });
-  });
-  root.classList.add('is-tabs');
-  select(tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'));
 }

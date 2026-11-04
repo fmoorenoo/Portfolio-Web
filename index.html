@@ -13,7 +13,12 @@
   <meta property="og:locale:alternate" content="en_GB">
   <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/martian.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Fernando M.">
+  <meta name="application-name" content="Fernando M.">
   <script>
     (function () {
       var d = document.documentElement;
@@ -51,6 +56,7 @@
     <symbol id="i-v-wave" viewBox="0 0 24 24"><path d="M2.8 9.5c2.3 0 2.3-2 4.6-2s2.3 2 4.6 2 2.3-2 4.6-2 2.3 2 4.6 2M2.8 15.5c2.3 0 2.3-2 4.6-2s2.3 2 4.6 2 2.3-2 4.6-2 2.3 2 4.6 2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="i-v-moon" viewBox="0 0 24 24"><path d="M19.6 14.6A8 8 0 0 1 9.4 4.4a8 8 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.6 1.8H4.4Z"/><path d="M10 20.8a2.2 2.2 0 0 0 4 0"/></g></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h10.5a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-3.5 3v-3H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2Z"/><path d="M16.5 9.5H20a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1.5v2.5L15.5 18.5H12a2 2 0 0 1-1.6-.8"/></g></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <!-- Barba de viento: asta, plumas y punto de estación -->
     <symbol id="i-barb" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="20" cy="33" r="3.2"/><path d="M20 29.8V5M20 5l8 -3.5M20 10l8 -3.5M20 15l4.5 -2"/></g></symbol>
@@ -59,9 +65,22 @@
   <a class="skip" href="#contacto" data-i18n="skip">Saltar al contacto</a>
 
   <header class="bar" data-bar>
-    <a class="bar__mark" href="/" aria-label="Fernando Montelongo, inicio" data-i18n-attr="aria-label:bar.home">
-      <span class="bar__mono" aria-hidden="true">FM</span>
-      <span>Fernando Montelongo</span>
+    <a class="bar__mark" href="/" aria-label="Fernando Montelongo, inicio" data-i18n-attr="aria-label:bar.home" data-blob="49" data-rings="2">
+      <!-- Logotipo FM entre < >: las letras salen de assets-src/brand/fm-mark.svg; los signos llevan su inclinación -->
+      <span class="bar__logo" aria-hidden="true">
+        <svg class="bar__br bar__br--l" viewBox="0 0 220 442"><path d="M186.6 70 40 221l113.4 151"/></svg>
+        <svg class="bar__fm" viewBox="0 0 916 442">
+          <defs>
+            <linearGradient id="bar-fm-f" gradientUnits="userSpaceOnUse" x1="45" y1="1" x2="335" y2="291"><stop offset="0" stop-color="#00FFEE"/><stop offset=".23" stop-color="#00F4F2"/><stop offset=".35" stop-color="#00DAF9"/><stop offset=".49" stop-color="#02B9FD"/><stop offset=".62" stop-color="#318CFD"/><stop offset=".71" stop-color="#5676FD"/><stop offset=".87" stop-color="#9246FB"/><stop offset="1" stop-color="#BA30FB"/></linearGradient>
+            <linearGradient id="bar-fm-m" gradientUnits="userSpaceOnUse" x1="520" y1="-99" x2="1051" y2="149"><stop offset="0" stop-color="#963BFB"/><stop offset=".07" stop-color="#B43AFC"/><stop offset=".17" stop-color="#CD2FE5"/><stop offset=".26" stop-color="#E62EC4"/><stop offset=".35" stop-color="#FA31A7"/><stop offset=".43" stop-color="#FD4086"/><stop offset=".49" stop-color="#FE566B"/><stop offset=".59" stop-color="#FD8A2F"/><stop offset=".68" stop-color="#FEA707"/><stop offset=".76" stop-color="#FEB103"/><stop offset=".87" stop-color="#FECB02"/><stop offset="1" stop-color="#FFE003"/></linearGradient>
+          </defs>
+          <path fill="url(#bar-fm-f)" d="M93.4 1.4L486.2 1.4L421.8 91.8L415.8 99.8L410.4 103.4L404.0 105.0L178.0 105.0L175.6 106.6L159.2 166.8L387.0 167.0L391.2 168.8L392.6 172.6L380.4 199.4L347.4 265.4L337.4 273.4L313.0 275.0L152.4 274.8L130.6 439.6L0.6 440.4L50.0 43.0L54.6 28.6L62.8 16.8L73.6 8.6Z"/>
+          <path fill="url(#bar-fm-m)" d="M795.4 1.4L914.8 2.2L915.0 415.0L907.8 430.8L897.4 437.4L886.0 440.0L783.0 440.0L780.4 438.6L781.6 208.8L652.8 384.8L648.4 387.4L643.2 385.8L640.2 381.8L515.2 207.8L513.0 228.0L502.4 439.4L375.0 441.0L372.0 438.0L405.0 170.0L407.8 158.8L415.6 140.6L427.2 123.2L513.2 4.2L517.4 3.6L520.8 7.2L647.8 183.4L771.2 15.2L781.6 6.6Z"/>
+        </svg>
+        <svg class="bar__br bar__br--r" viewBox="0 0 220 442"><path d="M66.6 70 180 221 33.4 372"/></svg>
+      </span>
+      <!-- Al pasar el ratón (o con el foco), el nombre aparece en un rótulo como los de GitHub y LinkedIn. -->
+      <span class="btn__tip bar__tip" aria-hidden="true">Fernando Montelongo</span>
     </a>
     <nav class="bar__nav" aria-label="Secciones" data-i18n-attr="aria-label:nav.label" id="menu">
       <div class="bar__links">
@@ -114,9 +133,11 @@
           <div class="hero__me">
             <span class="hero__sun" aria-hidden="true"></span>
             <div class="portrait" data-eyes>
-              <img class="portrait__base" src="/img/retrato-recorte-1086.webp" srcset="/img/retrato-recorte-720.webp 720w, /img/retrato-recorte-1086.webp 1086w" sizes="(max-width: 900px) 80vw, 50vw" width="1086" height="1198" alt="Fernando Montelongo." data-i18n-attr="alt:parte.alt" fetchpriority="high">
-              <span class="eye eye--izq" aria-hidden="true"><img src="/img/ojo-izq-iris.png" width="41" height="41" alt=""></span>
-              <span class="eye eye--der" aria-hidden="true"><img src="/img/ojo-der-iris.png" width="41" height="41" alt=""></span>
+              <!-- La foto lleva los ojos puestos (scripts/portrait-eyes.mjs): nunca se ve sin ellos aunque la red vaya lenta.
+                   Los iris sueltos solo se piden en escritorio para el modo «ojos» (src/main.ts). -->
+              <img class="portrait__base" src="/img/retrato-1086.webp" srcset="/img/retrato-720.webp 720w, /img/retrato-1086.webp 1086w" sizes="(max-width: 900px) 80vw, 50vw" width="1086" height="1198" alt="Fernando Montelongo." data-i18n-attr="alt:parte.alt" fetchpriority="high">
+              <span class="eye eye--izq" aria-hidden="true"><img data-src="/img/ojo-izq-iris.png" width="41" height="41" alt=""></span>
+              <span class="eye eye--der" aria-hidden="true"><img data-src="/img/ojo-der-iris.png" width="41" height="41" alt=""></span>
             </div>
           </div>
 
@@ -138,7 +159,7 @@
             </h1>
             <!-- Presentación: un sistema de presión propio, una forma irregular que flota y respira con sus isobaras. -->
             <div class="hero__intro" data-intro>
-              <div class="blob" data-blob="11" data-rings="2">
+              <div class="blob" data-blob="11" data-rings="2" data-blob-alt="4.6">
                 <div class="blob__in">
                   <p class="hero__kicker" data-i18n="hero.kicker">Full Stack Developer · Arrecife, Lanzarote</p>
                   <p class="hero__hi" data-i18n="hero.hi">Hola, soy Fernando.</p>
@@ -174,12 +195,15 @@
             <div class="parte__text">
               <h2 class="parte__title" id="t-parte" data-i18n="parte.title">Software hecho en Lanzarote, ya en producción.</h2>
               <p class="parte__statement" data-i18n="parte.statement">He publicado varios productos propios, he entregado una app al Consorcio de Emergencias de la isla y cofundé KORA, donde llevo el desarrollo de webs para clientes reales. Me formé en DAM y DAW, y me gusta el software útil, ordenado y fácil de mantener.</p>
+              <!-- Ficha de estación: cada dato en su pieza con su icono; el código público es una tarjeta de GitHub entera. -->
               <dl class="station-card" data-rows>
-                <div><dt data-i18n="st.base">Base</dt><dd>Arrecife, Lanzarote</dd></div>
-                <div><dt data-i18n="st.role">Rol</dt><dd>Full Stack Developer · Frontend &amp; Backend</dd></div>
-                <div><dt data-i18n="st.study">Formación</dt><dd data-i18n="st.studyv"><a href="#formacion">DAM + DAW</a></dd></div>
-                <div><dt data-i18n="st.lang">Idiomas</dt><dd data-i18n="st.langv">Español nativo · inglés B2 acreditado</dd></div>
-                <div><dt data-i18n="st.code">Código público</dt><dd data-i18n="st.codev"><a href="https://github.com/fmoorenoo" target="_blank" rel="noopener">17 repositorios originales y 1.085 commits</a></dd></div>
+                <div class="st st--base"><dt><span class="st__icon" aria-hidden="true"><svg><use href="#i-v-pin"/></svg></span><span data-i18n="st.base">Base</span></dt><dd>Arrecife, Lanzarote</dd></div>
+                <div class="st st--role"><dt><span class="st__icon" aria-hidden="true"><svg><use href="#i-sk-front"/></svg></span><span data-i18n="st.role">Rol</span></dt><dd>Full Stack Developer<small>Frontend &amp; Backend</small></dd></div>
+                <div class="st st--lang"><dt><span class="st__icon" aria-hidden="true"><svg><use href="#i-chat"/></svg></span><span data-i18n="st.lang">Idiomas</span></dt><dd data-i18n="st.langv"><span class="st__chip"><b>ES</b>Nativo</span><span class="st__chip"><b>EN</b>B2 acreditado</span></dd></div>
+                <div class="st st--code">
+                  <dt><span class="st__icon" aria-hidden="true"><svg><use href="#i-github"/></svg></span><span class="visually-hidden" data-i18n="st.code">Código público</span></dt>
+                  <dd><a class="st__gh" href="https://github.com/fmoorenoo" target="_blank" rel="noopener"><span class="st__user">github.com/fmoorenoo</span><span class="st__stats"><span class="st__n st__n--pub"><b>17</b><span data-i18n="st.pub">repositorios públicos</span></span><span class="st__n st__n--priv st__lock"><b>47</b><span data-i18n="st.priv">privados</span></span><span class="st__n st__n--collab"><b>4</b><span data-i18n="st.collab">proyectos en colaboración</span></span></span><span class="st__stats st__stats--commits"><span class="st__n st__n--cpub st__commit"><b data-i18n="st.cpubn">1.059</b><span data-i18n="st.cpub">commits públicos</span></span><span class="st__n st__n--cpriv st__lock"><b>805</b><span data-i18n="st.cpriv">commits privados</span></span></span><svg class="st__out" aria-hidden="true"><use href="#i-out"/></svg></a></dd>
+                </div>
               </dl>
             </div>
           </div>
@@ -192,46 +216,56 @@
           <div class="wrap">
             <header class="edu__head">
               <h2 class="h2" id="t-edu" data-split data-i18n="edu.title">Formación</h2>
-              <div class="edu__aside">
-                <p class="edu__lede" data-i18n="edu.lede">Dos ciclos superiores seguidos en Lanzarote: primero multiplataforma, después web. Buena parte de lo que verás después empezó en clase.</p>
-                <p class="edu__lang"><span data-i18n="edu.lang">Inglés</span> <b data-i18n="edu.langv">B2 acreditado</b></p>
-              </div>
             </header>
-            <div class="legend" data-legend data-on="2">
-              <div class="legend__bar" role="tablist" aria-label="Etapas de formación" data-i18n-attr="aria-label:edu.tabs">
-                <span class="legend__knob" aria-hidden="true"></span>
-                <button class="legend__seg legend__seg--bach" type="button" role="tab" id="tab-bach" aria-controls="edu-bach" aria-selected="false" tabindex="-1"><b data-i18n="edu.bachn">Bachillerato</b></button>
-                <button class="legend__seg legend__seg--dam" type="button" role="tab" id="tab-dam" aria-controls="edu-dam" aria-selected="false" tabindex="-1"><b>DAM</b></button>
-                <button class="legend__seg legend__seg--daw" type="button" role="tab" id="tab-daw" aria-controls="edu-daw" aria-selected="true"><b>DAW</b></button>
-              </div>
-              <ol class="legend__ticks" aria-hidden="true"><li>2021</li><li>2023</li><li>2025</li><li>2026</li></ol>
-              <div class="legend__cards">
-                <article class="edu-card edu-card--bach" id="edu-bach" role="tabpanel" aria-labelledby="tab-bach">
-                  <p class="acr acr--word" aria-hidden="true"><span><b data-i18n="edu.bachs">Bach.</b></span></p>
-                  <div class="edu-card__main">
-                    <h3 class="edu-card__title" data-i18n="edu.bach">Bachillerato de Ciencias de la Salud</h3>
-                    <p class="edu-card__meta"><span>IES Haría · Haría</span><time>2021 — 2023</time></p>
-                  </div>
+            <!-- Formación: tres estaciones en una ruta que sube de 2021 a hoy. Cada etapa es una ficha con el color de su
+                 tramo; la actual va en lleno, con el sol de calima sobre su punto. -->
+            <ol class="edu-route" aria-label="Etapas de formación" data-i18n-attr="aria-label:edu.tabs">
+              <li class="edu-step edu-step--bach">
+                <span class="edu-step__pin" aria-hidden="true"></span>
+                <article class="edu-card">
+                  <p class="edu-card__top"><time>2021 — 2023</time></p>
+                  <p class="edu-card__acr" aria-hidden="true" data-i18n="edu.bachs">Bach.</p>
+                  <h3 class="edu-card__title" data-i18n="edu.bach">Bachillerato de Ciencias de la Salud</h3>
+                  <p class="edu-card__where"><svg aria-hidden="true"><use href="#i-v-pin"/></svg>IES Haría · Haría</p>
                   <p class="edu-card__note" data-i18n="edu.bachnote">Antes de mi primer ciclo de informática.</p>
                 </article>
-                <article class="edu-card edu-card--dam" id="edu-dam" role="tabpanel" aria-labelledby="tab-dam">
-                  <p class="acr" aria-hidden="true"><span><b>D</b><i>Desarrollo</i></span><span><b>A</b><i>Aplicaciones</i></span><span><b>M</b><i>Multiplataforma</i></span></p>
-                  <div class="edu-card__main">
-                    <h3 class="edu-card__title" data-i18n="edu.dam">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma</h3>
-                    <p class="edu-card__meta"><span>IES Haría · Haría</span><time>2023 — 2025</time></p>
-                  </div>
+              </li>
+              <li class="edu-step edu-step--dam">
+                <span class="edu-step__pin" aria-hidden="true"></span>
+                <article class="edu-card">
+                  <p class="edu-card__top"><time>2023 — 2025</time></p>
+                  <p class="edu-card__acr" aria-hidden="true">DAM</p>
+                  <h3 class="edu-card__title" data-i18n="edu.dam">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma</h3>
+                  <p class="edu-card__where"><svg aria-hidden="true"><use href="#i-v-pin"/></svg>IES Haría · Haría</p>
                   <div class="edu-card__did"><span data-i18n="edu.did">En esta etapa</span><a href="#p-haircloud"><i class="edu-card__logo" style="--f: var(--cloud-field)"><img src="/img/logo-haircloud.webp" width="150" height="99" alt="" loading="lazy" decoding="async"></i><span data-i18n="edu.hc">HairCloud, proyecto final</span></a><a href="#p-hariagame"><i class="edu-card__logo" style="--f: var(--hg-field)"><span class="hg-mark" aria-hidden="true">Haría<br>Game</span></i>Haría Game</a><a href="#archivo"><span data-i18n="edu.android">Primeras apps Android</span></a></div>
                 </article>
-                <article class="edu-card edu-card--daw" id="edu-daw" role="tabpanel" aria-labelledby="tab-daw">
-                  <p class="acr" aria-hidden="true"><span><b>D</b><i>Desarrollo</i></span><span><b>A</b><i>Aplicaciones</i></span><span><b>W</b><i>Web</i></span></p>
-                  <div class="edu-card__main">
-                    <h3 class="edu-card__title" data-i18n="edu.daw">Técnico Superior en Desarrollo de Aplicaciones Web</h3>
-                    <p class="edu-card__meta"><span>CIFP Zonzamas · San Bartolomé</span><time>2025 — 2026</time></p>
-                  </div>
-                  <div class="edu-card__did"><span data-i18n="edu.did">En esta etapa</span><a href="#p-aceslan"><i class="edu-card__logo edu-card__logo--round" style="--f: var(--ace-field)"><img src="/img/logo-aceslan.webp" width="120" height="120" alt="" loading="lazy" decoding="async"></i>ACESLAN</a><a href="#archivo">CertiFer</a></div>
+              </li>
+              <li class="edu-step edu-step--daw is-now">
+                <span class="edu-step__pin" aria-hidden="true"></span>
+                <article class="edu-card">
+                  <p class="edu-card__top"><time>2025 — 2026</time></p>
+                  <p class="edu-card__acr" aria-hidden="true">DAW</p>
+                  <h3 class="edu-card__title" data-i18n="edu.daw">Técnico Superior en Desarrollo de Aplicaciones Web</h3>
+                  <p class="edu-card__where"><svg aria-hidden="true"><use href="#i-v-pin"/></svg>CIFP Zonzamas · San Bartolomé</p>
+                  <div class="edu-card__did"><span data-i18n="edu.did">En esta etapa</span><a href="#p-aceslan"><i class="edu-card__logo edu-card__logo--round" style="--f: var(--ace-field)"><img src="/img/logo-aceslan.webp" width="120" height="120" alt="" loading="lazy" decoding="async"></i>ACESLAN</a><a href="#kora"><i class="edu-card__logo edu-card__logo--kora" style="--f: var(--kora-field)"><span class="kora-mark"><img src="/img/kora-logo.svg" width="470" height="139" alt="" loading="lazy" decoding="async"><b class="kora-dot" aria-hidden="true"></b></span></i>KORA</a><a href="#archivo">CertiFer</a></div>
                 </article>
+              </li>
+            </ol>
+            <!-- Inglés: el nivel sobre la escala europea, de A1 a C2. Los tramos se llenan hasta B2, que lleva el sol. -->
+            <section class="edu-lang" aria-labelledby="t-lang">
+              <div class="edu-lang__id">
+                <h3 class="edu-lang__name" id="t-lang" data-i18n="edu.lang">Inglés</h3>
+                <p class="edu-lang__level">B2</p>
+                <p class="edu-lang__note" data-i18n="edu.langc">Nivel acreditado</p>
               </div>
-            </div>
+              <div class="edu-lang__scale" role="img" aria-label="Nivel B2 acreditado y C1 en proceso, en la escala europea de idiomas, que va de A1 a C2" data-i18n-attr="aria-label:edu.langaria">
+                <ol class="cefr" aria-hidden="true">
+                  <li>A1</li><li>A2</li><li>B1</li><li class="is-me">B2<span class="cefr__pin" data-i18n="edu.langme">Mi nivel</span></li><li class="is-next"><span class="cefr__run"></span>C1<span class="cefr__pin cefr__pin--next" data-i18n="edu.langnext">En proceso</span></li><li class="is-off">C2</li>
+                </ol>
+                <ul class="cefr__groups" aria-hidden="true"><li data-i18n="edu.lg1">Básico</li><li data-i18n="edu.lg2">Independiente</li><li data-i18n="edu.lg3">Competente</li></ul>
+                <p class="cefr__src" aria-hidden="true" data-i18n="edu.langsrc">Marco común europeo de referencia (MCER)</p>
+              </div>
+            </section>
           </div>
         </section>
 
