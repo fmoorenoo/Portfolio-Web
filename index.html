@@ -11,6 +11,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="en_GB">
+  <!-- El retrato (candidato a LCP) se pide antes de leer el CSS, que va incrustado y lo deja más abajo en el HTML. -->
+  <link rel="preload" as="image" href="/img/retrato-1086.webp" imagesrcset="/img/retrato-640.webp 640w, /img/retrato-720.webp 720w, /img/retrato-1086.webp 1086w" imagesizes="(max-width: 900px) min(44vh, 89vw), min(74vh, 761px)" fetchpriority="high">
   <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/martian.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="icon" href="/favicon.ico" sizes="32x32">
