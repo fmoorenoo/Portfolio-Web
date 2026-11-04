@@ -107,13 +107,22 @@ const navLinks = $$<HTMLAnchorElement>('.nav-link');
 const drop = $('[data-drop]');
 const dropBtn = $('.nav-drop__trigger', drop);
 let dropTimer = 0;
-// Las miniaturas se piden la primera vez que el panel se ve, no al arrancar junto al retrato.
+// Los logos del menú (unos 19 KB entre todos) no compiten con el retrato al arrancar: se piden y decodifican con el
+// navegador ocioso en cuanto la página ha cargado, para que al abrir el menú (sobre todo el de móvil) ya estén. Si se
+// abre antes, se piden en ese momento.
 let thumbsLoaded = false;
 function loadThumbs() {
   if (thumbsLoaded) return;
   thumbsLoaded = true;
-  $$<HTMLImageElement>('img[data-src]', drop).forEach((img) => { img.src = img.dataset.src!; });
+  $$<HTMLImageElement>('img[data-src]', drop).forEach((img) => {
+    img.src = img.dataset.src!;
+    img.decode().catch(() => undefined);
+  });
 }
+addEventListener('load', () => {
+  if ('requestIdleCallback' in window) requestIdleCallback(loadThumbs, { timeout: 2500 });
+  else setTimeout(loadThumbs, 1200);
+}, { once: true });
 function setDrop(on: boolean) {
   clearTimeout(dropTimer);
   if (on) loadThumbs();

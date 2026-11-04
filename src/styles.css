@@ -1474,7 +1474,10 @@ img.is-swap { opacity: 0; }
   .nav-link .shape__body, .nav-link .shape__iso, .nav-link > span:not(.shape__body)::after { display: none; }
   /* En el menú móvil los proyectos van siempre a la vista, en una lista compacta con su logo. */
   .nav-drop__panel { pointer-events: auto; position: static; width: auto; padding: 2px 0 8px; border-radius: 0; background: none; box-shadow: none; opacity: 1; visibility: inherit; transform: none; font-size: 1rem; font-weight: 400; font-stretch: 100%; }
-  .nav-drop__panel li { opacity: 1; transform: none; }
+  /* Sin las transiciones del desplegable de escritorio: su «visibility 0s 0.45s» retrasaba medio segundo la lista de
+     proyectos al abrir el menú, porque aquí la visibilidad se hereda del propio menú. */
+  .nav-drop__panel, .nav-drop.is-open .nav-drop__panel { transition: none; }
+  .nav-drop__panel li, .nav-drop.is-open .nav-drop__panel li { opacity: 1; transform: none; transition: none; }
   .nav-drop__panel::before { display: none; }
   .np-list { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 0 12px; }
   .np { gap: 12px; padding: 5px 0; }
