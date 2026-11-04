@@ -176,12 +176,12 @@ export class Windows {
     const phones = p.shots.filter((s) => kind(s) === 'phone');
     const squares = p.shots.filter((s) => kind(s) === 'sq');
     const screen = (s: Shot, sizes: string, eager = false) => `
-      <div class="cs-screen" data-tilt="4">
+      <div class="cs-screen">
         ${p.game ? '' : `<div class="cs-screen__bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.site ?? p.name)}</span></div>`}
         ${img(s, sizes, eager)}
       </div>`;
-    const phone = (s: Shot, sizes = '220px') => `<div class="cs-phone" data-tilt="7">${img(s, sizes)}</div>`;
-    const square = (s: Shot) => `<div class="cs-square" data-tilt="6">${img(s, '(max-width: 900px) 45vw, 280px')}</div>`;
+    const phone = (s: Shot, sizes = '220px') => `<div class="cs-phone">${img(s, sizes)}</div>`;
+    const square = (s: Shot) => `<div class="cs-square">${img(s, '(max-width: 900px) 45vw, 280px')}</div>`;
 
     // Escena de la cabecera: la mejor composición posible con el material del proyecto.
     const used = new Set<Shot>();
@@ -205,7 +205,7 @@ export class Windows {
     const rest = p.shots.filter((s) => !used.has(s) || kind(s) === 'sq');
     const tile = (s: Shot) => {
       const k = kind(s);
-      const body = k === 'desk' ? screen(s, '(max-width: 900px) 90vw, 440px') : k === 'phone' ? phone(s) : k === 'sq' ? square(s) : `<div class="cs-doc" data-tilt="4">${img(s, '(max-width: 900px) 90vw, 440px')}</div>`;
+      const body = k === 'desk' ? screen(s, '(max-width: 900px) 90vw, 440px') : k === 'phone' ? phone(s) : k === 'sq' ? square(s) : `<div class="cs-doc">${img(s, '(max-width: 900px) 90vw, 440px')}</div>`;
       return `<figure class="cs-tile cs-tile--${k}" data-reveal>${body}<figcaption>${esc((s.cap ?? s.alt)[L])}</figcaption></figure>`;
     };
     const gallery = rest.length

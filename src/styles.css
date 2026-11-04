@@ -1051,7 +1051,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .case--triptych .case__text { display: contents; }
 .case--triptych .case__lead { container-type: inline-size; grid-column: 1; grid-row: 1; align-self: center; padding: clamp(24px, 3.2vw, 52px); padding-right: 8px; }
 .case--triptych .case__media { grid-column: 2; grid-row: 1; min-height: 0; }
-.case--triptych .case__more { grid-column: 3; grid-row: 1; align-self: center; padding: clamp(24px, 3.2vw, 52px); padding-left: 8px; }
+.case--triptych .case__more { grid-column: 3; grid-row: 1; align-self: center; padding: clamp(24px, 3.2vw, 52px); padding-left: clamp(16px, 2vw, 32px); }
 .case--pause .case__card { display: block; }
 .case--pause .case__media { position: absolute; inset: 0; min-height: 0; }
 .case--pause .case__text {
@@ -1181,7 +1181,9 @@ img.is-swap { opacity: 0; }
 }
 .hg-media__inset img { display: block; width: 100%; height: auto; }
 
-/* HairCloud: tríptico, tres teléfonos en la columna central que asoman por el borde inferior. */
+/* HairCloud: tríptico, tres teléfonos en la columna central que asoman por el borde inferior. En escritorio el grupo
+   se desplaza (--hc-shift, src/details.ts) para quedar centrado entre los dos textos. */
+@media (min-width: 901px) { .hc-media { translate: var(--hc-shift, 0px) 0; } }
 .hc-media__phone { width: 36%; left: 50%; translate: -50% 0; top: 16%; }
 .hc-media__phone--c { z-index: 2; }
 .hc-media__phone--l { translate: -128% 0; top: 33%; rotate: -7deg; }
@@ -1449,6 +1451,46 @@ img.is-swap { opacity: 0; }
 .cs-square { border-radius: 14px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -32px rgba(0, 0, 0, 0.6); }
 .cs-square img { height: 100%; object-fit: cover; }
 .cs-doc { padding: 14px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px var(--rule), 0 30px 60px -44px rgba(8, 28, 40, 0.5); }
+
+/* Hover de las capturas de proyecto: sin perspectiva, solo un gesto pequeño en la pieza que tiene el puntero. Va en
+   «scale», «rotate» y «translate» sueltos, que se suman al «transform» con el que GSAP las mueve al hacer scroll.
+   Pantallas de escritorio y documentos: se acercan un poco. Teléfonos: se acercan y se giran como si se cogieran con la
+   mano. Cuadradas (galerías): la imagen se acerca dentro de su marco. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lm-media__desk, .lm-media__phone, .ac-media__browser, .ac-media__phone,
+  .cs-screen, .cs-phone, .cs-doc, .cs-square img {
+    transition: scale 0.6s var(--ease-out), rotate 0.6s var(--ease-out), translate 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+  }
+  /* LanzaMet: el escritorio se acerca; el móvil, delante, se inclina hacia el lado contrario. */
+  .lm-media__desk:hover { scale: 1.03 !important; }
+  .lm-media__phone:hover { scale: 1.05 !important; rotate: -3deg !important; }
+  /* ACESLAN: el panel se acerca; cada teléfono se gira hacia fuera. El de la derecha solo sube, porque su vibración
+     del aviso de prueba ya anima «rotate». Con !important porque GSAP deja «scale/rotate/translate: none» en línea
+     en las piezas que mueve con el scroll. */
+  .ac-media__browser:hover { scale: 1.025 !important; }
+  .ac-media__phone--a:hover { scale: 1.05 !important; rotate: -3deg !important; }
+  .ac-media__phone--b:hover { scale: 1.05 !important; translate: 0 -8px !important; }
+  /* HairCloud: el del centro sube un poco; los de los lados se enderezan hacia él (GSAP ya lleva sus ±7° en el
+     «transform», así que este «rotate» se suma). */
+  .hc-media__phone, .hg-media__inset, .hg-media__bg img {
+    transition: scale 0.6s var(--ease-out), rotate 0.6s var(--ease-out), translate 0.6s var(--ease-out);
+  }
+  .hc-media__phone--c:hover { scale: 1.04 !important; translate: 0 -10px !important; }
+  .hc-media__phone--l:hover { scale: 1.04 !important; rotate: 3deg !important; }
+  .hc-media__phone--r:hover { scale: 1.04 !important; rotate: -3deg !important; }
+  /* Haría Game: la entrada del instituto se acerca y se gira un poco; la pista de fondo, a sangre, solo se acerca
+     dentro de la tarjeta. */
+  .hg-media__inset:hover { scale: 1.05 !important; rotate: -1.5deg !important; }
+  .hg-media__bg:hover img { scale: 1.03; transition-duration: 1.2s; }
+  /* Ventanas de proyecto. */
+  .cs-screen:hover, .cs-doc:hover { scale: 1.02; }
+  .cs-doc:hover { rotate: -0.6deg; }
+  .cs-phone:hover { scale: 1.05; rotate: 2.5deg; }
+  .cs-stage--trio .cs-phone:nth-child(1):hover { rotate: -2deg; }
+  .cs-stage--trio .cs-phone:nth-child(2):hover { rotate: 0deg; }
+  .cs-stage--trio .cs-phone:nth-child(3):hover { rotate: 2deg; }
+  .cs-square:hover img { scale: 1.06; }
+}
 
 /* Cuerpo. */
 .cs-body { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; padding: calc(clamp(90px, 15vh, 170px) + clamp(40px, 6vh, 64px)) 0 clamp(56px, 9vh, 104px); }

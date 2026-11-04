@@ -9,7 +9,7 @@ import { Windows } from './windows';
 import { Lightbox } from './lightbox';
 import { applyLang, initLang } from './i18n';
 import { mountBlobs } from './blobs';
-import { nameLockup, namePressure, techReadout, lanzametViews, acePush } from './details';
+import { nameLockup, namePressure, techReadout, lanzametViews, acePush, hairCloudCenter } from './details';
 import type { Lang } from './content';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
@@ -528,62 +528,6 @@ if (motion) {
       });
       el.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
     }
-
-    // Perspectiva al pasar el ratón por las imágenes de proyecto ([data-tilt] = grados máximos).
-    // Un solo listener delegado (sirve también para las ventanas, que se pintan después), solo transformaciones,
-    // la caja se mide al entrar y no en cada movimiento, y la capa (will-change) existe solo mientras dura el gesto.
-    type Tilt = { rx: (v: number) => void; ry: (v: number) => void; box: DOMRect; max: number; timer: number };
-    const tilts = new WeakMap<HTMLElement, Tilt>();
-    let active: HTMLElement | null = null;
-    let stale = false;
-    let scrollingUntil = 0;
-    const tiltOf = (el: HTMLElement) => {
-      let t = tilts.get(el);
-      if (!t) {
-        gsap.set(el, { transformPerspective: 1000 });
-        t = {
-          rx: gsap.quickTo(el, 'rotationX', { duration: 0.7, ease: 'power3.out' }),
-          ry: gsap.quickTo(el, 'rotationY', { duration: 0.7, ease: 'power3.out' }),
-          box: el.getBoundingClientRect(), max: Number(el.dataset.tilt) || 5, timer: 0,
-        };
-        tilts.set(el, t);
-      }
-      return t;
-    };
-    const release = (el: HTMLElement) => {
-      const t = tiltOf(el);
-      t.rx(0); t.ry(0);
-      t.timer = window.setTimeout(() => { if (active !== el) el.style.willChange = ''; }, 800);
-    };
-    document.addEventListener('pointermove', (e) => {
-      if (e.pointerType !== 'mouse') return;
-      // Mientras la página se desplaza, Chrome emite movimientos sintéticos: no se inclina nada hasta que pare.
-      if (performance.now() < scrollingUntil) {
-        if (active) { release(active); active = null; }
-        return;
-      }
-      const el = (e.target as Element).closest<HTMLElement>('[data-tilt]');
-      if (el !== active) {
-        if (active) release(active);
-        active = el;
-        if (el) {
-          const t = tiltOf(el);
-          clearTimeout(t.timer);
-          t.box = el.getBoundingClientRect();
-          el.style.willChange = 'transform';
-        }
-      }
-      if (!el) return;
-      const t = tilts.get(el)!;
-      if (stale) { t.box = el.getBoundingClientRect(); stale = false; }
-      const x = (e.clientX - t.box.left) / t.box.width - 0.5;
-      const y = (e.clientY - t.box.top) / t.box.height - 0.5;
-      t.ry(gsap.utils.clamp(-1, 1, x * 2) * t.max);
-      t.rx(gsap.utils.clamp(-1, 1, -y * 2) * t.max);
-    }, { passive: true });
-    // Con el scroll (de la página o de una ventana) la caja se mueve: se vuelve a medir en el siguiente movimiento.
-    document.addEventListener('scroll', () => { stale = true; scrollingUntil = performance.now() + 180; }, { passive: true, capture: true });
-    document.addEventListener('pointerleave', () => { if (active) { release(active); active = null; } });
   }
 }
 
@@ -598,7 +542,7 @@ mm.add('(prefers-reduced-motion: reduce)', () => {
 });
 // Detalles interactivos (src/details.ts): se preparan en tiempo libre, como el resto de lo que no es el hero.
 nameLockup();
-queue.push(lanzametViews, acePush);
+queue.push(lanzametViews, acePush, () => onLang.push(hairCloudCenter()));
 if (finePointer) queue.push(() => onLang.push(techReadout(() => lang)));
 
 queue.unshift(() => mm.add({
