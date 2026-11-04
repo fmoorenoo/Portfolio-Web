@@ -1519,10 +1519,13 @@ img.is-swap { opacity: 0; }
   .case--mirror .case__text { box-shadow: none; }
   .case--triptych .case__text { display: flex; }
   .case--triptych .case__card { grid-template-columns: 1fr; }
-  .case--triptych .case__lead, .case--triptych .case__more { padding: 0; }
-  .case--triptych .case__media { grid-column: auto; grid-row: auto; height: 78vw; max-height: 420px; aspect-ratio: auto; }
-  .hc-media__phone { width: 30%; top: 10%; }
-  .hc-media__phone--l, .hc-media__phone--r { top: 22%; }
+  /* En columna el titular y el resto ocupan todo el ancho: con align-self: center (de escritorio) el titular, que es un
+     contenedor de tamaño, se encogía a casi nada y el nombre (en cqi) desaparecía. */
+  .case--triptych .case__lead, .case--triptych .case__more { align-self: stretch; padding: 0; }
+  .case--triptych .case__media { grid-column: auto; grid-row: auto; height: 92vw; max-height: 470px; aspect-ratio: auto; }
+  /* El del centro, mayor y delante; los laterales, algo más pequeños y más abajo, asomando por el borde. */
+  .hc-media__phone { width: 38%; top: 9%; }
+  .hc-media__phone--l, .hc-media__phone--r { width: 31%; top: 21%; }
   .case--pause .case__card { display: flex; flex-direction: column; }
   .case--pause .case__media { position: relative; aspect-ratio: 16 / 10; order: -1; }
   .case--pause .case__text { width: auto; min-height: 0; margin: 0; border-radius: 0; background: none; box-shadow: none; }
