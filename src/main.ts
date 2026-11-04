@@ -12,11 +12,6 @@ import { mountBlobs } from './blobs';
 import { nameLockup, namePressure, techReadout, lanzametViews, acePush, hairCloudCenter } from './details';
 import type { Lang } from './content';
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
-// Sin el recálculo automático en DOMContentLoaded: ScrollSmoother pide el suyo en ese mismo momento y el de «load»
-// llega después con las imágenes ya colocadas. Cada recálculo completo cuesta unos 45 ms en escritorio.
-ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,load,resize' });
-
 const root = document.documentElement;
 const $ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => el.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => [...el.querySelectorAll<T>(s)];
@@ -47,6 +42,19 @@ $$('[data-lang]').forEach((b) => b.addEventListener('click', () => {
 }));
 // Piezas que pintan texto propio (lectura de tecnologías, sonda de la isla, reloj) y lo rehacen al cambiar de idioma.
 const onLang: (() => void)[] = [];
+
+/* ── Primer pintado ────────────────────────────────────── */
+// Las formas y el idioma ya están puestos: se deja pintar la página antes de lo demás. Registrar ScrollTrigger mide
+// la ventana y fuerza el primer layout de toda la página, y eso (con el resto del arranque) retrasaba el primer
+// pintado y las entradas CSS del hero más de un segundo en un móvil lento.
+await new Promise<void>((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+// «load» puede haber llegado ya (visita con caché) cuando el script sigue tras ceder el pintado.
+const onLoad = (fn: () => void) => { if (document.readyState === 'complete') fn(); else addEventListener('load', fn, { once: true }); };
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
+// Sin el recálculo automático en DOMContentLoaded: ScrollSmoother pide el suyo en ese mismo momento y el de «load»
+// llega después con las imágenes ya colocadas. Cada recálculo completo cuesta unos 45 ms en escritorio.
+ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,load,resize' });
 
 /* ── Desplazamiento suave (solo escritorio con ratón y movimiento) ─ */
 const smoother = motion && finePointer && !dev('nosmooth')
@@ -127,10 +135,10 @@ function loadThumbs() {
     img.decode().catch(() => undefined);
   });
 }
-addEventListener('load', () => {
+onLoad(() => {
   if ('requestIdleCallback' in window) requestIdleCallback(loadThumbs, { timeout: 2500 });
   else setTimeout(loadThumbs, 1200);
-}, { once: true });
+});
 function setDrop(on: boolean) {
   clearTimeout(dropTimer);
   if (on) loadThumbs();
@@ -233,10 +241,10 @@ if (finePointer) {
     portrait.classList.add('has-live-eyes');
     base.srcset = bareSet;
   });
-  addEventListener('load', () => {
+  onLoad(() => {
     if ('requestIdleCallback' in window) requestIdleCallback(() => prepareEyes(), { timeout: 4000 });
     else setTimeout(prepareEyes, 2000);
-  }, { once: true });
+  });
 
   const reach = (d: number) => Math.max(-1, Math.min(1, d / 260));
   const look = () => {
@@ -309,16 +317,26 @@ const heroCentres: Centre[] = [
   narrow ? { x: 0.5, y: 0.22, hpa: 13, r: 0.34 } : { x: 0.74, y: 0.36, hpa: 13, r: 0.42 }, // núcleo cálido tras el retrato
   { x: 0.22, y: 0.52, hpa: -5, r: 0.28 },
 ];
-const heroField = dev('nofield') ? null : Field.create($<HTMLCanvasElement>('[data-field="light"]'), {
-  // Cielo limpio que se funde con el papel hacia abajo; solo quedan las isobaras, finas, sobre él.
-  palette: ['#C6E2EB', '#C6E2EB', '#C6E2EB', '#C6E2EB', '#EEF2F0'],
-  line: [16 / 255, 34 / 255, 44 / 255, 0.13],
-  bands: false,
-  // Solo isobaras finas sobre un degradado: a 1x no se distingue de 1.5x y son 2,25 veces menos píxeles por frame.
-  maxDpr: 1,
-  centres: heroCentres,
-});
-if (heroField && !motion) heroField.still();
+// El campo del hero se crea en el primer hueco libre y no en el arranque: crear el contexto WebGL y compilar su shader
+// era la pieza más cara del inicio (más de un segundo con la CPU de un móvil lento). Hasta entonces se ve su degradado
+// CSS, que es el mismo cielo, y el lienzo aparece con un fundido cuando está listo (.is-on, styles.css).
+let heroField: Field | null = null;
+if (!dev('nofield')) {
+  const make = () => {
+    heroField = Field.create($<HTMLCanvasElement>('[data-field="light"]'), {
+      // Cielo limpio que se funde con el papel hacia abajo; solo quedan las isobaras, finas, sobre él.
+      palette: ['#C6E2EB', '#C6E2EB', '#C6E2EB', '#C6E2EB', '#EEF2F0'],
+      line: [16 / 255, 34 / 255, 44 / 255, 0.13],
+      bands: false,
+      // Solo isobaras finas sobre un degradado: a 1x no se distingue de 1.5x y son 2,25 veces menos píxeles por frame.
+      maxDpr: 1,
+      centres: heroCentres,
+    });
+    if (heroField && !motion) heroField.still();
+  };
+  if ('requestIdleCallback' in window) requestIdleCallback(make, { timeout: 1500 });
+  else setTimeout(make, 300);
+}
 // El campo del contacto está al final de la página: su contexto WebGL y su shader (unos 40 ms de hilo principal)
 // se crean cuando falta una pantalla para llegar, no en el arranque. Hasta entonces se ve su degradado CSS.
 const darkCanvas = $<HTMLCanvasElement>('[data-field="dark"]');
@@ -361,10 +379,9 @@ fronts.forEach(buildFront);
 
 /* ── Utilidades de texto ───────────────────────────────── */
 const splits: SplitText[] = [];
-// aria «auto» pone el texto como aria-label del elemento partido (bien en un h2 o h3); en un <span> ese atributo no
-// está permitido, así que ahí se pasa «hidden» y el nombre accesible lo lleva su encabezado.
-function splitChars(el: HTMLElement, mask = true, aria: 'auto' | 'hidden' = 'auto') {
-  const s = SplitText.create(el, mask ? { type: 'lines,words,chars', mask: 'lines', linesClass: 'ln', charsClass: 'ch', aria } : { type: 'words,chars', charsClass: 'ch', aria });
+// Solo para encabezados (h2, h3): SplitText pone su texto como aria-label del propio encabezado.
+function splitChars(el: HTMLElement, mask = true) {
+  const s = SplitText.create(el, mask ? { type: 'lines,words,chars', mask: 'lines', linesClass: 'ln', charsClass: 'ch' } : { type: 'words,chars', charsClass: 'ch' });
   splits.push(s);
   return s.chars as HTMLElement[];
 }
@@ -398,17 +415,15 @@ for (const ev of ['wheel', 'touchstart', 'keydown', 'scroll'] as const) addEvent
 
 /* ── Coreografía ───────────────────────────────────────── */
 if (motion) {
-  // Entrada: la carta aparece, las isobaras se asientan y el nombre sube línea a línea.
-  const lines = $$('.hero__line');
-  const chars = lines.flatMap((l) => splitChars(l, false, 'hidden'));
+  // Entrada: la carta aparece y las isobaras se asientan. El nombre (letras ya partidas en el HTML) sube por CSS
+  // («ch-in», styles.css) desde el primer pintado, como el retrato y la presentación.
+  const chars = $$('.hero__name .ch');
   if (finePointer) namePressure(chars);
-  gsap.set(chars, { yPercent: 115 });
   gsap.set('[data-intro]', { opacity: 0 });
   root.classList.remove('intro');
   const intro = gsap.timeline({ defaults: { ease: EASE }, delay: 0.1 });
   intro
     .from('.hero .field', { opacity: 0, duration: 1.6, ease: 'power2.out' }, 0)
-    .to(chars, { yPercent: 0, duration: 1.25, stagger: 0.028 }, 0.15)
     // El retrato entra por CSS (styles.css, «me-in»): así se pinta con el primer frame sin esperar a este script.
     // La presentación entra por CSS («intro-in», styles.css), como el retrato: es el elemento LCP y así se pinta sin
     // esperar a que cargue este script (en un móvil lento, más de 3 s).

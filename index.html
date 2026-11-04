@@ -155,8 +155,10 @@
             <!-- Nombre en bloque: «Fernando» en contorno, ajustado al ancho de «Montelongo» (src/main.ts). Con ratón, las
                  letras cercanas al cursor se comprimen y toman el azul del frente frío, como un centro de presión. -->
             <h1 class="hero__name" id="t-name" data-name aria-label="Fernando Montelongo">
-              <span class="hero__line hero__line--a" data-split>Fernando</span>
-              <span class="hero__line hero__line--b" data-split>Montelongo</span>
+              <!-- Letras ya partidas: suben con CSS («ch-in») desde el primer pintado, sin esperar al JavaScript. El nombre
+                   accesible es el aria-label del h1. -->
+              <span class="hero__line hero__line--a" aria-hidden="true"><span class="ch" style="--i:0">F</span><span class="ch" style="--i:1">e</span><span class="ch" style="--i:2">r</span><span class="ch" style="--i:3">n</span><span class="ch" style="--i:4">a</span><span class="ch" style="--i:5">n</span><span class="ch" style="--i:6">d</span><span class="ch" style="--i:7">o</span></span>
+              <span class="hero__line hero__line--b" aria-hidden="true"><span class="ch" style="--i:8">M</span><span class="ch" style="--i:9">o</span><span class="ch" style="--i:10">n</span><span class="ch" style="--i:11">t</span><span class="ch" style="--i:12">e</span><span class="ch" style="--i:13">l</span><span class="ch" style="--i:14">o</span><span class="ch" style="--i:15">n</span><span class="ch" style="--i:16">g</span><span class="ch" style="--i:17">o</span></span>
             </h1>
             <!-- Presentación: un sistema de presión propio, una forma irregular que flota y respira con sus isobaras. -->
             <div class="hero__intro">

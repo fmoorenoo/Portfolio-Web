@@ -538,6 +538,9 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 @keyframes rule-in { from { transform: scaleX(0); } }
 .ln-mask { padding-bottom: 0.16em; margin-bottom: -0.16em; }
 .hero__line .ch { display: inline-block; }
+/* Entrada del nombre, letra a letra desde abajo (la línea las recorta), en CSS desde el primer pintado. */
+@keyframes ch-in { from { translate: 0 150%; } }
+.motion .hero__line .ch { animation: ch-in 1.25s var(--ease-out) calc(0.25s + var(--i) * 0.028s) backwards; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Frentes (divisores dibujados) */
@@ -1608,7 +1611,6 @@ img.is-swap { opacity: 0; }
 
 /* Estado inicial de la entrada (solo con movimiento; el script lo retira) */
 .motion.intro [data-intro] { opacity: 0; }
-.motion.intro .hero__line { visibility: hidden; }
 
 /* Menú hamburguesa por debajo de 1200 px: Formación · Proyectos · KORA · Trayectoria · Contacto, el idioma y el
    botón de contacto no caben junto al nombre en tablets (en español se cortaban hacia los 1180 px). */
