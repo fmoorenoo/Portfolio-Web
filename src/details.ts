@@ -107,7 +107,7 @@ function swap(img: HTMLImageElement, src: string, srcset?: string) {
 }
 
 /** LanzaMet: un sistema de presión como el de los modos del retrato elige qué pantalla de la app se ve (hoy, dónde ir,
- *  el mar o de noche), a la vez en la pantalla de escritorio y en el móvil. Las capturas se piden al elegirlas, no con
+ *  el mar o el atardecer en Famara), a la vez en la pantalla de escritorio y en el móvil. Las capturas se piden al elegirlas, no con
  *  la página. La vista «hoy» del móvil es la captura de siempre (lanzamet-movil-900.webp). */
 export function lanzametViews() {
   const picker = document.querySelector<HTMLElement>('.lm-views');

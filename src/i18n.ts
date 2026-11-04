@@ -74,7 +74,7 @@ const en: Record<string, string> = {
   'lm.body': 'My own idea, design and development: wind, sea and tides across 9 areas of the island, hourly and 7-day forecasts, no ads. Angular 22 with Signals and its own API on Cloudflare Workers.',
   'case.open': 'View project',
   'lm.views': 'LanzaMet screen',
-  'lm.v1': 'Today, hour by hour', 'lm.v2': 'Where to go today?', 'lm.v3': 'Sea and tide', 'lm.v4': 'At night',
+  'lm.v1': 'Today, hour by hour', 'lm.v2': 'Where to go today?', 'lm.v3': 'Sea and tide', 'lm.v4': 'Sunset',
   'ac.now': 'now', 'ac.pt': 'Test alert', 'ac.pb': 'This is how the Consortium’s alerts, tips and news arrive.', 'ac.bell': 'Send a test alert',
   'ac.kind': 'Professional work · February – June 2026',
   'ac.claim': 'Incident reports and alerts for the Lanzarote and La Graciosa Security and Emergency Consortium.',
