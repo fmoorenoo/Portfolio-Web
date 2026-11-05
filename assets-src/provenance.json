@@ -5,5 +5,6 @@
   "logo-lanzamet.webp": "../LanzaMet/public/icons/logo.png (logotipo de LanzaMet), vía scripts/logos.mjs",
   "logo-aceslan.webp": "../ACESLAN/composeApp/src/androidMain/res/drawable/logo_aceslan_bg.png (logotipo de la app ACESLAN), vía scripts/logos.mjs",
   "logo-haircloud.webp": "../HairCloud/frontend/app/src/main/res/drawable/app_logo.png (logotipo de la app HairCloud), vía scripts/logos.mjs",
-  "retrato-esqueleto-*.webp": "assets-src/xray/esqueleto.png (retrato anatómico de esqueleto aportado por Fernando), alineado con el retrato por scripts/xray.mjs"
+  "retrato-esqueleto-*.webp": "assets-src/xray/esqueleto.png (retrato anatómico de esqueleto aportado por Fernando), alineado con el retrato por scripts/xray.mjs",
+  "setup-*.webp": "assets-src/setup/escritorio.png (foto del escritorio de Fernando, fondo ya transparente), vía scripts/setup.mjs"
 }

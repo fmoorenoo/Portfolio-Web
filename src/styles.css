@@ -1275,10 +1275,12 @@ img.is-swap { opacity: 0; }
    alrededor. El tamaño de letra crece cuantas menos piezas tiene el sistema, para que todos pesen parecido. */
 .stack { position: relative; padding: clamp(56px, 9vh, 104px) 0 clamp(64px, 10vh, 112px); background: var(--paper); overflow: clip; }
 .stack__in { display: grid; gap: clamp(22px, 3.6vh, 36px); }
-.stack__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 40px; }
-.stack__title { font-weight: 800; font-stretch: 122%; font-size: clamp(2rem, 1.3rem + 2.8vw, 3.8rem); line-height: 0.92; letter-spacing: -0.035em; text-wrap: balance; }
+/* Las dos cabeceras de la sección (Tecnologías y Dónde trabajo) son iguales: mismo tamaño, mismo orden y centradas
+   sobre lo suyo. En escritorio ancho quedan a la misma altura, una por columna. */
+.stack__head, .setup__head { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.stack__title, .setup__title { font-weight: 800; font-stretch: 120%; font-size: clamp(1.9rem, 1.3rem + 1.9vw, 3rem); line-height: 0.95; letter-spacing: -0.035em; text-wrap: balance; }
 .stack__title .ch { display: inline-block; }
-.stack__lede { max-width: 34ch; color: var(--ink-2); font-size: 0.95rem; text-wrap: pretty; }
+.stack__lede, .setup__lede { max-width: 40ch; color: var(--ink-2); font-size: 0.95rem; text-wrap: pretty; }
 /* Lectura de tecnologías (solo con ratón). */
 .stack__readout { display: none; }
 .has-modes .stack__readout { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 1.6em; font-size: 0.9rem; color: var(--ink-2); }
@@ -1323,15 +1325,72 @@ img.is-swap { opacity: 0; }
 .sys--data { margin-top: -14px; }
 .sys--game { margin-top: clamp(14px, 2vw, 30px); }
 
+/* Dónde trabajo: la foto del escritorio (fondo transparente, sobre el papel), sin marcas. Cada pieza es un botón que
+   ocupa la foto entera recortado con clip-path a su contorno, así solo responde sobre ella. Su ficha sale siempre en el
+   mismo sitio, a la altura de los cajones (centrada sobre ellos si cabe), con la anatomía de las tarjetas de la
+   trayectoria: plancha de papel, etiqueta de tipo en píldora del color de su familia (--c), nombre y una línea. */
+.setup { display: grid; justify-items: center; gap: clamp(12px, 2vh, 18px); margin-top: clamp(36px, 7vh, 72px); }
+.setup__fig { position: relative; width: min(100%, 680px); }
+.setup__fig img { display: block; width: 100%; height: auto; }
+.spots { position: absolute; inset: 0; }
+.spot__hit { position: absolute; inset: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* Con teclado no hay cursor: la pieza enfocada se tiñe para saber cuál es. */
+.spot__hit:focus-visible { outline: none; background: color-mix(in srgb, var(--cold) 22%, transparent); }
+.spot__card {
+  --cw: min(15rem, 100%);
+  position: absolute; z-index: 2; top: 54%; left: max(0px, min(72% - var(--cw) / 2, 100% - var(--cw))); width: var(--cw);
+  display: grid; justify-items: start; gap: 6px; padding: 13px 16px 15px; border-radius: 14px; text-align: left;
+  background: var(--paper); color: var(--ink); pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.07), 0 22px 40px -24px rgba(12, 46, 64, 0.55);
+  opacity: 0; visibility: hidden; translate: 0 8px;
+  transition: opacity 0.18s, translate 0.35s var(--ease-out), visibility 0s 0.35s;
+}
+.spot__card em {
+  font-style: normal; font-size: 0.72rem; font-weight: 700; font-stretch: 106%; padding: 3px 9px; border-radius: 999px;
+  color: var(--ink); background: color-mix(in srgb, var(--c) 30%, transparent);
+}
+.spot__card b { font-weight: 750; font-stretch: 108%; font-size: 1.08rem; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+.spot__card > span { color: var(--ink-2); font-size: 0.86rem; line-height: 1.42; text-wrap: pretty; }
+.spot.is-open .spot__card { opacity: 1; visibility: visible; translate: 0 0; transition: opacity 0.18s, translate 0.35s var(--ease-out), visibility 0s; }
+@media (max-width: 599px) {
+  .spot__card { --cw: min(13.5rem, 100%); top: 52%; gap: 4px; padding: 10px 12px 11px; border-radius: 12px; }
+  .spot__card em { font-size: 0.66rem; padding: 2px 8px; }
+  .spot__card b { font-size: 0.94rem; }
+  .spot__card > span { font-size: 0.78rem; line-height: 1.38; }
+}
+
+/* En escritorio ancho, tecnologías y escritorio comparten fila: cada columna con su cabecera, a la misma altura; las
+   formas, compactas, quedan centradas frente a la foto, más pequeña. Por debajo de 1100 px van una debajo de otra. */
+@media (min-width: 1100px) {
+  .stack__in {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-areas: 'head shead' 'readout fig' 'systems fig';
+    grid-template-rows: auto auto 1fr; column-gap: clamp(28px, 3.5vw, 64px); row-gap: 0; align-items: start;
+  }
+  .setup { display: contents; }
+  .stack__head { grid-area: head; }
+  .setup__head { grid-area: shead; }
+  .stack__head, .setup__head { margin-bottom: clamp(14px, 2.4vh, 22px); }
+  .setup__fig { grid-area: fig; justify-self: center; width: min(100%, 540px); }
+  .stack__readout { grid-area: readout; margin-bottom: 14px; }
+  .systems { grid-area: systems; gap: 22px 16px; padding-inline: 0; }
+  .sys { gap: 5px; padding: 11px 12px; }
+  .sys__name { font-size: 0.68rem; }
+  .sys__name svg { width: 13px; height: 13px; }
+  .sys--front { --w: 17.5rem; --fs: 0.92rem; }
+  .sys--back { --w: 15.5rem; --fs: 0.92rem; margin-top: 18px; }
+  .sys--data { --w: 9.5rem; --fs: 0.95rem; margin-top: -8px; }
+  .sys--mob { --w: 11rem; --fs: 0.95rem; }
+  .sys--game { --w: 8.5rem; --fs: 1.1rem; margin-top: 12px; }
+  .sys--tools { --w: 9.5rem; --fs: 0.95rem; }
+}
+
 /* Trayectoria */
 .route {
   --t-edu: var(--alisio); --t-work: var(--warm); --t-proj: var(--cold); --t-co: var(--calima); --t-now: var(--warm);
   position: relative; padding-top: clamp(24px, 5vh, 56px);
-  /* Papel de barógrafo: azul muy claro con su cuadrícula. */
-  background:
-    linear-gradient(rgba(46, 107, 230, 0.07) 1px, transparent 1px) 0 0 / 100% 44px,
-    linear-gradient(90deg, rgba(46, 107, 230, 0.05) 1px, transparent 1px) 0 0 / 88px 100%,
-    #E4EFF2;
+  /* Papel de barógrafo: azul muy claro y liso (sin cuadrícula: con la sección anclada se repintaba al desplazarse). */
+  background: #E4EFF2;
 }
 .route__pin { height: 100svh; min-height: 640px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; gap: 3vh; padding: calc(var(--bar) + 5vh) 0 9vh; }
 .route__head { flex: none; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 48px; }

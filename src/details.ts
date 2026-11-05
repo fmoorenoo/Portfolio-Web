@@ -90,6 +90,47 @@ export function techReadout(getLang: GetLang) {
   return paint;
 }
 
+/** Dónde trabajo: cada pieza de la foto abre su ficha (siempre en el mismo sitio, CSS) al pasar el ratón, al tocarla o
+ *  al enfocarla con teclado. Con ratón se cierra al salir de la pieza; en táctil, al tocarla otra vez o tocar fuera;
+ *  con teclado, al salir o con Escape. Solo una abierta a la vez. */
+export function setupSpots() {
+  const area = document.querySelector<HTMLElement>('[data-setup] .spots');
+  if (!area) return;
+  let open: HTMLElement | null = null;
+  const set = (spot: HTMLElement | null) => {
+    if (spot === open) return;
+    if (open) {
+      open.classList.remove('is-open');
+      open.querySelector('.spot__hit')!.setAttribute('aria-expanded', 'false');
+    }
+    open = spot;
+    if (open) {
+      open.classList.add('is-open');
+      open.querySelector('.spot__hit')!.setAttribute('aria-expanded', 'true');
+    }
+  };
+  const spotOf = (t: EventTarget | null) => (t as Element | null)?.closest<HTMLElement>('.spot') ?? null;
+
+  // Ratón: la pieza bajo el cursor; fuera de cualquier pieza, ninguna.
+  area.addEventListener('pointerover', (e) => { if (e.pointerType === 'mouse') set(spotOf(e.target)); });
+  area.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(null); });
+  // Toque (y clic): abre o, si ya estaba abierta, cierra.
+  area.addEventListener('click', (e) => {
+    const spot = spotOf(e.target);
+    const mouse = (e as PointerEvent).pointerType === 'mouse';
+    if (spot && spot === open && !mouse) set(null); else set(spot);
+  });
+  // Teclado: solo el foco visible; el que deja un toque lo gestiona el clic.
+  area.addEventListener('focusin', (e) => { if ((e.target as Element).matches(':focus-visible')) set(spotOf(e.target)); });
+  area.addEventListener('focusout', (e) => { if (!area.contains(e.relatedTarget as Node)) set(null); });
+  document.addEventListener('click', (e) => { if (open && !area.contains(e.target as Node)) set(null); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !open) return;
+    (open.querySelector('.spot__hit') as HTMLElement).blur();
+    set(null);
+  });
+}
+
 /** Cambia la imagen de un <img> cuando la nueva ya está decodificada: se apaga, se sustituye y se enciende (solo
  *  opacidad, en CSS con .is-swap), así no hay ni hueco en blanco ni salto. */
 function swap(img: HTMLImageElement, src: string, srcset?: string) {

@@ -514,7 +514,7 @@
         <section class="stack" id="stack" aria-labelledby="t-stack">
           <div class="wrap stack__in">
             <header class="stack__head">
-              <h2 class="stack__title" id="t-stack" data-split data-i18n="sk.title">Con qué construyo</h2>
+              <h2 class="stack__title" id="t-stack" data-split data-i18n="sk.title">Tecnologías</h2>
               <p class="stack__lede" data-i18n="sk.lede">Las herramientas que uso, agrupadas por lo que construyo con ellas.</p>
             </header>
             <!-- Con ratón: al pasar por una tecnología, esta lectura dice en qué proyectos la he usado (src/main.ts). -->
@@ -545,6 +545,48 @@
                 <ul class="sys__tech"><li data-used="@commits">Git</li><li>Docker</li><li>AWS</li><li>Linux</li></ul>
               </li>
             </ul>
+            <!-- Dónde trabajo: la foto del escritorio sin marcas encima. Cada pieza tiene una zona invisible con su contorno
+                 (clip-path en % sobre la imagen, 1425×1011; las de después quedan por encima). Su ficha sale siempre
+                 en el mismo sitio, a la altura de los cajones, con la etiqueta en el color de su familia (--c). -->
+            <div class="setup" data-setup>
+              <header class="setup__head">
+                <h2 class="setup__title" id="t-setup" data-i18n="su.title">Dónde trabajo</h2>
+                <p class="setup__lede" data-i18n="su.lede">Mi escritorio. Pasa el cursor o toca cada pieza para ver qué es.</p>
+              </header>
+              <div class="setup__fig">
+                <img src="/img/setup-1000.webp" srcset="/img/setup-640.webp 640w, /img/setup-1000.webp 1000w, /img/setup-1425.webp 1425w" sizes="(max-width: 712px) calc(100vw - 32px), 680px" width="1425" height="1011" alt="Escritorio blanco con un sobremesa, dos monitores, un portátil, teclado, ratón y una silla gaming." data-i18n-attr="alt:su.alt" loading="lazy" decoding="async">
+                <ul class="spots">
+                  <li class="spot" style="--c: var(--warm)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(0.2% 4.5%, 3.4% 1.5%, 13.2% 1.0%, 16.4% 6.4%, 22.3% 29.2%, 29.3% 39.1%, 31.1% 48.0%, 41.3% 45.5%, 50.7% 46.5%, 47.6% 53.9%, 45.5% 55.9%, 48.3% 71.7%, 46.2% 78.6%, 44.1% 91.5%, 38.5% 94.5%, 27.2% 100.0%, 20.2% 97.4%, 13.9% 81.6%, 17.4% 74.7%, 23.7% 70.7%, 13.2% 61.8%, 11.4% 52.9%, 6.2% 37.1%, 1.3% 17.3%)" aria-expanded="false" aria-controls="spot-chair"><span class="visually-hidden"><span data-i18n="su.chair">Silla NPLAY</span></span></button>
+                    <span class="spot__card" id="spot-chair"><em data-i18n="su.k.chair">Silla</em><b>NPLAY</b><span data-i18n="su.chair.d">Silla gaming en negro y rojo, con cojín lumbar.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--cold)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(26.2% 5.2%, 32.1% 3.5%, 38.5% 4.0%, 39.0% 25.2%, 32.1% 30.4%, 26.9% 29.4%)" aria-expanded="false" aria-controls="spot-tower"><span class="visually-hidden">Acer Predator Orion 3000</span></button>
+                    <span class="spot__card" id="spot-tower"><em data-i18n="su.k.tower">Sobremesa</em><b>Acer Predator Orion 3000</b><span data-i18n="su.tower.d">Torre de sobremesa, modelo PO3-630, con la iluminación RGB del frontal.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--alisio)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(38.5% 0.3%, 65.1% 0.7%, 64.8% 26.2%, 55.3% 26.7%, 59.2% 28.7%, 58.8% 31.4%, 45.3% 31.0%, 45.1% 28.2%, 48.3% 26.2%, 38.8% 25.8%)" aria-expanded="false" aria-controls="spot-main"><span class="visually-hidden"><span data-i18n="su.main">Monitor principal</span></span></button>
+                    <span class="spot__card" id="spot-main"><em data-i18n="su.k.main">Monitor principal</em><b data-i18n="su.main.n">Pantalla central</b><span data-i18n="su.main.d">La pantalla de delante, la del editor de código.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--alisio)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(65.7% 2.2%, 96.7% 4.5%, 96.4% 21.3%, 81.4% 17.5%, 79.2% 27.7%, 76.5% 28.2%, 76.5% 31.7%, 77.4% 33.1%, 76.4% 35.3%, 69.9% 35.1%, 69.2% 32.6%, 73.4% 31.7%, 73.4% 28.2%, 65.5% 27.7%)" aria-expanded="false" aria-controls="spot-side"><span class="visually-hidden"><span data-i18n="su.side">Monitor secundario Acer</span></span></button>
+                    <span class="spot__card" id="spot-side"><em data-i18n="su.k.side">Monitor secundario</em><b>Acer</b><span data-i18n="su.side.d">La segunda pantalla, a la derecha de la principal.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--cold)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(81.4% 17.1%, 98.9% 24.4%, 92.6% 49.0%, 76.0% 54.1%, 73.4% 52.1%, 64.6% 39.9%, 77.1% 38.3%)" aria-expanded="false" aria-controls="spot-laptop"><span class="visually-hidden">HP OMEN Gaming Laptop 16</span></button>
+                    <span class="spot__card" id="spot-laptop"><em data-i18n="su.k.laptop">Portátil</em><b>HP OMEN Gaming Laptop 16</b><span data-i18n="su.laptop.d">AMD Ryzen AI 7 350, NVIDIA GeForce RTX 5070 de 8 GB, 32 GB de RAM y 1 TB de SSD.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--lilac)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(37.6% 28.8%, 50.4% 31.0%, 49.3% 36.9%, 35.5% 34.3%)" aria-expanded="false" aria-controls="spot-keys"><span class="visually-hidden">Razer Huntsman Mini</span></button>
+                    <span class="spot__card" id="spot-keys"><em data-i18n="su.k.keys">Teclado</em><b>Razer Huntsman Mini</b><span data-i18n="su.keys.d">Formato 60 %, sin teclado numérico ni flechas dedicadas, con interruptores ópticos.</span></span>
+                  </li>
+                  <li class="spot" style="--c: var(--lilac)">
+                    <button class="spot__hit" type="button" style="clip-path: polygon(52.4% 32.7%, 56.4% 32.3%, 57.3% 36.1%, 55.4% 39.3%, 51.9% 38.9%, 51.2% 36.1%)" aria-expanded="false" aria-controls="spot-mouse"><span class="visually-hidden"><span data-i18n="su.mouse">Ratón Logitech G</span></span></button>
+                    <span class="spot__card" id="spot-mouse"><em data-i18n="su.k.mouse">Ratón</em><b>Logitech G</b><span data-i18n="su.mouse.d">Ratón de la gama G de Logitech.</span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -9,7 +9,7 @@ import { Windows } from './windows';
 import { Lightbox } from './lightbox';
 import { applyLang, initLang } from './i18n';
 import { mountBlobs } from './blobs';
-import { nameLockup, namePressure, techReadout, lanzametViews, acePush, hairCloudCenter } from './details';
+import { nameLockup, namePressure, techReadout, lanzametViews, acePush, hairCloudCenter, setupSpots } from './details';
 import type { Lang } from './content';
 
 const root = document.documentElement;
@@ -560,7 +560,7 @@ mm.add('(prefers-reduced-motion: reduce)', () => {
 });
 // Detalles interactivos (src/details.ts): se preparan en tiempo libre, como el resto de lo que no es el hero.
 nameLockup();
-queue.push(lanzametViews, acePush, () => onLang.push(hairCloudCenter()));
+queue.push(lanzametViews, acePush, setupSpots, () => onLang.push(hairCloudCenter()));
 if (finePointer) queue.push(() => onLang.push(techReadout(() => lang)));
 
 queue.unshift(() => mm.add({

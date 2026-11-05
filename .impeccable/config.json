@@ -20,6 +20,15 @@
         ],
         "createdAt": "2026-10-31T18:58:21.729Z",
         "reason": "Claude: nav dropdown thumbnails use data-src and are lazy-loaded by main.ts loadThumbs() on first open"
+      },
+      {
+        "rule": "organic-clip-path",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-05T16:16:25.271Z",
+        "reason": "Claude triage: the polygons clip the invisible .spot__hit buttons in the setup photo so each piece responds only within its outline; nothing is drawn with them (the user asked for no visible markers), so this is hit-test geometry, not a faked silhouette"
       }
     ]
   }
