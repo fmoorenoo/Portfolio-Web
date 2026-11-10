@@ -37,7 +37,7 @@ export const projects: Project[] = [
       [t('Rol', 'Role'), t('Idea, diseño y desarrollo', 'Concept, design and development')],
       [t('Estado', 'Status'), t('En producción desde octubre de 2026', 'Live since October 2026')],
       [t('Plataforma', 'Platform'), t('Web instalable (PWA), ES / EN', 'Installable web app (PWA), ES / EN')],
-      [t('Código', 'Code'), t('Privado', 'Private')],
+      [t('Código', 'Code'), t('Público en GitHub', 'Public on GitHub')],
     ],
     intro: t(
       'App web meteorológica y marítima de Lanzarote. Viento, mar y mareas por zonas, previsión hora a hora y a 7 días, y una sección que recomienda dónde ir hoy según el tiempo de cada zona. Sin anuncios.',
@@ -82,7 +82,10 @@ export const projects: Project[] = [
       { src: '/img/lanzamet-noche-1600.webp', cap: t('De noche', 'At night'), srcset: '/img/lanzamet-noche-900.webp 900w, /img/lanzamet-noche-1600.webp 1600w', w: 1600, h: 900, alt: t('LanzaMet de noche.', 'LanzaMet at night.') },
     ],
     stack: ['Angular 22', 'Signals', 'TypeScript', 'SCSS', 'Cloudflare Workers', 'Open-Meteo', 'AEMET', 'PWA', 'i18n ES / EN', 'Vitest'],
-    links: [{ href: 'https://lanzamet.com', label: t('Abrir lanzamet.com', 'Open lanzamet.com') }],
+    links: [
+      { href: 'https://lanzamet.com', label: t('Abrir lanzamet.com', 'Open lanzamet.com') },
+      { href: 'https://github.com/fmoorenoo/LanzaMet', label: t('Ver el repositorio', 'View the repository') },
+    ],
     note: t('Las capturas muestran datos de demostración.', 'Screenshots show demo data.'),
   },
   {

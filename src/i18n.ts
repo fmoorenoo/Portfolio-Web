@@ -139,6 +139,7 @@ const en: Record<string, string> = {
   'ct.lede': "I'm looking to join a team as a Junior Full Stack Developer. Remote, hybrid or on-site.",
   'ct.cv': 'Download my CV',
   'ct.cvmeta': 'PDF in Spanish · 1 page · 249 KB',
+  'ft.code': 'Source code of this site on GitHub',
   'ft.top': 'Back to top',
   'win.close': 'Close',
   'win.others': 'Other projects',
