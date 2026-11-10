@@ -9,7 +9,7 @@ npm run build      # dist/ (incluye dist/proyectos/<slug>/index.html)
 node scripts/assets.mjs && node scripts/eyes.mjs && sh scripts/provenance.sh   # regenera imágenes desde ../ (fuentes fuera del repo)
 ```
 
-Contenido: solo lo verificado en `profile-research.md` y `project-ranking.md`. Producto: `PRODUCT.md`. Dirección y contrato: `.impeccable/surfaces/index-html.md`.
+Contenido: solo datos verificables. Producto: `PRODUCT.md`. Dirección y contrato: `.impeccable/surfaces/index-html.md`.
 
 ## Recorrido
 

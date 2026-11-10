@@ -1,4 +1,4 @@
-// Contenido de las ventanas de proyecto. Solo datos de profile-research.md y project-ranking.md.
+// Contenido de las ventanas de proyecto. Solo datos verificables.
 export type Lang = 'es' | 'en';
 type T = { es: string; en: string };
 

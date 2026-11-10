@@ -17,7 +17,7 @@ Vite + TypeScript (sin framework de UI) + GSAP (ScrollTrigger, Flip, SplitText, 
 
 ## Product Purpose
 
-Portfolio personal de Fernando Montelongo Moreno (`fmoorenoo`), desarrollador full stack de Lanzarote. Debe conseguir que el visitante entienda en segundos quién es, qué ha construido (por orden de `project-ranking.md`) y cómo contactarle. Éxito: el visitante recuerda la experiencia, abre al menos un proyecto real y encuentra el contacto sin esfuerzo.
+Portfolio personal de Fernando Montelongo Moreno (`fmoorenoo`), desarrollador full stack de Lanzarote. Debe conseguir que el visitante entienda en segundos quién es, qué ha construido (por orden de relevancia) y cómo contactarle. Éxito: el visitante recuerda la experiencia, abre al menos un proyecto real y encuentra el contacto sin esfuerzo.
 
 ## Positioning
 
@@ -29,7 +29,7 @@ Se visita en escritorio (reclutadores) y en móvil (enlace desde LinkedIn). Debe
 
 ## Capabilities and Constraints
 
-- Contenido exclusivamente de `profile-research.md` y `project-ranking.md`. No se inventan métricas, clientes, años ni tecnologías.
+- Contenido exclusivamente verificable en fuentes públicas (GitHub, LinkedIn, prensa) o declarado por Fernando. No se inventan métricas, clientes, años ni tecnologías.
 - Tecnologías **verificadas** en código separadas visualmente de las **declaradas**.
 - ACESLAN: la prensa no nombra a Fernando y el código es privado; se describe su rol tal como figura en LinkedIn y se enlaza la prensa.
 - KORA: las webs se presentan como trabajo del equipo, con Fernando como responsable de Desarrollo & Tecnología.
