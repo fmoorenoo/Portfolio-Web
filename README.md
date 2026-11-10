@@ -2,7 +2,7 @@
 
 <img src="docs/img/logo.png" alt="Logotipo FM de Fernando Montelongo" width="110">
 
-# Carta sinóptica · Portfolio
+# Portfolio
 
 ### Mi web personal, contada como el parte del tiempo de Lanzarote
 
@@ -30,7 +30,7 @@
 
 ## Sobre el proyecto
 
-Es mi **portfolio personal**, publicado en **[fer-m.dev](https://fer-m.dev)**. Como casi todo lo que he construido está hecho en y para **Lanzarote**, la web se presenta como una **carta sinóptica** viva de la isla: los sistemas de presión se desplazan con el scroll y cada proyecto es una «estación» con su propia ventana y su propia dirección.
+Es mi **portfolio personal**, publicado en **[fer-m.dev](https://fer-m.dev)**. 
 
 Reúne mi formación, los proyectos que he publicado (de productos propios a trabajo para clientes y para una administración pública), mi trabajo en **KORA**, las tecnologías que uso, mi trayectoria y la forma de contactarme. Todo el contenido es verificable: no hay métricas, clientes ni tecnologías inventadas.
 
