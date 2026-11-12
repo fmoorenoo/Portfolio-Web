@@ -4,7 +4,7 @@
 
 # Portfolio
 
-### Mi web personal, contada como el parte del tiempo de Lanzarote
+### Mi web personal, una forma visual de mostrar mi CV
 
 **Proyecto personal · Diseño y desarrollo desde cero · Sin framework de UI**
 
