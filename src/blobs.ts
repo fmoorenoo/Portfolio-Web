@@ -15,9 +15,14 @@ function rng(seed: number) {
   };
 }
 
+/** Canto de papel: cuánto se deshilacha el contorno en cada eje (en unidades de la caja, 0..1) y cuántos puntos por
+ *  tramo de curva se toman. */
+export type Paper = { ax: number; ay: number; n: number };
+
 /** Contorno cerrado y suave en el cuadrado 0..1: un superelipse (cubre bien las esquinas del texto) con el radio
- *  alterado punto a punto y unido con curvas de Catmull-Rom. */
-export function blobPath(seed: number, points = 7, wobble = 0.12, round = 2.7): string {
+ *  alterado punto a punto y unido con curvas de Catmull-Rom. Con `paper`, la curva se muestrea fina y cada punto se
+ *  desplaza un poco (con algún mordisco algo mayor), como el borde de un papel cortado o rasgado; determinista. */
+export function blobPath(seed: number, points = 7, wobble = 0.12, round = 2.7, paper?: Paper): string {
   const r = rng(seed);
   const pts: [number, number][] = [];
   const turn = r() * Math.PI * 2;
@@ -51,8 +56,42 @@ export function blobPath(seed: number, points = 7, wobble = 0.12, round = 2.7): 
   const sx = fit(0), sy = fit(1);
   const f = (n: number, sc: number) => (0.5 + (n - 0.5) * sc).toFixed(4);
   const pt = (q: [number, number]) => `${f(q[0], sx)} ${f(q[1], sy)}`;
-  return `M${pt(pts[0])}` + segs.map((sg) => `C${sg.map(pt).join(' ')}`).join('') + 'Z';
+  if (!paper) return `M${pt(pts[0])}` + segs.map((sg) => `C${sg.map(pt).join(' ')}`).join('') + 'Z';
+
+  // Borde de papel: puntos sobre cada tramo Bézier, escalados como la curva y desplazados por un ruido suave a lo
+  // largo del contorno (valores al azar cada pocos puntos, interpolados) con una fibra fina encima: un canto
+  // irregular pero continuo, no un serrucho.
+  const jr = rng(seed * 31 + 7);
+  const total = segs.length * paper.n, step = 3;
+  const knots = Array.from({ length: Math.ceil(total / step) + 1 }, () => [jr() * 2 - 1, jr() * 2 - 1]);
+  knots[knots.length - 1] = knots[0]; // cierra sin salto
+  const smooth = (i: number, c: 0 | 1) => {
+    const a = i / step, k = Math.floor(a), u = a - k, s = u * u * (3 - 2 * u);
+    return knots[k][c] + (knots[Math.min(k + 1, knots.length - 1)][c] - knots[k][c]) * s;
+  };
+  const out: string[] = [];
+  let start = pts[0], idx = 0;
+  const clamp = (n: number) => Math.min(0.998, Math.max(0.002, n));
+  for (const [c1, c2, end] of segs) {
+    for (let k = 0; k < paper.n; k++, idx++) {
+      const u = k / paper.n, v = 1 - u;
+      const x = v * v * v * start[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * end[0];
+      const y = v * v * v * start[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * end[1];
+      const px = 0.5 + (x - 0.5) * sx, py = 0.5 + (y - 0.5) * sy;
+      const dx = paper.ax * (0.8 * smooth(idx, 0) + 0.25 * (jr() * 2 - 1));
+      const dy = paper.ay * (0.8 * smooth(idx, 1) + 0.25 * (jr() * 2 - 1));
+      out.push(`${clamp(px + dx).toFixed(4)} ${clamp(py + dy).toFixed(4)}`);
+    }
+    start = end;
+  }
+  return `M${out.join('L')}Z`;
 }
+
+/** Lee data-paper="ax ay n" de un elemento. */
+const paperOf = (el: HTMLElement): Paper | undefined => {
+  const v = el.dataset.paper?.trim().split(/\s+/).map(Number);
+  return v && v.length === 3 && v.every(Number.isFinite) ? { ax: v[0], ay: v[1], n: v[2] } : undefined;
+};
 
 // Un único <defs> para todos los recortes: las ventanas de proyecto vuelven a montar sus botones cada vez que se pintan.
 let defsIn: SVGDefsElement | null = null;
@@ -76,14 +115,16 @@ export function mountBlobs(root: ParentNode = document) {
     host.dataset.blobOn = '';
     const seed = Number(host.dataset.blob) || 1;
     const rings = Number(host.dataset.rings ?? 1);
-    const id = `blob-${seed}`;
+    const paper = paperOf(host);
+    // Con canto de papel la forma es otra: su propio recorte, aunque la semilla se repita.
+    const id = paper ? `blob-${seed}-papel` : `blob-${seed}`;
     // La misma semilla da la misma forma: el recorte se crea una vez y se comparte.
     if (!document.getElementById(id)) {
       const clip = document.createElementNS(SVG, 'clipPath');
       clip.id = id;
       clip.setAttribute('clipPathUnits', 'objectBoundingBox');
       const cp = document.createElementNS(SVG, 'path');
-      cp.setAttribute('d', blobPath(seed));
+      cp.setAttribute('d', blobPath(seed, 7, 0.12, 2.7, paper));
       clip.append(cp);
       defs().append(clip);
     }
@@ -117,11 +158,18 @@ export function mountBlobs(root: ParentNode = document) {
         clip.id = altId;
         clip.setAttribute('clipPathUnits', 'objectBoundingBox');
         const cp = document.createElementNS(SVG, 'path');
-        cp.setAttribute('d', blobPath(seed, 7, 0.06, alt));
+        cp.setAttribute('d', blobPath(seed, 7, 0.06, alt, paper));
         clip.append(cp);
         defs().append(clip);
       }
       host.style.setProperty('--blob-alt', `url(#${altId})`);
+    }
+    // data-cut: un troquel blanco con la misma silueta, algo mayor, detrás del color (como una pegatina).
+    if (host.hasAttribute('data-cut')) {
+      const cut = document.createElement('span');
+      cut.className = 'shape__cut';
+      cut.style.clipPath = fill.style.clipPath;
+      body.append(cut);
     }
     body.append(fill);
     frag.append(body);
