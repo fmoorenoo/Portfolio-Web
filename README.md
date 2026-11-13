@@ -25,7 +25,7 @@
 ---
 
 <div align="center">
-  <img src="docs/img/portada.webp" alt="Portada del portfolio: «Hola, soy Fernando.» junto al retrato sobre un sol de calima" width="100%">
+  <img src="docs/img/portada.webp" alt="Portada del portfolio: «Hola, soy Fernando.» en una forma de papel azul junto al retrato sobre un sol de calima, bajo la cabecera de papel rasgado" width="100%">
 </div>
 
 ## Sobre el proyecto
@@ -90,11 +90,11 @@ Producto y dirección de diseño: [`PRODUCT.md`](PRODUCT.md) y [`DESIGN.md`](DES
 
 | Software hecho en Lanzarote | Proyectos |
 | :---: | :---: |
-| <img src="docs/img/parte.webp" alt="Sección con el mapa de Lanzarote y las cifras de GitHub" width="100%"> | <img src="docs/img/proyectos.webp" alt="Tarjeta de LanzaMet en la sección de proyectos" width="100%"> |
+| <img src="docs/img/parte.webp" alt="Sección con el mapa de Lanzarote y las cifras de GitHub" width="100%"> | <img src="docs/img/proyectos.webp" alt="LanzaMet en la sección de proyectos, con su mapa de Lanzarote y las capturas de la app" width="100%"> |
 
 | Ventana de proyecto | KORA |
 | :---: | :---: |
-| <img src="docs/img/ventana-proyecto.webp" alt="Ventana del proyecto LanzaMet" width="100%"> | <img src="docs/img/kora.webp" alt="Tramo horizontal de KORA con sus webs" width="100%"> |
+| <img src="docs/img/ventana-proyecto.webp" alt="Ventana del proyecto LanzaMet" width="100%"> | <img src="docs/img/kora.webp" alt="Tramo horizontal de KORA con sus webs como tarjetas impresas" width="100%"> |
 
 | Tecnologías y escritorio | Trayectoria |
 | :---: | :---: |
@@ -102,7 +102,7 @@ Producto y dirección de diseño: [`PRODUCT.md`](PRODUCT.md) y [`DESIGN.md`](DES
 
 | Contacto | En el móvil |
 | :---: | :---: |
-| <img src="docs/img/contacto.webp" alt="Sección de contacto sobre la carta nocturna" width="560"> | <img src="docs/img/portada-movil.webp" alt="Portada del portfolio en el móvil" width="200"> |
+| <img src="docs/img/contacto.webp" alt="Sección de contacto: «¿Hablamos?», correo, CV y enlaces" width="560"> | <img src="docs/img/portada-movil.webp" alt="Portada del portfolio en el móvil" width="200"> |
 
 ## Instalación y ejecución
 
