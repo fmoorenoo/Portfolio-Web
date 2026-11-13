@@ -9,7 +9,7 @@ import { Windows } from './windows';
 import { Lightbox } from './lightbox';
 import { applyLang, initLang } from './i18n';
 import { mountBlobs } from './blobs';
-import { nameLockup, namePressure, techReadout, lanzametViews, acePush, hairCloudCenter, setupSpots } from './details';
+import { nameLockup, namePressure, techReadout, lanzametViews, acePush, setupSpots } from './details';
 import type { Lang } from './content';
 
 const root = document.documentElement;
@@ -54,7 +54,10 @@ const onLoad = (fn: () => void) => { if (document.readyState === 'complete') fn(
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin);
 // Sin el recálculo automático en DOMContentLoaded: ScrollSmoother pide el suyo en ese mismo momento y el de «load»
 // llega después con las imágenes ya colocadas. Cada recálculo completo cuesta unos 45 ms en escritorio.
-ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,load,resize' });
+// En el móvil la barra de direcciones aparece y desaparece al desplazarse y cambia el alto de la ventana: sin
+// ignoreMobileResize cada vez se recalculaban los anclajes a mitad del gesto y el carril de KORA podía saltar o
+// soltarse antes de tiempo.
+ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,load,resize', ignoreMobileResize: true });
 
 /* ── Desplazamiento suave (solo escritorio con ratón y movimiento) ─ */
 const smoother = motion && finePointer && !dev('nosmooth')
@@ -95,8 +98,15 @@ const bar = $('[data-bar]');
 const menuBtn = $('.bar__menu');
 const menu = $('#menu');
 // Abierto, el menú tapa toda la pantalla: la barra pasa a papel y la página de debajo no se desplaza.
+let settle = 0;
 function setMenu(open: boolean) {
   menu.classList.toggle('is-open', open);
+  // Al cerrar, el logo vuelve a su estado del scroll con una transición corta (styles.css, .is-settling).
+  if (!open && bar.classList.contains('menu-open')) {
+    bar.classList.add('is-settling');
+    clearTimeout(settle);
+    settle = window.setTimeout(() => bar.classList.remove('is-settling'), 500);
+  }
   bar.classList.toggle('menu-open', open);
   document.documentElement.classList.toggle('menu-open', open);
   menuBtn.setAttribute('aria-expanded', String(open));
@@ -109,10 +119,61 @@ menuBtn.addEventListener('click', () => {
 });
 // Si la ventana se ensancha hasta la barra de escritorio con el menú abierto, se cierra para no dejar la página bloqueada.
 addEventListener('resize', () => { if (barWide() && menu.classList.contains('is-open')) closeMenu(); });
-// La barra siempre está visible; solo gana fondo al dejar el inicio y se oscurece sobre las secciones oscuras.
-ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (self) => bar.classList.toggle('is-solid', self.scroll() > 40) });
-for (const [sel, cls] of [['.kora', 'is-dark'], ['.kora', 'is-kora'], ['.contact', 'is-dark']]) {
-  ScrollTrigger.create({ trigger: sel, start: `top ${68 / 2}px`, end: `bottom ${68 / 2}px`, toggleClass: { targets: bar, className: cls }, refreshPriority: -1 });
+// La barra es una tira de papel siempre visible. Arriba del todo baja un poco dentro del hero y el logo, una pegatina
+// mayor, cuelga por su borde inferior. Al bajar, la tira sube y el mismo logo se encoge hasta su sitio, ligado al
+// scroll (en los dos sentidos) y solo con transformaciones. Con movimiento reducido cambia de un estado a otro sin
+// pasos intermedios.
+const mark = $('.bar__mark', bar);
+const barMM = gsap.matchMedia();
+barMM.add({ desk: '(min-width: 1200px)', mob: '(max-width: 1199px)' }, (ctx) => {
+  const desk = Boolean(ctx.conditions?.desk);
+  // Cuánto baja la tira arriba del todo, con todo lo que lleva encima. Compacta, su papel sube más que lo que lleva
+  // (glue): el canto de arriba sale de la pantalla y la tira queda colgada del borde, con su canto rasgado abajo y la
+  // cinta sujetándola; la fila y el logo quedan centrados en lo que se ve del papel (rise).
+  const lift = desk ? 18 : 10;
+  const glue = desk ? 13 : 11, rise = desk ? 4 : 3;
+  const items = desk ? $$('.bar__links, .bar__lang, .bar__cta', bar) : $$('.bar__menu, .bar__cta', bar);
+  const paper = $$('.bar__bg, .bar__tape', bar);
+  const row = [...items, ...paper];
+  // Escala inicial del logo: en escritorio llena el hueco que le guarda la rejilla; en móvil, el que dejan libre el
+  // botón de menú y «Escríbeme» (el mayor de los dos, a cada lado). Se mide sin transformaciones (offsetWidth).
+  const s0 = () => {
+    const w = mark.offsetWidth || 1;
+    // La columna central resuelta en px («523px 160px 523px»); un 86 % de ella, para que el troquel no toque los
+    // enlaces. Con tope: arriba el logo manda, pero sin imponerse al hero.
+    if (desk) return Math.min(1.32, Math.max(1, (0.86 * parseFloat(getComputedStyle(bar).gridTemplateColumns.split(' ')[1]) || w) / w));
+    const side = Math.max($('.bar__menu', bar).offsetWidth, $('.bar__cta', bar).offsetWidth);
+    const free = bar.clientWidth - 2 * parseFloat(getComputedStyle(bar).paddingLeft) - 2 * side - 24;
+    return Math.min(1.2, Math.max(1, free / w));
+  };
+  // Arriba, el logo baja con la tira y algo más: cuelga por su borde inferior, como una pegatina pegada en el canto.
+  const drop = () => lift + (desk ? 12 : 8);
+  const tl = gsap.timeline({ paused: true, defaults: { ease: 'none' } })
+    .fromTo(mark, { scale: s0, y: drop }, { scale: 1, y: -rise }, 0)
+    // El rótulo compensa la escala con una variable que lee su propiedad «scale» (styles.css): una transformación de
+    // GSAP absorbería su «translate» de centrado.
+    .fromTo('.bar__tip', { '--tip-s': () => 1 / s0() }, { '--tip-s': 1 }, 0)
+    .fromTo(items, { y: lift }, { y: -rise }, 0)
+    .fromTo(paper, { y: lift }, { y: -glue }, 0);
+  const at = (p: number) => (motion ? p : p > 0.5 ? 1 : 0);
+  const st = ScrollTrigger.create({
+    start: 0, end: () => `+=${Math.round(Math.min(desk ? 240 : 150, innerHeight * 0.3))}`,
+    onUpdate: (self) => tl.progress(at(self.progress)),
+    // Al cambiar el tamaño, las escalas y distancias se vuelven a medir desde el estado compacto.
+    onRefresh: (self) => { tl.progress(1).invalidate(); tl.progress(at(self.progress)); },
+  });
+  tl.progress(at(st.progress));
+  return () => {
+    st.kill(); tl.progress(1).kill();
+    gsap.set([mark, ...row], { clearProps: 'transform' });
+    $('.bar__tip', bar).style.removeProperty('--tip-s');
+  };
+});
+// Clases de la sección bajo la barra (la tira ya no cambia de color, pero se conservan como gancho).
+for (const [sel, cls] of [['.kora', 'is-dark'], ['.kora', 'is-kora'], ['.contact', 'is-dark'], ['.sheet', 'is-cream']]) {
+  for (const el of $$(sel)) {
+    ScrollTrigger.create({ trigger: el, start: `top ${68 / 2}px`, end: `bottom ${68 / 2}px`, toggleClass: { targets: bar, className: cls }, refreshPriority: -1 });
+  }
 }
 
 // Enlaces: al pasar el ratón aparece detrás una forma de presión propia (CSS, sin desplazamiento entre enlaces); el de
@@ -161,7 +222,7 @@ addEventListener('keydown', (e) => {
 // Enlace de la sección en curso.
 const sections: [string, string?][] = [
   ['#inicio'], ['#parte'], ['#formacion', '#formacion'], ['#proyectos', '#proyectos'], ['#kora', '#kora'],
-  ['.work--b', '#proyectos'], ['#stack'], ['#trayectoria', '#trayectoria'], ['#contacto', '#contacto'],
+  ['.work--b', '#proyectos'], ['#stack', '#stack'], ['#trayectoria', '#trayectoria'], ['#contacto', '#contacto'],
 ];
 for (const [sel, nav] of sections) {
   ScrollTrigger.create({
@@ -497,38 +558,24 @@ if (motion) {
     .from('.cefr li', { scaleX: 0, opacity: 0, duration: 0.55, stagger: 0.09, clearProps: 'transform,opacity' }, 0.3)
     .from('.cefr__pin', { y: 10, opacity: 0, duration: 0.5, clearProps: 'transform,opacity' }, 0.85));
 
-  // Tarjetas de proyecto: sin escalado ligado al scroll ni entrada de la tarjeta entera. GSAP promueve a capa lo que
-  // anima y la retira al acabar, y con una tarjeta completa eso eran dos repintados enormes por tarjeta. Entran sus
-  // piezas, con un gesto propio de cada composición, y se quedan como capa (force3D) para no repintarse al terminar.
-  for (const card of $$('.case__card')) {
-    queue.push(() => {
-      const chars = splitChars($('.case__title', card));
-      gsap.from(chars, { yPercent: 115, duration: 1.1, ease: EASE, stagger: 0.03, scrollTrigger: { trigger: card, start: 'top 62%' } });
-    });
-    queue.push(() => gsap.from($$('.case__claim, .case__kind, .case__body, .case__text .chips, .case__actions', card), {
-      y: 26, duration: 1, ease: EASE, stagger: 0.07, scrollTrigger: { trigger: card, start: 'top 55%' },
-    }));
-  }
-  const media = (trigger: string, build: (tl: gsap.core.Timeline) => void) => queue.push(() => {
-    build(gsap.timeline({ defaults: { ease: EASE, duration: 1.2, force3D: true }, scrollTrigger: { trigger, start: 'top 62%' } }));
+  // Proyectos: cada doble página entra una vez, al asomar su tercio, con transiciones CSS (styles.css, .is-in): el
+  // nombre sube desde su línea, el texto en cascada y cada escena con su gesto. Antes eran tres ScrollTrigger por
+  // proyecto y el nombre partido en letras con SplitText; un único IntersectionObserver no añade nada a los
+  // recálculos de ScrollTrigger y no toca el DOM.
+  const caseIO = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('is-in');
+    caseIO.unobserve(e.target);
+  }), { rootMargin: '0px 0px -30% 0px' });
+  // Las pegatinas sueltas de KORA y Trayectoria se pegan igual al aparecer.
+  $$('.case, .kora__sticker, .route__sticker').forEach((c) => caseIO.observe(c));
+
+  // La línea central de cada tramo de proyectos: el punto baja con el scroll y deja la línea en tinta a su paso.
+  for (const line of $$('.work__line')) queue.push(() => {
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: true, invalidateOnRefresh: true } })
+      .fromTo($('.work__dot', line), { y: 0 }, { y: () => line.offsetHeight }, 0)
+      .fromTo($('.work__fill', line), { scaleY: 0 }, { scaleY: 1 }, 0);
   });
-  // LanzaMet: la pantalla llega desde la derecha, el móvil sube y las 9 estaciones se encienden por orden.
-  media('.lm-media', (tl) => tl
-    .from('.lm-media__desk', { x: 120 }, 0)
-    .from('.lm-media__phone', { y: 90 }, 0.1)
-    .from('.zones li', { scale: 0, duration: 0.6, ease: 'back.out(3)', stagger: 0.07 }, 0.2));
-  // ACESLAN, en espejo: el panel entra desde la izquierda y los teléfonos suben.
-  media('.ac-media', (tl) => tl
-    .from('.ac-media__browser', { x: -120 }, 0)
-    .from('.ac-media__phone', { y: 120, stagger: 0.12 }, 0.1));
-  // HairCloud: los tres teléfonos asoman por el borde inferior, el del centro primero.
-  media('.hc-media', (tl) => tl
-    .from('.hc-media__phone--c', { yPercent: 45 }, 0)
-    .from('.hc-media__phone--l, .hc-media__phone--r', { yPercent: 55, stagger: 0.08 }, 0.12));
-  // Haría Game: el menú de pausa llega desde la izquierda y la entrada del instituto sube a su sitio.
-  media('.hg-media', (tl) => tl
-    .from('.case--pause .case__text', { x: -60, duration: 1 }, 0)
-    .from('.hg-media__inset', { y: 90 }, 0.15));
 
   // Archivo: entrada corta, solo transformaciones.
   queue.push(() => gsap.from('.archive__list li', { y: 24, duration: 0.9, ease: EASE, stagger: 0.05, scrollTrigger: { trigger: '.archive__list', start: 'top 85%' } }));
@@ -556,11 +603,13 @@ if (motion) {
 const mm = gsap.matchMedia();
 mm.add('(prefers-reduced-motion: reduce)', () => {
   root.classList.add('no-hpin');
+  // Trayectoria sin punto que avance: todos los hitos se ven encendidos desde el principio.
+  $$('.route__list li').forEach((li) => li.classList.add('is-on'));
   return () => root.classList.remove('no-hpin');
 });
 // Detalles interactivos (src/details.ts): se preparan en tiempo libre, como el resto de lo que no es el hero.
 nameLockup();
-queue.push(lanzametViews, acePush, setupSpots, () => onLang.push(hairCloudCenter()));
+queue.push(lanzametViews, acePush, setupSpots);
 if (finePointer) queue.push(() => onLang.push(techReadout(() => lang)));
 
 queue.unshift(() => mm.add({
@@ -578,11 +627,21 @@ queue.unshift(() => mm.add({
   // Setters cacheados: un selector en gsap.set dentro de onUpdate recorre el DOM en cada frame de scroll.
   const kBar = gsap.quickSetter('.kora [data-hbar]', 'scaleX');
   const rBar = gsap.quickSetter('.route [data-hbar]', 'scaleX');
+  // Móvil: el recorrido vertical es 1,5 veces el horizontal (un gesto rápido no se lleva toda la fila de golpe) y,
+  // al soltar, el carril se asienta en la web más cercana, como un carrusel. Las posiciones se leen al encajar, no en
+  // cada frame: el progreso en que cada web queda alineada con el margen izquierdo.
+  const stretch = desk ? 1 : 1.5;
+  const snapPoints = () => {
+    const pad = parseFloat(getComputedStyle(kTrack).paddingLeft) || 0;
+    const d = kDist();
+    return [...$$('.site', kTrack).map((s) => Math.min(1, Math.max(0, (s.offsetLeft - pad) / d))), 1];
+  };
   const kora = gsap.to(kTrack, {
     x: () => -kDist(), ease: 'none',
     scrollTrigger: {
       trigger: desk ? '.kora' : '.kora__rail', pin: desk ? '.kora__pin' : '.kora__rail', start: 'top top',
-      end: () => `+=${kDist()}`, scrub, anticipatePin, invalidateOnRefresh: true,
+      end: () => `+=${Math.round(kDist() * stretch)}`, scrub, anticipatePin, invalidateOnRefresh: true,
+      snap: desk ? undefined : { snapTo: (v: number) => snapPoints().reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a)), duration: { min: 0.2, max: 0.55 }, delay: 0.08, ease: 'power2.out' },
       onUpdate: (self) => kBar(self.progress),
     },
   });
@@ -594,56 +653,111 @@ queue.unshift(() => mm.add({
     });
   }
 
-  // Trayectoria: barograma que se traza a medida que avanzan los años.
-  const rTrack = $('.route__track');
-  const trace = $<SVGSVGElement>('.route__trace');
-  const path = $<SVGPathElement>('[data-trace]');
-  const dots = $$('.route__list li');
-  const drawTrace = () => {
-    const W = rTrack.scrollWidth, H = rTrack.offsetHeight;
-    trace.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    trace.style.width = `${W}px`;
-    const listLeft = $('.route__list').offsetLeft;
-    // El punto de cada hito está encima de su tarjeta (::before a 30px, 16px de diámetro).
-    const pts = dots.map((li) => [li.offsetLeft + listLeft + 26, li.offsetTop - 22]);
-    // Años al fondo: una línea discontinua y el número grande donde empieza cada año.
-    const years = dots.filter((li) => li.dataset.year).map((li) => {
-      const x = li.offsetLeft + listLeft - 14;
-      return `<line class="route__yline" x1="${x}" y1="0" x2="${x}" y2="${H}"/><text class="route__ytext" x="${x + 12}" y="${H - 8}">${li.dataset.year}</text>`;
-    }).join('');
-    trace.querySelectorAll('.route__yline, .route__ytext').forEach((el) => el.remove());
-    trace.insertAdjacentHTML('afterbegin', years);
-    pts.unshift([0, pts[0][1] + 30]);
-    pts.push([W, pts[pts.length - 1][1] - 20]);
-    // Curva suave (Catmull-Rom a Bézier) por los puntos de cada hito.
-    let d = `M${pts[0][0]} ${pts[0][1]}`;
-    for (let i = 0; i < pts.length - 1; i++) {
-      const p0 = pts[i - 1] ?? pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] ?? p2;
-      d += ` C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`;
-    }
-    path.setAttribute('d', d);
-  };
-  drawTrace();
-  const rDist = () => rTrack.scrollWidth - innerWidth;
-  // La punta del trazo va algo por delante del borde derecho visible.
-  const lead = () => innerWidth * (desk ? 0.72 : 0.8);
-  const route = gsap.to(rTrack, {
-    x: () => -rDist(), ease: 'none',
-    scrollTrigger: {
-      trigger: '.route__pin', pin: true, start: 'top top', end: () => `+=${rDist()}`, scrub, anticipatePin, invalidateOnRefresh: true,
-      onRefreshInit: drawTrace,
-      onUpdate: (self) => {
-        rBar(self.progress);
-        const front = (self.progress * rDist() + lead()) / rTrack.scrollWidth;
-        gsap.set(path, { drawSVG: `0% ${Math.min(100, front * 100)}%` });
+  // Trayectoria. Escritorio: barograma anclado que avanza en horizontal; la traza se dibuja con el scroll y el punto
+  // de su punta enciende cada hito al alcanzarlo. Móvil: la misma historia en vertical, sin anclaje (el desplazamiento
+  // táctil sigue siendo nativo), con el punto bajando por la línea. En los dos, el estado de cada hito es una clase
+  // que solo cambia al cruzarlo; por frame solo se escriben transformaciones.
+  const rList = $('.route__list');
+  const items = $$('.route__list li');
+  const rDot = $('.route__dot');
+  const dotX = gsap.quickSetter(rDot, 'x', 'px');
+  const dotY = gsap.quickSetter(rDot, 'y', 'px');
+  const light = (on: (li: HTMLElement, i: number) => boolean) => items.forEach((li, i) => li.classList.toggle('is-on', on(li, i)));
+  if (desk) {
+    const rTrack = $('.route__track');
+    const trace = $<SVGSVGElement>('.route__trace--base');
+    const live = $<SVGSVGElement>('.route__trace--live');
+    const path = $<SVGPathElement>('[data-trace]');
+    const ghost = $<SVGPathElement>('[data-ghost]');
+    // Posiciones leídas al recalcular, nunca en el scroll.
+    let xs: number[] = [];
+    // La traza muestreada al recalcular (x, y cada 1/600 de su longitud): en el scroll el punto se coloca con esta
+    // tabla. Preguntar a la ruta su geometría en cada frame, justo después de cambiar su trazo, obligaba al
+    // navegador a recalcular estilos a mitad de frame.
+    const SAMPLES = 600;
+    let lut = new Float32Array(2 * (SAMPLES + 1));
+    // Ancho de la pista y longitud de la traza, medidos al recalcular: leerlos en el scroll forzaba un layout por frame.
+    let W = 1, len = 1;
+    const drawTrace = () => {
+      W = rTrack.scrollWidth;
+      const H = rTrack.offsetHeight;
+      for (const svg of [trace, live]) {
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        svg.style.width = `${W}px`;
+      }
+      const listLeft = rList.offsetLeft;
+      xs = items.map((li) => li.offsetLeft + listLeft);
+      // La estación de cada hito (.route__st, 30px) queda sobre su tallo: su centro, 25px por encima del texto.
+      const pts = items.map((li, i) => [xs[i] + 0.75, li.offsetTop - 25]);
+      // Años al fondo: una línea discontinua y el número, enorme y en contorno, donde empieza cada año.
+      const years = items.filter((li) => li.dataset.year).map((li) => {
+        const x = li.offsetLeft + listLeft - 24;
+        return `<line class="route__yline" x1="${x}" y1="0" x2="${x}" y2="${H}"/><text class="route__ytext" x="${x + 14}" y="${H - 6}">${li.dataset.year}</text>`;
+      }).join('');
+      trace.querySelectorAll('.route__yline, .route__ytext').forEach((el) => el.remove());
+      trace.insertAdjacentHTML('afterbegin', years);
+      pts.unshift([0, pts[0][1] + 30]);
+      pts.push([W, pts[pts.length - 1][1] - 20]);
+      // Curva suave (Catmull-Rom a Bézier) por los puntos de cada hito.
+      let d = `M${pts[0][0]} ${pts[0][1]}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i - 1] ?? pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] ?? p2;
+        d += ` C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`;
+      }
+      path.setAttribute('d', d);
+      ghost.setAttribute('d', d);
+      len = path.getTotalLength();
+      lut = new Float32Array(2 * (SAMPLES + 1));
+      for (let k = 0; k <= SAMPLES; k++) {
+        const q = path.getPointAtLength((len * k) / SAMPLES);
+        lut[2 * k] = q.x; lut[2 * k + 1] = q.y;
+      }
+    };
+    drawTrace();
+    const rDist = () => rTrack.scrollWidth - innerWidth;
+    // La punta del trazo va algo por delante: a un 72 % del ancho de la ventana.
+    const lead = () => innerWidth * 0.72;
+    const draw = (front: number) => {
+      const f = Math.max(0, Math.min(1, front));
+      // El tramo dibujado, escrito directamente con la longitud medida (DrawSVG la volvía a medir en cada frame).
+      path.style.strokeDasharray = `${(f * len).toFixed(1)} ${len.toFixed(1)}`;
+      const at = f * SAMPLES, k = Math.min(SAMPLES - 1, Math.floor(at)), u = at - k;
+      const x = lut[2 * k] + (lut[2 * k + 2] - lut[2 * k]) * u;
+      const y = lut[2 * k + 1] + (lut[2 * k + 3] - lut[2 * k + 1]) * u;
+      dotX(x); dotY(y);
+      light((_, i) => x >= xs[i]);
+    };
+    // Se dibuja con el progreso de la propia animación, no con el del scroll: con «scrub» la pista llega con algo de
+    // retraso y el punto, que va dentro de ella, se adelantaría fuera de la pantalla al desplazarse rápido.
+    const at = (p: number) => draw((p * (W - innerWidth) + lead()) / W);
+    gsap.to(rTrack, {
+      x: () => -rDist(), ease: 'none',
+      onUpdate(this: gsap.core.Tween) { rBar(this.progress()); at(this.progress()); },
+      scrollTrigger: {
+        trigger: '.route__pin', pin: true, start: 'top top', end: () => `+=${rDist()}`, scrub, anticipatePin, invalidateOnRefresh: true,
+        onRefreshInit: drawTrace,
+        // Puede llegar mientras se crea la animación: se lee la de ScrollTrigger, no una variable aún sin asignar.
+        onRefresh: (self) => at(self.animation?.progress() ?? 0),
       },
-    },
-  });
-  gsap.set(path, { drawSVG: `0% ${(lead() / rTrack.scrollWidth) * 100}%` });
-  for (const li of dots) {
-    gsap.from(li, {
-      y: desk ? 40 : 28, ease: 'none',
-      scrollTrigger: { trigger: li, containerAnimation: route, start: 'left 92%', end: 'left 70%', scrub: true },
+    });
+    draw(lead() / rTrack.scrollWidth);
+  } else {
+    // El punto baja por la línea con el scroll: su altura es la del 68 % de la ventana, donde se lee.
+    const fill = $('.route__fill');
+    const fillY = gsap.quickSetter(fill, 'scaleY');
+    let tops: number[] = [];
+    let h = 1;
+    const measure = () => { h = rList.offsetHeight; tops = items.map((li) => li.offsetTop + 11); };
+    const draw = (p: number) => {
+      const y = p * h;
+      dotY(y); dotX(0); fillY(p);
+      light((_, i) => y >= tops[i]);
+    };
+    measure();
+    ScrollTrigger.create({
+      trigger: rList, start: 'top 68%', end: 'bottom 68%',
+      onRefresh: (self) => { measure(); draw(self.progress); },
+      onUpdate: (self) => draw(self.progress),
     });
   }
 

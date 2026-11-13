@@ -108,12 +108,89 @@
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <!-- Barba de viento: asta, plumas y punto de estación -->
     <symbol id="i-barb" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="20" cy="33" r="3.2"/><path d="M20 29.8V5M20 5l8 -3.5M20 10l8 -3.5M20 15l4.5 -2"/></g></symbol>
+    <!-- Cuaderno de campo (Proyectos, KORA y Trayectoria): pegatinas dibujadas en línea, a dos tintas y con un toque de
+         calima. Cada una se usa dos veces (styles.css, .sticker): debajo, en blanco y con trazo grueso, hace el troquel
+         que sigue su silueta; encima va el dibujo. Los colores van en variables para que el troquel los pise. -->
+    <symbol id="st-sol" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <circle cx="60" cy="60" r="46" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M60 21v8M36.6 30.6l5.2 5.2M83.4 30.6l-5.2 5.2M27 52h8M85 52h8"/>
+      <path d="M41 63a19 19 0 0 1 38 0Z" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M17 63h86"/>
+      <path d="M21 75c4.8-4 9.7-4 14.5 0s9.7 4 14.5 0 9.7-4 14.5 0 9.7 4 14.5 0 9.7-4 14.5 0"/>
+      <path d="M31 87c4.8-4 9.7-4 14.5 0s9.7 4 14.5 0 9.7-4 14.5 0 9.7 4 14.5 0"/>
+      <path d="M45.5 98.5c4.8-3.4 9.7-3.4 14.5 0s9.7 3.4 14.5 0"/>
+    </g></symbol>
+    <symbol id="st-campana" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <path d="M60 22v11"/>
+      <circle cx="60" cy="18" r="5" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M35 80c4.5-6.5 6-13 6-26a19 19 0 0 1 38 0c0 13 1.5 19.5 6 26Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M48 47c1.4-6 5-9.6 10.4-10.6" style="stroke:var(--s1,#F1EFE8)"/>
+      <path d="M53 88a7 7 0 0 0 14 0" style="fill:var(--fa,#F4B23E)"/>
+      <rect x="27" y="78" width="66" height="10" rx="5" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M23 45c-4.4 8.6-4.4 19.4 0 28M13 38c-7 13-7 29 0 42M97 45c4.4 8.6 4.4 19.4 0 28M107 38c7 13 7 29 0 42"/>
+    </g></symbol>
+    <symbol id="st-tijeras" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <circle cx="60" cy="60" r="45" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M51 80 79 22c5 5.5 4.6 13.6-1.4 21.4L57.6 77.5Z" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M69 80 41 22c-5 5.5-4.6 13.6 1.4 21.4l20.1 34.1Z" style="fill:var(--fc,#F1EFE8)"/>
+      <circle cx="43" cy="91" r="11" style="fill:var(--fg,#0D7A4C)"/>
+      <circle cx="77" cy="91" r="11" style="fill:var(--fg,#0D7A4C)"/>
+      <circle cx="43" cy="91" r="4.6" style="fill:var(--fa,#F4B23E)"/>
+      <circle cx="77" cy="91" r="4.6" style="fill:var(--fa,#F4B23E)"/>
+      <circle cx="60" cy="63" r="3.4" style="fill:var(--fk,#16463A)"/>
+    </g></symbol>
+    <symbol id="st-palma" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <circle cx="31" cy="34" r="12" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M12 101c10-13 27-19 48-19s38 6 48 19Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M54 87c-1.6-18 1.6-36 9.4-52l5.4 2c-6.6 15.6-8.8 32.4-7.6 50Z" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M56 76l5.6-.6M56.4 66l6-.8M58 56l6-1.2M60.4 47l6-1.6"/>
+      <path d="M66 36C53 31 39 38 34 53c11-6 22-8 32-17Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M66 36C58 24 46 17 33 19c9 5 19 14 33 17Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M66 36C66 24 72 15 83 11c-1 10-7 19-17 25Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M66 36C76 25 91 22 103 29c-10 4-23 10-37 7Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M66 36C80 35 93 42 98 56c-9-6-20-10-32-20Z" style="fill:var(--fg,#0D7A4C)"/>
+      <circle cx="63" cy="40" r="3.4" style="fill:var(--fk,#16463A)"/>
+      <circle cx="69.6" cy="41" r="3.4" style="fill:var(--fk,#16463A)"/>
+    </g></symbol>
+    <symbol id="st-web" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <rect x="12" y="20" width="90" height="70" rx="7" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M12 27a7 7 0 0 1 7-7h76a7 7 0 0 1 7 7v9H12Z" style="fill:var(--fg,#0D7A4C)"/>
+      <circle cx="22" cy="28" r="2.4" style="fill:var(--fc,#F1EFE8);stroke:none"/>
+      <circle cx="30" cy="28" r="2.4" style="fill:var(--fc,#F1EFE8);stroke:none"/>
+      <circle cx="38" cy="28" r="2.4" style="fill:var(--fc,#F1EFE8);stroke:none"/>
+      <rect x="23" y="46" width="34" height="9" rx="2" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M23 64h38M23 73h28"/>
+      <rect x="69" y="46" width="23" height="32" rx="2" style="fill:var(--fl,#A9D6A8)"/>
+      <path d="M77 68v40l10.5-10.4 7 15 7.4-3.4-7-14.6 15-1.2Z" style="fill:var(--fc,#F1EFE8)"/>
+    </g></symbol>
+    <symbol id="st-volcan" viewBox="0 0 120 120"><g style="fill:var(--f0,none);stroke:var(--s0,#16463A);stroke-width:var(--sw,3px);stroke-linecap:round;stroke-linejoin:round">
+      <path d="M50 34c-7 0-10-7-5.6-11.4C44 15 53 12.6 57 17.4c4.6-4.6 13.4-2.4 13 4.6 6 1 6 10-.6 12Z" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M71 18c3.6-4.4 11-3.6 12.4 1.4 4.6.4 5.6 7 .6 8.6-3 1-6-.4-7-2.6" style="fill:var(--fc,#F1EFE8)"/>
+      <path d="M10 98 42 46h36l32 52Z" style="fill:var(--fg,#0D7A4C)"/>
+      <path d="M42 46c4.6 5 31.4 5 36 0" style="fill:var(--fa,#F4B23E)"/>
+      <path d="M82 57l-6 14M90 68l-8.4 18M99 81l-6 13M33 66l-4 7M27 77l-4.4 8" style="stroke:var(--s1,#F1EFE8)"/>
+      <path d="M6 98h108"/>
+    </g></symbol>
+    <!-- Sellos: canto dentado de moneda y la circunferencia por la que corre su texto. -->
+    <symbol id="st-edge" viewBox="0 0 120 120"><path d="M117.6 60.0 L114.6 62.0 L116.8 64.3 L113.9 66.1 L116.2 68.5 L113.7 70.2 L115.8 72.7 L112.8 74.2 L114.5 76.8 L111.1 77.9 L113.6 81.0 L110.3 82.0 L111.9 85.0 L108.4 85.6 L109.8 88.8 L106.3 89.1 L107.0 92.1 L103.8 92.3 L104.6 95.6 L100.8 95.1 L101.5 98.6 L98.3 98.3 L98.7 101.7 L95.6 101.4 L96.0 105.1 L92.3 103.7 L92.5 107.7 L89.2 106.5 L88.9 110.0 L85.3 108.0 L84.7 111.3 L81.6 109.6 L80.8 112.9 L77.9 111.0 L76.9 114.8 L74.2 113.0 L72.8 116.1 L70.1 113.4 L68.6 116.7 L66.1 114.4 L64.2 116.6 L62.0 114.5 L60.0 117.7 L58.0 114.7 L55.7 117.3 L53.9 114.0 L51.5 116.2 L49.8 113.8 L47.3 115.6 L45.8 112.9 L43.0 115.2 L42.1 111.2 L39.1 113.1 L38.0 110.3 L35.1 111.8 L34.8 107.8 L31.6 109.2 L31.3 105.7 L27.5 107.6 L27.5 104.0 L24.6 104.4 L24.3 101.5 L20.7 102.3 L21.4 98.6 L18.2 98.8 L18.7 95.5 L15.6 95.4 L16.7 92.0 L12.3 92.5 L13.8 89.0 L10.4 88.6 L11.5 85.6 L8.5 84.8 L9.8 81.9 L6.4 81.0 L9.0 77.9 L5.6 76.8 L7.7 74.0 L4.5 72.7 L6.5 70.1 L3.7 68.5 L6.0 66.1 L3.4 64.2 L5.2 62.1 L3.0 60.0 L5.7 58.0 L2.9 55.7 L5.5 53.9 L3.5 51.5 L6.1 49.8 L4.2 47.3 L7.4 45.9 L5.3 43.1 L9.2 42.2 L6.8 39.1 L10.5 38.4 L9.0 35.4 L11.6 34.4 L10.8 31.6 L14.0 31.1 L12.5 27.6 L16.2 27.7 L15.4 24.5 L18.8 24.5 L18.0 21.1 L21.3 21.3 L21.4 18.4 L24.5 18.7 L24.5 15.5 L27.8 16.4 L27.6 12.5 L31.1 13.9 L31.4 10.4 L34.4 11.7 L35.0 8.1 L38.3 10.2 L39.1 6.6 L42.0 8.6 L43.1 5.3 L45.9 7.2 L47.3 4.3 L49.9 6.5 L51.5 3.5 L53.9 5.5 L55.7 2.7 L58.0 5.2 L60.0 2.3 L62.0 5.9 L64.3 2.9 L66.1 5.5 L68.6 3.1 L70.0 6.9 L72.6 4.6 L74.1 7.5 L76.7 5.8 L77.9 8.9 L80.7 7.2 L81.8 10.0 L85.0 8.2 L85.6 11.5 L88.4 10.8 L89.1 13.7 L92.3 12.6 L92.1 16.5 L95.9 14.9 L95.8 18.4 L98.7 18.3 L98.8 21.2 L101.8 21.2 L101.2 24.5 L105.1 24.0 L104.1 27.5 L107.0 28.0 L106.0 31.1 L109.6 31.4 L107.9 34.7 L111.2 35.3 L109.7 38.3 L113.5 39.0 L110.8 42.2 L114.7 43.1 L112.5 45.9 L115.2 47.4 L113.3 49.9 L116.7 51.5 L114.1 53.9 L116.6 55.8 L114.9 57.9Z"/></symbol>
+    <path id="st-ring" d="M60 60m-41 0a41 41 0 1 1 82 0a41 41 0 1 1-82 0" fill="none"/>
+    <!-- Tipos de hito de la trayectoria -->
+    <symbol id="i-t-edu" viewBox="0 0 24 24"><path d="M12 6.6C10 5 7.3 4.5 3.6 4.7v12.8c3.7-.2 6.4.3 8.4 1.9 2-1.6 4.7-2.1 8.4-1.9V4.7c-3.7-.2-6.4.3-8.4 1.9Zm0 0v12.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-t-work" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2.2"/><path d="M9 7.5V6a1.8 1.8 0 0 1 1.8-1.8h2.4A1.8 1.8 0 0 1 15 6v1.5M3.5 12.6h17M12 11.6v2"/></g></symbol>
+    <symbol id="i-t-proj" viewBox="0 0 24 24"><path d="m8.4 7.6-4.4 4.4 4.4 4.4M15.6 7.6l4.4 4.4-4.4 4.4M13.3 5.8l-2.6 12.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-t-co" viewBox="0 0 24 24"><path d="M12 3.6l2.4 5.4 5.8.6-4.4 3.9 1.3 5.8L12 16.3l-5.1 3 1.3-5.8L3.8 9.6l5.8-.6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
   </svg>
 
   <a class="skip" href="#contacto" data-i18n="skip">Saltar al contacto</a>
 
+  <!-- Barra: una tira de papel rasgado sujeta con dos trozos de cinta, flotando sobre la página. Arriba del todo baja un
+       poco y el logo, una pegatina troquelada más grande, cuelga por su borde; al bajar, la tira sube y el mismo logo se
+       encoge hasta su sitio, ligado al scroll (src/main.ts). -->
   <header class="bar" data-bar>
-    <a class="bar__mark" href="/" aria-label="Fernando Montelongo, inicio" data-i18n-attr="aria-label:bar.home" data-blob="49" data-rings="2">
+    <span class="bar__bg" aria-hidden="true"></span>
+    <span class="bar__tape bar__tape--l" aria-hidden="true"></span>
+    <span class="bar__tape bar__tape--r" aria-hidden="true"></span>
+    <a class="bar__mark" href="/" aria-label="Fernando Montelongo, inicio" data-i18n-attr="aria-label:bar.home" data-blob="49" data-rings="0" data-cut data-paper="0.008 0.016 16">
       <!-- Logotipo FM entre < >: las letras salen de assets-src/brand/fm-mark.svg; los signos llevan su inclinación -->
       <span class="bar__logo" aria-hidden="true">
         <svg class="bar__br bar__br--l" viewBox="0 0 220 442"><path d="M186.6 70 40 221l113.4 151"/></svg>
@@ -131,10 +208,11 @@
       <span class="btn__tip bar__tip" aria-hidden="true">Fernando Montelongo</span>
     </a>
     <nav class="bar__nav" aria-label="Secciones" data-i18n-attr="aria-label:nav.label" id="menu">
-      <div class="bar__links">
-        <a class="nav-link" href="#formacion" data-blob="52" data-rings="1"><span data-i18n="nav.edu">Formación</span></a>
+      <!-- Dos grupos a los lados del logo (en el menú móvil, uno debajo del otro, en el mismo orden). -->
+      <div class="bar__links bar__links--l">
+        <a class="nav-link" href="#formacion"><span data-i18n="nav.edu">Formación</span></a>
         <div class="nav-drop" data-drop>
-          <a class="nav-link nav-drop__trigger" href="#proyectos" aria-expanded="false" aria-controls="nav-projects" data-blob="53" data-rings="1"><span data-i18n="nav.work">Proyectos</span><svg class="nav-drop__chev" aria-hidden="true"><use href="#i-chev"/></svg></a>
+          <a class="nav-link nav-drop__trigger" href="#proyectos" aria-expanded="false" aria-controls="nav-projects"><span data-i18n="nav.work">Proyectos</span><svg class="nav-drop__chev" aria-hidden="true"><use href="#i-chev"/></svg></a>
           <div class="nav-drop__panel" id="nav-projects">
             <ul class="np-list">
               <li style="--i: 0"><a class="np" href="#p-lanzamet" style="--f: var(--sky)"><span class="np__logo"><img data-src="/img/logo-lanzamet-92.webp" width="168" height="100" alt="" decoding="async"></span><span class="np__text"><b class="np__name">LanzaMet</b><span class="np__kind" data-i18n="np.lm">Producto propio · en producción</span></span></a></li>
@@ -149,17 +227,20 @@
             </div>
           </div>
         </div>
-        <a class="nav-link" href="#kora" data-blob="54" data-rings="1"><span>KORA</span></a>
-        <a class="nav-link" href="#trayectoria" data-blob="55" data-rings="1"><span data-i18n="nav.path">Trayectoria</span></a>
-        <a class="nav-link" href="#contacto" data-blob="56" data-rings="1"><span data-i18n="nav.contact">Contacto</span></a>
+        <a class="nav-link" href="#kora"><span>KORA</span></a>
       </div>
-      <div class="bar__lang" role="group" aria-label="Idioma / Language" data-blob="27" data-rings="2" data-on="es">
-        <span class="bar__knob" data-blob="4" data-rings="0" aria-hidden="true"></span>
+      <div class="bar__links bar__links--r">
+        <a class="nav-link" href="#stack"><span data-i18n="nav.stack">Tecnologías</span></a>
+        <a class="nav-link" href="#trayectoria"><span data-i18n="nav.path">Trayectoria</span></a>
+        <a class="nav-link" href="#contacto"><span data-i18n="nav.contact">Contacto</span></a>
+      </div>
+      <div class="bar__lang" role="group" aria-label="Idioma / Language" data-blob="27" data-rings="0" data-cut data-paper="0.007 0.018 16" data-on="es">
+        <span class="bar__knob" data-blob="4" data-rings="0" data-paper="0.012 0.018 10" aria-hidden="true"></span>
         <button type="button" data-lang="es" aria-pressed="true">ES</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
     </nav>
-    <a class="btn btn--ink bar__cta" data-blob="47" href="mailto:fermdev@gmail.com"><span data-i18n="nav.mail">Escríbeme</span></a>
+    <a class="btn btn--ink bar__cta" data-blob="47" data-rings="0" data-cut data-paper="0.006 0.017 16" href="mailto:fermdev@gmail.com"><span data-i18n="nav.mail">Escríbeme</span></a>
     <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu">
       <span class="visually-hidden" data-i18n="nav.open">Abrir menú</span><i></i><i></i>
     </button>
@@ -190,8 +271,8 @@
           </div>
 
           <!-- Modos del retrato (solo escritorio con ratón; src/main.ts): un sistema de presión como el selector de idioma. -->
-          <div class="modes" role="group" aria-label="Efecto al pasar el cursor por la foto" data-i18n-attr="aria-label:mode.label" data-blob="33" data-rings="2" data-on="0">
-            <span class="modes__knob" data-blob="9" data-rings="0" aria-hidden="true"></span>
+          <div class="modes" role="group" aria-label="Efecto al pasar el cursor por la foto" data-i18n-attr="aria-label:mode.label" data-blob="33" data-rings="2" data-paper="0.012 0.0035 22" data-on="0">
+            <span class="modes__knob" data-blob="9" data-rings="0" data-paper="0.012 0.012 10" aria-hidden="true"></span>
             <button type="button" data-mode="normal" aria-pressed="true"><svg aria-hidden="true"><use href="#i-m-normal"/></svg><span class="modes__tip" data-i18n="mode.normal">Normal</span></button>
             <button type="button" data-mode="xray" aria-pressed="false"><svg aria-hidden="true"><use href="#i-m-xray"/></svg><span class="modes__tip" data-i18n="mode.xray">Rayos X</span></button>
             <button type="button" data-mode="invert" aria-pressed="false"><svg aria-hidden="true"><use href="#i-m-invert"/></svg><span class="modes__tip" data-i18n="mode.invert">Colores invertidos</span></button>
@@ -209,7 +290,7 @@
             </h1>
             <!-- Presentación: un sistema de presión propio, una forma irregular que flota y respira con sus isobaras. -->
             <div class="hero__intro">
-              <div class="blob" data-blob="11" data-rings="2" data-blob-alt="4.6">
+              <div class="blob" data-blob="11" data-rings="2" data-blob-alt="4.6" data-paper="0.0038 0.006 42">
                 <div class="blob__in">
                   <p class="hero__kicker" data-i18n="hero.kicker">Full Stack Developer · Arrecife, Lanzarote</p>
                   <p class="hero__hi" data-i18n="hero.hi">Hola, soy Fernando.</p>
@@ -325,105 +406,117 @@
           </div>
         </section>
 
-        <!-- Proyectos: cada tarjeta tiene su propia composición (split, espejo, tríptico y menú de pausa). -->
-        <section class="work" id="proyectos" aria-labelledby="t-work">
+        <!-- Proyectos: dobles páginas editoriales. A un lado, el panel con el campo de color del proyecto y su escena (con
+             el logo como pegatina en la esquina); al otro, el texto sobre el papel. Los lados se alternan y una línea
+             discontinua central, con un punto que baja con el scroll, une los proyectos (src/main.ts). -->
+        <section class="work sheet" id="proyectos" aria-labelledby="t-work">
           <header class="work__head wrap">
             <h2 class="h2" id="t-work" data-split data-i18n="work.title">Proyectos</h2>
             <p class="work__lede" data-i18n="work.lede">Lo publicado primero. Cada proyecto tiene su propia ventana con capturas, cómo está hecho y enlaces.</p>
+            <span class="stamp work__stamp" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="stamp__edge" href="#st-edge"/><g class="stamp__spin"><circle class="stamp__dots" cx="60" cy="60" r="49"/><text class="stamp__txt"><textPath href="#st-ring" textLength="252">LANZAROTE · 28,96° N · 13,55° O ·</textPath></text></g><circle class="stamp__in" cx="60" cy="60" r="31"/></svg><i class="stamp__isle"></i></span>
           </header>
 
-          <article class="case case--lanzamet case--split" id="p-lanzamet" data-case aria-labelledby="t-lm" style="--field: var(--sky); --field-ink: var(--ocean)">
-            <div class="case__card" data-clip>
+          <div class="work__cases">
+            <div class="work__line" aria-hidden="true"><i class="work__fill"></i><b class="work__dot"></b></div>
+
+            <article class="case case--lanzamet" id="p-lanzamet" data-p="lanzamet" data-case aria-labelledby="t-lm">
+              <div class="case__panel">
+                <div class="case__media lm-media" data-clip aria-hidden="true">
+                  <div class="lm-media__map">
+                    <div class="isle isle--sea"></div>
+                    <ul class="zones">
+                      <li style="--x:46%;--y:80%">Puerto del Carmen</li>
+                      <li style="--x:14%;--y:92%">Playa Blanca</li>
+                      <li style="--x:68%;--y:71%">Arrecife</li>
+                      <li style="--x:79%;--y:62%">Costa Teguise</li>
+                      <li style="--x:65%;--y:42%">Famara</li>
+                      <li style="--x:85%;--y:18%">Órzola</li>
+                      <li style="--x:84%;--y:36%">Arrieta</li>
+                      <li style="--x:46%;--y:44%">La Santa</li>
+                      <li style="--x:16%;--y:69%">El Golfo</li>
+                    </ul>
+                  </div>
+                  <figure class="shot lm-media__desk">
+                    <img data-lm-desk src="/img/lanzamet-hoy-1600.webp" srcset="/img/lanzamet-hoy-600.webp 600w, /img/lanzamet-hoy-900.webp 900w, /img/lanzamet-hoy-1600.webp 1600w" sizes="(max-width: 999px) 84vw, min(38vw, 560px)" width="1600" height="900" alt="" loading="lazy" decoding="async">
+                  </figure>
+                  <figure class="shot shot--phone lm-media__phone">
+                    <img data-lm-phone src="/img/lanzamet-movil-900.webp" srcset="/img/lanzamet-movil-450.webp 450w, /img/lanzamet-movil-900.webp 900w" sizes="(max-width: 999px) 24vw, min(12vw, 170px)" width="900" height="1948" alt="" loading="lazy" decoding="async">
+                  </figure>
+                </div>
+                <!-- Vistas: un sistema de presión como el de los modos del retrato cambia las pantallas de LanzaMet (escritorio y móvil). -->
+                <div class="picker lm-views" role="group" aria-label="Pantalla de LanzaMet" data-i18n-attr="aria-label:lm.views" data-on="0">
+                  <span class="picker__knob" aria-hidden="true"></span>
+                  <button type="button" data-view="hoy" aria-pressed="true"><svg aria-hidden="true"><use href="#i-v-sun"/></svg><span class="picker__tip" data-i18n="lm.v1">Hoy, por horas</span></button>
+                  <button type="button" data-view="donde" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-pin"/></svg><span class="picker__tip" data-i18n="lm.v2">¿Dónde ir hoy?</span></button>
+                  <button type="button" data-view="mar" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-wave"/></svg><span class="picker__tip" data-i18n="lm.v3">El mar y la marea</span></button>
+                  <button type="button" data-view="atardecer" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-sunset"/></svg><span class="picker__tip" data-i18n="lm.v4">Atardecer</span></button>
+                </div>
+                <span class="sticker case__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-sol"/><use class="sticker__cut" href="#st-sol"/><use href="#st-sol"/></svg></span>
+              </div>
               <div class="case__text">
-                <h3 class="case__title" id="t-lm">LanzaMet</h3>
+                <h3 class="case__title" id="t-lm"><span>LanzaMet</span></h3>
                 <p class="case__kind" data-i18n="lm.kind">Producto propio · en producción desde octubre de 2026</p>
                 <p class="case__claim" data-i18n="lm.claim">El tiempo y el mar de Lanzarote, en palabras claras.</p>
                 <p class="case__body" data-i18n="lm.body">Idea, diseño y desarrollo propios: viento, mar y mareas en 9 zonas de la isla, previsión hora a hora y a 7 días, sin anuncios. Angular 22 con Signals y una API propia sobre Cloudflare Workers.</p>
-                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                <ul class="case__stack" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
                   <li>Angular 22</li><li>Signals</li><li>TypeScript</li><li>Cloudflare Workers</li><li>PWA</li><li>Vitest</li>
                 </ul>
                 <div class="case__actions">
-                  <a class="btn btn--lm" data-blob="41" data-rings="2" href="/proyectos/lanzamet" data-open="lanzamet"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="ring-link" href="/proyectos/lanzamet" data-open="lanzamet"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span><span data-i18n="case.open">Ver el proyecto</span></a>
                   <a class="link-out" href="https://lanzamet.com" target="_blank" rel="noopener">lanzamet.com<svg aria-hidden="true"><use href="#i-out"/></svg></a>
                   <a class="link-out" href="https://github.com/fmoorenoo/LanzaMet" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a>
                 </div>
               </div>
-              <div class="case__media lm-media" aria-hidden="true">
-                <div class="lm-media__map">
-                  <div class="isle isle--sea"></div>
-                  <ul class="zones">
-                    <li style="--x:46%;--y:80%">Puerto del Carmen</li>
-                    <li style="--x:14%;--y:92%">Playa Blanca</li>
-                    <li style="--x:68%;--y:71%">Arrecife</li>
-                    <li style="--x:79%;--y:62%">Costa Teguise</li>
-                    <li style="--x:65%;--y:42%">Famara</li>
-                    <li style="--x:85%;--y:18%">Órzola</li>
-                    <li style="--x:84%;--y:36%">Arrieta</li>
-                    <li style="--x:46%;--y:44%">La Santa</li>
-                    <li style="--x:16%;--y:69%">El Golfo</li>
-                  </ul>
-                </div>
-                <figure class="shot lm-media__desk">
-                  <img data-lm-desk src="/img/lanzamet-hoy-1600.webp" srcset="/img/lanzamet-hoy-600.webp 600w, /img/lanzamet-hoy-900.webp 900w, /img/lanzamet-hoy-1600.webp 1600w" sizes="(max-width: 900px) 80vw, min(36vw, 490px)" width="1600" height="900" alt="" loading="lazy" decoding="async">
-                </figure>
-                <figure class="shot shot--phone lm-media__phone">
-                  <img data-lm-phone src="/img/lanzamet-movil-900.webp" srcset="/img/lanzamet-movil-450.webp 450w, /img/lanzamet-movil-900.webp 900w" sizes="(max-width: 900px) 22vw, min(12vw, 165px)" width="900" height="1948" alt="" loading="lazy" decoding="async">
-                </figure>
-              </div>
-              <!-- Vistas: un sistema de presión como el de los modos del retrato cambia las pantallas de LanzaMet (escritorio y móvil). -->
-              <div class="picker lm-views" role="group" aria-label="Pantalla de LanzaMet" data-i18n-attr="aria-label:lm.views" data-blob="61" data-rings="2" data-on="0">
-                <span class="picker__knob" data-blob="62" data-rings="0" aria-hidden="true"></span>
-                <button type="button" data-view="hoy" aria-pressed="true"><svg aria-hidden="true"><use href="#i-v-sun"/></svg><span class="picker__tip" data-i18n="lm.v1">Hoy, por horas</span></button>
-                <button type="button" data-view="donde" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-pin"/></svg><span class="picker__tip" data-i18n="lm.v2">¿Dónde ir hoy?</span></button>
-                <button type="button" data-view="mar" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-wave"/></svg><span class="picker__tip" data-i18n="lm.v3">El mar y la marea</span></button>
-                <button type="button" data-view="atardecer" aria-pressed="false"><svg aria-hidden="true"><use href="#i-v-sunset"/></svg><span class="picker__tip" data-i18n="lm.v4">Atardecer</span></button>
-              </div>
-            </div>
-          </article>
+            </article>
 
-          <article class="case case--aceslan case--mirror" id="p-aceslan" data-case aria-labelledby="t-ac" style="--field: var(--ace-field); --field-ink: #FFFFFF">
-            <div class="case__card" data-clip>
+            <article class="case case--aceslan case--flip" id="p-aceslan" data-p="aceslan" data-case aria-labelledby="t-ac">
+              <div class="case__panel">
+                <div class="case__media ac-media" data-clip aria-hidden="true">
+                  <figure class="ac-media__browser">
+                    <div class="ac-media__bar"><i></i><i></i><i></i><span data-i18n="ac.panel">ACESLAN · Panel de administración</span></div>
+                    <img src="/img/ac-panel-incidencias-900.webp" srcset="/img/ac-panel-incidencias-600.webp 600w, /img/ac-panel-incidencias-900.webp 900w, /img/ac-panel-incidencias-1440.webp 1440w" sizes="(max-width: 999px) 88vw, min(44vw, 640px)" width="900" height="563" alt="" loading="lazy" decoding="async">
+                  </figure>
+                  <figure class="shot shot--phone ac-media__phone ac-media__phone--a"><img src="/img/ac-inicio.webp" srcset="/img/ac-inicio-360.webp 360w, /img/ac-inicio.webp 640w" sizes="(max-width: 999px) 28vw, min(13vw, 180px)" width="640" height="1365" alt="" loading="lazy" decoding="async"></figure>
+                  <figure class="shot shot--phone ac-media__phone ac-media__phone--b"><img src="/img/ac-incidencias.webp" srcset="/img/ac-incidencias-360.webp 360w, /img/ac-incidencias.webp 640w" sizes="(max-width: 999px) 28vw, min(13vw, 180px)" width="640" height="1365" alt="" loading="lazy" decoding="async"><span class="ac-push"><img src="/img/logo-aceslan.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><span class="ac-push__text"><b>ACESLAN <time data-i18n="ac.now">ahora</time></b><strong data-i18n="ac.pt">Aviso de prueba</strong><em data-i18n="ac.pb">Así llegan las alertas, recomendaciones y noticias del Consorcio.</em></span></span></figure>
+                </div>
+                <!-- Campana: envía un aviso de prueba al teléfono, que vibra al recibirlo (src/details.ts). -->
+                <button class="ac-bell" type="button" data-push><svg aria-hidden="true"><use href="#i-bell"/></svg><span class="picker__tip" data-i18n="ac.bell">Enviar un aviso de prueba</span></button>
+                <span class="sticker case__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-campana"/><use class="sticker__cut" href="#st-campana"/><use href="#st-campana"/></svg></span>
+              </div>
               <div class="case__text">
-                <h3 class="case__title" id="t-ac">ACESLAN</h3>
+                <h3 class="case__title" id="t-ac"><span>ACESLAN</span></h3>
                 <p class="case__kind" data-i18n="ac.kind">Experiencia profesional · febrero – junio de 2026</p>
                 <p class="case__claim" data-i18n="ac.claim">Incidencias y avisos para el Consorcio de Seguridad y Emergencias de Lanzarote y La Graciosa.</p>
                 <p class="case__body" data-i18n="ac.body">Desarrollo full stack a jornada completa: app móvil para Android e iOS, panel web de administración, backend en servidor online y despliegue. El Consorcio la presentó en beta en mayo de 2026.</p>
                 <p class="ac-press"><span data-i18n="ac.press">En la prensa</span> <a href="https://www.diariodelanzarote.com/noticia/el-consorcio-de-seguridad-y-emergencias-de-lanzarote-presenta-aceslan-la-nueva-aplicaci%C3%B3n" target="_blank" rel="noopener">Diario de Lanzarote<svg aria-hidden="true"><use href="#i-out"/></svg></a> <a href="https://www.lancelotdigital.com/lanzarote/aceslan-la-nueva-app-que-moderniza-la-seguridad-y-las-emergencias-en-lanzarote" target="_blank" rel="noopener">Lancelot Digital<svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
                 <div class="case__actions">
-                  <a class="btn btn--ace" data-blob="42" data-rings="2" href="/proyectos/aceslan" data-open="aceslan"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="ring-link" href="/proyectos/aceslan" data-open="aceslan"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span><span data-i18n="case.open">Ver el proyecto</span></a>
                 </div>
               </div>
-              <div class="case__media ac-media" aria-hidden="true">
-                <figure class="ac-media__browser">
-                  <div class="ac-media__bar"><i></i><i></i><i></i><span data-i18n="ac.panel">ACESLAN · Panel de administración</span></div>
-                  <img src="/img/ac-panel-incidencias-900.webp" srcset="/img/ac-panel-incidencias-600.webp 600w, /img/ac-panel-incidencias-900.webp 900w, /img/ac-panel-incidencias-1440.webp 1440w" sizes="(max-width: 900px) 85vw, min(45vw, 660px)" width="900" height="563" alt="" loading="lazy" decoding="async">
-                </figure>
-                <figure class="shot shot--phone ac-media__phone ac-media__phone--a"><img src="/img/ac-inicio.webp" srcset="/img/ac-inicio-360.webp 360w, /img/ac-inicio.webp 640w" sizes="(max-width: 900px) 28vw, min(13vw, 180px)" width="640" height="1365" alt="" loading="lazy" decoding="async"></figure>
-                <figure class="shot shot--phone ac-media__phone ac-media__phone--b"><img src="/img/ac-incidencias.webp" srcset="/img/ac-incidencias-360.webp 360w, /img/ac-incidencias.webp 640w" sizes="(max-width: 900px) 28vw, min(13vw, 180px)" width="640" height="1365" alt="" loading="lazy" decoding="async"><span class="ac-push"><img src="/img/logo-aceslan.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><span class="ac-push__text"><b>ACESLAN <time data-i18n="ac.now">ahora</time></b><strong data-i18n="ac.pt">Aviso de prueba</strong><em data-i18n="ac.pb">Así llegan las alertas, recomendaciones y noticias del Consorcio.</em></span></span></figure>
-              </div>
-              <!-- Campana: envía un aviso de prueba al teléfono, que vibra al recibirlo (src/details.ts). -->
-              <button class="ac-bell" type="button" data-push data-blob="63" data-rings="2"><svg aria-hidden="true"><use href="#i-bell"/></svg><span class="picker__tip" data-i18n="ac.bell">Enviar un aviso de prueba</span></button>
-            </div>
-          </article>
+            </article>
+          </div>
         </section>
 
         <!-- KORA: tramo horizontal -->
-        <section class="kora" id="kora" aria-labelledby="t-kora">
+        <section class="kora" id="kora" data-p="kora" aria-labelledby="t-kora">
           <div class="kora__pin">
             <div class="kora__track" data-htrack>
               <div class="kora__intro">
+                <span class="sticker kora__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-web"/><use class="sticker__cut" href="#st-web"/><use href="#st-web"/></svg></span>
                 <h2 class="kora__title" id="t-kora"><span class="kora-mark kora-mark--section"><img src="/img/kora-logo.svg" width="470" height="139" alt="KORA"><i class="kora-dot" aria-hidden="true"></i></span> <span>Digital Solutions</span></h2>
                 <p class="kora__role" data-i18n="ko.role">Cofundador · Desarrollo &amp; Tecnología · desde septiembre de 2025</p>
                 <blockquote class="kora__quote"><p data-i18n="ko.quote">«No hacemos webs. Creamos presencias digitales.»</p></blockquote>
                 <p class="kora__body" data-i18n="ko.body">Webs a medida para empresas: reservas, e-commerce, paneles de administración, bases de datos, áreas privadas, asistentes con IA y automatizaciones. Del prototipo al mantenimiento.</p>
                 <p class="kora__team" data-i18n="ko.team">Trabajo del equipo KORA — Iriem, Fernando y Fabio.</p>
                 <div class="case__actions">
-                  <a class="btn btn--kora" data-blob="43" data-rings="2" href="/proyectos/kora" data-open="kora"><span data-i18n="ko.open">Ver KORA en detalle</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="ring-link" href="/proyectos/kora" data-open="kora"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span><span data-i18n="ko.open">Ver KORA en detalle</span></a>
                   <a class="link-out" href="https://koradigitalsolutions.com" target="_blank" rel="noopener">koradigitalsolutions.com<svg aria-hidden="true"><use href="#i-out"/></svg></a>
                 </div>
                 <p class="kora__hint" aria-hidden="true"><span data-i18n="ko.hint">8 webs publicadas</span><svg><use href="#i-arrow"/></svg></p>
+                <span class="stamp kora__stamp" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="stamp__edge" href="#st-edge"/><g class="stamp__spin"><circle class="stamp__dots" cx="60" cy="60" r="49"/><text class="stamp__txt"><textPath href="#st-ring" textLength="252">KORA · DIGITAL SOLUTIONS · 2025 ·</textPath></text></g><circle class="stamp__in" cx="60" cy="60" r="31"/></svg><b class="stamp__num">8</b></span>
               </div>
               <div class="kora__rail">
+              <p class="kora__giant" aria-hidden="true">KORA<i>✳</i>Digital Solutions<i>✳</i>KORA</p>
               <ul class="sites" aria-label="Webs publicadas con KORA" data-i18n-attr="aria-label:ko.list">
                 <li class="site"><a href="https://formatxp.com" target="_blank" rel="noopener"><span class="site__shot"><img src="/img/kora-formatxp.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s1">Formación online</span><b class="site__name">FormatXP</b><span class="site__what" data-i18n="ko.f1">Vídeo protegido, comunidad, pagos directos y panel de creador.</span><span class="site__url">formatxp.com<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
                 <li class="site"><a href="https://carboncarbon.es" target="_blank" rel="noopener"><span class="site__shot"><img src="/img/kora-carboncarbon.webp" width="720" height="720" alt="" loading="lazy" decoding="async"></span><span class="site__info"><span class="site__sector" data-i18n="ko.s2">Restauración · Arrecife</span><b class="site__name">Carbón Carbón</b><span class="site__what" data-i18n="ko.f2">Reservas, carta digital y reseñas de Google.</span><span class="site__url">carboncarbon.es<svg aria-hidden="true"><use href="#i-out"/></svg></span></span></a></li>
@@ -441,72 +534,72 @@
           </div>
         </section>
 
-        <!-- HairCloud y archivo -->
-        <section class="work work--b" aria-label="Proyectos académicos" data-i18n-attr="aria-label:work.academic">
-          <article class="case case--hair case--triptych" id="p-haircloud" data-case aria-labelledby="t-hc" style="--field: var(--cloud-field); --field-ink: var(--cloud-ink)">
-            <div class="case__card" data-clip>
-              <div class="case__text">
-                <div class="case__lead">
-                  <h3 class="case__title" id="t-hc">HairCloud</h3>
-                  <p class="case__kind" data-i18n="hc.kind">Proyecto final de DAM · marzo – mayo de 2025</p>
-                  <p class="case__claim" data-i18n="hc.claim">Reservas para peluquerías, con app Android y API propia.</p>
+        <!-- HairCloud, Haría Game y archivo: las mismas dobles páginas, después de KORA. -->
+        <section class="work work--b sheet" aria-label="Proyectos académicos" data-i18n-attr="aria-label:work.academic">
+          <div class="work__cases">
+            <div class="work__line" aria-hidden="true"><i class="work__fill"></i><b class="work__dot"></b></div>
+
+            <article class="case case--hair" id="p-haircloud" data-p="haircloud" data-case aria-labelledby="t-hc">
+              <div class="case__panel">
+                <!-- Tres teléfonos que asoman por el borde inferior, el del centro delante. -->
+                <div class="case__media hc-media" data-clip aria-hidden="true">
+                  <figure class="shot shot--phone hc-media__phone hc-media__phone--l"><img src="/img/hc-barberias.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
+                  <figure class="shot shot--phone hc-media__phone hc-media__phone--c"><img src="/img/hc-detalle.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
+                  <figure class="shot shot--phone hc-media__phone hc-media__phone--r"><img src="/img/hc-agenda.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
                 </div>
-                <div class="case__more">
+                <span class="sticker case__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-tijeras"/><use class="sticker__cut" href="#st-tijeras"/><use href="#st-tijeras"/></svg></span>
+              </div>
+              <div class="case__text">
+                <h3 class="case__title" id="t-hc"><span>HairCloud</span></h3>
+                <p class="case__kind" data-i18n="hc.kind">Proyecto final de DAM · marzo – mayo de 2025</p>
+                <p class="case__claim" data-i18n="hc.claim">Reservas para peluquerías, con app Android y API propia.</p>
                 <p class="case__body" data-i18n="hc.body">29 pantallas en Jetpack Compose y 45 rutas REST en 9 módulos de Flask, con PostgreSQL, JWT y correo. 376 commits en tres meses, con el anteproyecto y los diseños en el repositorio.</p>
-                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                <ul class="case__stack" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
                   <li>Kotlin</li><li>Jetpack Compose</li><li>Flask</li><li>PostgreSQL</li><li>JWT</li>
                 </ul>
                 <div class="case__actions">
-                  <a class="btn btn--hc" data-blob="44" data-rings="2" href="/proyectos/haircloud" data-open="haircloud"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="ring-link" href="/proyectos/haircloud" data-open="haircloud"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span><span data-i18n="case.open">Ver el proyecto</span></a>
                   <a class="link-out" href="https://github.com/fmoorenoo/HairCloud" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a>
                 </div>
-                </div>
               </div>
-              <!-- Tríptico: el titular a la izquierda, los teléfonos en el centro asomando por abajo y el resto a la derecha. -->
-              <div class="case__media hc-media" aria-hidden="true">
-                <figure class="shot shot--phone hc-media__phone hc-media__phone--l"><img src="/img/hc-barberias.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
-                <figure class="shot shot--phone hc-media__phone hc-media__phone--c"><img src="/img/hc-detalle.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
-                <figure class="shot shot--phone hc-media__phone hc-media__phone--r"><img src="/img/hc-agenda.webp" width="640" height="1346" alt="" loading="lazy" decoding="async"></figure>
-              </div>
-            </div>
-          </article>
+            </article>
 
-          <article class="case case--game case--pause" id="p-hariagame" data-case aria-labelledby="t-hg" style="--field: var(--hg-field); --field-ink: #FFFFFF">
-            <div class="case__card" data-clip>
-              <div class="case__text">
-                <div class="case__lead">
-                  <h3 class="case__title" id="t-hg">Haría Game</h3>
-                  <p class="case__kind" data-i18n="hg.kind">Proyecto de DAM · Unity y C# · febrero de 2025</p>
-                  <p class="case__claim" data-i18n="hg.claim">Mi instituto, el IES Haría, convertido en un videojuego 3D.</p>
+            <article class="case case--game case--flip" id="p-hariagame" data-p="hariagame" data-case aria-labelledby="t-hg">
+              <div class="case__panel">
+                <!-- La pista del juego a todo el panel y la entrada del instituto encajada abajo. -->
+                <div class="case__media hg-media" data-clip aria-hidden="true">
+                  <figure class="hg-media__bg"><img src="/img/hg-pista-1440.webp" srcset="/img/hg-pista-900.webp 900w, /img/hg-pista-1440.webp 1440w" sizes="(max-width: 999px) 92vw, 50vw" width="1440" height="742" alt="" loading="lazy" decoding="async"></figure>
+                  <figure class="hg-media__inset"><img src="/img/hg-entrada-900.webp" width="900" height="507" alt="" loading="lazy" decoding="async"></figure>
                 </div>
-                <div class="case__more">
+                <span class="sticker case__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-palma"/><use class="sticker__cut" href="#st-palma"/><use href="#st-palma"/></svg></span>
+              </div>
+              <div class="case__text">
+                <h3 class="case__title" id="t-hg"><span>Haría Game</span></h3>
+                <p class="case__kind" data-i18n="hg.kind">Proyecto de DAM · Unity y C# · febrero de 2025</p>
+                <p class="case__claim" data-i18n="hg.claim">Mi instituto, el IES Haría, convertido en un videojuego 3D.</p>
                 <p class="case__body" data-i18n="hg.body">La pista de fútbol, el edificio con su rótulo, el paseo junto al muro de piedra volcánica y las palmeras, reconocibles en Unity. Cinco monedas, una llave y 180 segundos para salir, con un enemigo que te persigue con NavMeshAgent.</p>
-                <ul class="chips chips--quiet" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
+                <ul class="case__stack" aria-label="Tecnologías" data-i18n-attr="aria-label:tech.label">
                   <li>Unity</li><li>C#</li><li>NavMeshAgent</li><li>TextMesh Pro</li>
                 </ul>
                 <div class="case__actions">
-                  <a class="btn btn--game" data-blob="45" data-rings="2" href="/proyectos/hariagame" data-open="hariagame"><span data-i18n="case.open">Ver el proyecto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a class="ring-link" href="/proyectos/hariagame" data-open="hariagame"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span><span data-i18n="case.open">Ver el proyecto</span></a>
                   <a class="link-out" href="https://github.com/fmoorenoo/HariaGame" target="_blank" rel="noopener">GitHub<svg aria-hidden="true"><use href="#i-out"/></svg></a>
                 </div>
-                </div>
               </div>
-              <!-- Imágenes del juego bajo el menú de pausa: la pista a toda la tarjeta y la entrada del instituto encajada. -->
-              <div class="case__media hg-media" aria-hidden="true">
-                <figure class="hg-media__bg"><img src="/img/hg-pista-1440.webp" srcset="/img/hg-pista-900.webp 900w, /img/hg-pista-1440.webp 1440w" sizes="(max-width: 900px) 100vw, 90vw" width="1440" height="742" alt="" loading="lazy" decoding="async"></figure>
-                <figure class="hg-media__inset"><img src="/img/hg-entrada-900.webp" width="900" height="507" alt="" loading="lazy" decoding="async"></figure>
-              </div>
-            </div>
-          </article>
+            </article>
+          </div>
 
+          <!-- Archivo: un índice en filas, separadas por filetes. Al pasar el ratón la fila se rellena de tinta y su
+               flecha gira; cada una lleva a su repositorio. -->
           <div class="archive wrap" id="archivo" aria-labelledby="t-archive">
             <h3 class="archive__title" id="t-archive" data-i18n="ar.title">También en GitHub</h3>
             <ul class="archive__list" data-rows>
-              <li><a href="https://github.com/fmoorenoo/cursos_online" target="_blank" rel="noopener"><b>CertiFer</b><span data-i18n="ar.1">Catálogo de cursos con carrito y login</span><em>Vue 3 · PHP · MySQL</em><time>2026</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://github.com/fmoorenoo/GestorProyectosAlexsoft" target="_blank" rel="noopener"><b>Gestor Alexsoft</b><span data-i18n="ar.2">App de escritorio con API propia</span><em>Compose Desktop · Ktor · Flask</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://fmoorenoo.github.io/TagMasterPage/" target="_blank" rel="noopener"><b>TagMaster</b><span data-i18n="ar.4">Juego educativo, jugable en el navegador</span><em>Unity · WebGL</em><time>2025</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://github.com/fmoorenoo/perdidasLanzarote" target="_blank" rel="noopener"><b>Pérdidas Lanzarote</b><span data-i18n="ar.5">Objetos perdidos de la isla, en un mapa</span><em>Kotlin · Room · osmdroid</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://github.com/fmoorenoo/mapRoomApp" target="_blank" rel="noopener"><b data-i18n="ar.6t">Fundamentos Android</b><span>Map Room · Task Room · HIIT Timer</span><em>Kotlin · Compose</em><time>2024</time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
-              <li><a href="https://github.com/fmoorenoo/ChatServer" target="_blank" rel="noopener"><b>ChatServer</b><span data-i18n="ar.7">Chat TCP multicliente con un hilo por cliente</span><em>Java 21</em><time></time><svg aria-hidden="true"><use href="#i-out"/></svg></a></li>
+              <li><a href="https://github.com/fmoorenoo/cursos_online" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b>CertiFer</b><span data-i18n="ar.1">Catálogo de cursos con carrito y login</span><em>Vue 3 · PHP · MySQL</em><time>2026</time></a></li>
+              <li><a href="https://github.com/fmoorenoo/GestorProyectosAlexsoft" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b>Gestor Alexsoft</b><span data-i18n="ar.2">App de escritorio con API propia</span><em>Compose Desktop · Ktor · Flask</em><time>2025</time></a></li>
+              <li><a href="https://fmoorenoo.github.io/TagMasterPage/" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b>TagMaster</b><span data-i18n="ar.4">Juego educativo, jugable en el navegador</span><em>Unity · WebGL</em><time>2025</time></a></li>
+              <li><a href="https://github.com/fmoorenoo/perdidasLanzarote" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b>Pérdidas Lanzarote</b><span data-i18n="ar.5">Objetos perdidos de la isla, en un mapa</span><em>Kotlin · Room · osmdroid</em><time>2024</time></a></li>
+              <li><a href="https://github.com/fmoorenoo/mapRoomApp" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b data-i18n="ar.6t">Fundamentos Android</b><span>Map Room · Task Room · HIIT Timer</span><em>Kotlin · Compose</em><time>2024</time></a></li>
+              <li><a href="https://github.com/fmoorenoo/ChatServer" target="_blank" rel="noopener"><span class="archive__go" aria-hidden="true"><svg><use href="#i-out"/></svg></span><b>ChatServer</b><span data-i18n="ar.7">Chat TCP multicliente con un hilo por cliente</span><em>Java 21</em><time></time></a></li>
             </ul>
           </div>
         </section>
@@ -591,34 +684,44 @@
           </div>
         </section>
 
-        <!-- Trayectoria: barograma horizontal -->
-        <section class="route" id="trayectoria" aria-labelledby="t-route">
+        <!-- Trayectoria: barograma -->
+        <section class="route sheet" id="trayectoria" aria-labelledby="t-route">
           <svg class="front front--warm" data-front="warm" aria-hidden="true"></svg>
           <div class="route__pin">
             <div class="route__head wrap">
               <h2 class="h2 route__title" id="t-route" data-i18n="rt.title">Trayectoria</h2>
+              <span class="sticker route__sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#st-volcan"/><use class="sticker__cut" href="#st-volcan"/><use href="#st-volcan"/></svg></span>
               <div class="route__aside">
                 <p class="route__lede" data-i18n="rt.lede">De mi primera web en 2024 a un producto propio en producción en 2026.</p>
                 <ul class="route__legend" aria-hidden="true">
-                  <li data-t="edu" data-i18n="rt.t.edu">Formación</li><li data-t="work" data-i18n="rt.t.work">Trabajo</li><li data-t="proj" data-i18n="rt.t.proj">Proyecto</li><li data-t="co" data-i18n="rt.t.co">Agencia</li>
+                  <li data-t="edu"><svg aria-hidden="true"><use href="#i-t-edu"/></svg><span data-i18n="rt.t.edu">Formación</span></li><li data-t="work"><svg aria-hidden="true"><use href="#i-t-work"/></svg><span data-i18n="rt.t.work">Trabajo</span></li><li data-t="proj"><svg aria-hidden="true"><use href="#i-t-proj"/></svg><span data-i18n="rt.t.proj">Proyecto</span></li><li data-t="co"><svg aria-hidden="true"><use href="#i-t-co"/></svg><span data-i18n="rt.t.co">Agencia</span></li>
                 </ul>
               </div>
             </div>
+            <!-- Escritorio: barograma horizontal anclado; la traza discontinua es el recorrido entero y la de tinta se dibuja
+                 con el scroll, con un punto en su punta que va encendiendo cada hito al alcanzarlo. Móvil: la misma
+                 historia en vertical con el scroll nativo; el punto baja por la línea (src/main.ts). -->
             <div class="route__track" data-htrack>
-              <svg class="route__trace" aria-hidden="true" preserveAspectRatio="none"><path data-trace/></svg>
+              <!-- Dos capas: la fija (recorrido discontinuo y años) no se repinta; la viva solo lleva el trazo que se dibuja. -->
+              <svg class="route__trace route__trace--base" aria-hidden="true" preserveAspectRatio="none"><path class="route__ghost" data-ghost/></svg>
+              <svg class="route__trace route__trace--live" aria-hidden="true" preserveAspectRatio="none"><path data-trace/></svg>
+              <span class="route__fill" aria-hidden="true"></span>
+              <span class="route__dot" aria-hidden="true"></span>
               <ol class="route__list">
-                <li style="--lvl: 0.12" data-t="edu" data-year="2021"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2021 — 2023</time><b data-i18n="rt.1">Bachillerato de Ciencias de la Salud</b><span>IES Haría</span></li>
-                <li style="--lvl: 0.2" data-t="edu" data-year="2023"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2023 — 2025</time><b data-i18n="rt.2">Desarrollo de Aplicaciones Multiplataforma (DAM)</b><span>IES Haría</span></li>
-                <li style="--lvl: 0.28" data-t="proj" data-year="2024"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.3d">Mayo 2024</time><b data-i18n="rt.3">Mi primera web, para el San Bartolomé C.F.</b><span><a href="https://fmoorenoo.github.io/San-Bartolome/" target="_blank" rel="noopener" data-i18n="rt.3l">HTML, CSS y JavaScript sin frameworks</a></span></li>
-                <li style="--lvl: 0.36" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.4d">Oct. — dic. 2024</time><b data-i18n="rt.4">Primeras apps Android</b><span>Kotlin · Compose · Room</span></li>
-                <li style="--lvl: 0.46" data-t="work" data-year="2025"><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.5d">Feb. — jun. 2025</time><b data-i18n="rt.5">Prácticas full stack en GISECLOUD</b><span>Técnicas Competitivas S.A. · Angular · C#</span></li>
-                <li style="--lvl: 0.54" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.6d">Mar. — may. 2025</time><b data-i18n="rt.6">HairCloud, proyecto final de DAM</b><span data-i18n="rt.6s">376 commits</span></li>
-                <li style="--lvl: 0.64" data-t="co"><em class="route__tag" data-i18n="rt.t.co">Agencia</em><time data-i18n="rt.7d">Sept. 2025</time><b data-i18n="rt.7">Cofundo KORA Digital Solutions</b><span data-i18n="rt.7s">Desarrollo &amp; Tecnología</span></li>
-                <li style="--lvl: 0.7" data-t="edu"><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2025 — 2026</time><b data-i18n="rt.8">Desarrollo de Aplicaciones Web (DAW)</b><span>CIFP Zonzamas</span></li>
-                <li style="--lvl: 0.8" data-t="work" data-year="2026"><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.9d">Feb. — jun. 2026</time><b data-i18n="rt.9">ACESLAN para el Consorcio de Emergencias</b><span data-i18n="rt.9s">Presentada en mayo de 2026</span></li>
-                <li style="--lvl: 0.9" data-t="proj"><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.10d">Oct. 2026</time><b data-i18n="rt.10">LanzaMet, en producción</b><span>lanzamet.com</span></li>
-                <li class="route__now" style="--lvl: 0.97" data-t="now"><em class="route__tag" data-i18n="rt.t.now">Hoy</em><time data-i18n="rt.11d">Ahora</time><b data-i18n="rt.11">Busco mi próximo equipo como Full Stack Junior</b><span data-i18n="rt.11s">Remoto, híbrido o presencial</span></li>
+                <li style="--lvl: 0.12" data-t="edu" data-year="2021"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-edu"/></svg></i><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2021 — 2023</time><b data-i18n="rt.1">Bachillerato de Ciencias de la Salud</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.2" data-t="edu" data-year="2023"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-edu"/></svg></i><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2023 — 2025</time><b data-i18n="rt.2">Desarrollo de Aplicaciones Multiplataforma (DAM)</b><span>IES Haría</span></li>
+                <li style="--lvl: 0.28" data-t="proj" data-year="2024"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-proj"/></svg></i><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.3d">Mayo 2024</time><b data-i18n="rt.3">Mi primera web, para el San Bartolomé C.F.</b><span><a href="https://fmoorenoo.github.io/San-Bartolome/" target="_blank" rel="noopener" data-i18n="rt.3l">HTML, CSS y JavaScript sin frameworks</a></span></li>
+                <li style="--lvl: 0.36" data-t="proj"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-proj"/></svg></i><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.4d">Oct. — dic. 2024</time><b data-i18n="rt.4">Primeras apps Android</b><span>Kotlin · Compose · Room</span></li>
+                <li style="--lvl: 0.46" data-t="work" data-year="2025"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-work"/></svg></i><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.5d">Feb. — jun. 2025</time><b data-i18n="rt.5">Prácticas full stack en GISECLOUD</b><span>Técnicas Competitivas S.A. · Angular · C#</span></li>
+                <li style="--lvl: 0.54" data-t="proj"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-proj"/></svg></i><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.6d">Mar. — may. 2025</time><b data-i18n="rt.6">HairCloud, proyecto final de DAM</b><span data-i18n="rt.6s">376 commits</span></li>
+                <li style="--lvl: 0.64" data-t="co"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-co"/></svg></i><em class="route__tag" data-i18n="rt.t.co">Agencia</em><time data-i18n="rt.7d">Sept. 2025</time><b data-i18n="rt.7">Cofundo KORA Digital Solutions</b><span data-i18n="rt.7s">Desarrollo &amp; Tecnología</span></li>
+                <li style="--lvl: 0.7" data-t="edu"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-edu"/></svg></i><em class="route__tag" data-i18n="rt.t.edu">Formación</em><time>2025 — 2026</time><b data-i18n="rt.8">Desarrollo de Aplicaciones Web (DAW)</b><span>CIFP Zonzamas</span></li>
+                <li style="--lvl: 0.8" data-t="work" data-year="2026"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-work"/></svg></i><em class="route__tag" data-i18n="rt.t.work">Trabajo</em><time data-i18n="rt.9d">Feb. — jun. 2026</time><b data-i18n="rt.9">ACESLAN para el Consorcio de Emergencias</b><span data-i18n="rt.9s">Presentada en mayo de 2026</span></li>
+                <li style="--lvl: 0.9" data-t="proj"><i class="route__st" aria-hidden="true"><svg><use href="#i-t-proj"/></svg></i><em class="route__tag" data-i18n="rt.t.proj">Proyecto</em><time data-i18n="rt.10d">Oct. 2026</time><b data-i18n="rt.10">LanzaMet, en producción</b><span>lanzamet.com</span></li>
+                <li class="route__now" style="--lvl: 0.97" data-t="now"><i class="route__st" aria-hidden="true"><svg><use href="#i-v-sun"/></svg></i><em class="route__tag" data-i18n="rt.t.now">Hoy</em><time data-i18n="rt.11d">Ahora</time><b data-i18n="rt.11">Busco mi próximo equipo como Full Stack Junior</b><span data-i18n="rt.11s">Remoto, híbrido o presencial</span></li>
               </ol>
+              <!-- Sello de llegada, tras «Hoy». -->
+              <span class="stamp route__stamp" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="stamp__edge" href="#st-edge"/><g class="stamp__spin"><circle class="stamp__dots" cx="60" cy="60" r="49"/><text class="stamp__txt"><textPath href="#st-ring" textLength="252">2021 · 2022 · 2023 · 2024 · 2025 · 2026 ·</textPath></text></g><circle class="stamp__in" cx="60" cy="60" r="31"/></svg><i class="stamp__sol"></i></span>
             </div>
             <div class="hbar" aria-hidden="true"><i data-hbar></i></div>
           </div>

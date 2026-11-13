@@ -2,12 +2,10 @@
 // hasta ocupar la pantalla y se cierran de vuelta a ella. Esc cierra; ← y → cambian de proyecto.
 import { gsap } from 'gsap';
 import { projects, type Lang, type Project, type Shot } from './content';
-import { mountBlobs } from './blobs';
 
-const INK: Record<string, string> = { sky: 'var(--ocean)', warm: '#2A0E07', 'ace-field': '#FFFFFF', 'kora-field': 'var(--kora-text)', 'cloud-field': 'var(--cloud-ink)', 'hg-field': '#FFFFFF' };
-// Color sólido de cada campo (los hay en degradado) y su acento, para botones y detalles con contraste.
-const BASE: Record<string, string> = { sky: 'var(--sky)', 'ace-field': 'var(--ace)', 'kora-field': 'var(--kora)', 'cloud-field': 'var(--cloud)', 'hg-field': 'var(--hg)' };
-const ACCENT: Record<string, string> = { sky: 'var(--cold)', 'ace-field': 'var(--ace-red)', 'kora-field': 'var(--kora-pink)', 'cloud-field': 'var(--cloud-blue)', 'hg-field': 'var(--hg-green)' };
+// Los colores de cada proyecto van en styles.css, por su slug ([data-p]); aquí solo su pegatina (símbolos st-* de
+// index.html), la misma que lleva su doble página.
+const STICKER: Record<string, string> = { lanzamet: 'st-sol', aceslan: 'st-campana', kora: 'st-web', haircloud: 'st-tijeras', hariagame: 'st-palma' };
 const ui = {
   next: { es: 'Siguiente proyecto', en: 'Next project' },
   stack: { es: 'Tecnologías', en: 'Technologies' },
@@ -21,6 +19,13 @@ const ui = {
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 const route = (slug: string) => `/proyectos/${slug}/`;
 const slugFrom = (path: string) => path.match(/^\/proyectos\/([\w-]+)\/?$/)?.[1] ?? null;
+
+/** De dónde crece la ventana: el panel de color del proyecto (su botón está en el texto, al otro lado de la doble
+ *  página) o, en KORA, su presentación. */
+function originOf(a: Element | null): Element | null {
+  if (!a) return null;
+  return a.closest('[data-case]')?.querySelector('[data-clip]') ?? a.closest('[data-clip], .kora__intro');
+}
 
 export class Windows {
   private el = document.getElementById('win')!;
@@ -39,7 +44,7 @@ export class Windows {
       const a = (e.target as Element).closest<HTMLAnchorElement>('[data-open]');
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       e.preventDefault();
-      this.open(a.dataset.open!, a.closest('[data-clip], .kora__intro') ?? a);
+      this.open(a.dataset.open!, originOf(a) ?? a);
     });
     this.el.querySelector('[data-win-close]')!.addEventListener('click', () => this.close());
     this.el.addEventListener('click', (e) => {
@@ -95,7 +100,7 @@ export class Windows {
     const i = projects.indexOf(this.current);
     const p = projects[(i + dir + projects.length) % projects.length];
     history.replaceState({ win: p.slug }, '', route(p.slug));
-    this.origin = document.querySelector(`[data-open="${p.slug}"]`)?.closest('[data-clip], .kora__intro') ?? null;
+    this.origin = originOf(document.querySelector(`[data-open="${p.slug}"]`));
     this.show(p, null, true);
   }
 
@@ -104,7 +109,7 @@ export class Windows {
     const switching = wasOpen && this.current !== p;
     this.current = p;
     if (from) this.origin = from;
-    else if (!wasOpen) this.origin = document.querySelector(`[data-open="${p.slug}"]`)?.closest('[data-clip], .kora__intro') ?? null;
+    else if (!wasOpen) this.origin = originOf(document.querySelector(`[data-open="${p.slug}"]`));
     this.render(p);
     document.title = `${p.name} ${ui.title[this.lang()]}`;
     const anim = animate && this.motion();
@@ -145,7 +150,9 @@ export class Windows {
     const r = el?.getBoundingClientRect();
     const vw = innerWidth, vh = innerHeight;
     if (r && r.bottom > 0 && r.top < vh && r.width > 0) {
-      const rad = parseFloat(getComputedStyle(el!).borderRadius) || 28;
+      // Los paneles del cuaderno son rectos: 0 es un radio válido, no un valor ausente.
+      const r0 = parseFloat(getComputedStyle(el!).borderRadius);
+      const rad = Number.isNaN(r0) ? 28 : r0;
       return `inset(${Math.max(0, r.top)}px ${Math.max(0, vw - r.right)}px ${Math.max(0, vh - r.bottom)}px ${Math.max(0, r.left)}px round ${rad}px)`;
     }
     return closing ? `inset(${vh}px 0px 0px 0px round 0px)` : `inset(${vh * 0.6}px 6% 0px 6% round 28px)`;
@@ -166,7 +173,6 @@ export class Windows {
     this.el.querySelector('[data-win-slug]')!.textContent = p.slug;
     this.el.querySelector<HTMLAnchorElement>('[data-win-prev]')!.href = route(prev.slug);
     this.el.querySelector<HTMLAnchorElement>('[data-win-next]')!.href = route(next.slug);
-    const field = (f: string) => `--field: var(--${f}); --field-ink: ${INK[f]}; --field-base: ${BASE[f]}; --field-accent: ${ACCENT[f]}`;
 
     // Cada imagen va en el soporte de lo que es: pantalla (navegador o juego), teléfono, vista previa o documento.
     const img = (s: Shot, sizes: string, eager = false) =>
@@ -226,16 +232,21 @@ export class Windows {
     const list = p.list
       ? `<section class="cs-block"><h3 class="cs-h">${esc(p.list.title[L])}</h3><ul class="cs-list" data-reveal>${p.list.items.map((x) => `<li>${esc(x[L])}</li>`).join('')}</ul></section>`
       : '';
-    // El enlace principal es un botón con forma, en los colores del proyecto (styles.css, .cs-btn); su semilla
-    // depende del proyecto para que cada uno tenga su contorno.
-    const links = p.links.map((l, k) => `<a class="btn ${k ? 'btn--line cs-btn-line' : 'cs-btn" data-blob="${51 + i}" data-rings="2'}" href="${l.href}" target="_blank" rel="noopener"><span>${esc(l.label[L])}</span><svg aria-hidden="true"><use href="#i-out"/></svg></a>`).join('');
+    // Como en la doble página: el enlace principal, la flecha en su anillo; el resto, enlaces subrayados.
+    const links = p.links.map((l, k) => k
+      ? `<a class="link-out" href="${l.href}" target="_blank" rel="noopener">${esc(l.label[L])}<svg aria-hidden="true"><use href="#i-out"/></svg></a>`
+      : `<a class="ring-link" href="${l.href}" target="_blank" rel="noopener"><span class="ring-link__ring" aria-hidden="true"><svg><use href="#i-out"/></svg></span><span>${esc(l.label[L])}</span></a>`).join('');
+    const sticker = STICKER[p.slug]
+      ? `<span class="sticker cs-sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><use class="sticker__shadow" href="#${STICKER[p.slug]}"/><use class="sticker__cut" href="#${STICKER[p.slug]}"/><use href="#${STICKER[p.slug]}"/></svg></span>`
+      : '';
     const nextShot = next.shots[0];
     // Logotipo real con su punto (KORA): el punto es parte de la marca, no del SVG.
     const logo = (q: Project, cls: string) => `<span class="kora-mark ${cls}"><img src="${q.logo}" alt="${esc(q.name)}" width="470" height="139"><i class="kora-dot" aria-hidden="true"></i></span>`;
 
     this.page.innerHTML = `
-      <div class="cs" data-cs="${p.field}" style="${field(p.field)}">
+      <div class="cs" data-cs="${p.field}" data-p="${p.slug}">
         <header class="cs-hero${stage ? '' : ' cs-hero--plain'}">
+          ${sticker}
           <div class="cs-hero__in wrap">
             <div class="cs-hero__id">
               <h2 class="cs-name" id="win-title" data-in>${p.logo ? logo(p, 'cs-mark') : esc(p.name)}</h2>
@@ -260,12 +271,11 @@ export class Windows {
             ${list}
           </div>
         </div>
-        <a class="cs-next" href="${route(next.slug)}" data-win-go="next" style="${field(next.field)}">
+        <a class="cs-next" href="${route(next.slug)}" data-win-go="next" data-p="${next.slug}">
           <span class="cs-next__text"><small>${ui.next[L]}</small><b>${next.logo ? logo(next, 'cs-mark cs-mark--next') : esc(next.name)}<svg aria-hidden="true"><use href="#i-arrow"/></svg></b><em>${esc(next.claim[L])}</em></span>
           ${nextShot ? `<span class="cs-next__thumb" aria-hidden="true"><img src="${nextShot.src}" alt="" width="${nextShot.w}" height="${nextShot.h}" loading="lazy"></span>` : ''}
         </a>
       </div>`;
-    mountBlobs(this.page);
     this.reveal();
   }
 

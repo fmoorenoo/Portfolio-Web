@@ -8,6 +8,7 @@ const en: Record<string, string> = {
   'nav.label': 'Sections',
   'nav.edu': 'Education',
   'nav.work': 'Work',
+  'nav.stack': 'Stack',
   'nav.path': 'Path',
   'nav.contact': 'Contact',
   'nav.mail': 'Email me',

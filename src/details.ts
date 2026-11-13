@@ -167,45 +167,6 @@ export function lanzametViews() {
   }));
 }
 
-/** HairCloud en escritorio: los tres teléfonos se centran en el hueco que dejan los dos textos, no en su columna. La
- *  columna del titular es más ancha que su texto (el título tiene un tope de tamaño) y ese sobrante crece con el
- *  ancho, así que se mide el texto real y el grupo se desplaza con «--hc-shift» (styles.css). El grupo es simétrico
- *  respecto al centro de .hc-media. Se rehace al cambiar el tamaño de la tarjeta, las fuentes o el idioma. */
-export function hairCloudCenter() {
-  const card = document.querySelector<HTMLElement>('#p-haircloud .case__card');
-  const media = card?.querySelector<HTMLElement>('.hc-media');
-  const lead = card?.querySelector<HTMLElement>('.case__lead');
-  const more = card?.querySelector<HTMLElement>('.case__more');
-  if (!card || !media || !lead || !more) return () => undefined;
-  const desk = matchMedia('(min-width: 901px)');
-  // Cajas de las líneas de texto, no de los bloques (un párrafo ocupa toda su columna aunque su texto sea más corto).
-  const ink = (el: HTMLElement) => {
-    const rects: DOMRect[] = [];
-    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    const range = document.createRange();
-    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
-      if (!n.nodeValue?.trim()) continue;
-      range.selectNodeContents(n);
-      rects.push(...range.getClientRects());
-    }
-    return rects;
-  };
-  const fit = () => {
-    if (!desk.matches) { media.style.removeProperty('--hc-shift'); return; }
-    const left = ink(lead), right = ink(more);
-    if (!left.length || !right.length) return;
-    const textL = Math.max(...left.map((r) => r.right));
-    const textR = Math.min(...right.map((r) => r.left));
-    const box = media.getBoundingClientRect();
-    const current = parseFloat(media.style.getPropertyValue('--hc-shift')) || 0;
-    const center = box.left - current + box.width / 2;
-    media.style.setProperty('--hc-shift', `${Math.round((textL + textR) / 2 - center)}px`);
-  };
-  new ResizeObserver(() => fit()).observe(card);
-  document.fonts.ready.then(fit);
-  return fit;
-}
-
 /** ACESLAN: la campana envía un aviso de prueba al teléfono, que vibra al recibirlo. Solo al pulsarla: nunca llega
  *  un aviso por sí solo. */
 export function acePush() {

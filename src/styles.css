@@ -53,6 +53,21 @@
   --cloud-blue: #3D8FE5;
   --cloud-ink: #FFFFFF;
   --cloud-field: linear-gradient(180deg, var(--cloud) 0%, var(--cloud-2) 100%);
+  /* Cuaderno de campo (Proyectos, KORA y Trayectoria): papel crema, dos tintas verdes y la calima como acento. */
+  --crema: #F1EFE8;
+  --bosque: #16463A;
+  --hoja: #0D7A4C;
+  --brote: #A9D6A8;
+  --tinta-cuaderno: #3A594F;
+  --papel: var(--crema) url('/img/papel-crema.webp');
+  /* KORA: un carbón algo más claro que el negro de su web. */
+  --kora-bg: #27272C;
+  --papel-bosque: var(--bosque) url('/img/papel-bosque.webp');
+  /* Grano neutro (SVG, se rasteriza una vez): con «overlay» modula cualquier color plano sin cambiarle el tono. */
+  --grano: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27240%27%20height%3D%27240%27%3E%3Cfilter%20id%3D%27g%27%20color-interpolation-filters%3D%27sRGB%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%27.82%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%271%200%200%200%200.000%201%200%200%200%200.000%201%200%200%200%200.000%200%200%200%200%201%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23g%29%27%2F%3E%3C%2Fsvg%3E);
+  --rasgado: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='22' viewBox='0 0 480 22'%3E%3Cpath d='M0.0 9.0 L4.3 11.3 L8.2 10.3 L13.7 5.9 L20.0 6.0 L25.9 6.6 L29.9 10.3 L38.0 7.6 L42.7 12.8 L51.4 12.4 L57.1 16.5 L60.8 15.3 L65.9 8.1 L70.1 9.7 L78.1 8.2 L84.8 12.5 L90.3 11.4 L94.2 6.3 L98.8 12.3 L104.6 8.3 L111.4 9.3 L116.5 12.4 L123.9 6.5 L130.5 8.9 L138.8 10.5 L143.9 12.8 L148.1 7.0 L155.7 4.1 L161.9 2.8 L169.1 10.0 L175.7 11.1 L181.0 9.3 L187.7 8.2 L193.7 11.0 L202.4 7.6 L209.6 3.8 L217.0 10.1 L225.9 12.3 L231.0 8.3 L238.2 5.1 L244.2 6.9 L248.3 6.0 L256.1 7.1 L260.9 9.9 L269.2 7.1 L275.2 12.0 L283.6 14.9 L291.8 9.5 L297.6 10.2 L306.0 16.1 L310.3 8.2 L315.1 8.6 L321.2 11.9 L326.2 5.8 L332.0 9.2 L338.6 14.6 L345.9 9.8 L352.8 11.0 L356.6 13.0 L364.4 12.3 L372.3 7.1 L378.0 4.0 L384.9 3.3 L388.8 4.6 L393.2 5.8 L397.0 2.4 L401.3 3.3 L406.8 2.6 L415.1 8.5 L419.5 4.9 L424.9 6.2 L429.0 11.2 L438.0 7.7 L444.2 4.2 L448.2 7.0 L453.2 12.1 L457.6 4.3 L466.3 9.9 L470.6 10.3 L474.3 10.3 L480.0 9.0 L480 22 L0 22Z'/%3E%3C/svg%3E");
+  --estampado-kora: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='76'%3E%3Cg fill='%23FFFFFF' fill-opacity='.07'%3E%3Cpath d='M19 9l2.2 7.8L29 19l-7.8 2.2L19 29l-2.2-7.8L9 19l7.8-2.2z'/%3E%3Ccircle cx='57' cy='19' r='1.3'/%3E%3Ccircle cx='19' cy='57' r='1.3'/%3E%3C/g%3E%3Ccircle cx='57' cy='57' r='2.2' fill='%23FF3366' fill-opacity='.35'/%3E%3C/svg%3E");
+  --estampado: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='76'%3E%3Cg fill='%23A9D6A8' fill-opacity='.13'%3E%3Cpath d='M19 9l2.2 7.8L29 19l-7.8 2.2L19 29l-2.2-7.8L9 19l7.8-2.2z'/%3E%3Ccircle cx='57' cy='57' r='2.2'/%3E%3Ccircle cx='57' cy='19' r='1.3'/%3E%3Ccircle cx='19' cy='57' r='1.3'/%3E%3C/g%3E%3C/svg%3E");
 
   --sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
   --mono: 'Martian Mono', ui-monospace, monospace;
@@ -129,53 +144,49 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .link-out:hover { text-decoration-color: currentColor; }
 .link-out:hover svg { transform: translate(2px, -2px); }
 
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips li {
-  padding: 0.42em 0.95em; border-radius: 999px; font-size: 0.86rem; font-weight: 500; line-height: 1.3;
-}
-.chips--quiet li { background: color-mix(in srgb, var(--field-ink, var(--ink)) 9%, transparent); }
-.chips--solid li { background: var(--ink); color: var(--paper); }
-.chips--line li { box-shadow: inset 0 0 0 1.5px var(--ink); }
-
-/* Barra superior: leyenda de la carta */
+/* Barra superior: una tira de papel. Flota sobre la página, centrada y algo más estrecha que ella, con el papel gris
+   del cuaderno, el canto rasgado arriba y abajo y dos trozos de cinta que la sujetan por los extremos. Es siempre
+   papel, sobre cualquier sección, así que se lee igual sobre el cielo, el verde, el carbón o el océano. Tres columnas:
+   la central guarda el sitio del logo (--slot) y las laterales miden lo mismo, así el logo queda centrado sea cual
+   sea el largo de los enlaces en cada idioma. Arriba del todo la tira baja un poco y el logo, una pegatina mayor,
+   cuelga por su borde; con el scroll (src/main.ts) la tira sube y el logo se encoge hasta su sitio: solo
+   transformaciones, sobre los mismos elementos, en los dos sentidos. */
 .bar {
-  position: fixed; inset: 0 0 auto; z-index: 50; height: var(--bar);
-  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: clamp(12px, 2vw, 28px);
-  padding: 0 var(--gutter);
-  color: var(--ink);
-  transition: transform 0.5s var(--ease-out), background-color 0.35s, color 0.35s, box-shadow 0.35s;
+  --slot: clamp(150px, 11.5vw, 190px);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50; width: min(1280px, 100% - 2 * clamp(12px, 2vw, 32px)); height: var(--bar); margin-inline: auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--slot) minmax(0, 1fr); align-items: center;
+  padding: 0 clamp(14px, 1.6vw, 22px); color: var(--bosque);
 }
-.bar.is-solid { background: var(--paper); box-shadow: 0 1px 0 var(--rule); }
-.bar.is-dark { color: var(--paper); }
-.bar.is-dark.is-solid { background: var(--ocean); box-shadow: 0 1px 0 rgba(238, 242, 240, 0.12); }
-.bar.is-kora.is-solid { background: var(--kora); box-shadow: 0 1px 0 var(--kora-line); }
-/* Logotipo: un sistema de presión como el de «Escríbeme», con su forma y sus isobaras, pero en los colores del propio
-   logo: fondo violeta noche, una luz cian arriba a la izquierda (donde empieza la F) y un brillo rosa abajo a la
-   derecha (la M). Dentro, las letras FM en su degradado entre < > inclinados como ellas. Al pasar el ratón la forma se
-   acerca y gira un poco, los signos se abren con un pequeño rebote y debajo aparece el nombre, como en GitHub y LinkedIn. */
+/* La tira: un núcleo de papel y, encima y debajo, su canto rasgado (la misma máscara que las hojas del cuaderno). */
+.bar__bg {
+  position: absolute; z-index: -1; left: 0; right: 0; top: 15px; bottom: 15px; pointer-events: none; background: var(--papel);
+  /* Sombra oscura y algo larga: la tira se despega con claridad de cualquier fondo (cielo, papel, carbón, océano). */
+  filter: drop-shadow(0 10px 16px rgba(8, 20, 28, 0.38)) drop-shadow(0 2px 3px rgba(8, 20, 28, 0.32));
+}
+.bar__bg::before, .bar__bg::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 22px; background: var(--papel);
+  -webkit-mask: var(--rasgado) 0 0 / 480px 22px repeat-x; mask: var(--rasgado) 0 0 / 480px 22px repeat-x;
+}
+.bar__bg::before { bottom: calc(100% - 1px); }
+.bar__bg::after { top: calc(100% - 1px); transform: scaleY(-1); background-position: 37px 0; -webkit-mask-position: 211px 0; mask-position: 211px 0; }
+/* Cinta: un trozo translúcido de calima, con los extremos cortados en zigzag, en cada punta de la tira. */
+.bar__tape {
+  position: absolute; z-index: 0; top: 4px; width: 62px; height: 22px; pointer-events: none;
+  background: rgba(244, 178, 62, 0.55);
+  clip-path: polygon(0 12%, 6% 0, 12% 14%, 18% 2%, 24% 10%, 76% 6%, 82% 0, 88% 12%, 94% 2%, 100% 10%, 100% 90%, 94% 100%, 88% 86%, 82% 100%, 76% 90%, 24% 96%, 18% 86%, 12% 100%, 6% 88%, 0 96%);
+}
+.bar__tape--l { left: -18px; rotate: -8deg; }
+.bar__tape--r { right: -18px; rotate: 7deg; }
+
+.bar__mark { grid-column: 2; grid-row: 1; justify-self: center; position: relative; z-index: 2; transform-origin: 50% 50%; }
+/* Logotipo: una pegatina de papel. La forma índigo mate con su grano y su canto, recortada en blanco alrededor, y
+   dentro las letras FM en su degradado entre < > inclinados como ellas. Al pasar el ratón la pegatina se acerca y gira
+   un poco, los signos se abren con un pequeño rebote y debajo aparece el nombre, como en GitHub y LinkedIn. */
 .bar__mark { display: inline-flex; align-items: center; text-decoration: none; white-space: nowrap; }
-.bar__mark[data-blob] {
-  --bx: 5%; --by: 9%; --gap: 5px; --shadow: rgba(46, 16, 110, 0.45);
-  --base: linear-gradient(150deg, #2A1D5C 0%, #130D33 55%, #080616 100%);
-  --glow: rgba(255, 46, 154, 0.5);
-  --ring: color-mix(in srgb, #9246FB 60%, transparent); --ring2: color-mix(in srgb, #00DAF9 55%, transparent);
-  --fill:
-    radial-gradient(60% 90% at 14% 6%, rgba(0, 240, 243, 0.3), transparent 70%),
-    radial-gradient(55% 110% at 100% 100%, var(--glow), transparent 72%),
-    var(--base);
-  height: 44px; padding: 0 14px;
-}
-.bar__mark .shape__body { filter: drop-shadow(0 10px 14px var(--shadow)); transition: transform 0.6s var(--ease-out); }
-.bar__mark .shape__iso { transition: transform 0.9s var(--ease-out); }
-.bar__mark .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); opacity: 0.7; }
-.bar__mark .shape__iso--2 path { stroke: var(--ring2); }
-.bar.is-kora .bar__mark[data-blob] { --ring: color-mix(in srgb, var(--kora-pink) 55%, transparent); }
+.bar__mark[data-blob] { --bx: 5%; --by: 9%; --fill: #3A3570; height: 44px; padding: 0 14px; }
+.bar__mark .shape__body { filter: drop-shadow(0 3px 4px rgba(16, 34, 44, 0.22)); transition: transform 0.6s var(--ease-out); }
 .bar__logo { display: inline-flex; align-items: center; gap: 2px; flex: none; transition: transform 0.5s var(--ease-out); }
-.bar__fm {
-  display: block; width: 40px; height: auto; aspect-ratio: 916 / 442;
-  filter: drop-shadow(0 3px 8px rgba(150, 59, 251, 0));
-  transition: transform 0.5s var(--ease-out), filter 0.5s var(--ease-out);
-}
+.bar__fm { display: block; width: 40px; height: auto; aspect-ratio: 916 / 442; transition: transform 0.5s var(--ease-out); }
 .bar__br {
   display: block; width: auto; height: 19px; aspect-ratio: 220 / 442; overflow: visible;
   fill: none; stroke-width: 58; stroke-linecap: round; stroke-linejoin: round;
@@ -183,98 +194,79 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 .bar__br--l { stroke: #00E8F6; }
 .bar__br--r { stroke: #FFC803; }
-/* El rótulo del nombre: alineado a la izquierda del logo para no salirse de la pantalla por el borde. */
-.bar__mark .bar__tip { left: 0; translate: 0 -6px; }
-.bar.is-dark .bar__tip { background: var(--paper); color: var(--ink); }
-.bar__mark:hover .bar__tip, .bar__mark:focus-visible .bar__tip { opacity: 1; translate: 0 0; }
+/* Troquel blanco de las piezas de papel con data-cut (logo, idioma, «Escríbeme»): la misma silueta, unos píxeles mayor. */
+.shape__cut { position: absolute; inset: calc(-1 * var(--cut, 3px)); background: #FFFDF6; }
+/* El rótulo del nombre, centrado bajo el logo. Su escala compensa la del logo (src/main.ts): siempre mide lo mismo. */
+.bar__mark .bar__tip { transform-origin: 50% 0; scale: var(--tip-s, 1); background: var(--bosque); color: var(--crema); }
+.bar__mark:hover .bar__tip, .bar__mark:focus-visible .bar__tip { opacity: 1; translate: -50% 0; }
 @media (hover: hover) {
-  .bar__mark:hover .shape__body { transform: scale(1.05) rotate(-2.5deg); }
-  .bar__mark:hover .shape__iso--1 { transform: rotate(5deg) scale(1.04); }
-  .bar__mark:hover .shape__iso--2 { transform: rotate(-6deg) scale(1.03); }
-  .bar__mark:hover .bar__fm { transform: scale(1.06); filter: drop-shadow(0 3px 8px rgba(150, 59, 251, 0.6)); }
+  .bar__mark:hover .shape__body { transform: scale(1.05) rotate(-3deg); }
+  .bar__mark:hover .bar__fm { transform: scale(1.06); }
   .bar__mark:hover .bar__br { transition: transform 0.5s cubic-bezier(0.34, 1.7, 0.64, 1); }
   .bar__mark:hover .bar__br--l { transform: translateX(-3px); }
   .bar__mark:hover .bar__br--r { transform: translateX(3px); }
 }
-.bar__mark:focus-visible .shape__body { transform: scale(1.05) rotate(-2.5deg); }
+.bar__mark:focus-visible .shape__body { transform: scale(1.05) rotate(-3deg); }
 .bar__mark:focus-visible .bar__br--l { transform: translateX(-3px); }
 .bar__mark:focus-visible .bar__br--r { transform: translateX(3px); }
 .bar__mark:active .bar__logo { transform: scale(0.95); transition-duration: 0.15s; }
-/* Más aire entre la cápsula de enlaces y el selector de idioma: su forma e isobaras sobresalen de su caja. */
-.bar__nav { justify-self: end; display: flex; align-items: center; gap: clamp(22px, 2.4vw, 38px); font-weight: 600; font-size: 0.92rem; }
-/* Enlaces en una cápsula de papel. Al pasar el ratón, detrás del enlace aparece su propia forma de presión (una
-   semilla por enlace en index.html, src/blobs.ts) con su isobara, girada un poco: aparece en su sitio en 0,2 s, sin
-   viajar de un enlace a otro. La sección en curso se marca con un punto de estación bajo el texto. */
-.bar__links { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; isolation: isolate; }
-.bar__links::before {
-  content: ''; position: absolute; inset: 0; z-index: -2; border-radius: inherit;
-  background: var(--paper);
-  box-shadow: inset 0 0 0 1px var(--rule), 0 12px 30px -20px rgba(12, 46, 64, 0.5);
-  transition: background-color 0.35s, box-shadow 0.35s;
-}
-.bar.is-kora .bar__links::before { background: var(--kora-2); box-shadow: inset 0 0 0 1px var(--kora-line); }
-.bar.is-dark .bar__links::before { background: var(--ocean-2); box-shadow: inset 0 0 0 1px rgba(238, 242, 240, 0.16); }
+/* La navegación ocupa las tres columnas y las comparte con la barra (subgrid): el idioma va al borde izquierdo, los
+   enlaces se arriman al logo por los dos lados y «Escríbeme» (hermano de la navegación) queda en el borde derecho. */
+.bar__nav { grid-column: 1 / -1; grid-row: 1; display: grid; grid-template-columns: subgrid; align-items: center; }
+/* Por encima del logo (z-index 2): el desplegable de proyectos pasa por delante del logo grande del hero. */
+.bar__links { position: relative; z-index: 3; display: flex; align-items: center; gap: 2px; grid-row: 1; }
+.bar__links--l { grid-column: 1; justify-self: end; margin-right: clamp(4px, 1vw, 14px); }
+.bar__links--r { grid-column: 3; justify-self: start; margin-left: clamp(4px, 1vw, 14px); }
+/* Enlaces en la tinta del cuaderno. Al pasar el ratón, un trazo de rotulador de calima pasa por detrás del texto de
+   izquierda a derecha (como en «También en GitHub» y en «producción»); la sección en curso lleva ese mismo trazo,
+   fijo, así que al llegar a ella se dibuja igual que al pasar el ratón. */
 .nav-link {
-  --bx: 2%; --by: 4%; --gap: 4px; --tilt: -3deg;
-  --fill:
-    radial-gradient(70% 120% at 12% 0%, rgba(255, 255, 255, 0.22), transparent 70%),
-    radial-gradient(60% 120% at 100% 100%, color-mix(in srgb, var(--cold) 80%, transparent), transparent 72%),
-    var(--ink);
-  --ring: color-mix(in srgb, var(--cold) 60%, transparent);
-  position: relative; display: inline-flex; align-items: center; gap: 4px; height: 38px; padding: 0 15px; border-radius: 999px;
-  text-decoration: none; transition: color 0.2s;
+  position: relative; display: inline-flex; align-items: center; gap: 4px; height: 38px; padding: 0 11px;
+  color: var(--bosque); text-decoration: none; font-size: 0.9rem; font-weight: 650; font-stretch: 106%; letter-spacing: 0.005em;
 }
-.nav-link:nth-child(even), .nav-drop .nav-link { --tilt: 3deg; }
-.nav-link .shape__body, .nav-link .shape__iso { opacity: 0; scale: 0.82; rotate: var(--tilt); transition: opacity 0.18s, scale 0.3s var(--ease-out); }
-.nav-link .shape__body { filter: none; }
-.nav-link:hover, .nav-link:focus-visible, .nav-drop.is-open .nav-link { color: var(--paper); }
-.nav-link:hover .shape__body, .nav-link:focus-visible .shape__body, .nav-drop.is-open .nav-link .shape__body { opacity: 1; scale: 1; }
-.nav-link:hover .shape__iso, .nav-link:focus-visible .shape__iso, .nav-drop.is-open .nav-link .shape__iso { opacity: 1; scale: 1.04; }
-/* El punto va solo en el texto: la forma de presión también es un <span> hijo del enlace y, al aparecer en el hover,
-   pintaba un segundo punto. */
-.nav-link > span:not(.shape__body)::after {
-  content: ''; position: absolute; left: 50%; bottom: 3px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
-  background: var(--warm); opacity: 0; transition: opacity 0.25s;
+.nav-link > span { position: relative; z-index: 0; }
+.nav-link > span::before {
+  content: ''; position: absolute; z-index: -1; left: -0.2em; right: -0.25em; bottom: 0.04em; height: 0.5em; border-radius: 0.12em 0.3em 0.18em 0.28em;
+  background: color-mix(in srgb, var(--calima) 75%, transparent); rotate: -1.5deg;
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.nav-link.is-current > span:not(.shape__body)::after { opacity: 1; }
-.nav-link:hover > span:not(.shape__body)::after, .nav-drop.is-open .nav-link > span:not(.shape__body)::after { background: var(--calima); }
-.bar.is-dark .nav-link { --fill: radial-gradient(70% 120% at 12% 0%, #FFFFFF, transparent 70%), radial-gradient(60% 120% at 100% 100%, rgba(244, 178, 62, 0.75), transparent 72%), var(--paper); --ring: rgba(244, 178, 62, 0.55); }
-.bar.is-dark .nav-link:hover, .bar.is-dark .nav-link:focus-visible, .bar.is-dark .nav-drop.is-open .nav-link { color: var(--ink); }
-.bar.is-kora .nav-link { --fill: radial-gradient(70% 120% at 12% 0%, rgba(255, 255, 255, 0.3), transparent 70%), radial-gradient(60% 120% at 100% 100%, rgba(214, 32, 79, 0.8), transparent 72%), var(--kora-pink); --ring: color-mix(in srgb, var(--kora-pink) 60%, transparent); }
-.bar.is-kora .nav-link:hover, .bar.is-kora .nav-link:focus-visible, .bar.is-kora .nav-drop.is-open .nav-link { color: var(--kora); }
+.nav-link:hover > span::before, .nav-link:focus-visible > span::before, .nav-drop.is-open .nav-link > span::before,
+.nav-link.is-current > span::before { transform: none; }
+.nav-link:focus-visible { outline-offset: 0; }
 .nav-drop { position: relative; }
-.nav-drop__chev { width: 16px; height: 16px; margin-right: -5px; transition: transform 0.45s var(--ease-out); }
+.nav-drop__chev { width: 16px; height: 16px; margin-right: -4px; transition: transform 0.45s var(--ease-out); }
 .nav-drop.is-open .nav-drop__chev { transform: rotate(180deg); }
 
-/* Desplegable de proyectos: una fila por proyecto, con su logo sobre el color de su campo. */
+/* Desplegable de proyectos: una ficha de papel, plana, con una fila por proyecto y su logo sobre el color de su campo. */
 .nav-drop__panel {
-  /* Justo debajo de «Proyectos», alineado con el borde izquierdo de la cápsula de enlaces. */
-  position: absolute; top: calc(100% + 14px); left: -4px; width: min(420px, 100vw - 2 * var(--gutter));
-  padding: 8px; border-radius: 22px; background: var(--paper); color: var(--ink); font-size: 1rem;
-  box-shadow: 0 0 0 1px var(--rule), 0 44px 80px -40px rgba(12, 46, 64, 0.6), 0 14px 28px -18px rgba(12, 46, 64, 0.35);
-  opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.985); transform-origin: 12% 0;
+  /* Bajo «Proyectos», por debajo del canto de la tira. */
+  position: absolute; top: calc(100% + 22px); left: -6px; width: min(420px, 100vw - 2 * var(--gutter));
+  padding: 10px; border-radius: 4px; background: var(--papel); color: var(--bosque); font-size: 1rem;
+  box-shadow: 0 0 0 1.5px rgba(22, 70, 58, 0.22), 0 24px 40px -24px rgba(16, 34, 44, 0.45);
+  opacity: 0; visibility: hidden; transform: translateY(-8px); transform-origin: 12% 0;
   transition: opacity 0.25s, transform 0.45s var(--ease-out), visibility 0s 0.45s;
   /* Mientras se desvanece sigue siendo visible: sin esto, pasar el puntero por donde estaba lo volvía a abrir. */
   pointer-events: none;
 }
 /* Puente invisible sobre el hueco entre el enlace y el panel, para cruzarlo sin que se cierre. */
-.nav-drop__panel::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 18px; }
+.nav-drop__panel::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 26px; }
 .nav-drop.is-open .nav-drop__panel { pointer-events: auto; opacity: 1; visibility: visible; transform: none; transition: opacity 0.25s, transform 0.5s var(--ease-out); }
 .np-list { display: grid; gap: 2px; }
+.np-list li + li { border-top: 1px dashed rgba(22, 70, 58, 0.2); }
 .nav-drop__panel li { opacity: 0; transform: translateY(8px); transition: opacity 0.2s, transform 0.4s var(--ease-out); }
 .nav-drop.is-open .nav-drop__panel li { opacity: 1; transform: none; transition: opacity 0.4s, transform 0.6s var(--ease-out); transition-delay: calc(var(--i) * 40ms + 50ms); }
-.np { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 7px; border-radius: 16px; text-decoration: none; transition: background-color 0.3s; }
-.np:hover, .np:focus-visible { background: var(--paper-2); }
-/* Pieza del logo: el campo del proyecto en pequeño; al pasar el ratón gira un poco y se acerca. */
+.np { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 8px; border-radius: 3px; text-decoration: none; color: inherit; transition: background-color 0.3s; }
+.np:hover, .np:focus-visible { background: rgba(22, 70, 58, 0.07); }
+/* Pieza del logo: el campo del proyecto en pequeño, como una pegatina; al pasar el ratón gira un poco y se acerca. */
 .np__logo {
-  position: relative; display: grid; place-items: center; width: 64px; height: 50px; border-radius: 13px; overflow: hidden;
-  background: var(--f); box-shadow: inset 0 0 0 1px rgba(16, 34, 44, 0.06);
-  transition: transform 0.55s var(--ease-out), border-radius 0.55s var(--ease-out);
+  position: relative; display: grid; place-items: center; width: 60px; height: 46px; border-radius: 6px; overflow: hidden;
+  background: var(--f); box-shadow: 0 0 0 2.5px #FFFDF6, 0 2px 4px rgba(16, 34, 44, 0.2);
+  transition: transform 0.55s var(--ease-out);
 }
-.np:hover .np__logo, .np:focus-visible .np__logo { transform: rotate(-4deg) scale(1.06); border-radius: 18px; }
-.np__logo img { width: 46px; height: auto; max-height: 34px; object-fit: contain; }
-.np__logo--round img { width: 36px; height: 36px; max-height: none; border-radius: 50%; }
-.np__logo--kora .kora-mark { --w: 40px; }
+.np:hover .np__logo, .np:focus-visible .np__logo { transform: rotate(-4deg) scale(1.06); }
+.np__logo img { width: 44px; height: auto; max-height: 32px; object-fit: contain; }
+.np__logo--round img { width: 34px; height: 34px; max-height: none; border-radius: 50%; }
+.np__logo--kora .kora-mark { --w: 38px; }
 .np__logo--kora .kora-dot { box-shadow: none; }
 /* Haría Game no tiene logotipo: el título blanco de su menú con el verde y el cian de sus botones. */
 .hg-mark {
@@ -284,49 +276,47 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .hg-mark::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 0; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--hg-green) 50%, var(--hg-cyan) 50%); }
 .np__text { display: grid; gap: 1px; }
 .np__name { font-weight: 800; font-stretch: 112%; font-size: 1rem; line-height: 1.2; letter-spacing: -0.01em; }
-.np__kind { font-size: 0.8rem; font-weight: 500; line-height: 1.35; color: var(--ink-2); }
-.nav-drop__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 6px; padding: 12px 8px 4px; border-top: 1px solid var(--rule); font-size: 0.86rem; font-weight: 600; }
-.nav-drop__foot a { text-decoration: none; color: var(--ink-2); transition: color 0.3s; }
-.nav-drop__foot a:hover { color: var(--ink); }
-.nav-drop__foot .nav-drop__all { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
+.np__kind { font-size: 0.8rem; font-weight: 500; line-height: 1.35; color: var(--tinta-cuaderno); }
+.nav-drop__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 6px; padding: 12px 8px 4px; border-top: 1.5px dashed rgba(22, 70, 58, 0.28); font-size: 0.86rem; font-weight: 650; }
+.nav-drop__foot a { text-decoration: none; color: var(--tinta-cuaderno); transition: color 0.3s; }
+.nav-drop__foot a:hover { color: var(--bosque); }
+.nav-drop__foot .nav-drop__all { display: inline-flex; align-items: center; gap: 6px; color: var(--bosque); }
 .nav-drop__all svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease-out); }
 .nav-drop__all:hover svg { transform: translateX(3px); }
-/* Selector de idioma: un pequeño sistema de presión, como la presentación del hero. Un cuerpo irregular de color con
-   su isobara y un «sol» irregular que rueda hasta el idioma activo (las formas salen de src/blobs.ts). */
+/* Selector de idioma: una pieza de papel lavanda, troquelada, con una pieza de calima que rueda hasta el idioma activo. */
 .bar__lang[data-blob] {
-  --bx: 9%; --by: 20%; --gap: 5px; --ring: color-mix(in srgb, var(--lilac) 75%, transparent); --shadow: rgba(46, 107, 230, 0.4);
-  --fill:
-    radial-gradient(60% 90% at 18% 10%, rgba(255, 255, 255, 0.32), transparent 70%),
-    radial-gradient(55% 110% at 100% 100%, rgba(240, 88, 58, 0.9), transparent 70%),
-    radial-gradient(45% 90% at 0% 100%, rgba(60, 195, 162, 0.75), transparent 70%),
-    linear-gradient(120deg, var(--cold) 0%, #6E6CF0 55%, var(--lilac) 100%);
+  --bx: 9%; --by: 18%; --fill: #5560D8;
   display: grid; grid-template-columns: 1fr 1fr; padding: 3px;
+  grid-column: 1; grid-row: 1; justify-self: start;
 }
-.bar__lang .shape__body { filter: drop-shadow(0 8px 12px var(--shadow)); }
-.bar__lang .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); }
-.bar__lang .shape__iso--2 path { stroke: color-mix(in srgb, var(--warm) 60%, transparent); }
+.bar__lang .shape__body { filter: drop-shadow(0 2px 3px rgba(16, 34, 44, 0.2)); }
 .bar__knob[data-blob] {
   --bx: 4%; --by: 6%;
-  --fill: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
+  --fill: var(--calima);
   position: absolute; z-index: 0; left: 3px; top: 3px; bottom: 3px; width: calc(50% - 3px);
   transition: translate 0.6s var(--ease-out), rotate 0.8s var(--ease-out);
 }
-.bar__knob .shape__body { filter: drop-shadow(0 3px 5px rgba(120, 60, 0, 0.35)); }
+.bar__knob .shape__body { filter: drop-shadow(0 1.5px 2px rgba(16, 34, 44, 0.25)); }
 .bar__lang[data-on="en"] .bar__knob { translate: 100% 0; rotate: 180deg; }
 .bar__lang button {
-  position: relative; z-index: 1; min-width: 40px; padding: 9px 11px; border-radius: 999px;
-  font-weight: 800; font-stretch: 112%; font-size: 0.76rem; line-height: 1; letter-spacing: 0.02em; color: #FFFFFF;
+  position: relative; z-index: 1; min-width: 38px; padding: 8px 10px; border-radius: 999px;
+  font-weight: 800; font-stretch: 112%; font-size: 0.74rem; line-height: 1; letter-spacing: 0.02em; color: #FFFFFF;
   transition: color 0.35s;
 }
 .bar__lang button[aria-pressed="true"] { color: var(--ink); }
 .bar__lang button:not([aria-pressed="true"]):hover { color: #FFE7B0; }
-.bar__cta { min-height: 42px; }
-.bar__menu { display: none; width: 44px; height: 44px; border-radius: 50%; position: relative; }
+.bar__cta { min-height: 38px; grid-column: 3; grid-row: 1; justify-self: end; z-index: 1; }
+/* Menú (tablet y móvil): dos trazos dentro de un anillo, como el de los enlaces del cuaderno. */
+.bar__menu {
+  display: none; width: 42px; height: 42px; border-radius: 50%; position: relative; grid-column: 1; grid-row: 1; justify-self: start;
+  color: var(--bosque); box-shadow: inset 0 0 0 1.5px currentColor; transition: background-color 0.3s, color 0.3s;
+}
+.bar__menu:hover, .bar__menu[aria-expanded="true"] { background: var(--bosque); color: var(--crema); }
 .bar__menu i { position: absolute; left: 12px; right: 12px; height: 1.8px; background: currentColor; transition: transform 0.4s var(--ease-out); }
-.bar__menu i:first-of-type { top: 18px; }
-.bar__menu i:last-of-type { top: 25px; }
-.bar__menu[aria-expanded="true"] i:first-of-type { transform: translateY(3.5px) rotate(45deg); }
-.bar__menu[aria-expanded="true"] i:last-of-type { transform: translateY(-3.5px) rotate(-45deg); }
+.bar__menu i:first-of-type { top: 17px; }
+.bar__menu i:last-of-type { top: 23.5px; }
+.bar__menu[aria-expanded="true"] i:first-of-type { transform: translateY(3.25px) rotate(45deg); }
+.bar__menu[aria-expanded="true"] i:last-of-type { transform: translateY(-3.25px) rotate(-45deg); }
 
 /* Campo de presión (WebGL) */
 .field { position: absolute; inset: 0; overflow: hidden; }
@@ -413,11 +403,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 @keyframes breathe { from { rotate: -1deg; scale: 1; } to { rotate: 1.2deg; scale: 1.025; } }
 @keyframes drift { from { rotate: -2.5deg; scale: 0.99; } to { rotate: 2.5deg; scale: 1.03; } }
 .blob {
-  --bx: 9%; --by: 13%; --gap: 18px; --ring: color-mix(in srgb, var(--cold) 50%, transparent); --shadow: rgba(31, 73, 184, 0.45);
-  --fill:
-    radial-gradient(70% 60% at 22% 18%, rgba(255, 255, 255, 0.24), transparent 70%),
-    radial-gradient(60% 70% at 92% 96%, rgba(169, 139, 234, 0.6), transparent 70%),
-    linear-gradient(160deg, #3F7CF2 0%, var(--cold) 48%, #1F49B8 100%);
+  --bx: 9%; --by: 13%; --gap: 18px; --ring: color-mix(in srgb, var(--cold) 50%, transparent); --shadow: rgba(16, 34, 44, 0.24);
+  --fill: #2F66DD;
 }
 /* Botones con forma: el mismo sistema que el selector de idioma. Un cuerpo irregular con el degradado de su
    proyecto, dos isobaras alrededor y, al pasar el ratón, la forma se acerca y gira un poco. Sin animación en reposo:
@@ -448,38 +435,9 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 /* Barra: tinta sobre la carta, papel sobre las secciones oscuras y el rosa de KORA en la suya. */
 .bar__cta[data-blob] {
-  --bx: 3%; --by: 8%; min-height: 38px; padding: 0 0.95em; --fg: var(--paper); --base: linear-gradient(150deg, #24465A 0%, var(--ink) 70%);
-  --glow: color-mix(in srgb, var(--cold) 75%, transparent); --ring: color-mix(in srgb, var(--cold) 55%, transparent);
+  --bx: 3%; --by: 8%; min-height: 38px; padding: 0 0.95em; --fg: var(--paper); --base: #34566A; --fill: var(--base);
 }
-.bar.is-dark .bar__cta[data-blob] { --fg: var(--ink); --base: var(--paper); --glow: rgba(244, 178, 62, 0.6); --ring: rgba(238, 242, 240, 0.4); --shadow: rgba(0, 0, 0, 0.4); }
-.bar.is-dark.is-kora .bar__cta[data-blob] { --fg: var(--kora); --base: linear-gradient(150deg, #FF6A8E, var(--kora-pink)); --glow: rgba(214, 32, 79, 0.75); --ring: color-mix(in srgb, var(--kora-pink) 60%, transparent); }
-/* Proyectos: cada uno con los colores de su campo. */
-.btn--lm {
-  --fg: #FFFFFF; --base: linear-gradient(150deg, #1B5873 0%, var(--ocean) 75%);
-  --glow: rgba(46, 107, 230, 0.85); --ring: color-mix(in srgb, var(--ocean) 55%, transparent); --ring2: color-mix(in srgb, var(--calima) 90%, transparent); --shadow: rgba(12, 46, 64, 0.45);
-}
-.btn--ace {
-  --fg: var(--ace); --base: linear-gradient(150deg, #FFA28B 0%, var(--ace-red) 80%);
-  --glow: rgba(176, 36, 18, 0.7); --ring: color-mix(in srgb, var(--ace-soft) 75%, transparent); --ring2: rgba(255, 255, 255, 0.3); --shadow: rgba(226, 69, 43, 0.5);
-}
-.btn--kora {
-  --fg: var(--kora); --base: linear-gradient(150deg, #FF7A99 0%, var(--kora-pink) 75%);
-  --glow: rgba(214, 32, 79, 0.75); --ring: color-mix(in srgb, var(--kora-pink) 70%, transparent); --ring2: color-mix(in srgb, #B0284A 80%, transparent); --shadow: rgba(255, 51, 102, 0.45);
-}
-.btn--hc {
-  --fg: #0B1A2B; --base: linear-gradient(150deg, #8CC1F5 0%, var(--cloud-blue) 75%);
-  --glow: rgba(31, 92, 176, 0.7); --ring: color-mix(in srgb, var(--cloud-blue) 75%, transparent); --ring2: rgba(255, 255, 255, 0.3); --shadow: rgba(10, 30, 60, 0.55);
-}
-.btn--game {
-  --fg: #08180D; --base: linear-gradient(120deg, #6FD487 0%, var(--hg-green) 45%, var(--hg-cyan) 100%);
-  --ring: color-mix(in srgb, var(--hg-green) 75%, transparent); --ring2: color-mix(in srgb, var(--hg-cyan) 75%, transparent); --shadow: rgba(0, 0, 0, 0.6);
-}
-/* Ventanas de proyecto: tinta del campo con la esquina en su acento. */
-.cs-btn {
-  --fg: var(--field-base); --base: var(--field-ink);
-  --glow: color-mix(in srgb, var(--field-accent) 70%, transparent); --ring: color-mix(in srgb, var(--field-accent) 70%, transparent);
-  --ring2: color-mix(in srgb, var(--field-ink) 35%, transparent); --shadow: rgba(0, 0, 0, 0.4);
-}
+.bar__cta[data-blob] .shape__body { filter: drop-shadow(0 2px 3px rgba(16, 34, 44, 0.22)); }
 .blob__in { display: grid; gap: 16px; padding: clamp(10px, 1.4vw, 20px) clamp(6px, 1vw, 16px); color: #FFFFFF; }
 .hero__hi { font-weight: 800; font-stretch: 116%; font-size: clamp(1.8rem, 1.2rem + 1.5vw, 2.7rem); line-height: 0.98; letter-spacing: -0.035em; }
 .hero__lede { font-size: clamp(1.02rem, 0.95rem + 0.32vw, 1.2rem); line-height: 1.5; font-weight: 450; color: rgba(255, 255, 255, 0.9); text-wrap: pretty; }
@@ -593,26 +551,22 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .modes { display: none; }
 .has-modes .modes[data-blob] {
   --bx: 18%; --by: 5%; --gap: 6px; --ring: color-mix(in srgb, var(--lilac) 75%, transparent); --shadow: rgba(46, 107, 230, 0.4);
-  --fill:
-    radial-gradient(90% 40% at 20% 6%, rgba(255, 255, 255, 0.32), transparent 70%),
-    radial-gradient(120% 45% at 100% 100%, rgba(240, 88, 58, 0.9), transparent 70%),
-    radial-gradient(100% 35% at 0% 60%, rgba(60, 195, 162, 0.7), transparent 70%),
-    linear-gradient(180deg, var(--cold) 0%, #6E6CF0 55%, var(--lilac) 100%);
+  --fill: #5560D8;
   position: absolute; z-index: 3; display: grid; grid-auto-rows: 44px; padding: 4px;
   right: max(2.4vw, calc((100vw - 1560px) / 2 + 12px));
   bottom: calc(clamp(24px, 6vh, 64px) + min(82vh, 840px) * 0.5);
   translate: 0 50%;
 }
-.modes .shape__body { filter: drop-shadow(0 10px 16px var(--shadow)); }
+.modes .shape__body { filter: drop-shadow(0 3px 6px rgba(16, 34, 44, 0.22)); }
 .modes .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); }
 .modes .shape__iso--2 path { stroke: color-mix(in srgb, var(--warm) 60%, transparent); }
 .modes__knob[data-blob] {
   --bx: 6%; --by: 6%;
-  --fill: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
+  --fill: var(--calima);
   position: absolute; z-index: 0; left: 4px; right: 4px; top: 4px; height: 44px;
   transition: translate 0.6s var(--ease-out), rotate 0.8s var(--ease-out);
 }
-.modes__knob .shape__body { filter: drop-shadow(0 3px 5px rgba(120, 60, 0, 0.35)); }
+.modes__knob .shape__body { filter: drop-shadow(0 1.5px 2px rgba(16, 34, 44, 0.25)); }
 .modes[data-on="1"] .modes__knob { translate: 0 100%; rotate: 90deg; }
 .modes[data-on="2"] .modes__knob { translate: 0 200%; rotate: 180deg; }
 .modes[data-on="3"] .modes__knob { translate: 0 300%; rotate: 270deg; }
@@ -698,42 +652,32 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   .station-card { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .st--lang { grid-column: auto; }
 }
-/* Cada pieza: papel claro con un filo de su color a la izquierda, isobaras en la esquina y el icono en una forma
-   irregular con su propia isobara, que gira un poco al pasar el ratón. Mismo tamaño que antes. */
+/* Cada pieza, plana, en 2D: un tinte de su color, contorno continuo y un filete discontinuo dentro (el cupón de los
+   proyectos); el icono en un círculo de su color con un anillo de puntos que gira al pasar el ratón. Sin degradados
+   ni sombras difusas. */
 .st {
-  --c: var(--cold); --deep: #1F49B8; position: relative; isolation: isolate; overflow: hidden; display: grid; align-content: start; gap: 6px; min-height: 92px; padding: 16px 18px 16px 72px;
-  border-radius: 20px;
-  background:
-    linear-gradient(90deg, var(--c) 0 4px, transparent 4px),
-    radial-gradient(90% 120% at 100% 0%, color-mix(in srgb, var(--c) 14%, transparent), transparent 65%),
-    color-mix(in srgb, var(--c) 4%, #FFFFFF);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent), 0 18px 30px -24px color-mix(in srgb, var(--deep) 70%, transparent);
-  transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+  --c: var(--cold); --deep: #1F49B8; position: relative; isolation: isolate; overflow: hidden; display: grid; align-content: start; gap: 6px; min-height: 92px; padding: 16px 18px 16px 74px;
+  border-radius: 8px; background: color-mix(in srgb, var(--c) 9%, #FFFFFF); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--deep) 55%, transparent);
+  transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s;
 }
 .st:not(.st--code)::before {
-  content: ''; position: absolute; z-index: -1; right: -70px; top: -70px; width: 170px; height: 170px; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 15px, color-mix(in srgb, var(--c) 30%, transparent) 15px 16.2px);
-  -webkit-mask: radial-gradient(circle, #000 20%, transparent 70%); mask: radial-gradient(circle, #000 20%, transparent 70%);
-  transition: scale 0.8s var(--ease-out);
+  content: ''; position: absolute; z-index: -1; inset: 6px; border-radius: 4px; border: 1px dashed color-mix(in srgb, var(--deep) 35%, transparent); pointer-events: none;
 }
 .st--base { --c: var(--warm); --deep: #A8321A; }
 .st--role { --c: var(--cold); --deep: #1F49B8; }
 .st--lang { --c: var(--lilac); --deep: #5B3FB0; }
 .st__icon {
-  position: absolute; left: 16px; top: 16px; display: grid; place-items: center; width: 42px; height: 42px;
-  border-radius: 44% 56% 52% 48% / 56% 44% 56% 44%; color: #FFFFFF;
-  background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--c) 55%, #FFFFFF), var(--c) 60%, var(--deep) 130%);
-  box-shadow: 0 10px 18px -10px var(--c); transition: rotate 0.6s var(--ease-out), scale 0.6s var(--ease-out);
+  position: absolute; left: 18px; top: 18px; display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 50%; color: #FFFFFF; background: var(--deep); transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .st:not(.st--code) .st__icon::after {
-  content: ''; position: absolute; inset: -5px; border-radius: 56% 44% 48% 52% / 44% 56% 44% 56%;
-  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--c) 45%, transparent); transition: rotate 0.9s var(--ease-out);
+  content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px dotted color-mix(in srgb, var(--deep) 70%, transparent);
+  transition: rotate 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (hover: hover) {
-  .st:not(.st--code):hover { translate: 0 -3px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent), 0 24px 36px -24px color-mix(in srgb, var(--deep) 75%, transparent); }
-  .st:not(.st--code):hover::before { scale: 1.15; }
-  .st:not(.st--code):hover .st__icon { rotate: -8deg; scale: 1.06; }
-  .st:not(.st--code):hover .st__icon::after { rotate: 24deg; }
+  .st:not(.st--code):hover { translate: 0 -3px; box-shadow: inset 0 0 0 1.5px var(--deep); }
+  .st:not(.st--code):hover .st__icon { scale: 1.06; }
+  .st:not(.st--code):hover .st__icon::after { rotate: 60deg; }
 }
 .st__icon svg { width: 21px; height: 21px; }
 .st dt { color: var(--deep); text-transform: uppercase; letter-spacing: 0.07em; }
@@ -743,20 +687,21 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .st dd small { display: block; margin-top: 2px; font-size: 0.86rem; font-weight: 500; color: var(--ink-2); }
 .st__chip {
   display: inline-flex; align-items: center; gap: 7px; margin: 2px 6px 0 0; padding: 3px 11px 3px 4px; border-radius: 999px;
-  background: #FFFFFF; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent); font-size: 0.88rem; font-weight: 600;
+  background: #FFFFFF; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--deep) 40%, transparent); font-size: 0.88rem; font-weight: 600;
 }
 .st__chip b { padding: 2px 7px; border-radius: 999px; background: var(--deep); color: #FFFFFF; font-family: var(--mono); font-size: 0.64rem; font-weight: 600; }
 /* GitHub: pizarra azulada, más clara que el negro de GitHub, para que no pese tanto sobre el papel. */
 .st--code {
   grid-column: 1 / -1; min-height: 0; padding-bottom: 18px; color: #FFFFFF; overflow: hidden;
-  background: radial-gradient(70% 140% at 100% 0%, rgba(57, 211, 83, 0.16), transparent 60%), linear-gradient(160deg, #3A4A60 0%, #28354A 70%);
-  box-shadow: 0 24px 40px -28px rgba(30, 42, 60, 0.7); transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+  background: var(--grano) 0 0 / 240px 240px, #2E3B4E; background-blend-mode: var(--p-blend, overlay), normal; box-shadow: none;
+  transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .st--code::before {
   content: ''; display: none; position: absolute; right: 58px; bottom: 16px; width: 154px; height: 58px; opacity: 0.9; pointer-events: none;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 154 58'%3E%3Crect x='0' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='0' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='0' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='0' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='12' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='12' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='12' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='24' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='24' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='24' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='24' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='36' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='36' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='36' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='36' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='48' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='48' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='48' y='24' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='48' y='48' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='60' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='60' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='60' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='60' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='0' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='72' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='72' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='72' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='72' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='84' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='84' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='84' y='36' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='84' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='0' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='96' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='96' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='96' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='108' y='12' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='24' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='108' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='108' y='48' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='0' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='12' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='120' y='24' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='120' y='36' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='120' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='0' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='132' y='12' width='10' height='10' rx='2.5' fill='%2333425A'/%3E%3Crect x='132' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='132' y='36' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='132' y='48' width='10' height='10' rx='2.5' fill='%2326A641'/%3E%3Crect x='144' y='0' width='10' height='10' rx='2.5' fill='%2339D353'/%3E%3Crect x='144' y='12' width='10' height='10' rx='2.5' fill='%230E4429'/%3E%3Crect x='144' y='24' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='36' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3Crect x='144' y='48' width='10' height='10' rx='2.5' fill='%23006D32'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
 }
-.st--code .st__icon { border-radius: 50%; background: #FFFFFF; color: #0D1117; box-shadow: 0 10px 18px -10px rgba(255, 255, 255, 0.5); }
+.st--code .st__icon { border-radius: 50%; background: #FFFFFF; color: #0D1117; }
+.st--code .st__icon::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px dotted rgba(255, 255, 255, 0.5); }
 .st--code .st__icon svg { width: 24px; height: 24px; }
 .st--code dt { color: rgba(255, 255, 255, 0.62); }
 .st__gh { display: grid; gap: 8px; text-decoration: none; color: inherit; }
@@ -784,7 +729,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .st__n--collab { --n: #3FB950; }
 .st__n--cpub { --n: #E3B341; }
 .st__n--cpriv { --n: #FF7B72; }
-.st__n b { color: var(--n); text-shadow: 0 0 22px color-mix(in srgb, var(--n) 35%, transparent); }
+.st__n b { color: var(--n); }
 .st__lock b, .st__commit b { display: inline-flex; align-items: baseline; gap: 6px; }
 .st__lock b::before, .st__commit b::before {
   content: ''; align-self: center; flex: none; background: currentColor; opacity: 0.85;
@@ -792,12 +737,12 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 .st__lock b::before { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 16'%3E%3Crect x='1' y='7' width='12' height='8' rx='2'/%3E%3Cpath d='M4 7V5a3 3 0 0 1 6 0v2' fill='none' stroke='%23000' stroke-width='1.8'/%3E%3C/svg%3E"); width: 14px; height: 16px; }
 .st__commit b::before { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M0 6h5m8 0h5' stroke='%23000' stroke-width='1.8'/%3E%3Ccircle cx='9' cy='6' r='3.4' fill='none' stroke='%23000' stroke-width='1.8'/%3E%3C/svg%3E"); width: 18px; height: 12px; }
-.st__stats--commits { margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.st__stats--commits { margin-top: 2px; padding-top: 10px; border-top: 1px dashed rgba(255, 255, 255, 0.22); }
 /* Solo si cabe junto a las tres cifras sin taparlas. */
 @container (min-width: 900px) { .st--code::before { display: block; } }
 .st__out { position: absolute; right: 18px; top: 18px; width: 20px; height: 20px; color: rgba(255, 255, 255, 0.8); transition: transform 0.4s var(--ease-out); }
 @media (hover: hover) {
-  .st--code:hover { translate: 0 -3px; box-shadow: 0 30px 46px -26px rgba(30, 42, 60, 0.8); }
+  .st--code:hover { translate: 0 -3px; }
   .st--code:hover .st__out { transform: translate(3px, -3px); }
 }
 @media (max-width: 599px) {
@@ -824,13 +769,12 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .edu-lang__name::before {
   content: ''; width: 32px; height: 16px; flex: none; border-radius: 3px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='s'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3CclipPath id='t'%3E%3Cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23s)'%3E%3Cpath d='M0 0v30h60V0z' fill='%23012169'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23t)' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") center / cover no-repeat, #012169;
-  box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.12), 0 4px 10px -3px rgba(12, 46, 64, 0.35);
+  box-shadow: 0 0 0 1.5px var(--ink);
 }
 .edu-lang__level {
   font-weight: 800; font-stretch: 125%; font-size: clamp(4.6rem, 3rem + 4.4vw, 7.6rem); line-height: 0.8; letter-spacing: -0.05em;
-  /* Sobre el papel la calima sola se lee poco: degradado del sol hacia un ámbar profundo. */
-  color: #D98A12; background: linear-gradient(170deg, #F6BE55 0%, #E99A1F 45%, #B86400 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 10px 22px rgba(233, 154, 31, 0.35)); padding-right: 0.04em;
+  /* Sobre el papel la calima sola se lee poco: un ámbar profundo, plano. */
+  color: #B86A00; padding-right: 0.04em;
 }
 .edu-lang__note {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 5px 12px 5px 8px; border-radius: 999px;
@@ -849,18 +793,18 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
   position: relative; display: grid; place-items: center; justify-self: center; width: min(100%, calc(var(--h) * 1.75));
   height: var(--h); border-radius: var(--r); transform-origin: 50% 100%;
   font-family: var(--mono); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #FFFFFF; background: var(--seg);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 12px 22px -14px var(--glow, transparent);
+  box-shadow: none;
 }
-.cefr li:nth-child(1) { --h: 50px; --r: 46% 54% 42% 58% / 56% 46% 54% 44%; --seg: linear-gradient(150deg, #8EA6FF 0%, #5A6BE6 100%); --glow: rgba(90, 107, 230, 0.8); }
-.cefr li:nth-child(2) { --h: 57px; --r: 58% 42% 52% 48% / 46% 58% 42% 54%; --seg: linear-gradient(150deg, #B9A0FF 0%, #8659E8 100%); --glow: rgba(134, 89, 232, 0.8); }
-.cefr li:nth-child(3) { --h: 64px; --r: 42% 58% 56% 44% / 60% 42% 58% 40%; --seg: linear-gradient(150deg, #FFA3C4 0%, #E5507E 100%); --glow: rgba(229, 80, 126, 0.8); }
+.cefr li:nth-child(1) { --h: 50px; --r: 46% 54% 42% 58% / 56% 46% 54% 44%; --seg: #6474E8; }
+.cefr li:nth-child(2) { --h: 57px; --r: 58% 42% 52% 48% / 46% 58% 42% 54%; --seg: #8A5FE6; }
+.cefr li:nth-child(3) { --h: 64px; --r: 42% 58% 56% 44% / 60% 42% 58% 40%; --seg: #E0507E; }
 .cefr li:nth-child(4) { --h: 72px; --r: 52% 48% 40% 60% / 50% 60% 40% 50%; }
 .cefr li:nth-child(5) { --h: 78px; --r: 60% 40% 48% 52% / 42% 56% 44% 58%; }
 .cefr li:nth-child(6) { --h: 86px; --r: 44% 56% 60% 40% / 58% 44% 56% 42%; }
 .cefr .is-me {
-  --seg: radial-gradient(circle at 36% 26%, #FFE7B0 0%, #F6BE55 55%, #E99A1F 100%);
+  --seg: var(--calima);
   color: var(--ink); font-size: 0.95rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 0 5px rgba(244, 178, 62, 0.18), 0 16px 30px -12px rgba(244, 178, 62, 0.8);
+  box-shadow: inset 0 0 0 2px var(--ink);
 }
 .cefr .is-off { background: none; color: color-mix(in srgb, var(--ink) 45%, transparent); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 24%, transparent); }
 /* C1, en proceso: el tramo siguiente, a medio llenar. Contorno discontinuo en calima y unas rayas que avanzan despacio,
@@ -931,7 +875,8 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 }
 .edu-route::before {
   content: ''; position: absolute; left: 0; right: 0; top: 7px; height: 3px; border-radius: 3px; transform-origin: 0 50%; transform: scaleX(var(--route));
-  background: linear-gradient(90deg, var(--calima) 0 28%, var(--alisio) 36% 60%, var(--cold) 68% 100%);
+  /* Tramos de color a corte, sin fundido, como una leyenda impresa. */
+  background: linear-gradient(90deg, var(--calima) 0 32%, var(--alisio) 32% 64%, var(--cold) 64% 100%);
 }
 .edu-step { --drop: 0px; position: relative; }
 .edu-step--bach { --c: var(--calima); --deep: #7A4A00; --drop: 60px; }
@@ -949,8 +894,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 /* El sol de la etapa actual, como la pieza del selector de idioma, con un halo que late despacio. */
 .is-now .edu-step__pin {
   top: calc(-1 * var(--rail) - 4px); width: 25px; height: 25px; margin-left: -12.5px;
-  background: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
-  box-shadow: 0 0 0 5px rgba(244, 178, 62, 0.22), 0 4px 8px rgba(120, 60, 0, 0.3);
+  background: var(--calima); box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 5px var(--paper), 0 0 0 6.5px color-mix(in srgb, var(--ink) 30%, transparent);
 }
 .is-now .edu-step__pin::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(244, 178, 62, 0.55); opacity: 0; }
 .motion .is-now .edu-step__pin::before { animation: halo 2.8s ease-out infinite; }
@@ -959,24 +903,20 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 
 .edu-card {
   position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 8px;
-  margin-top: var(--drop); padding: clamp(16px, 1.5vw, 22px) clamp(18px, 1.7vw, 24px); border-radius: clamp(18px, 1.8vw, 24px);
+  margin-top: var(--drop); padding: clamp(18px, 1.6vw, 24px) clamp(20px, 1.8vw, 26px); border-radius: 8px;
+  /* Plana: un tinte de su tramo con una trama de puntos (como una tinta impresa a medio tono), contorno continuo y un
+     filete discontinuo dentro. */
   background:
-    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--deep) 13%, transparent) 1px, transparent 1.5px) 0 0 / 12px 12px,
-    radial-gradient(110% 80% at 100% 0%, color-mix(in srgb, var(--c) 34%, transparent), transparent 62%),
-    color-mix(in srgb, var(--c) 15%, var(--paper));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 42%, transparent), 0 26px 44px -34px color-mix(in srgb, var(--deep) 80%, transparent);
-  transition: translate 0.55s var(--ease-out), box-shadow 0.55s var(--ease-out);
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--deep) 14%, transparent) 1px, transparent 1.5px) 0 0 / 12px 12px,
+    color-mix(in srgb, var(--c) 14%, var(--paper));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--deep) 50%, transparent);
+  transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s;
 }
-/* Isobaras en la esquina: anillos alrededor de la esquina superior derecha, que se abren un poco al pasar el ratón. */
 .edu-card::before {
-  content: ''; position: absolute; z-index: -1; right: -95px; top: -95px; width: 230px; height: 230px; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 17px, color-mix(in srgb, var(--deep) 22%, transparent) 17px 18.4px);
-  -webkit-mask: radial-gradient(circle, #000 25%, transparent 70%); mask: radial-gradient(circle, #000 25%, transparent 70%);
-  transition: scale 0.9s var(--ease-out);
+  content: ''; position: absolute; z-index: -1; inset: 7px; border-radius: 4px; border: 1px dashed color-mix(in srgb, var(--deep) 32%, transparent); pointer-events: none;
 }
 @media (hover: hover) {
-  .edu-card:hover { translate: 0 -6px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent), 0 36px 50px -30px color-mix(in srgb, var(--deep) 80%, transparent); }
-  .edu-card:hover::before { scale: 1.14; }
+  .edu-card:hover { translate: 0 -4px; box-shadow: inset 0 0 0 1.5px var(--deep); }
   .edu-card:hover .edu-card__acr { translate: 6px 0; }
 }
 .edu-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 20px; font-family: var(--mono); font-size: 0.7rem; font-variant-numeric: tabular-nums; color: var(--deep); }
@@ -993,7 +933,7 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 .edu-card__did > span { flex-basis: 100%; font-size: 0.72rem; font-weight: 650; color: var(--ink-2); }
 .edu-card__did a {
   display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 12px; border-radius: 999px; text-decoration: none;
-  font-size: 0.8rem; font-weight: 650; background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); transition: background-color 0.25s, color 0.25s;
+  font-size: 0.8rem; font-weight: 650; background: var(--paper); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--deep) 30%, transparent); transition: background-color 0.3s, color 0.3s;
 }
 .edu-card__did a:has(.edu-card__logo) { padding-left: 4px; }
 .edu-card__did a:hover { background: var(--ink); color: var(--paper); }
@@ -1007,117 +947,246 @@ html { scrollbar-color: var(--ink-2) var(--paper-2); }
 /* La etapa actual: la ficha en lleno, en el azul de su tramo, con el texto en claro y su sello «En curso». */
 .is-now .edu-card {
   --deep: #FFFFFF; color: #FFFFFF;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px) 0 0 / 12px 12px,
-    radial-gradient(90% 80% at 100% 0%, rgba(169, 139, 234, 0.6), transparent 62%),
-    linear-gradient(160deg, #3F7CF2 0%, var(--cold) 50%, #1F49B8 100%);
-  box-shadow: 0 32px 54px -28px rgba(31, 73, 184, 0.65);
+  background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px) 0 0 / 12px 12px, #2457CC;
+  box-shadow: none;
 }
-@media (hover: hover) { .is-now .edu-card:hover { box-shadow: 0 40px 60px -26px rgba(31, 73, 184, 0.7); } }
+.is-now .edu-card::before { border-color: rgba(255, 255, 255, 0.4); }
+@media (hover: hover) { .is-now .edu-card:hover { box-shadow: none; } }
 .is-now .edu-card__where, .is-now .edu-card__did > span { color: rgba(255, 255, 255, 0.84); }
-.is-now .edu-card__did a { background: rgba(255, 255, 255, 0.14); color: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32); }
+.is-now .edu-card__did a { background: rgba(255, 255, 255, 0.12); color: #FFFFFF; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.45); }
 .is-now .edu-card__did a:hover { background: #FFFFFF; color: var(--ink); }
 @keyframes blink { to { opacity: 0.25; } }
 
-/* Proyectos */
-.work { position: relative; background: var(--paper); padding-bottom: clamp(40px, 8vh, 100px); }
-.work__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); align-items: end; gap: 32px; padding-bottom: clamp(36px, 6vh, 72px); }
+/* Paleta de cada proyecto, en el cuaderno y en su ventana: --p-field (el bloque), --p-on y --p-on-2 (texto sobre él),
+   --p-pop (su acento sobre el bloque), --p-ink y --p-acc (tinta y acento sobre el papel crema, con contraste AA),
+   --p-line (filete discontinuo del bloque) y los colores de su pegatina (--p-s0 trazo, --p-fg y --p-fa rellenos). */
+[data-p="lanzamet"] { --p-blend: soft-light; --p-label: #1D4FA8; --p-field: #BFE3EA; --p-on: #0C2E40; --p-on-2: rgba(12, 46, 64, 0.74); --p-pop: #2E6BE6; --p-ink: #0C2E40; --p-acc: #2257C4; --p-line: rgba(12, 46, 64, 0.32); --p-s0: #0C2E40; --p-fg: #2E6BE6; --p-fa: #F4B23E; --p-fl: #BFE3EA; }
+[data-p="aceslan"] { --p-label: #FF8A70; --p-field: #1C1210; --p-on: #FFFFFF; --p-on-2: rgba(255, 255, 255, 0.74); --p-pop: #FF8A70; --p-ink: #2A0E07; --p-acc: #B5321D; --p-line: rgba(255, 138, 112, 0.4); --p-s0: #2A0E07; --p-fg: #E2452B; --p-fa: #FFB09C; --p-fl: #FFD4C8; }
+[data-p="kora"] { --p-label: #FF6A8E; --p-field: #27272C; --p-on: #FFFFFF; --p-on-2: #A0A0A0; --p-pop: #FF3366; --p-ink: #0B0B0B; --p-acc: #C8174A; --p-line: rgba(255, 51, 102, 0.42); --p-s0: #0B0B0B; --p-fg: #111111; --p-fa: #FF3366; --p-fl: #FFC2D1; }
+[data-p="haircloud"] { --p-label: #8CC1F5; --p-field: #2A2C30; --p-on: #FFFFFF; --p-on-2: rgba(255, 255, 255, 0.74); --p-pop: #3D8FE5; --p-ink: #1D2024; --p-acc: #2366C0; --p-line: rgba(140, 193, 245, 0.4); --p-s0: #1D2024; --p-fg: #2A2C30; --p-fa: #3D8FE5; --p-fl: #BFD9F5; }
+[data-p="hariagame"] { --p-label: #8FE3A6; --p-field: #15181B; --p-on: #FFFFFF; --p-on-2: rgba(255, 255, 255, 0.74); --p-pop: #3FB65A; --p-ink: #15181B; --p-acc: #1E7A35; --p-line: rgba(43, 184, 214, 0.5); --p-s0: #15181B; --p-fg: #3FB65A; --p-fa: #F4B23E; --p-fl: #9EE0F0; }
+/* Pegatina en los colores de su proyecto. */
+[data-p] .sticker > svg > use:last-child { --s0: var(--p-s0); --fg: var(--p-fg); --fa: var(--p-fa); --fl: var(--p-fl); --fk: var(--p-s0); }
+/* Bloque de color plano con su grano. */
+.p-block { background: var(--grano) 0 0 / 240px 240px, var(--p-field); background-blend-mode: var(--p-blend, overlay), normal; }
+
+.hero__intro .blob > .shape__body { filter: drop-shadow(0 12px 16px var(--shadow)); }
+/* Piezas de papel: la forma lleva el grano del papel encima de su color, que es plano (una sola capa en --fill). */
+[data-paper] > .shape__body > .shape__fill { background: var(--grano) 0 0 / 240px 240px, var(--fill); background-blend-mode: soft-light, normal; }
+
+/* ── Cuaderno de campo ─────────────────────────────────────────────────────────────────────────────────────────────
+   Proyectos, KORA y Trayectoria se imprimen como un cuaderno sobre la carta: hojas de papel crema con grano y el canto
+   rasgado (.sheet), a dos tintas verdes y con la calima como único acento. Todo plano, en 2D: fotos y capturas rectas,
+   sin sombras ni degradados; la profundidad la dan el papel, las pegatinas troqueladas y los sellos. Las texturas son
+   mosaicos propios (scripts/papel.mjs) y los dibujos, símbolos del sprite de index.html. */
+/* Recorte solo en horizontal: las pegatinas pueden asomar por el borde de la pantalla sin crear scroll lateral, y los
+   cantos rasgados siguen saliendo por arriba y por abajo. */
+.sheet { position: relative; z-index: 1; overflow-x: clip; background: var(--papel); color: var(--bosque); }
+.sheet::before, .sheet::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 22px; pointer-events: none; background: var(--papel);
+  -webkit-mask: var(--rasgado) 0 0 / 480px 22px repeat-x; mask: var(--rasgado) 0 0 / 480px 22px repeat-x;
+}
+.sheet::before { bottom: calc(100% - 1px); }
+.sheet::after { top: calc(100% - 1px); transform: scaleY(-1); }
+.sheet ::selection { background: var(--brote); color: var(--bosque); }
+.sheet :focus-visible { outline-color: var(--hoja); }
+/* El frente dibujado es de la carta: en el cuaderno el cambio de escena ya lo marca el canto del papel. */
+.sheet .front { display: none; }
+
+/* Pegatina troquelada: el dibujo va dos veces debajo de sí mismo, en blanco con trazo grueso (el troquel) y en tinta
+   desplazado 3px (el grosor del vinilo). Al llegar, se «pega» con un pequeño rebote (src/main.ts, .is-in). */
+.sticker {
+  --tilt: -8deg; --tilt-h: 6deg;
+  position: absolute; z-index: 4; display: block; width: clamp(96px, 8.4vw, 132px); pointer-events: none;
+  rotate: var(--tilt); transition: rotate 0.7s var(--ease-out), scale 0.7s var(--ease-out);
+}
+.sticker svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sticker__cut { --f0: #FFFDF6; --fa: #FFFDF6; --fg: #FFFDF6; --fc: #FFFDF6; --fl: #FFFDF6; --fk: #FFFDF6; --s0: #FFFDF6; --s1: #FFFDF6; --sw: 16px; }
+.sticker__shadow {
+  --f0: rgba(22, 70, 58, 0.2); --fa: rgba(22, 70, 58, 0.2); --fg: rgba(22, 70, 58, 0.2); --fc: rgba(22, 70, 58, 0.2); --fl: rgba(22, 70, 58, 0.2);
+  --fk: rgba(22, 70, 58, 0.2); --s0: rgba(22, 70, 58, 0.2); --s1: rgba(22, 70, 58, 0.2); --sw: 16px; transform: translate(0, 3.5px);
+}
+.kora .sticker__shadow { --f0: rgba(0, 0, 0, 0.28); --fa: rgba(0, 0, 0, 0.28); --fg: rgba(0, 0, 0, 0.28); --fc: rgba(0, 0, 0, 0.28); --fl: rgba(0, 0, 0, 0.28); --fk: rgba(0, 0, 0, 0.28); --s0: rgba(0, 0, 0, 0.28); --s1: rgba(0, 0, 0, 0.28); }
+
+/* Sello: canto dentado de moneda en verde hoja, un anillo de puntos con su texto y un círculo con lo de dentro. El
+   sello gira despacio con el scroll donde el navegador lo hace solo (animation-timeline), sin JavaScript. */
+.stamp { position: relative; display: grid; place-items: center; width: clamp(104px, 9vw, 136px); aspect-ratio: 1; flex: none; container-type: inline-size; }
+.stamp > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stamp__edge { fill: var(--hoja); }
+.stamp__dots { fill: none; stroke: var(--crema); stroke-width: 1.7; stroke-dasharray: 0.1 4.2; stroke-linecap: round; }
+.stamp__in { fill: none; stroke: var(--crema); stroke-width: 1.6; }
+.stamp__txt { fill: var(--crema); font-family: var(--sans); font-size: 9.2px; font-weight: 700; font-stretch: 112%; letter-spacing: 1.2px; }
+.stamp__isle { position: relative; width: 31%; aspect-ratio: 900 / 1029; background: var(--crema); -webkit-mask: url('/img/isla-mask.png') center / contain no-repeat; mask: url('/img/isla-mask.png') center / contain no-repeat; }
+.stamp__num { position: relative; font-weight: 800; font-stretch: 118%; font-size: 30cqi; line-height: 1; color: var(--crema); letter-spacing: -0.04em; }
+.stamp__sol { position: relative; width: 32%; aspect-ratio: 1; border-radius: 50%; background: var(--calima); box-shadow: 0 0 0 1.6px var(--crema); }
+@keyframes stamp-spin { from { rotate: -60deg; } to { rotate: 60deg; } }
+/* Gira el <svg> entero (una caja HTML que el navegador puede componer en su capa), no un grupo de dentro: girar un
+   <g> obliga a repintar el sello, con su texto en curva, en cada frame. El centro va fuera del <svg> y no gira. */
+@supports (animation-timeline: view()) {
+  .motion .stamp > svg { animation: stamp-spin linear both; animation-timeline: view(); }
+}
+
+/* Enlace con la flecha en un anillo ornamental (doble: liso y de puntos). Al pasar, el anillo se llena de verde hoja,
+   la flecha avanza y los puntos giran. Sustituye a las formas de presión dentro del cuaderno. */
+.ring-link {
+  display: inline-flex; align-items: center; gap: 16px; color: var(--bosque); text-decoration: none;
+  font-weight: 750; font-stretch: 116%; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.ring-link__ring {
+  position: relative; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px currentColor; transition: background-color 0.35s, color 0.35s;
+}
+.ring-link__ring::before { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 2px dotted currentColor; transition: rotate 1.2s var(--ease-out); }
+.ring-link__ring svg { width: 20px; height: 20px; transition: transform 0.45s var(--ease-out); }
+.ring-link:hover .ring-link__ring, .ring-link:focus-visible .ring-link__ring { background: var(--ring-acc, var(--hoja)); color: var(--ring-on, var(--crema)); box-shadow: inset 0 0 0 1.5px var(--ring-acc, var(--hoja)); }
+.ring-link:hover .ring-link__ring::before, .ring-link:focus-visible .ring-link__ring::before { rotate: 60deg; color: var(--ring-acc, var(--hoja)); }
+.ring-link:hover .ring-link__ring svg { transform: translateX(3px); }
+.ring-link:focus-visible { outline: none; }
+.ring-link:focus-visible .ring-link__ring { outline: 2px solid var(--ring-acc, var(--hoja)); outline-offset: 10px; }
+.sheet .link-out { color: var(--p-ink, var(--bosque)); text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
+.sheet .link-out svg { color: var(--p-acc, var(--hoja)); }
+.case .ring-link { color: var(--p-ink); }
+
+/* Proyectos: dobles páginas. A un lado, un bloque plano de verde bosque con un filete discontinuo dentro (como un
+   cupón) y la escena del proyecto montada encima, con las capturas en marco de papel y sin sombras; en su esquina,
+   la pegatina del proyecto. Al otro, el texto impreso sobre el papel. Los lados se alternan (.case--flip) y una
+   línea discontinua central, con un punto que baja con el scroll, une los proyectos (src/main.ts). */
+.work { padding-bottom: clamp(72px, 12vh, 140px); }
+#proyectos { padding-top: clamp(80px, 13vh, 150px); }
+.work--b { padding-top: clamp(110px, 16vh, 170px); }
+.work__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 24rem) auto; align-items: end; gap: 28px clamp(24px, 4vw, 64px); padding-bottom: clamp(64px, 11vh, 128px); }
 .h2 { font-weight: 800; font-stretch: 118%; font-size: clamp(2.8rem, 1.6rem + 5.2vw, 6rem); line-height: 0.92; letter-spacing: -0.035em; }
 .h2 .ch, .contact__title .ch { display: inline-block; }
 .work__lede { color: var(--ink-2); font-size: 1.05rem; max-width: 34ch; text-wrap: pretty; }
+.sheet .work__lede { color: var(--tinta-cuaderno); }
+.work__stamp { rotate: -8deg; margin-bottom: -10px; }
 
-.case { padding: 0 var(--gutter); margin-bottom: clamp(16px, 2.4vh, 26px); scroll-margin-top: calc(var(--bar) + 16px); }
-.case__card {
-  position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  min-height: min(68vh, 620px); border-radius: var(--radius); overflow: hidden;
-  background: var(--field); color: var(--field-ink);
-  max-width: 1600px; margin-inline: auto;
-  contain: paint;
+.work__cases {
+  --cgap: clamp(64px, 8vw, 136px);
+  position: relative; display: grid; row-gap: clamp(120px, 20vh, 220px);
+  width: min(100% - 2 * var(--gutter), 1480px); margin-inline: auto;
 }
-.case__text { container-type: inline-size; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: clamp(24px, 3.2vw, 52px); }
-.case__title { white-space: nowrap; font-weight: 800; font-stretch: 122%; font-size: min(5.6rem, 14.5cqi); line-height: 0.9; letter-spacing: -0.035em; }
-.case__kind { font-family: var(--mono); font-size: 0.72rem; line-height: 1.5; margin-top: -4px; }
-.case__claim { font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.6rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; max-width: 24ch; text-wrap: balance; margin-top: 6px; }
-.case__body { max-width: 46ch; text-wrap: pretty; }
-.case__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 10px; }
-.case__media { position: relative; min-height: 360px; }
-.shot { position: absolute; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 30px 60px -28px rgba(8, 28, 40, 0.55), 0 2px 6px rgba(8, 28, 40, 0.1); }
+.work__line { position: absolute; left: 50%; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed rgba(22, 70, 58, 0.34); }
+.work__fill { position: absolute; left: -1.5px; top: 0; width: 1.5px; height: 100%; background: var(--hoja); transform-origin: 50% 0; transform: scaleY(0); }
+.work__dot { position: absolute; left: -10.25px; top: -9px; width: 18px; height: 18px; }
+.motion .work__fill, .motion .work__dot { will-change: transform; }
+/* Sin movimiento la línea queda discontinua, sin punto ni tramo en tinta. */
+html:not(.motion) :is(.work__fill, .work__dot) { display: none; }
+
+.case {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--cgap); align-items: center;
+  scroll-margin-top: calc(var(--bar) + 24px);
+}
+.case__panel { position: relative; grid-column: 2; grid-row: 1; height: min(76vh, 680px); min-height: 480px; }
+.case__text { grid-column: 1; grid-row: 1; container-type: inline-size; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 18px; padding-block: 16px; }
+.case--flip .case__panel { grid-column: 1; }
+.case--flip .case__text { grid-column: 2; }
+/* El bloque de cada proyecto: su color plano con grano y un filete discontinuo dentro, como un cupón. */
+.case { --ring-acc: var(--p-acc); }
+.case__media { position: absolute; inset: 0; overflow: hidden; background: var(--grano) 0 0 / 240px 240px, var(--p-field); background-blend-mode: var(--p-blend, overlay), normal; color: var(--p-on); contain: paint; }
+.case__media::before { content: ''; position: absolute; inset: 14px; border: 1.5px dashed var(--p-line); pointer-events: none; }
+.case__sticker { top: -46px; left: -50px; }
+.case--flip .case__sticker { left: auto; right: -50px; --tilt: 9deg; --tilt-h: -7deg; }
+@media (hover: hover) {
+  .case:hover .case__sticker { rotate: var(--tilt-h); scale: 1.06; }
+}
+
+/* Texto: el nombre en una línea medido por su columna, el tipo como rótulo de imprenta en verde hoja, un filete
+   discontinuo, la frase, el cuerpo, las tecnologías en una línea y las acciones. */
+.case__title {
+  max-width: 100%; overflow: clip; padding-bottom: 0.1em; margin-bottom: -0.1em; color: var(--bosque);
+  white-space: nowrap; font-weight: 800; font-stretch: 116%; font-size: min(6.4rem, 15cqi); line-height: 0.9; letter-spacing: -0.035em;
+}
+.case .case__title { color: var(--p-ink); }
+.case__title > span { display: inline-block; }
+/* «Haría Game» es el nombre más largo: un poco menor para caber en la columna sin cortarse. */
+.case--game .case__title { font-size: min(6.4rem, 13.6cqi); }
+.case__kind { display: flex; align-items: center; gap: 12px; color: var(--p-acc, var(--hoja)); font-size: 0.78rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; }
+.case__kind::before { content: ''; width: 26px; flex: none; border-top: 2px dashed currentColor; }
+.case__claim {
+  width: 100%; margin-top: 10px; padding-top: 24px; border-top: 1.5px dashed color-mix(in srgb, var(--p-ink, var(--bosque)) 30%, transparent); color: var(--p-ink, var(--bosque));
+  font-size: clamp(1.3rem, 1.05rem + 0.8vw, 1.9rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance;
+}
+.case__body { max-width: 48ch; color: var(--tinta-cuaderno); text-wrap: pretty; }
+.case__stack { display: flex; flex-wrap: wrap; row-gap: 4px; color: var(--p-ink, var(--bosque)); font-size: 0.86rem; font-weight: 650; font-stretch: 106%; letter-spacing: 0.005em; }
+.case__stack li:not(:last-child)::after { content: '✳'; margin: 0 0.7em; color: var(--p-acc, var(--hoja)); font-size: 0.7em; vertical-align: 0.15em; }
+.case__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 14px; }
+
+/* Capturas planas: en marco de papel, rectas y sin sombra, como fotos impresas; los teléfonos, con su canto oscuro y
+   un filete de papel. */
+.shot { position: absolute; overflow: hidden; background: #fff; }
 .shot img { width: 100%; height: auto; }
-.shot--phone { border-radius: 26px; box-shadow: 0 0 0 6px var(--ink), 0 30px 60px -24px rgba(8, 28, 40, 0.6); }
+.case__media .shot { z-index: 1; border: 6px solid var(--crema); }
+.case__media .shot--phone { border: 6px solid #0E0F11; border-radius: 26px; outline: 2px solid var(--crema); }
 
-/* Composiciones, todas a la altura de antes (min(68vh, 620px)). «split» (LanzaMet): texto y escena. «mirror»
-   (ACESLAN): escena a la izquierda y texto a la derecha tras un filete. «triptych» (HairCloud): titular, teléfonos que
-   asoman por abajo en el centro y el resto a la derecha. «pause» (Haría Game): el comparador real ↔ juego ocupa la
-   tarjeta y el texto va en un panel sólido, como el menú de pausa de un juego. */
-.case__lead, .case__more { display: grid; gap: 14px; align-content: start; }
-.case--mirror .case__card { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
-.case--mirror .case__media { order: -1; }
-.case--mirror .case__text { box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.1); }
-.case--triptych .case__card { grid-template-columns: minmax(0, 4fr) minmax(0, 4.4fr) minmax(0, 3.6fr); }
-.case--triptych .case__text { display: contents; }
-.case--triptych .case__lead { container-type: inline-size; grid-column: 1; grid-row: 1; align-self: center; padding: clamp(24px, 3.2vw, 52px); padding-right: 8px; }
-.case--triptych .case__media { grid-column: 2; grid-row: 1; min-height: 0; }
-.case--triptych .case__more { grid-column: 3; grid-row: 1; align-self: center; padding: clamp(24px, 3.2vw, 52px); padding-left: clamp(16px, 2vw, 32px); }
-.case--pause .case__card { display: block; }
-.case--pause .case__media { position: absolute; inset: 0; min-height: 0; }
-.case--pause .case__text {
-  position: relative; z-index: 2; width: min(42%, 540px); min-height: calc(min(68vh, 620px) - 2 * clamp(14px, 1.6vw, 24px));
-  margin: clamp(14px, 1.6vw, 24px); padding: clamp(22px, 2.6vw, 38px); gap: 12px; border-radius: 22px;
-  background: var(--hg); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 40px 80px -30px rgba(0, 0, 0, 0.85);
+/* Entrada (con movimiento; src/main.ts añade .is-in al llegar): el nombre sube desde su línea, el texto sube un poco
+   en cascada, la pegatina se pega con un rebote y cada escena tiene su gesto. Solo transformaciones, sin ScrollTrigger. */
+.motion .case:not(.is-in) .case__title > span { transform: translateY(105%); }
+.motion .case:not(.is-in) :is(.case__kind, .case__claim, .case__body, .case__stack, .ac-press, .case__actions) { transform: translateY(28px); }
+.motion .case:not(.is-in) .case__sticker { scale: 1.35; rotate: calc(var(--tilt) * -2); opacity: 0; }
+.motion .case .case__title > span { transition: transform 1.1s var(--ease-out); }
+.motion .case :is(.case__kind, .case__claim, .case__body, .case__stack, .ac-press, .case__actions) { transition: transform 1s var(--ease-out); }
+.motion .case .case__kind { transition-delay: 0.08s; }
+.motion .case .case__claim { transition-delay: 0.14s; }
+.motion .case .case__body { transition-delay: 0.2s; }
+.motion .case :is(.case__stack, .ac-press) { transition-delay: 0.26s; }
+.motion .case .case__actions { transition-delay: 0.32s; }
+.motion .case .case__sticker { transition: rotate 0.7s var(--ease-out), scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s; }
+.motion .case.is-in .case__sticker { transition-delay: 0.45s, 0.45s, 0.45s; }
+.motion .case.is-in:hover .case__sticker { transition-delay: 0s; }
+/* La entrada mueve «transform»; el gesto al pasar el ratón, «scale/rotate/translate» (más abajo): las dos van en la
+   misma transición, si no la del ratón se queda sin ella y salta de golpe. */
+.motion .case .case__media :is(figure, .lm-media__map) {
+  transition: transform 1.2s var(--ease-out), scale 0.9s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.9s cubic-bezier(0.22, 1, 0.36, 1), translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* La raya verde y cian de los botones del juego, al pie del panel. */
-.case--pause .case__text::after { content: ''; position: absolute; left: 28px; right: 28px; bottom: 0; height: 4px; border-radius: 4px 4px 0 0; background: linear-gradient(90deg, var(--hg-green) 50%, var(--hg-cyan) 50%); }
-.case--pause .case__claim { font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem); }
-.case--pause .case__body { font-size: 0.95rem; line-height: 1.5; }
+.motion .case:not(.is-in) .lm-media__desk { transform: translateX(120px); }
+.motion .case:not(.is-in) .lm-media__phone { transform: translateY(90px); }
+.motion .case:not(.is-in) .zones li { scale: 0; }
+.zones li:nth-child(2) { --n: 1; } .zones li:nth-child(3) { --n: 2; } .zones li:nth-child(4) { --n: 3; } .zones li:nth-child(5) { --n: 4; } .zones li:nth-child(6) { --n: 5; } .zones li:nth-child(7) { --n: 6; } .zones li:nth-child(8) { --n: 7; } .zones li:nth-child(9) { --n: 8; }
+.motion .case .zones li { transition: scale 0.6s cubic-bezier(0.34, 1.7, 0.64, 1); transition-delay: calc(0.25s + var(--n, 0) * 70ms); }
+.motion .case:not(.is-in) .ac-media__browser { transform: translateX(-120px); }
+.motion .case:not(.is-in) .ac-media__phone { transform: translateY(120px); }
+.motion .case .ac-media__phone--b { transition-delay: 0.12s; }
+.motion .case:not(.is-in) .hc-media__phone--c { transform: translateY(45%); }
+.motion .case:not(.is-in) .hc-media__phone--l, .motion .case:not(.is-in) .hc-media__phone--r { transform: translateY(55%); }
+.motion .case .hc-media__phone--l { transition-delay: 0.1s; }
+.motion .case .hc-media__phone--r { transition-delay: 0.18s; }
+.motion .case:not(.is-in) .hg-media__inset { transform: translateY(90px); }
+.motion .case .hg-media__inset { transition-delay: 0.15s; }
+.motion .case .hg-media__bg { transition: none; }
 
-/* Selector de vistas (LanzaMet): el mismo sistema de presión que el selector de idioma y los modos del retrato, en
-   horizontal y con los colores del proyecto. Cada botón dice su nombre al pasar el ratón o con el foco. */
-.picker[data-blob] {
-  --bx: 5%; --by: 14%; --gap: 6px; --ring: color-mix(in srgb, var(--calima) 80%, transparent); --shadow: rgba(12, 46, 64, 0.45);
-  --fill:
-    radial-gradient(60% 90% at 14% 10%, rgba(255, 255, 255, 0.28), transparent 70%),
-    radial-gradient(50% 110% at 100% 100%, rgba(46, 107, 230, 0.85), transparent 70%),
-    linear-gradient(120deg, #1B5873 0%, var(--ocean) 100%);
-  display: grid; grid-auto-flow: column; grid-auto-columns: 42px; padding: 3px;
-}
-.picker .shape__body { filter: drop-shadow(0 10px 16px var(--shadow)); }
-.picker .shape__iso--2 { --ix: calc(var(--bx) + 2.2 * var(--gap)); --iy: calc(var(--by) + 2.2 * var(--gap)); }
-.picker .shape__iso--2 path { stroke: color-mix(in srgb, var(--sky) 80%, transparent); }
-.picker__knob[data-blob] {
-  --bx: 6%; --by: 6%; --fill: radial-gradient(circle at 38% 32%, #FCE0A0 0%, #F6BE55 50%, var(--calima) 100%);
-  position: absolute; z-index: 0; left: 3px; top: 3px; width: 42px; height: 42px;
-  transition: translate 0.6s var(--ease-out), rotate 0.8s var(--ease-out);
-}
-.picker__knob .shape__body { filter: drop-shadow(0 3px 5px rgba(120, 60, 0, 0.35)); }
-.picker[data-on="1"] .picker__knob { translate: 100% 0; rotate: 90deg; }
-.picker[data-on="2"] .picker__knob { translate: 200% 0; rotate: 180deg; }
-.picker[data-on="3"] .picker__knob { translate: 300% 0; rotate: 270deg; }
-.picker button { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #FFFFFF; transition: color 0.35s; }
+/* Selector de vistas (LanzaMet): una cápsula de papel con su pieza en verde hoja que rueda hasta la vista elegida.
+   Cada botón dice su nombre al pasar el ratón o con el foco. */
+.picker { display: grid; grid-auto-flow: column; grid-auto-columns: 42px; padding: 4px; border-radius: 999px; background: var(--crema); box-shadow: 0 0 0 1.5px var(--p-ink, var(--bosque)); }
+.picker__knob { position: absolute; z-index: 0; left: 4px; top: 4px; width: 42px; height: 42px; border-radius: 50%; background: var(--p-ink, var(--hoja)); transition: translate 0.6s var(--ease-out); }
+.picker[data-on="1"] .picker__knob { translate: 100% 0; }
+.picker[data-on="2"] .picker__knob { translate: 200% 0; }
+.picker[data-on="3"] .picker__knob { translate: 300% 0; }
+.picker button { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: var(--p-ink, var(--bosque)); transition: color 0.35s; }
 .picker button svg { width: 21px; height: 21px; transition: transform 0.45s var(--ease-out); }
-.picker button[aria-pressed="true"] { color: var(--ink); }
+.picker button[aria-pressed="true"] { color: var(--crema); }
 .picker button:hover svg { transform: scale(1.12); }
-.picker button:not([aria-pressed="true"]):hover { color: #FFE7B0; }
+.picker button:not([aria-pressed="true"]):hover { color: var(--p-acc, var(--hoja)); }
 .picker__tip {
-  position: absolute; left: 50%; bottom: calc(100% + 16px); translate: -50% 6px; white-space: nowrap; pointer-events: none;
-  padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: 0.8rem; font-weight: 600;
-  box-shadow: 0 10px 22px -12px rgba(12, 46, 64, 0.6); opacity: 0; transition: opacity 0.25s, translate 0.4s var(--ease-out);
+  position: absolute; left: 50%; bottom: calc(100% + 14px); translate: -50% 6px; white-space: nowrap; pointer-events: none;
+  padding: 6px 12px; background: var(--p-ink, var(--bosque)); color: var(--crema); font-size: 0.8rem; font-weight: 600;
+  opacity: 0; transition: opacity 0.25s, translate 0.4s var(--ease-out);
 }
 .picker button:hover .picker__tip, .picker button:focus-visible .picker__tip, .ac-bell:hover .picker__tip, .ac-bell:focus-visible .picker__tip { opacity: 1; translate: -50% 0; }
 .ac-bell .picker__tip { left: calc(100% + 14px); bottom: auto; top: 50%; translate: -6px -50%; }
 .ac-bell:hover .picker__tip, .ac-bell:focus-visible .picker__tip { translate: 0 -50%; }
-.lm-views { position: absolute; z-index: 3; left: calc(41.667% + clamp(18px, 2.2vw, 34px)); bottom: clamp(20px, 3vh, 34px); }
+.lm-views { position: absolute; z-index: 3; left: clamp(26px, 2.6vw, 40px); bottom: clamp(26px, 3.4vh, 40px); }
 img.is-swap { opacity: 0; }
 [data-lm-desk], [data-lm-phone] { transition: opacity 0.18s; }
 .lm-media__desk img { aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 0; }
 
 /* ACESLAN: la campana envía un aviso al teléfono; baja desde arriba y el teléfono vibra. */
-.ac-bell[data-blob] {
-  --bx: 8%; --by: 8%; --gap: 6px; --ring: color-mix(in srgb, var(--ace-soft) 75%, transparent); --shadow: rgba(226, 69, 43, 0.5);
-  --fill: radial-gradient(60% 70% at 30% 20%, rgba(255, 255, 255, 0.4), transparent 70%), linear-gradient(150deg, #FFA28B 0%, var(--ace-red) 80%);
-  position: absolute; z-index: 3; left: clamp(18px, 2.2vw, 34px); bottom: clamp(18px, 3vh, 32px);
-  display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; color: var(--ace);
+.ac-bell {
+  position: absolute; z-index: 3; left: clamp(26px, 2.6vw, 40px); bottom: clamp(26px, 3.4vh, 40px);
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--crema); color: var(--p-ink, var(--bosque)); box-shadow: 0 0 0 1.5px var(--p-ink, var(--bosque)); transition: background-color 0.3s, color 0.3s;
 }
-.ac-bell .shape__body { filter: drop-shadow(0 10px 16px var(--shadow)); }
+.ac-bell:hover { background: var(--ace-red); color: #FFFFFF; }
 .ac-bell svg { width: 23px; height: 23px; transform-origin: 50% 12%; }
 .ac-bell:hover svg { animation: swing 0.7s var(--ease-out); }
 @keyframes swing { 20% { transform: rotate(16deg); } 45% { transform: rotate(-12deg); } 70% { transform: rotate(6deg); } }
@@ -1136,100 +1205,106 @@ img.is-swap { opacity: 0; }
 .ac-media__phone--b.is-push { animation: buzz 0.55s linear 0.35s; }
 @keyframes buzz { 15% { rotate: -2.4deg; } 35% { rotate: 2.4deg; } 55% { rotate: -1.6deg; } 75% { rotate: 1.2deg; } 100% { rotate: 0deg; } }
 
-/* LanzaMet */
-.lm-media__map { position: absolute; left: 2%; top: 5%; height: 62%; aspect-ratio: 900 / 1029; }
-.lm-media__map .isle { position: absolute; inset: 0; background: color-mix(in srgb, var(--ocean) 88%, transparent); }
+/* LanzaMet: la isla en verde brote, plana, con sus nueve zonas como etiquetas de papel. */
+.lm-media__map { position: absolute; left: 7%; top: 7%; height: 50%; aspect-ratio: 900 / 1029; }
+.lm-media__map .isle { position: absolute; inset: 0; background: var(--ocean); }
 .zones li {
-  position: absolute; left: var(--x); top: var(--y);
-  font-family: var(--mono); font-size: 0.6rem; white-space: nowrap; color: var(--paper);
-  display: flex; align-items: center; gap: 5px;
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-9px, -50%);
+  display: flex; align-items: center; gap: 5px; padding: 3px 8px 3px 4px; white-space: nowrap;
+  background: var(--crema); color: var(--ocean); font-size: 0.7rem; font-weight: 600;
 }
-.zones li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--calima); flex: none; }
-.zones li { transform: translate(-9px, -50%); padding: 3px 8px 3px 4px; border-radius: 999px; background: rgba(12, 46, 64, 0.92); }
-.lm-media__desk { right: -4%; bottom: 5%; width: 62%; }
-.lm-media__phone { right: 6%; top: 7%; width: 21%; }
+.zones li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--calima); box-shadow: 0 0 0 1.5px var(--ocean); flex: none; }
+.lm-media__desk { right: -9%; bottom: 14%; width: 82%; }
+.lm-media__phone { right: 7%; top: 6%; width: 25%; }
 
-/* ACESLAN */
-.case--aceslan .case__kind { color: var(--ace-soft); }
-.case--aceslan .case__body { color: rgba(255, 255, 255, 0.78); }
-.ac-press { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
-.ac-press a { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: rgba(255, 255, 255, 0.88); text-decoration: none; }
-.ac-press a svg { width: 14px; height: 14px; color: var(--ace-soft); transition: transform 0.4s var(--ease-out); }
-.ac-press a:hover { color: #fff; }
+/* ACESLAN: panel web en marco de papel y dos teléfonos que asoman por abajo. */
+.ac-press { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 0.86rem; font-weight: 600; font-stretch: 106%; color: var(--tinta-cuaderno); }
+.ac-press a { display: inline-flex; align-items: center; gap: 4px; color: var(--bosque); text-decoration: underline; text-decoration-color: rgba(22, 70, 58, 0.35); }
+.ac-press a svg { width: 14px; height: 14px; color: var(--hoja); transition: transform 0.4s var(--ease-out); }
+.ac-press a:hover { text-decoration-color: currentColor; }
 .ac-press a:hover svg { transform: translate(2px, -2px); }
-.ac-media__browser {
-  position: absolute; left: -2%; top: 11%; width: 84%; margin: 0; border-radius: 12px; overflow: hidden;
-  background: #1E1E1E; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 50px 90px -40px rgba(0, 0, 0, 0.8);
-}
+.ac-media__browser { position: absolute; z-index: 1; left: 7%; top: 9%; width: 88%; margin: 0; overflow: hidden; background: #1E1E1E; border: 6px solid var(--crema); }
 .ac-media__bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #241B1A; }
 .ac-media__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); }
 .ac-media__bar i:first-child { background: var(--ace-red); }
 .ac-media__bar span { margin-left: 10px; font-size: 0.72rem; font-weight: 600; color: rgba(255, 255, 255, 0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ac-media__browser img { display: block; width: 100%; height: auto; }
-.ac-media__phone { width: 22%; z-index: 1; }
-.ac-media__phone--a { right: 22%; bottom: 5%; }
-.ac-media__phone--b { right: 1%; bottom: 12%; }
-.case--aceslan .shot--phone { box-shadow: 0 0 0 6px #0C0808, 0 40px 70px -28px rgba(0, 0, 0, 0.85); }
+.ac-media__phone { width: 27%; z-index: 2; }
+.ac-media__phone--a { right: 33%; bottom: -12%; }
+.ac-media__phone--b { right: 5%; bottom: -4%; }
 
-/* Haría Game */
-.case--game .case__kind { color: #8FE3A6; }
-.case--game .case__body { color: rgba(255, 255, 255, 0.8); }
-.case--game .link-out { color: #fff; }
-/* Haría Game: la pista del juego a toda la tarjeta, bajo el menú de pausa, y la entrada del instituto encajada abajo a
-   la derecha con el borde cian de los botones del juego. */
+/* Haría Game: la pista del juego a todo el panel, plana, y la entrada del instituto encajada en marco de papel. */
 .hg-media { background: #0B0D0F; }
+.hg-media::before { display: none; }
 .hg-media__bg { position: absolute; inset: 0; margin: 0; }
 .hg-media__bg img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 55%; }
-.hg-media__inset {
-  position: absolute; z-index: 2; right: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); width: min(30%, 380px); margin: 0;
-  border-radius: 12px; overflow: hidden; background: #0B0D0F;
-  box-shadow: 0 0 0 3px var(--hg), 0 0 0 4px rgba(43, 184, 214, 0.55), 0 40px 70px -30px rgba(0, 0, 0, 0.9);
-}
+.hg-media__inset { position: absolute; z-index: 2; right: clamp(18px, 2vw, 30px); bottom: clamp(18px, 2vw, 30px); width: min(46%, 380px); margin: 0; overflow: hidden; background: #0B0D0F; border: 6px solid var(--crema); outline: 3px solid var(--hg-green); }
 .hg-media__inset img { display: block; width: 100%; height: auto; }
 
-/* HairCloud: tríptico, tres teléfonos en la columna central que asoman por el borde inferior. En escritorio el grupo
-   se desplaza (--hc-shift, src/details.ts) para quedar centrado entre los dos textos. */
-@media (min-width: 901px) { .hc-media { translate: var(--hc-shift, 0px) 0; } }
+/* HairCloud: tres teléfonos que asoman por el borde inferior del panel, el del centro delante. */
 .hc-media__phone { width: 36%; left: 50%; translate: -50% 0; top: 16%; }
 .hc-media__phone--c { z-index: 2; }
 .hc-media__phone--l { translate: -128% 0; top: 33%; rotate: -7deg; }
 .hc-media__phone--r { translate: 28% 0; top: 33%; rotate: 7deg; }
 
-/* Archivo: proyectos menores, en una rejilla compacta y discreta */
-.archive { padding-top: clamp(40px, 7vh, 80px); scroll-margin-top: var(--bar); }
-.archive__title { font-weight: 700; font-stretch: 106%; font-size: 1.1rem; letter-spacing: -0.01em; color: var(--ink-2); margin-bottom: 14px; }
-.archive__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+/* Archivo: proyectos menores en un índice de filas separadas por filetes. Cada fila: la flecha en su anillo, el
+   nombre, qué es, con qué está hecho y el año. Al pasar el ratón no se rellena nada: un trazo de rotulador de calima
+   pasa por detrás del nombre de izquierda a derecha, la flecha sale por la esquina de su anillo y vuelve a entrar por
+   la contraria, y la fila entra un poco. Todo con transformaciones y una sola curva suave. */
+.archive { padding-top: clamp(110px, 16vh, 180px); scroll-margin-top: var(--bar); }
+.archive__title { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; color: var(--hoja); font-size: 0.8rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; }
+.archive__title::before { content: ''; width: 26px; border-top: 2px dashed currentColor; }
+.archive__list { border-top: 1.5px solid var(--bosque); }
+.archive__list li { border-bottom: 1px dashed rgba(22, 70, 58, 0.3); }
 .archive__list a {
-  display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; align-items: baseline; height: 100%;
-  padding: 12px 14px; border-radius: 12px; text-decoration: none; box-shadow: inset 0 0 0 1px var(--rule);
-  transition: background-color 0.3s, box-shadow 0.3s;
+  --ease-arc: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative; display: grid; align-items: center; column-gap: clamp(16px, 2.4vw, 40px);
+  grid-template-columns: auto minmax(0, 17rem) minmax(0, 1fr) minmax(0, 15rem) 3.2rem;
+  padding: 18px clamp(8px, 1.2vw, 18px); color: var(--bosque); text-decoration: none;
 }
-.archive__list a:hover { background: color-mix(in srgb, var(--sky) 55%, transparent); box-shadow: inset 0 0 0 1px transparent; }
-.archive__list b { font-weight: 700; font-stretch: 106%; font-size: 0.95rem; }
-.archive__list span { grid-column: 1 / -1; color: var(--ink-2); font-size: 0.85rem; line-height: 1.35; }
-.archive__list em { grid-column: 1 / -1; font-style: normal; font-size: 0.74rem; font-weight: 600; color: var(--ink-2); }
-.archive__list time { grid-column: 2; grid-row: 1; font-family: var(--mono); font-size: 0.66rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.archive__list svg { display: none; }
+.archive__list a > * { transition: transform 0.7s var(--ease-arc); }
+.archive__go { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; box-shadow: inset 0 0 0 1.5px currentColor; transition: transform 0.7s var(--ease-arc), background-color 0.4s, color 0.4s; }
+.archive__go svg { width: 16px; height: 16px; }
+.archive__list b { position: relative; z-index: 0; justify-self: start; font-weight: 750; font-stretch: 110%; font-size: clamp(1.1rem, 1rem + 0.4vw, 1.4rem); letter-spacing: -0.015em; line-height: 1.15; }
+/* El trazo de rotulador: una banda de calima algo inclinada en el tercio bajo del nombre, que crece desde la izquierda. */
+.archive__list b::after {
+  content: ''; position: absolute; z-index: -1; left: -0.15em; right: -0.2em; bottom: 0.02em; height: 0.46em; border-radius: 0.12em 0.3em 0.18em 0.28em;
+  background: color-mix(in srgb, var(--calima) 75%, transparent); rotate: -1deg;
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.6s var(--ease-arc);
+}
+.archive__list a > span:not(.archive__go) { color: var(--tinta-cuaderno); font-size: 0.92rem; line-height: 1.35; }
+.archive__list em { font-style: normal; font-size: 0.8rem; font-weight: 600; color: var(--hoja); }
+.archive__list time { justify-self: end; font-family: var(--mono); font-size: 0.7rem; color: var(--tinta-cuaderno); font-variant-numeric: tabular-nums; }
+@keyframes arc-out { 0% { transform: none; } 45% { transform: translate(140%, -140%); } 46% { transform: translate(-140%, 140%); } 100% { transform: none; } }
+@media (hover: hover) {
+  .archive__list a:hover > :not(.archive__go) { transform: translateX(8px); }
+  .archive__list a:hover b::after { transform: scaleX(1); }
+  .archive__list a:hover .archive__go { background: var(--bosque); color: var(--crema); }
+  .archive__list a:hover .archive__go svg { animation: arc-out 0.7s var(--ease-arc); }
+}
+.archive__list a:focus-visible { outline-offset: -2px; }
+@media (max-width: 999px) {
+  .archive__list a { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: 'go name year' 'go what what' 'go stack stack'; row-gap: 4px; align-items: start; }
+  .archive__go { grid-area: go; width: 36px; height: 36px; }
+  .archive__list b { grid-area: name; }
+  .archive__list a > span:not(.archive__go) { grid-area: what; }
+  .archive__list em { grid-area: stack; }
+  .archive__list time { grid-area: year; align-self: center; }
+}
 
-/* HairCloud */
-.work--b { padding-top: clamp(80px, 12vh, 140px); }
-
-
-/* Archivo */
-
-/* KORA: tramo horizontal */
-
+/* Barras de progreso de los tramos anclados. */
 .hbar { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 4vh; height: 2px; background: rgba(238, 242, 240, 0.16); border-radius: 2px; overflow: hidden; }
 .hbar i { position: absolute; inset: 0; background: var(--calima); transform: scaleX(0); transform-origin: left; }
 
-/* KORA: tramo horizontal con la paleta de su web y vista previa real de cada web */
-.kora {
-  position: relative; color: var(--kora-text);
-  background: radial-gradient(60% 70% at 18% 30%, rgba(122, 26, 46, 0.45), transparent 70%), var(--kora);
-}
+/* KORA: un bloque de verde bosque a sangre, con el grano de su papel y un estampado de estrellas pequeñas, como una
+   tela impresa. Mientras la sección queda anclada, las webs pasan en horizontal como fotos impresas en papel crema,
+   sueltas y algo giradas, por delante de su nombre en letras gigantes de contorno. Su logotipo y su punto rosa se
+   conservan: el punto es el único rosa del cuaderno. */
+.kora { --ring-acc: var(--kora-pink); --ring-on: var(--kora); position: relative; overflow-x: clip; color: #FFFFFF; background: var(--estampado-kora) 0 0 / 76px 76px, var(--grano) 0 0 / 240px 240px, var(--kora-bg); background-blend-mode: normal, overlay, normal; }
 .kora__pin { height: 100svh; min-height: 640px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; position: relative; }
-.kora__track { display: flex; align-items: center; gap: clamp(16px, 1.6vw, 24px); padding: calc(var(--bar) + 2vh) var(--gutter) 6vh; width: max-content; will-change: transform; }
-.kora__intro { width: min(560px, 84vw); display: grid; gap: 20px; padding-right: clamp(20px, 5vw, 80px); flex: none; }
+.kora__track { position: relative; display: flex; align-items: center; gap: clamp(22px, 2.4vw, 40px); padding: calc(var(--bar) + 2vh) var(--gutter) 6vh; width: max-content; will-change: transform; }
+.kora__intro { position: relative; z-index: 1; width: min(560px, 84vw); display: grid; justify-items: start; gap: 20px; padding-right: clamp(20px, 5vw, 80px); flex: none; }
+.kora__sticker { top: -26px; right: clamp(4px, 3vw, 48px); width: clamp(92px, 7.4vw, 118px); --tilt: 9deg; }
 .kora__title { font-weight: 800; font-stretch: 122%; font-size: clamp(3.4rem, 2rem + 5vw, 6rem); line-height: 0.88; letter-spacing: -0.035em; }
 /* Marca de KORA: su logotipo con el punto característico (7 px sobre 27 px de logo en su web: 26 % de la altura,
    separado un 15 % y alineado abajo), en el rosa-rojo de su acento y con su brillo. */
@@ -1238,42 +1313,61 @@ img.is-swap { opacity: 0; }
 .kora-dot { flex: none; width: calc(var(--h) * 0.26); height: calc(var(--h) * 0.26); border-radius: 50%; background: var(--kora-pink); box-shadow: 0 0 calc(var(--h) * 0.18) rgba(255, 51, 102, 0.7); transition: transform 0.4s var(--ease-out); }
 .kora-mark:hover .kora-dot, a:hover .kora-dot { transform: scale(1.3); }
 .kora-mark--section { --w: clamp(210px, 21vw, 320px); }
+.kora-mark--section .kora-dot { box-shadow: none; }
 .cs-mark { --w: clamp(220px, 26vw, 380px); }
 .cs-mark--next { --w: clamp(180px, 20vw, 300px); }
-.kora__title > span:not(.kora-mark) { display: block; font-size: 0.32em; font-stretch: 112%; letter-spacing: -0.01em; margin-top: 0.35em; color: var(--kora-pink); }
-.kora__role { color: var(--kora-muted); }
-.kora__quote p { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
-.kora__body { color: var(--kora-muted); max-width: 44ch; }
-.kora__team { font-size: 0.95rem; color: var(--kora-text); font-weight: 500; }
-.kora__hint { display: inline-flex; gap: 10px; align-items: center; color: var(--kora-pink); margin-top: 8px; }
+.kora__title > span:not(.kora-mark) { display: block; margin-top: 0.5em; color: #FF6A8E; font-size: 0.22em; font-weight: 750; font-stretch: 118%; letter-spacing: 0.1em; text-transform: uppercase; }
+.kora__role { color: #B4B4BA; }
+.kora__quote p { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: #FFFFFF; }
+.kora__body { color: #B4B4BA; max-width: 44ch; }
+.kora__team { font-size: 0.95rem; color: #FFFFFF; font-weight: 500; }
+.kora__hint { display: inline-flex; gap: 10px; align-items: center; color: #FF6A8E; margin-top: 8px; }
 .kora__hint svg { width: 18px; height: 18px; }
-.kora .link-out { color: var(--kora-text); }
+.kora .link-out { color: #FFFFFF; text-decoration-color: rgba(255, 255, 255, 0.4); }
+.kora .ring-link { color: #FFFFFF; }
+.kora__stamp { position: absolute; right: clamp(8px, 4vw, 70px); bottom: -6px; rotate: -10deg; }
+.kora__stamp .stamp__edge { fill: var(--kora-pink); }
+.kora__stamp :is(.stamp__dots, .stamp__in) { stroke: var(--kora); }
+.kora__stamp .stamp__txt, .kora__stamp .stamp__num { fill: var(--kora); color: var(--kora); }
 .kora__rail { display: contents; }
 .kora__railbar { display: none; }
-.sites { display: flex; align-items: stretch; gap: clamp(14px, 1.4vw, 22px); }
-.site { flex: none; width: clamp(280px, 23vw, 350px); }
-.site a {
-  container-type: inline-size; height: 100%; display: grid; grid-template-rows: auto 1fr; text-decoration: none;
-  padding: 10px; border-radius: 16px; background: var(--kora-2); box-shadow: inset 0 0 0 1px var(--kora-line);
-  transition: transform 0.6s var(--ease-out), box-shadow 0.4s;
+/* Su nombre en letras gigantes de contorno, arriba y detrás de las webs, que lo tapan en parte (empieza tras la
+   presentación, que no lleva nada debajo). */
+.kora__giant {
+  position: absolute; z-index: 0; left: calc(min(560px, 84vw) + var(--gutter) + 40px); right: 0; top: calc(var(--bar) + 1vh); margin: 0; overflow: hidden;
+  display: flex; align-items: center; gap: 0.18em; white-space: nowrap; pointer-events: none;
+  font-weight: 800; font-stretch: 125%; font-size: clamp(7rem, 27vh, 17rem); line-height: 0.8; letter-spacing: -0.02em; text-transform: uppercase;
+  color: transparent; -webkit-text-stroke: 2px rgba(255, 255, 255, 0.22);
 }
-.site a:hover { transform: translateY(-8px); box-shadow: inset 0 0 0 1px var(--kora-pink), 0 30px 60px -30px rgba(255, 51, 102, 0.45); }
-.site__shot { display: block; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #1A1A1A; }
+.kora__giant i { font-style: normal; font-size: 0.42em; color: rgba(255, 51, 102, 0.7); -webkit-text-stroke: 0; }
+.sites { position: relative; z-index: 1; display: flex; align-items: center; gap: clamp(22px, 2.4vw, 40px); }
+.site { flex: none; width: clamp(256px, 20vw, 316px); }
+/* Cada web, una foto impresa: papel crema con su margen, sin sombra. Sueltas: alternan giro y altura. */
+.site a {
+  --tilt: -2.4deg; --dy: -4vh;
+  container-type: inline-size; display: grid; grid-template-rows: auto 1fr; padding: 10px 10px 16px; text-decoration: none;
+  background: var(--papel); color: var(--bosque); rotate: var(--tilt); translate: 0 var(--dy);
+  transition: rotate 0.6s var(--ease-out), translate 0.6s var(--ease-out);
+}
+.site:nth-child(even) a { --tilt: 2deg; --dy: 5vh; }
+.site:nth-child(3n) a { --tilt: -1.2deg; --dy: 1vh; }
+.site a:hover, .site a:focus-visible { rotate: 0deg; translate: 0 calc(var(--dy) - 10px); }
+.site__shot { display: block; aspect-ratio: 1; overflow: hidden; background: #DDD6BC; }
 .site__shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
 .site a:hover .site__shot img { transform: scale(1.04); }
-.site__info { display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; padding: 16px 10px 8px; }
-.site__sector { color: var(--kora-pink); }
-.site__name { font-weight: 800; font-stretch: 112%; font-size: min(11cqi, 2.1rem); line-height: 1; letter-spacing: -0.025em; color: var(--kora-text); }
-.site__what { font-size: 0.95rem; line-height: 1.4; color: var(--kora-muted); }
-.site__url { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; margin-top: 4px; border-top: 1px solid var(--kora-line); color: var(--kora-text); }
-.site__url svg { width: 18px; height: 18px; transition: transform 0.4s var(--ease-out); }
-.site a:hover .site__url svg { transform: translate(3px, -3px); color: var(--kora-pink); }
-.kora .hbar { background: rgba(255, 255, 255, 0.1); }
+.site__info { display: grid; grid-template-rows: auto auto 1fr auto; gap: 6px; padding: 14px 6px 0; }
+.site__sector { color: var(--p-acc); font-size: 0.7rem !important; font-weight: 750 !important; font-stretch: 118% !important; letter-spacing: 0.08em !important; text-transform: uppercase; }
+.site__name { font-weight: 800; font-stretch: 112%; font-size: min(10.5cqi, 1.9rem); line-height: 1; letter-spacing: -0.025em; color: var(--kora); }
+.site__what { font-size: 0.92rem; line-height: 1.4; color: #4A4A4A; }
+.site__url { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; margin-top: 4px; border-top: 1.5px dashed rgba(11, 11, 11, 0.25); color: var(--kora); }
+.site__url svg { width: 18px; height: 18px; color: var(--p-acc); transition: transform 0.4s var(--ease-out); }
+.site a:hover .site__url svg { transform: translate(3px, -3px); }
+.kora .hbar { background: rgba(255, 255, 255, 0.12); }
 .kora .hbar i { background: var(--kora-pink); }
 
 /* Tecnologías: cada familia es un sistema de color con forma propia que flota y cambia de contorno, con su isobara
    alrededor. El tamaño de letra crece cuantas menos piezas tiene el sistema, para que todos pesen parecido. */
-.stack { position: relative; padding: clamp(56px, 9vh, 104px) 0 clamp(64px, 10vh, 112px); background: var(--paper); overflow: clip; }
+.stack { position: relative; padding: clamp(56px, 9vh, 104px) 0 clamp(64px, 10vh, 112px); background: var(--grano) 0 0 / 240px 240px, #D8E7F2; background-blend-mode: soft-light, normal; overflow: clip; }
 .stack__in { display: grid; gap: clamp(22px, 3.6vh, 36px); }
 /* Las dos cabeceras de la sección (Tecnologías y Dónde trabajo) son iguales: mismo tamaño, mismo orden y centradas
    sobre lo suyo. En escritorio ancho quedan a la misma altura, una por columna. */
@@ -1385,47 +1479,85 @@ img.is-swap { opacity: 0; }
   .sys--tools { --w: 9.5rem; --fs: 0.95rem; }
 }
 
-/* Trayectoria */
-.route {
-  --t-edu: var(--alisio); --t-work: var(--warm); --t-proj: var(--cold); --t-co: var(--calima); --t-now: var(--warm);
-  position: relative; padding-top: clamp(24px, 5vh, 56px);
-  /* Papel de barógrafo: azul muy claro y liso (sin cuadrícula: con la sección anclada se repintaba al desplazarse). */
-  background: #E4EFF2;
-}
+/* Trayectoria: otra hoja del cuaderno. El barograma se imprime en las dos tintas: el recorrido completo es una traza
+   discontinua y la de verde hoja se dibuja con el scroll; en su punta, un punto de verde bosque enciende cada hito al
+   alcanzarlo. Cada hito cuelga de su estación (un sello pequeño con el icono de su tipo) con un tallo discontinuo; al
+   encenderse, el sello se entinta, el tallo se vuelve continuo y el título pasa a verde bosque. «Hoy» es el único
+   bloque lleno, con su estación en calima. Años enormes en contorno al fondo. */
+.route { position: relative; padding-top: clamp(24px, 5vh, 56px); }
 .route__pin { height: 100svh; min-height: 640px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; gap: 3vh; padding: calc(var(--bar) + 5vh) 0 9vh; }
-.route__head { flex: none; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 48px; }
+.route__head { flex: none; display: flex; flex-wrap: wrap; align-items: end; gap: 16px 40px; }
+.route__title { color: var(--bosque); }
+.route__sticker { position: relative; flex: none; align-self: center; margin-right: auto; width: clamp(84px, 6.6vw, 108px); --tilt: 10deg; }
 .route__aside { display: grid; gap: 12px; max-width: 30rem; padding-bottom: 6px; }
-.route__lede { font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.2rem); font-weight: 500; line-height: 1.4; }
-.route__legend { display: flex; flex-wrap: wrap; gap: 6px 16px; }
-.route__legend li { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); }
-.route__legend li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
-[data-t="edu"] { --c: var(--t-edu); } [data-t="work"] { --c: var(--t-work); } [data-t="proj"] { --c: var(--t-proj); } [data-t="co"] { --c: var(--t-co); } [data-t="now"] { --c: var(--t-now); }
+.route__lede { font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.2rem); font-weight: 500; line-height: 1.4; color: var(--tinta-cuaderno); }
+.route__legend { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.route__legend li { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 650; color: var(--bosque); }
+.route__legend svg { width: 17px; height: 17px; color: var(--hoja); }
+/* Sello de llegada: tras «Hoy», al final del recorrido, con el sol de calima en el centro. */
+.route__stamp { align-self: flex-start; margin: 20px 0 0 clamp(48px, 5vw, 90px); width: clamp(120px, 10vw, 150px); rotate: 8deg; }
 .route__track { position: relative; flex: 1; max-height: 560px; display: flex; width: max-content; padding: 0 var(--gutter); will-change: transform; }
+/* La traza viva va en su propia capa y sola: dibujarla con el scroll repinta solo ese trazo, no el recorrido
+   discontinuo, los años ni el texto de los hitos (que quedan en la capa de la pista, sin repintarse). */
 .route__trace { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.route__trace path { fill: none; stroke: var(--cold); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.route__yline { stroke: rgba(16, 34, 44, 0.16); stroke-width: 1; stroke-dasharray: 3 6; }
-.route__ytext { font-family: var(--sans); font-weight: 800; font-stretch: 100%; font-size: 76px; letter-spacing: -0.03em; fill: rgba(46, 107, 230, 0.12); }
-.route__list { display: flex; position: relative; gap: 26px; }
+.route__trace--live { will-change: transform; }
+.route__trace path { fill: none; stroke: var(--hoja); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.route__trace .route__ghost { stroke: rgba(22, 70, 58, 0.32); stroke-width: 1.5; stroke-dasharray: 2 7; }
+.route__yline { stroke: rgba(22, 70, 58, 0.14); stroke-width: 1; stroke-dasharray: 3 6; }
+/* Años en contorno, enormes, al fondo de cada tramo. */
+.route__ytext { font-family: var(--sans); font-weight: 800; font-stretch: 100%; font-size: 112px; letter-spacing: -0.04em; fill: none; stroke: rgba(22, 70, 58, 0.2); stroke-width: 1.2; }
+.route__dot, .work__dot { border-radius: 50%; background: var(--bosque); box-shadow: 0 0 0 4px var(--crema), 0 0 0 5.5px var(--bosque); }
+.route__dot { position: absolute; z-index: 2; left: 0; top: 0; width: 18px; height: 18px; margin: -9px 0 0 -9px; pointer-events: none; will-change: transform; }
+.route__fill { display: none; }
+.route__list { display: flex; position: relative; gap: clamp(36px, 3.6vw, 64px); }
 .route__list li {
-  width: clamp(228px, 18vw, 280px); flex: none; position: relative; display: grid; align-content: start; gap: 6px;
-  padding: 14px 16px 16px; border-radius: 14px; background: var(--paper);
-  box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.06), 0 20px 36px -26px rgba(12, 46, 64, 0.5);
-  margin-top: calc((1 - var(--lvl)) * min(28vh, 260px) + 40px); align-self: flex-start;
+  width: clamp(228px, 17vw, 272px); flex: none; position: relative; display: grid; align-content: start; gap: 8px;
+  padding: 2px 0 6px 24px; align-self: flex-start;
+  margin-top: calc((1 - var(--lvl)) * min(28vh, 260px) + 48px);
 }
+/* Tallo: discontinuo y, encima, uno continuo en verde hoja que baja al encenderse el hito (escala en el compositor:
+   las transiciones de color o de borde recalculaban estilos en cada frame mientras el punto avanzaba). */
+.route__list li::after { content: ''; position: absolute; left: 0; top: -10px; bottom: 0; border-left: 1.5px dashed rgba(22, 70, 58, 0.3); }
 .route__list li::before {
-  content: ''; position: absolute; left: 18px; top: -30px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper);
-  box-shadow: 0 0 0 3.5px var(--c);
+  content: ''; position: absolute; left: 0; top: -10px; bottom: 0; width: 1.5px; background: rgba(13, 122, 76, 0.6);
+  transform: scaleY(0); transform-origin: 50% 0; transition: transform 0.7s var(--ease-out);
 }
-.route__tag { justify-self: start; font-style: normal; font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: var(--ink); background: color-mix(in srgb, var(--c) 30%, transparent); }
-.route__list time { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); font-weight: 600; }
-.route__list b { font-weight: 700; font-stretch: 106%; font-size: 1.08rem; line-height: 1.22; letter-spacing: -0.01em; text-wrap: balance; }
-.route__list span { color: var(--ink-2); font-size: 0.88rem; }
-.route__now { background: var(--ink) !important; color: var(--paper); }
-.route__now span, .route__now time { color: rgba(238, 242, 240, 0.75) !important; }
-.route__now .route__tag { background: var(--warm); color: #2A0E07; }
-.route__now::before { box-shadow: 0 0 0 3.5px var(--warm), 0 0 0 10px color-mix(in srgb, var(--warm) 25%, transparent) !important; }
-.route .hbar { background: rgba(16, 34, 44, 0.12); }
-.route .hbar i { background: var(--cold); }
+.route__list li.is-on::before { transform: none; }
+/* Estación: un sello pequeño con el icono del tipo de hito, sobre la traza. */
+.route__st {
+  position: absolute; z-index: 1; left: -14.25px; top: -40px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--crema); color: rgba(22, 70, 58, 0.5); box-shadow: 0 0 0 1.5px rgba(22, 70, 58, 0.36);
+}
+/* Al encenderse, un disco entintado (con sus anillos de sello) aparece y crece por debajo del icono: opacidad y
+   escala, que van en el compositor. El icono cambia de color sin transición. */
+.route__st::before {
+  content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--bosque);
+  box-shadow: 0 0 0 1.5px var(--bosque), 0 0 0 5px var(--crema), 0 0 0 6.5px rgba(22, 70, 58, 0.3);
+  opacity: 0; transform: scale(0.55); transition: opacity 0.3s, transform 0.6s cubic-bezier(0.34, 1.7, 0.64, 1);
+}
+.route__st svg { position: relative; width: 16px; height: 16px; }
+.route__list li.is-on .route__st { color: var(--crema); }
+.route__list li.is-on .route__st::before { opacity: 1; transform: none; }
+.route__tag { font-style: normal; font-size: 0.72rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hoja); }
+.route__list time { font-family: var(--mono); font-size: 0.72rem; color: var(--tinta-cuaderno); font-weight: 600; }
+.route__list b {
+  font-weight: 750; font-stretch: 108%; font-size: clamp(1.15rem, 1rem + 0.4vw, 1.42rem); line-height: 1.14; letter-spacing: -0.015em;
+  text-wrap: balance; color: var(--tinta-cuaderno);
+}
+.route__list li.is-on b { color: var(--bosque); }
+.route__list span { color: var(--tinta-cuaderno); font-size: 0.9rem; line-height: 1.4; }
+.route__list span a { color: var(--bosque); }
+/* Hoy: el único bloque lleno, en verde bosque sobre su papel, con la estación en calima. */
+.route__now { padding: 18px 20px 20px 24px !important; background: var(--papel-bosque); color: var(--crema); }
+.route__now::after, .route__now::before { display: none; }
+/* Con la especificidad de «.route__list li.is-on b» (tinta verde): si no, el título de «Hoy» se pintaba verde sobre verde. */
+.route__list li.route__now b { color: var(--crema); }
+.route__now span, .route__now time { color: rgba(241, 239, 232, 0.78) !important; }
+.route__now .route__tag { color: var(--calima); }
+.route__now .route__st, .route__list li.route__now.is-on .route__st { color: var(--bosque); }
+.route__now .route__st::before { background: var(--calima); }
+.route .hbar { background: rgba(22, 70, 58, 0.12); }
+.route .hbar i { background: var(--hoja); }
 
 /* Contacto */
 .contact { position: relative; background: var(--ocean); color: var(--paper); overflow: hidden; isolation: isolate; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; }
@@ -1504,52 +1636,55 @@ img.is-swap { opacity: 0; }
 /* Ventana de proyecto */
 .win { position: fixed; inset: 0; z-index: 100; }
 .win[hidden] { display: none; }
-.win__sheet { position: absolute; inset: 0; background: var(--paper); display: grid; grid-template-rows: auto 1fr; will-change: clip-path; }
-.win__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--bar); padding: 0 var(--gutter); border-bottom: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 2; }
-.win__close { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px 0 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--ink); font-weight: 600; transition: background-color 0.3s, color 0.3s; }
-.win__close:hover { background: var(--ink); color: var(--paper); }
+.win__sheet { position: absolute; inset: 0; background: var(--papel); color: var(--bosque); display: grid; grid-template-rows: auto 1fr; will-change: clip-path; }
+.win__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--bar); padding: 0 var(--gutter); border-bottom: 1.5px dashed rgba(22, 70, 58, 0.3); background: var(--papel); position: relative; z-index: 2; }
+.win__close { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px 0 12px; border-radius: 999px; color: var(--bosque); box-shadow: inset 0 0 0 1.5px var(--bosque); font-weight: 650; transition: background-color 0.3s, color 0.3s; }
+.win__close:hover { background: var(--bosque); color: var(--crema); }
 .win__close svg, .win__step svg { width: 20px; height: 20px; }
-.win__crumb { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2); }
-.win__crumb span:last-child { color: var(--ink); font-weight: 600; }
+.win__crumb { font-family: var(--mono); font-size: 0.72rem; color: var(--tinta-cuaderno); }
+.win__crumb span:last-child { color: var(--bosque); font-weight: 600; }
 .win__step { display: flex; gap: 6px; }
-.win__step a { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--rule); transition: background-color 0.3s, color 0.3s; }
-.win__step a:hover { background: var(--ink); color: var(--paper); }
+.win__step a { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; color: var(--bosque); box-shadow: inset 0 0 0 1.5px rgba(22, 70, 58, 0.4); transition: background-color 0.3s, color 0.3s; }
+.win__step a:hover { background: var(--bosque); color: var(--crema); }
 .win__scroll { overflow-y: auto; overscroll-behavior: contain; outline: none; }
 
-/* Páginas de proyecto (/proyectos/:slug): caso de estudio con cabecera a sangre, escena de dispositivos que
-   monta sobre el borde, cuerpo en dos columnas (lateral fija + contenido) y cierre con el siguiente proyecto. */
+/* Páginas de proyecto (/proyectos/:slug): una hoja más del cuaderno, como su doble página. Cabecera en el bloque del
+   proyecto (su color plano con grano y el filete discontinuo del cupón), con su pegatina; escena de capturas planas que
+   monta sobre el borde; cuerpo en el papel crema con rótulos de imprenta; y cierre en el bloque del siguiente. */
+.cs { --ring-acc: var(--p-acc); }
 .cs-hero {
-  position: relative; color: var(--field-ink);
-  background: radial-gradient(70% 90% at 92% -10%, rgba(255, 255, 255, 0.16), transparent 60%), var(--field);
-  padding-top: clamp(40px, 7vh, 84px);
+  position: relative; color: var(--p-on); padding-top: clamp(48px, 8vh, 96px);
+  background: var(--grano) 0 0 / 240px 240px, var(--p-field); background-blend-mode: var(--p-blend, overlay), normal;
 }
-.cs-hero__in { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px clamp(32px, 5vw, 88px); align-items: end; padding-bottom: clamp(36px, 6vh, 64px); }
+.cs-hero::before { content: ''; position: absolute; inset: 14px; border: 1.5px dashed var(--p-line); pointer-events: none; }
+.cs-hero__in { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px clamp(32px, 5vw, 88px); align-items: end; padding-bottom: clamp(36px, 6vh, 64px); }
+.cs-sticker { top: clamp(22px, 4vh, 44px); right: calc(var(--gutter) + 6px); width: clamp(92px, 8vw, 128px); --tilt: 8deg; }
 .cs-name { font-weight: 800; font-stretch: 122%; font-size: clamp(3rem, 1.3rem + 6vw, 7rem); line-height: 0.88; letter-spacing: -0.04em; }
-.cs-kind { margin-top: 16px; font-size: 0.9rem; font-weight: 600; color: color-mix(in srgb, var(--field-ink) 78%, transparent); }
-/* Por atributo propio y no con [style*=…]: un selector sobre «style» obliga a revisar todos los descendientes cada vez
-   que GSAP toca el estilo en línea de un antepasado, es decir, en cada frame de scroll. */
-.cs[data-cs="ace-field"] .cs-kind, .cs[data-cs="ace-field"] .cs-facts dt { color: var(--ace-soft); }
-.cs[data-cs="hg-field"] .cs-kind, .cs[data-cs="hg-field"] .cs-facts dt { color: #8FE3A6; }
-.cs[data-cs="kora-field"] .cs-kind, .cs[data-cs="kora-field"] .cs-facts dt { color: var(--kora-pink); }
+.cs-kind {
+  display: flex; align-items: center; gap: 12px; margin-top: 18px; color: var(--p-label);
+  font-size: 0.78rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4;
+}
+.cs-kind::before { content: ''; width: 26px; flex: none; border-top: 2px dashed currentColor; }
 .cs-claim { margin-top: 14px; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.7rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; max-width: 28ch; text-wrap: balance; }
-.cs-cta { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
-.cs .cs-btn-line { --bg: transparent; --fg: var(--field-ink); font-family: var(--sans); font-size: 0.95rem; font-weight: 600; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--field-ink) 55%, transparent); }
-.cs .cs-btn-line:hover { --bg: var(--field-ink); --fg: var(--field-base); }
-.cs-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-radius: 18px; border: 1px solid color-mix(in srgb, var(--field-ink) 22%, transparent); background: color-mix(in srgb, var(--field-ink) 5%, transparent); }
+.cs-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; }
+.cs-hero .ring-link { color: var(--p-on); --ring-acc: var(--p-label); --ring-on: var(--p-field); }
+.cs-hero .link-out { color: var(--p-on); text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.cs-hero .link-out svg { color: var(--p-label); }
+/* Datos en una rejilla de cupón: filetes discontinuos, sin caja redondeada. */
+.cs-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px dashed var(--p-line); }
 .cs-facts div { display: grid; gap: 5px; padding: 16px 20px; }
-.cs-facts div:nth-child(odd) { border-right: 1px solid color-mix(in srgb, var(--field-ink) 16%, transparent); }
-.cs-facts div:nth-child(-n + 2) { border-bottom: 1px solid color-mix(in srgb, var(--field-ink) 16%, transparent); }
-.cs-facts dt { font-size: 0.76rem; font-weight: 600; color: color-mix(in srgb, var(--field-ink) 70%, transparent); }
+.cs-facts div:nth-child(odd) { border-right: 1.5px dashed var(--p-line); }
+.cs-facts div:nth-child(-n + 2) { border-bottom: 1.5px dashed var(--p-line); }
+.cs-facts dt { font-size: 0.7rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--p-label); }
 .cs-facts dd { font-weight: 600; line-height: 1.3; }
 
-/* Escena: monta sobre el borde inferior de la cabecera. */
+/* Escena: monta sobre el borde inferior de la cabecera. Capturas planas en marco de papel, sin sombras. */
 .cs-stage-wrap { position: relative; z-index: 1; margin-bottom: calc(-1 * clamp(90px, 15vh, 170px)); }
 .cs-stage { position: relative; max-width: 1000px; margin-inline: auto; }
 .cs-stage--duo .cs-screen { width: 86%; }
 .cs-stage--duo .cs-phone { position: absolute; right: 0; bottom: -7%; width: 19%; }
 .cs-stage--pair .cs-stage__main { width: 80%; }
 .cs-stage--pair .cs-stage__side { position: absolute; right: 0; bottom: -10%; width: 38%; }
-.cs-stage--pair .cs-stage__side .cs-screen { box-shadow: 0 0 0 4px var(--field-base), 0 40px 80px -30px rgba(0, 0, 0, 0.6); }
 .cs-stage--trio { display: flex; justify-content: center; align-items: flex-end; gap: clamp(14px, 3vw, 40px); }
 .cs-stage--trio .cs-phone { width: clamp(150px, 15vw, 226px); }
 .cs-stage--trio .cs-phone:nth-child(1) { rotate: -5deg; translate: 0 8%; }
@@ -1559,110 +1694,109 @@ img.is-swap { opacity: 0; }
 .cs-stage--mosaic .cs-square:nth-child(even) { translate: 0 18%; }
 
 /* Soportes. */
-.cs-screen { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 50px 90px -40px rgba(8, 20, 30, 0.6), 0 18px 30px -22px rgba(8, 20, 30, 0.35); }
+.cs-screen { overflow: hidden; background: #fff; border: 6px solid var(--crema); outline: 1.5px solid color-mix(in srgb, var(--p-ink) 30%, transparent); }
 .cs[data-cs="hg-field"] .cs-screen { background: #0B0D0F; }
-.cs-screen__bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; background: var(--paper-2); border-bottom: 1px solid var(--rule); }
-.cs-screen__bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(16, 34, 44, 0.18); flex: none; }
-.cs-screen__bar i:first-child { background: var(--field-accent); }
-.cs-screen__bar span { margin: 0 auto; padding: 3px 14px; border-radius: 999px; background: var(--paper); font-size: 0.74rem; font-weight: 600; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
+.cs-screen__bar { display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; background: #F1EDDD; border-bottom: 1.5px dashed rgba(22, 70, 58, 0.22); }
+.cs-screen__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(16, 34, 44, 0.2); flex: none; }
+.cs-screen__bar i:first-child { background: var(--p-acc); }
+.cs-screen__bar span { margin: 0 auto; padding: 2px 12px; border-radius: 999px; background: var(--crema); font-size: 0.72rem; font-weight: 600; color: var(--tinta-cuaderno); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
 .cs-screen img, .cs-phone img, .cs-square img, .cs-doc img { display: block; width: 100%; height: auto; }
-.cs-phone { padding: 6px; border-radius: 30px; background: #0D0E10; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 40px 70px -32px rgba(0, 0, 0, 0.6); }
+.cs-phone { padding: 6px; border-radius: 30px; background: #0E0F11; outline: 2px solid var(--crema); }
 .cs-phone img { border-radius: 24px; }
-.cs-square { border-radius: 14px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -32px rgba(0, 0, 0, 0.6); }
+.cs-square { overflow: hidden; aspect-ratio: 1; border: 6px solid var(--crema); outline: 1.5px solid color-mix(in srgb, var(--p-ink) 30%, transparent); }
 .cs-square img { height: 100%; object-fit: cover; }
-.cs-doc { padding: 14px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px var(--rule), 0 30px 60px -44px rgba(8, 28, 40, 0.5); }
+.cs-doc { padding: 10px; background: #fff; outline: 1.5px solid color-mix(in srgb, var(--p-ink) 35%, transparent); }
 
 /* Hover de las capturas de proyecto: sin perspectiva, solo un gesto pequeño en la pieza que tiene el puntero. Va en
    «scale», «rotate» y «translate» sueltos, que se suman al «transform» con el que GSAP las mueve al hacer scroll.
    Pantallas de escritorio y documentos: se acercan un poco. Teléfonos: se acercan y se giran como si se cogieran con la
    mano. Cuadradas (galerías): la imagen se acerca dentro de su marco. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .lm-media__desk, .lm-media__phone, .ac-media__browser, .ac-media__phone,
+  /* Gestos pequeños y lentos, con la misma curva para todos: la pieza bajo el puntero se acerca un poco y, si es un
+     teléfono, se inclina como si se cogiera con la mano. La pieza central de HairCloud conserva su centrado
+     (translate -50%). */
+  .lm-media__desk, .lm-media__phone, .ac-media__browser, .ac-media__phone, .hc-media__phone, .hg-media__inset, .hg-media__bg img,
   .cs-screen, .cs-phone, .cs-doc, .cs-square img {
-    transition: scale 0.6s var(--ease-out), rotate 0.6s var(--ease-out), translate 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+    transition: scale 0.9s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.9s cubic-bezier(0.22, 1, 0.36, 1), translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* LanzaMet: el escritorio se acerca; el móvil, delante, se inclina hacia el lado contrario. */
-  .lm-media__desk:hover { scale: 1.03 !important; }
-  .lm-media__phone:hover { scale: 1.05 !important; rotate: -3deg !important; }
-  /* ACESLAN: el panel se acerca; cada teléfono se gira hacia fuera. El de la derecha solo sube, porque su vibración
-     del aviso de prueba ya anima «rotate». Con !important porque GSAP deja «scale/rotate/translate: none» en línea
-     en las piezas que mueve con el scroll. */
-  .ac-media__browser:hover { scale: 1.025 !important; }
-  .ac-media__phone--a:hover { scale: 1.05 !important; rotate: -3deg !important; }
-  .ac-media__phone--b:hover { scale: 1.05 !important; translate: 0 -8px !important; }
-  /* HairCloud: el del centro sube un poco; los de los lados se enderezan hacia él (GSAP ya lleva sus ±7° en el
-     «transform», así que este «rotate» se suma). */
-  .hc-media__phone, .hg-media__inset, .hg-media__bg img {
-    transition: scale 0.6s var(--ease-out), rotate 0.6s var(--ease-out), translate 0.6s var(--ease-out);
-  }
-  .hc-media__phone--c:hover { scale: 1.04 !important; translate: 0 -10px !important; }
-  .hc-media__phone--l:hover { scale: 1.04 !important; rotate: 3deg !important; }
-  .hc-media__phone--r:hover { scale: 1.04 !important; rotate: -3deg !important; }
-  /* Haría Game: la entrada del instituto se acerca y se gira un poco; la pista de fondo, a sangre, solo se acerca
-     dentro de la tarjeta. */
-  .hg-media__inset:hover { scale: 1.05 !important; rotate: -1.5deg !important; }
-  .hg-media__bg:hover img { scale: 1.03; transition-duration: 1.2s; }
+  .lm-media__desk:hover { scale: 1.015; }
+  .lm-media__phone:hover { scale: 1.03; rotate: -1.5deg; }
+  .ac-media__browser:hover { scale: 1.015; }
+  .ac-media__phone--a:hover { scale: 1.03; rotate: -1.5deg; }
+  .ac-media__phone--b:hover { scale: 1.03; translate: 0 -6px; }
+  .hc-media__phone--c:hover { scale: 1.025; translate: -50% -6px; }
+  .hc-media__phone--l:hover { scale: 1.025; rotate: -5deg; }
+  .hc-media__phone--r:hover { scale: 1.025; rotate: 5deg; }
+  .hg-media__inset:hover { scale: 1.025; rotate: -1deg; }
+  .hg-media__bg:hover img { scale: 1.02; transition-duration: 1.4s; }
   /* Ventanas de proyecto. */
-  .cs-screen:hover, .cs-doc:hover { scale: 1.02; }
-  .cs-doc:hover { rotate: -0.6deg; }
-  .cs-phone:hover { scale: 1.05; rotate: 2.5deg; }
+  .cs-screen:hover, .cs-doc:hover { scale: 1.012; }
+  .cs-doc:hover { rotate: -0.5deg; }
+  .cs-phone:hover { scale: 1.03; rotate: 1.5deg; }
   .cs-stage--trio .cs-phone:nth-child(1):hover { rotate: -2deg; }
   .cs-stage--trio .cs-phone:nth-child(2):hover { rotate: 0deg; }
   .cs-stage--trio .cs-phone:nth-child(3):hover { rotate: 2deg; }
-  .cs-square:hover img { scale: 1.06; }
+  .cs-square:hover img { scale: 1.035; }
 }
 
-/* Cuerpo. */
-.cs-body { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; padding: calc(clamp(90px, 15vh, 170px) + clamp(40px, 6vh, 64px)) 0 clamp(56px, 9vh, 104px); }
-.cs-hero--plain + .cs-body { padding-top: clamp(48px, 8vh, 88px); }
-.cs-aside { position: sticky; top: 24px; display: grid; gap: 24px; }
-.cs-intro { font-size: clamp(1.08rem, 1rem + 0.35vw, 1.28rem); line-height: 1.55; font-weight: 450; text-wrap: pretty; }
-.cs-aside__block { display: grid; gap: 10px; }
-.cs-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.cs-chips li { padding: 0.38em 0.85em; border-radius: 999px; font-size: 0.84rem; font-weight: 600; background: #fff; box-shadow: inset 0 0 0 1px var(--rule); }
-.cs-note { padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.86rem; line-height: 1.5; color: var(--ink-2); }
-.cs-main { display: grid; gap: clamp(40px, 6vh, 64px); min-width: 0; }
-.cs-block { display: grid; gap: 16px; }
-.cs-h { font-weight: 750; font-stretch: 108%; font-size: clamp(1.15rem, 1rem + 0.4vw, 1.35rem); letter-spacing: -0.015em; }
-.cs-aside .cs-h { font-size: 0.95rem; }
+/* Cuerpo, sobre el papel: introducción y tecnologías a un lado, «Cómo está hecho» en fichas de cupón, la comparación,
+   las capturas y las listas como etiquetas. Rótulos de imprenta en el acento del proyecto. */
+.cs-body { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; padding: calc(clamp(90px, 15vh, 170px) + clamp(48px, 7vh, 72px)) 0 clamp(64px, 10vh, 112px); }
+.cs-hero--plain + .cs-body { padding-top: clamp(56px, 9vh, 96px); }
+.cs-aside { position: sticky; top: 24px; display: grid; gap: 26px; }
+.cs-intro { font-size: clamp(1.08rem, 1rem + 0.35vw, 1.28rem); line-height: 1.55; font-weight: 450; color: var(--p-ink); text-wrap: pretty; }
+.cs-aside__block { display: grid; gap: 12px; }
+.cs-chips { display: flex; flex-wrap: wrap; row-gap: 4px; color: var(--p-ink); font-size: 0.9rem; font-weight: 650; font-stretch: 106%; }
+.cs-chips li:not(:last-child)::after { content: '✳'; margin: 0 0.65em; color: var(--p-acc); font-size: 0.7em; vertical-align: 0.15em; }
+.cs-note { padding-top: 16px; border-top: 1.5px dashed rgba(22, 70, 58, 0.28); font-size: 0.86rem; line-height: 1.5; color: var(--tinta-cuaderno); }
+.cs-main { display: grid; gap: clamp(44px, 7vh, 72px); min-width: 0; }
+.cs-block { display: grid; gap: 18px; }
+.cs-h {
+  display: flex; align-items: center; gap: 12px; color: var(--p-acc);
+  font-size: 0.8rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.cs-h::before { content: ''; width: 26px; flex: none; border-top: 2px dashed currentColor; }
 .cs-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .cs-feature {
-  padding: 22px 22px 24px; border-radius: 18px; background: color-mix(in srgb, #fff 60%, var(--paper));
-  box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.06), 0 22px 44px -36px rgba(12, 46, 64, 0.5);
+  position: relative; isolation: isolate; padding: 24px 24px 26px; border-radius: 6px;
+  background: color-mix(in srgb, #FFFFFF 55%, transparent); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--p-ink) 30%, transparent);
 }
-.cs-feature h4 { display: flex; align-items: center; gap: 10px; font-weight: 700; font-stretch: 106%; font-size: 1.08rem; line-height: 1.25; margin-bottom: 8px; }
-.cs-feature h4::before { content: ''; width: 9px; height: 9px; border-radius: 3px; background: var(--field-accent); flex: none; }
+.cs-feature::before { content: ''; position: absolute; z-index: -1; inset: 6px; border-radius: 3px; border: 1px dashed color-mix(in srgb, var(--p-ink) 22%, transparent); pointer-events: none; }
+.cs-feature h4 { display: flex; align-items: baseline; gap: 10px; color: var(--p-ink); font-weight: 750; font-stretch: 106%; font-size: 1.08rem; line-height: 1.25; margin-bottom: 8px; }
+.cs-feature h4::before { content: '✳'; flex: none; color: var(--p-acc); font-size: 0.8em; }
 .cs-feature:last-child:nth-child(odd) { grid-column: 1 / -1; }
-.cs-feature p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
-.cs-gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 22px 16px; grid-auto-flow: dense; align-items: start; }
+.cs-feature p { font-size: 0.95rem; line-height: 1.55; color: var(--tinta-cuaderno); text-wrap: pretty; }
+.cs-gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 26px 18px; grid-auto-flow: dense; align-items: start; }
 .cs-tile { margin: 0; display: grid; gap: 10px; }
 .cs-tile--desk, .cs-tile--doc { grid-column: span 6; }
 .cs-tile--phone, .cs-tile--sq { grid-column: span 3; }
-.cs-tile figcaption { font-size: 0.84rem; font-weight: 500; line-height: 1.4; color: var(--ink-2); }
-.cs-compare { display: grid; gap: 22px; }
+.cs-tile figcaption { font-size: 0.84rem; font-weight: 500; line-height: 1.4; color: var(--tinta-cuaderno); }
+.cs-compare { display: grid; gap: 26px; }
 .cs-pair { margin: 0; display: grid; gap: 10px; }
-.cs-pair__imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px rgba(16, 34, 44, 0.08), 0 30px 60px -40px rgba(8, 28, 40, 0.55); background: #fff; }
+.cs-pair__imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; background: var(--crema); outline: 1.5px solid color-mix(in srgb, var(--p-ink) 30%, transparent); }
 .cs-pair__img { position: relative; }
 .cs-pair__img img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
-.cs-pair__img span { position: absolute; left: 12px; top: 12px; padding: 5px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; background: rgba(255, 255, 255, 0.94); color: var(--ink); box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.4); }
-.cs-pair__img + .cs-pair__img span { background: var(--field-accent); color: #08180D; }
-.cs-pair figcaption { font-size: 0.88rem; color: var(--ink-2); }
+.cs-pair__img span { position: absolute; left: 10px; top: 10px; padding: 4px 10px; font-size: 0.72rem; font-weight: 750; font-stretch: 112%; letter-spacing: 0.04em; text-transform: uppercase; background: var(--crema); color: var(--p-ink); }
+.cs-pair__img + .cs-pair__img span { background: var(--p-field); color: var(--p-on); }
+.cs-pair figcaption { font-size: 0.88rem; color: var(--tinta-cuaderno); }
 .cs-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.cs-list li { padding: 8px 14px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; background: #fff; box-shadow: inset 0 0 0 1px var(--rule); }
+.cs-list li { padding: 7px 13px; border-radius: 4px; font-size: 0.9rem; font-weight: 600; color: var(--p-ink); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--p-ink) 32%, transparent); }
 
-/* Cierre: el siguiente proyecto, con su primera imagen. */
+/* Cierre: el bloque del siguiente proyecto, con su primera imagen impresa y algo girada. */
 .cs-next {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); align-items: center; gap: 32px; overflow: hidden;
-  padding: clamp(44px, 7vh, 76px) var(--gutter); text-decoration: none; color: var(--field-ink);
-  background: radial-gradient(60% 90% at 90% 0%, rgba(255, 255, 255, 0.14), transparent 60%), var(--field);
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); align-items: center; gap: 32px; overflow: hidden;
+  padding: clamp(48px, 8vh, 84px) var(--gutter); text-decoration: none; color: var(--p-on);
+  background: var(--grano) 0 0 / 240px 240px, var(--p-field); background-blend-mode: var(--p-blend, overlay), normal;
 }
-.cs-next__text { display: grid; gap: 10px; }
-.cs-next small { font-size: 0.85rem; font-weight: 600; color: color-mix(in srgb, var(--field-ink) 75%, transparent); }
+.cs-next::before { content: ''; position: absolute; inset: 14px; border: 1.5px dashed var(--p-line); pointer-events: none; }
+.cs-next__text { position: relative; display: grid; gap: 10px; }
+.cs-next small { display: flex; align-items: center; gap: 12px; color: var(--p-label); font-size: 0.78rem; font-weight: 750; font-stretch: 118%; letter-spacing: 0.08em; text-transform: uppercase; }
+.cs-next small::before { content: ''; width: 26px; border-top: 2px dashed currentColor; }
 .cs-next b { display: inline-flex; align-items: center; gap: 0.2em; font-weight: 800; font-stretch: 122%; font-size: clamp(2.6rem, 1.4rem + 4vw, 5rem); line-height: 0.9; letter-spacing: -0.04em; }
-.cs-next b svg { width: 0.55em; height: 0.55em; transition: transform 0.6s var(--ease-out); }
+.cs-next b svg { width: 0.55em; height: 0.55em; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .cs-next:hover b svg { transform: translateX(0.15em); }
-.cs-next em { font-style: normal; font-size: 1rem; line-height: 1.4; max-width: 40ch; color: color-mix(in srgb, var(--field-ink) 85%, transparent); }
-.cs-next__thumb { border-radius: 14px; overflow: hidden; max-height: 240px; box-shadow: 0 40px 70px -36px rgba(0, 0, 0, 0.6); rotate: -2deg; translate: 0 14%; transition: translate 0.7s var(--ease-out), rotate 0.7s var(--ease-out); }
+.cs-next em { font-style: normal; font-size: 1rem; line-height: 1.4; max-width: 40ch; color: var(--p-on-2); }
+.cs-next__thumb { position: relative; overflow: hidden; max-height: 240px; border: 6px solid var(--crema); rotate: -2deg; translate: 0 14%; transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
 .cs-next:hover .cs-next__thumb { translate: 0 6%; rotate: 0deg; }
 .cs-next__thumb img { display: block; width: 100%; height: auto; }
 .win [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
@@ -1674,54 +1808,57 @@ img.is-swap { opacity: 0; }
 /* Menú hamburguesa por debajo de 1200 px: Formación · Proyectos · KORA · Trayectoria · Contacto, el idioma y el
    botón de contacto no caben junto al nombre en tablets (en español se cortaban hacia los 1180 px). */
 @media (max-width: 1199px) {
-  .bar { grid-template-columns: 1fr auto auto; }
-  /* El enlace del nombre ocupa solo lo suyo, no todo el hueco hasta el botón. */
-  .bar__mark { justify-self: start; }
-  /* En tablet y móvil la barra es más baja: el logo y su forma, más pequeños. */
-  .bar__mark[data-blob] { --gap: 4px; height: 36px; padding: 0 10px; }
+  /* Menú a la izquierda, logo en el centro y «Escríbeme» a la derecha: el mismo eje que en escritorio. La tira casi
+     llega a los bordes. */
+  .bar { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); width: calc(100% - 16px); padding: 0 12px; }
+  .bar__bg { top: 13px; bottom: 13px; }
+  .bar__tape { width: 44px; height: 18px; top: 6px; }
+  .bar__tape--l { left: -10px; }
+  .bar__tape--r { right: -10px; }
+  /* Con el menú abierto la barra va siempre compacta: el logo grande taparía el primer enlace. Gana al estilo en
+     línea que pone el scroll y vuelve a él con una transición al cerrar (solo durante el cambio: con una transición
+     fija, cada escritura del scroll llegaría con retraso). */
+  .bar:is(.menu-open, .is-settling) :is(.bar__mark, .bar__menu, .bar__cta, .bar__bg, .bar__tape) { transition: transform 0.45s var(--ease-out); }
+  /* Abierto, la tira queda como compacta: colgada del borde de arriba (los mismos valores que src/main.ts). */
+  .bar.menu-open :is(.bar__mark, .bar__menu, .bar__cta) { transform: translateY(-3px) !important; }
+  .bar.menu-open :is(.bar__bg, .bar__tape) { transform: translateY(-11px) !important; }
+  /* En tablet y móvil la tira es más baja: el logo, más pequeño. */
+  .bar__mark[data-blob] { height: 36px; padding: 0 10px; }
   .bar__fm { width: 32px; }
   .bar__br { height: 15px; }
   .bar__menu { display: block; }
-  .bar__cta { min-height: 40px; padding: 0 1em; font-size: 0.9rem; }
-  /* La barra móvil es baja: la isobara se saldría por el borde superior de la pantalla. */
-  .bar__cta .shape__iso { display: none; }
-  /* El menú abierto ocupa toda la pantalla bajo la barra: no se ve la web por debajo. */
+  .bar__cta { min-height: 36px; padding: 0 0.95em; font-size: 0.88rem; }
+  /* El menú abierto es una hoja de papel que ocupa la pantalla bajo la tira: enlaces grandes en tinta, separados por
+     filetes discontinuos, los proyectos a la vista y el idioma al pie. */
   .bar__nav {
-    position: fixed; inset: var(--bar) 0 0; justify-self: stretch; flex-direction: column; align-items: flex-start; gap: 4px;
-    padding: 16px var(--gutter) max(28px, env(safe-area-inset-bottom)); background: var(--paper); color: var(--ink); font-size: 1.6rem; font-weight: 700; font-stretch: 110%;
+    position: fixed; inset: var(--bar) 0 0; justify-self: stretch; display: flex; flex-direction: column; align-items: stretch; gap: 0;
+    padding: 18px var(--gutter) max(28px, env(safe-area-inset-bottom)); background: var(--papel); color: var(--bosque);
     clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path 0.5s var(--ease-out), visibility 0s 0.5s;
     /* En pantallas bajas el menú entero cabe desplazándose dentro de sí mismo, no se corta. */
     overflow-y: auto; overscroll-behavior: contain;
   }
-  /* Con el menú abierto la barra va siempre en papel y tinta, también sobre KORA y Contacto, para formar un solo panel. */
-  .bar.menu-open { background: var(--paper) !important; color: var(--ink) !important; box-shadow: 0 1px 0 var(--rule) !important; }
-  .bar.menu-open .bar__cta[data-blob] {
-    --fg: var(--paper) !important; --base: linear-gradient(150deg, #24465A 0%, var(--ink) 70%) !important;
-    --glow: color-mix(in srgb, var(--cold) 75%, transparent) !important; --ring: color-mix(in srgb, var(--cold) 55%, transparent) !important; --shadow: rgba(12, 46, 64, 0.4) !important;
-  }
   .bar__nav.is-open { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path 0.5s var(--ease-out); }
-  .bar__links { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; padding: 0; }
-  .bar__links::before, .bar__pill, .nav-drop__chev, .nav-drop__foot { display: none; }
-  .nav-link { height: auto; padding: 6px 0; font-size: 1.45rem; }
-  /* En el menú desplegado no hay formas: el enlace es texto grande en tinta sobre papel. */
-  .bar__nav .nav-link { color: var(--ink) !important; }
-  .nav-link .shape__body, .nav-link .shape__iso, .nav-link > span:not(.shape__body)::after { display: none; }
+  .bar__links { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; padding: 0; margin: 0; }
+  .nav-drop__chev, .nav-drop__foot { display: none; }
+  .bar__nav .nav-link { width: 100%; height: auto; padding: 12px 0; border-bottom: 1px dashed rgba(22, 70, 58, 0.24); font-size: 1.55rem; font-weight: 800; font-stretch: 110%; letter-spacing: -0.015em; }
+  .nav-drop .nav-link { border-bottom: 0; padding-bottom: 6px; }
   /* En el menú móvil los proyectos van siempre a la vista, en una lista compacta con su logo. */
-  .nav-drop__panel { pointer-events: auto; position: static; width: auto; padding: 2px 0 8px; border-radius: 0; background: none; box-shadow: none; opacity: 1; visibility: inherit; transform: none; font-size: 1rem; font-weight: 400; font-stretch: 100%; }
+  .nav-drop__panel { pointer-events: auto; position: static; width: auto; padding: 2px 0 12px; border-radius: 0; background: none; box-shadow: none; opacity: 1; visibility: inherit; transform: none; font-size: 1rem; font-weight: 400; font-stretch: 100%; border-bottom: 1px dashed rgba(22, 70, 58, 0.24); }
   /* Sin las transiciones del desplegable de escritorio: su «visibility 0s 0.45s» retrasaba medio segundo la lista de
      proyectos al abrir el menú, porque aquí la visibilidad se hereda del propio menú. */
   .nav-drop__panel, .nav-drop.is-open .nav-drop__panel { transition: none; }
   .nav-drop__panel li, .nav-drop.is-open .nav-drop__panel li { opacity: 1; transform: none; transition: none; }
   .nav-drop__panel::before { display: none; }
   .np-list { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 0 12px; }
-  .np { gap: 12px; padding: 5px 0; }
+  .np-list li + li { border-top: 0; }
+  .np { gap: 12px; padding: 6px 0; }
   .np:hover { background: none; }
-  .np__logo { width: 52px; height: 42px; border-radius: 11px; }
-  .np__logo img { width: 38px; max-height: 28px; }
-  .np__logo--round img { width: 30px; height: 30px; }
-  .np__logo--kora .kora-mark { --w: 34px; }
+  .np__logo { width: 50px; height: 40px; }
+  .np__logo img { width: 36px; max-height: 26px; }
+  .np__logo--round img { width: 28px; height: 28px; }
+  .np__logo--kora .kora-mark { --w: 32px; }
   .hg-mark { font-size: 0.52rem; }
-  .bar__lang[data-blob] { margin: 16px 0 6px 8px; }
+  .bar__lang[data-blob] { align-self: flex-start; margin: 22px 0 6px 8px; }
   .bar__lang button { min-width: 46px; padding: 10px 12px; font-size: 0.85rem; }
 }
 
@@ -1729,8 +1866,11 @@ img.is-swap { opacity: 0; }
 @media (max-width: 900px) {
   :root { --bar: 60px; }
 
-  .hero__me { top: calc(var(--bar) + 1vh); bottom: auto; left: 0; right: 0; margin-inline: auto; height: min(48vh, 98vw); }
-  .hero__copy { padding-top: calc(var(--bar) + min(42vh, 86vw)); }
+  /* --hang: lo que el logo grande de la barra cuelga por debajo de ella arriba del todo (src/main.ts); el retrato
+     empieza después para que el logo no le caiga encima de la cabeza. */
+  .hero { --hang: 28px; }
+  .hero__me { top: calc(var(--bar) + 1vh + var(--hang)); bottom: auto; left: 0; right: 0; margin-inline: auto; height: min(48vh, 98vw); }
+  .hero__copy { padding-top: calc(var(--bar) + var(--hang) + min(42vh, 86vw)); }
   .contact__title { font-stretch: 100%; }
   .hero__barb--1 { display: none; }
   .hero__intro { max-width: none; margin: 22px 14px 44px; }
@@ -1751,35 +1891,6 @@ img.is-swap { opacity: 0; }
   .edu-step__pin { left: -25.5px; top: 26px; }
   .is-now .edu-step__pin { top: 22px; }
   .edu-step__pin::after { display: none; }
-  .case--mirror .case__card { grid-template-columns: 1fr; }
-  .case--mirror .case__media { order: 0; }
-  .case--mirror .case__text { box-shadow: none; }
-  .case--triptych .case__text { display: flex; }
-  .case--triptych .case__card { grid-template-columns: 1fr; }
-  /* En columna el titular y el resto ocupan todo el ancho: con align-self: center (de escritorio) el titular, que es un
-     contenedor de tamaño, se encogía a casi nada y el nombre (en cqi) desaparecía. */
-  .case--triptych .case__lead, .case--triptych .case__more { align-self: stretch; padding: 0; }
-  .case--triptych .case__media { grid-column: auto; grid-row: auto; height: 92vw; max-height: 470px; aspect-ratio: auto; }
-  /* El del centro, mayor y delante; los laterales, algo más pequeños y más abajo, asomando por el borde. */
-  .hc-media__phone { width: 38%; top: 9%; }
-  .hc-media__phone--l, .hc-media__phone--r { width: 31%; top: 21%; }
-  .case--pause .case__card { display: flex; flex-direction: column; }
-  .case--pause .case__media { position: relative; aspect-ratio: 16 / 10; order: -1; }
-  .case--pause .case__text { width: auto; min-height: 0; margin: 0; border-radius: 0; background: none; box-shadow: none; }
-  .case--pause .case__text::after { display: none; }
-  .hg-media__inset { width: 40%; right: 12px; bottom: 12px; }
-  .lm-views { left: 50%; translate: -50% 0; bottom: 14px; }
-  .ac-bell[data-blob] { left: auto; right: 16px; bottom: 16px; }
-  .case__card { grid-template-columns: 1fr; min-height: 0; }
-  .case__media { min-height: 0; aspect-ratio: 4 / 3.4; }
-  .ac-media { aspect-ratio: 4 / 4; }
-  .ac-media__browser { width: 92%; left: 4%; top: 4%; }
-  .ac-media__phone { width: 30%; }
-  .ac-media__phone--a { left: 8%; bottom: 4%; }
-  .ac-media__phone--b { left: 40%; bottom: 0; }
-  .lm-media__desk { right: -10%; width: 88%; bottom: 8%; }
-  .lm-media__phone { width: 24%; }
-  .archive__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cs-hero__in { grid-template-columns: 1fr; }
   .cs-stage-wrap { margin-bottom: -64px; }
   .cs-stage--duo .cs-phone { width: 24%; }
@@ -1792,6 +1903,62 @@ img.is-swap { opacity: 0; }
   .cs-next { grid-template-columns: 1fr; }
   .cs-next__thumb { display: none; }
   .win__crumb { display: none; }
+  .cs-sticker { top: 18px; right: 16px; width: 74px; }
+  .cs-hero::before, .cs-next::before { inset: 8px; }
+}
+
+/* Proyectos en tablet y móvil: una columna, el panel arriba y el texto debajo. La línea central se retira y cada
+   proyecto se separa del siguiente con un filete discontinuo; la pegatina baja a la esquina inferior del panel. */
+@media (max-width: 999px) {
+  .work__head { grid-template-columns: minmax(0, 1fr) auto; }
+  /* El titular a todo el ancho: junto al sello se quedaba sin sitio y se partía entre letras («Proyect/os»). */
+  .work__head .h2 { grid-column: 1 / -1; }
+  .work__lede { grid-column: 1; grid-row: 2; }
+  .work__stamp { grid-column: 2; grid-row: 2; align-self: center; width: clamp(84px, 22vw, 112px); }
+  .work__line { display: none; }
+  .work__cases { row-gap: 0; }
+  .case, .case--flip { grid-template-columns: minmax(0, 1fr); row-gap: clamp(44px, 7vw, 56px); }
+  .case + .case { margin-top: clamp(64px, 10vh, 96px); padding-top: clamp(64px, 10vh, 96px); border-top: 1.5px dashed rgba(22, 70, 58, 0.3); }
+  .case__panel, .case--flip .case__panel { grid-column: 1; grid-row: 1; height: auto; min-height: 0; aspect-ratio: 4 / 3.4; }
+  .case__text, .case--flip .case__text { grid-column: 1; grid-row: 2; padding: 0; }
+  .case__sticker, .case--flip .case__sticker { top: auto; left: auto; right: 14px; bottom: -36px; width: clamp(76px, 19vw, 104px); --tilt: 7deg; }
+  .case--game .case__sticker { right: auto; left: 14px; --tilt: -7deg; }
+  .case--aceslan .case__panel { aspect-ratio: 1; }
+  .case--hair .case__panel { aspect-ratio: auto; height: min(92vw, 540px); }
+  .case--game .case__panel { aspect-ratio: 16 / 11; }
+  .case__media::before { inset: 10px; }
+  .lm-media__map { height: 56%; }
+  .lm-media__desk { right: -10%; width: 84%; bottom: 10%; }
+  .lm-media__phone { width: 24%; }
+  .ac-media__browser { width: 92%; left: 4%; top: 5%; }
+  .ac-media__phone { width: 30%; }
+  .ac-media__phone--a { right: auto; left: 8%; bottom: -6%; }
+  .ac-media__phone--b { right: auto; left: 40%; bottom: -12%; }
+  /* El del centro, mayor y delante; los laterales, algo más pequeños y más abajo, asomando por el borde. */
+  .hc-media__phone { width: 34%; top: 9%; }
+  .hc-media__phone--l, .hc-media__phone--r { width: 28%; top: 21%; }
+  .hg-media__inset { width: 40%; right: 12px; bottom: 12px; border-width: 4px; }
+  .lm-views { left: 50%; translate: -50% 0; bottom: 18px; }
+  .ac-bell { left: 18px; bottom: 18px; }
+  .kora__giant { left: 0; right: 0; top: calc(var(--bar) + 2vh); font-size: clamp(5.5rem, 20vh, 10rem); }
+  .kora__sticker { right: 0; top: -18px; width: clamp(74px, 20vw, 96px); }
+  .kora__stamp { right: 0; bottom: -2px; width: clamp(92px, 24vw, 112px); }
+}
+
+/* Móvil: textos de una línea que no pueden partirse entre letras (están divididos en letras para su entrada y el
+   navegador las separaba). Su tamaño se ajusta al ancho disponible con la medida real de cada uno en em. */
+@media (max-width: 699px) {
+  .hero__name { font-size: min(clamp(3rem, 7.4vw, 8.6rem), calc((100vw - 2 * var(--gutter)) / 7.25)); }
+  .contact__mail { font-size: min(clamp(1.6rem, 0.9rem + 3.6vw, 4.4rem), calc((100vw - 2 * var(--gutter)) / 12.7)); white-space: nowrap; overflow-wrap: normal; }
+  /* Ventana de proyecto: la pegatina, más pequeña, queda por encima del nombre en lugar de taparle la última letra. */
+  .cs-sticker { top: 12px; width: 62px; }
+  .cs-hero__id { padding-top: 18px; }
+}
+/* Móvil en horizontal (poca altura): el carril de KORA cabe en la pantalla con webs más pequeñas. */
+@media (max-width: 899px) and (max-height: 520px) {
+  .motion .kora__rail { min-height: 0; }
+  .motion .site { width: min(200px, 30vw); }
+  .motion .site__what { display: none; }
 }
 
 /* Presentación en móviles: menos aire alrededor y tipos algo menores, para que la forma no se vuelva una columna
@@ -1828,7 +1995,7 @@ img.is-swap { opacity: 0; }
 /* En pantallas pequeñas no van los controles sobre las capturas: el selector de pantallas de LanzaMet y la campana
    de aviso de ACESLAN tapaban la imagen y quedaban demasiado juntos. */
 @media (max-width: 699px) {
-  .lm-views[data-blob], .ac-bell[data-blob] { display: none; }
+  .lm-views, .ac-bell { display: none; }
 }
 
 /* Tramos horizontales en móvil (con movimiento): la presentación de KORA se lee en vertical y después se ancla solo
@@ -1845,17 +2012,6 @@ img.is-swap { opacity: 0; }
   .motion .site__info { padding-top: 12px; gap: 6px; }
   .motion .kora__railbar { display: block; bottom: 3vh; }
 
-  .motion .route__pin { min-height: 560px; gap: 2vh; padding: calc(var(--bar) + 3vh) 0 7vh; }
-  .motion .route__title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
-  .motion .route__aside { gap: 8px; padding-bottom: 0; }
-  .motion .route__lede { font-size: 0.98rem; }
-  .motion .route__legend { gap: 4px 12px; }
-  .motion .route__legend li { font-size: 0.78rem; }
-  .motion .route__list { gap: 16px; }
-  .motion .route__list li { width: min(236px, 64vw); padding: 12px 14px 14px; margin-top: calc((1 - var(--lvl)) * min(30vh, 260px) + 38px); }
-  .motion .route__list b { font-size: 1rem; }
-  .motion .route__ytext { font-size: 56px; }
-  .motion .route .hbar { bottom: 3vh; }
 }
 
 /* Tramos horizontales sin anclaje (movimiento reducido): deslizamiento nativo y lista vertical */
@@ -1865,13 +2021,35 @@ img.is-swap { opacity: 0; }
 .no-hpin .kora__intro, .no-hpin .site { scroll-snap-align: start; }
 .no-hpin .kora__intro { width: min(560px, 86vw); }
 .no-hpin .site { width: min(300px, 78vw); }
-.no-hpin .kora .hbar, .no-hpin .route .hbar { display: none; }
-.no-hpin .route__pin { height: auto; min-height: 0; padding-bottom: 64px; }
-.no-hpin .route__track { width: auto; max-height: none; display: block; padding-top: 32px; }
-.no-hpin .route__trace { display: none; }
-.no-hpin .route__list { flex-direction: column; gap: 14px; border-left: 2.5px solid var(--cold); margin-left: 7px; padding-left: 26px; }
-.no-hpin .route__list li { width: auto; margin: 0; }
-.no-hpin .route__list li::before { left: -36.5px; top: 16px; }
+.no-hpin .kora .hbar { display: none; }
+
+/* Trayectoria en vertical (móvil, o con movimiento reducido): sin anclaje, con el scroll nativo. Los hitos bajan por
+   una línea discontinua a la izquierda; con movimiento, un punto baja por ella al ritmo del scroll, la deja en verde a
+   su paso y enciende cada hito al alcanzarlo (src/main.ts). Sin movimiento se ven todos encendidos y sin punto. */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .route__pin { height: auto; min-height: 0; display: block; padding: calc(var(--bar) + clamp(32px, 6vh, 56px)) 0 clamp(72px, 11vh, 110px); overflow: visible; }
+  .route__title { font-size: clamp(2.6rem, 12vw, 4rem); }
+  .route__aside { max-width: none; width: 100%; }
+  .route__track { width: auto; max-height: none; display: block; padding: 52px var(--gutter) 0; will-change: auto; }
+  .route__trace, .route .hbar { display: none; }
+  .route__list { flex-direction: column; gap: clamp(38px, 6vh, 56px); margin-left: 15px; padding-left: 34px; border-left: 1.5px dashed rgba(22, 70, 58, 0.32); }
+  .route__list li { width: auto; max-width: 34rem; margin: 0; padding: 0; }
+  .route__list li::after, .route__list li::before { display: none; }
+  .route__st { left: -49.75px; top: -4px; }
+  .route__now { padding: 18px 20px 20px !important; }
+  .route__now .route__st { top: 14px; }
+  .route__fill { display: block; position: absolute; left: calc(var(--gutter) + 15px); top: 52px; bottom: 0; width: 1.5px; background: var(--hoja); transform-origin: 50% 0; transform: scaleY(0); will-change: transform; }
+  .route__dot { left: calc(var(--gutter) + 15.75px); top: 52px; }
+  .route__stamp { display: grid; margin: 48px 0 0 0; width: 112px; }
+}
+/* En móvil la pegatina del volcán se pega en la esquina de la cabecera, sin ocupar una fila propia. */
+@media (max-width: 699px) {
+  .route__head { position: relative; }
+  .route__sticker { position: absolute; right: 0; top: -62px; width: 72px; }
+  /* Las nueve zonas de LanzaMet, solo con su punto: sus nombres no caben en el panel. */
+  .zones li { gap: 0; padding: 3px; font-size: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .route__dot, .route__fill { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
@@ -1937,13 +2115,13 @@ html.win-open, html.win-open body, html.menu-open, html.menu-open body { overflo
 .zones li { font-size: 0.7rem; font-weight: 600; }
 
 
-/* HairCloud sobre su degradado oscuro: acción en el azul de la app, enlaces y chips en claro. */
-.case--hair .case__kind, .case--hair .case__body { color: rgba(255, 255, 255, 0.86); }
-.case--hair .shot--phone { box-shadow: 0 0 0 6px #111214, 0 30px 60px -24px rgba(0, 0, 0, 0.7); }
 @media (max-width: 560px) {
-  .archive__list { grid-template-columns: 1fr; }
   .sys { margin-top: 0 !important; }
   /* Las formas sobresalen de su caja: margen para que no las recorte el borde de la pantalla. */
   .systems { padding-inline: 5%; }
   .sys { --bx: 5%; }
 }
+
+/* Pegatinas sueltas (KORA, Trayectoria): se pegan con un rebote al aparecer (src/main.ts, .is-in). */
+.motion .sticker:is(.kora__sticker, .route__sticker) { transition: rotate 0.7s var(--ease-out), scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s, opacity 0.2s 0.2s; }
+.motion .sticker:is(.kora__sticker, .route__sticker):not(.is-in) { scale: 1.35; rotate: calc(var(--tilt) * -2); opacity: 0; }
